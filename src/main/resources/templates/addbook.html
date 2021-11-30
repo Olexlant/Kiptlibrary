@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Додати книгу</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/style.css" type="text/css" th:href="@{/css/style.css}">
+    <header class="site-header sticky-top py-1" th:insert="bloks/adminheader :: adminheader"></header>
+</head>
+<body>
+<div class="container py-4 text-center">
+    <div class="p-3 mb-3 bg-light rounded-3 shadow">
+        <div class="container-fluid ">
+            <svg xmlns="http://www.w3.org/2000/svg" width="124" height="124" fill="currentColor" class="bi bi-journal-plus" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 5.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 .5-.5z"/>
+                <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/>
+                <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
+            </svg>
+            <h1 class="fw-light text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><p>Додавання книги до бібліотеки</p></font></font></h1>
+            <form method="post" th:action="@{/book_adding}" th:object="${book}" enctype="multipart/form-data">
+                <div class="row justify-content-md-center">
+                    <div class="col-md-auto mt-2">
+                        <input type="text" th:field="*{qrid}" class="form-control" placeholder="Id qr-коду"
+                               required minlength="5" maxlength="6"/>
+                    </div>
+                    <div class="col-md-auto mt-2">
+                        <input type="text" th:field="*{title}" class="form-control"  placeholder="Назва"
+                               required minlength="2" maxlength="20"/>
+                    </div>
+                </div>
+                <div class="row justify-content-md-center">
+                    <div class="col-md-auto mt-2">
+                        <input type="text" th:field="*{author}" class="form-control" placeholder="Автор"
+                               required minlength="2" maxlength="20" />
+                    </div>
+                    <div class="col-md-auto mt-2">
+                        <input type="text" th:field="*{year}" class="form-control"  placeholder="Рік"
+                               required minlength="1" maxlength="20"/>
+                    </div>
+                </div>
+                <div class="row justify-content-md-center">
+                    <div class="col-md-auto mt-2">
+                        <input type="text"  th:field="*{stilaj}" class="form-control" placeholder="Стилаж"
+                               required minlength="1" maxlength="20" />
+                    </div>
+                    <div class="col-md-auto mt-2">
+                        <input type="text"  th:field="*{polka}" class="form-control"  placeholder="Полиця"
+                               required minlength="1" maxlength="20"/>
+                    </div>
+                </div>
+                <p class="col fs-4">Додайте зображення
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+                        <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                        <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
+                    </svg></p>
+                <div class="row justify-content-md-center">
+                    <div class="col-md-auto">
+                        <input type="file" name="photo" class="form-control form-control-sm" accept="image/png, image/jpeg" />
+                    </div>
+                </div>
+                <button class="btn btn-lg button-submit-add mt-3" type="submit">Додати</button>
+
+            </form>
+
+        </div>
+    </div></div>
+</body>
+</html>

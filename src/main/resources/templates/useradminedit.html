@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Реєстрація</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/style.css" type="text/css" th:href="@{/css/style.css}">
+    <header class="site-header sticky-top py-1" th:insert="bloks/adminheader :: adminheader"></header>
+</head>
+<body style="background-color: #E3D9CF;">
+<div class="modal modal-signin position-static d-block py-4" tabindex="-1" role="dialog" id="modalSignin">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content rounded-5 shadow" th:each="userd : ${userd}">
+            <div  class="container text-center mt-5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="84" height="84" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                </svg>
+                <h1 class="fw-light text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><p>Редагування користувача</p></font></font></h1>
+            </div>
+            <div class="modal-body p-5 pt-0">
+                <form method="post">
+                    <div class="row">
+                        <div class="col mt-2">
+                            <input type="email" readonly th:value="${userd.email}" name="email" class="form-control"  placeholder=" E-mail">
+                        </div>
+                        <div class="col  mt-2">
+                            <input type="password" readonly th:value="${userd.password}" name="password" class="form-control" placeholder=" Пароль">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mt-2">
+                            <input type="text" th:value="${userd.firstName}" name="firstname" class="form-control"  placeholder="Ім'я">
+                        </div>
+                        <div class="col  mt-2">
+                            <input type="text" th:value="${userd.lastName}" name="lastname" class="form-control"  placeholder="Прізвище">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mt-2">
+                            <input type="text" th:value="${userd.phonenum}" name="phonenum" class="form-control"  placeholder="Телефон">
+                        </div>
+                        <div class="col  mt-2">
+                            <input type="text" th:value="${userd.groups}" name="groups" class="form-control"  placeholder="Група">
+                        </div>
+                    </div>
+                    <button class="w-100 btn btn-lg button-submit-login mt-3 md-1" type="submit">Зберегти</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
