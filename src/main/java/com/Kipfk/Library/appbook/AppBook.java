@@ -14,7 +14,6 @@ import java.util.Base64;
 @NoArgsConstructor
 @Entity
 
-
 public class AppBook {
 
     @SequenceGenerator(

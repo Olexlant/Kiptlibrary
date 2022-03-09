@@ -415,10 +415,34 @@ div {
     background-color: #31737F;
     color: white;
 }
+.button-submit-addd{
+    background-color: black;
+    color: white;
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    cursor: pointer;
+}
+.button-submit-addd:hover{
+    background-color:#92c5c6 ;
+    color: black;
+}
 .fw-light {
     font-weight: 300!important;
 
 }
 .modal-alert .modal-dialog {
     width: 380px;
+}
+.py-5 {
+    padding-top: 3rem!important;
+    padding-bottom: 3rem!important;
+}
+.align-items-stretch {
+    align-items: stretch!important;
+}
+.g-4, .gy-4 {
+    --bs-gutter-y: 1.5rem;
+}
+.g-4, .gx-4 {
+    --bs-gutter-x: 1.5rem;
 }
