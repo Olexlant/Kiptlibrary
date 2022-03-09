@@ -8,38 +8,52 @@
     <link rel="stylesheet" href="/css/style.css" type="text/css" th:href="@{/css/style.css}">
     <header class="site-header sticky-top py-1" th:insert="bloks/adminheader :: adminheader"></header>
 </head>
-<body>
-<div>
-    <div class="album py-5 bg-light">
-        <div class="container">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                <div class="col" th:each="book : ${books}">
-                    <div class="card shadow-sm">
-                        <img th:src="@{'data:image/png;base64,' + ${book.getBookimgconv()} }" />
-                        <title>Книга</title>
-                        <div class="card-body">
-                            <h4>Назва</h4>
-                            <p class="card-text" th:text="${book.title}"></p>
-                            <h4>Автор</h4>
-                            <p class="card-text" th:text="${book.author}"></p>
-                            <h4>Рік</h4>
-                            <p class="card-text" th:text="${book.year}"></p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <a type="button" class="btn btn-sm btn-outline-secondary" th:href="'/allbooksadmin/'+ ${book.id}">Детальніше</a>
-                                    <a type="button" class="btn btn-sm btn-outline-secondary" th:href="'/allbooksadmin/'+ ${book.id}+'/edit'">Редагувати</a>
-                                    <form th:action="'/allbooksadmin/'+ ${book.id}+'/remove'" method="post">
-                                        <button type="submit" class="btn btn-sm btn-outline-secondary" >Видалити</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+<body style="background-color: white;">
+<div class="container px-4 py-5" id="custom-cards">
+    <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+        <div class="col" th:each="book : ${books}">
+            <div class="card card-cover h-100 overflow-hidden text-white  rounded-5 shadow-lg" style="background-color: #E3D9CF;">
+                <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1" >
+                    <p class="pt-2 mt-2 mb-2 display-6 lh-1 fw-bold d-flex align-items-center">
+                    <div style="width: 250px; height: 250px" class="d-flex align-items-center">
+                        <img  class="rounded-5 mb-5 mt-5" style="width: 100%" th:src="@{'data:image/png;base64,' + ${book.getBookimgconv()} }"/>
                     </div>
+                    </p>
+                </div>
+                <div class="mt-5 text-center d-flex justify-content-around">
+                    <ul class="d-flex list-unstyled mt-auto">
+                        <li class="d-flex align-items-center me-3">
+                            <small class="fw-normal text-dark" th:text="${book.year}"></small>
+                        </li>
+                        <li class="d-flex align-items-center me-3">
+                            <small class="fw-normal text-dark" th:text="${book.title}"></small>
+                        </li>
+                        <li class="d-flex align-items-center">
+                            <small class="fw-normal text-dark" th:text="${book.author}"></small>
+                        </li>
+                    </ul></div>
+                <div class="btn-group text-center p-3" role="group" aria-label="Basic example">
+                    <form th:action="'/allbooksadmin/'+ ${book.id}+'/remove'" method="post">
+                        <a type="button" class="btn button-submit-add"  th:href="'/allbooksadmin/'+ ${book.id}"><!--ДЕТАЛЬНИШЕ-->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-lg" viewBox="0 0 16 16">
+                                <path d="m9.708 6.075-3.024.379-.108.502.595.108c.387.093.464.232.38.619l-.975 4.577c-.255 1.183.14 1.74 1.067 1.74.72 0 1.554-.332 1.933-.789l.116-.549c-.263.232-.65.325-.905.325-.363 0-.494-.255-.402-.704l1.323-6.208Zm.091-2.755a1.32 1.32 0 1 1-2.64 0 1.32 1.32 0 0 1 2.64 0Z"/>
+                            </svg>
+                        </a>
+                        <a type="button" class="btn button-submit-add"  th:href="'/allbooksadmin/'+ ${book.id}+'/edit'"><!--РЕДАГУВАТИ-->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                                <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                            </svg>
+                        </a>
+                        <button type="submit" class="btn button-submit-add"><!--ВИДАЛИТИ-->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                            </svg>
+                        </button>
+                    </form>
                 </div>
             </div>
-        </div>
-    </div>
+        </div></div>
 </div>
-
 </body>
 </html>

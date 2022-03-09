@@ -8,35 +8,36 @@
 	<link rel="stylesheet" href="/css/style.css" type="text/css" th:href="@{/css/style.css}">
 	<header class="site-header sticky-top py-1" th:insert="bloks/header :: header"></header>
 </head>
-<body>
-<div>
-	<div class="album py-5 bg-light">
-		<div class="container">
-			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-				<div class="col" th:each="book : ${books}">
-					<div class="card shadow-sm">
-						<div style="width: 200px;height: 250px">
-							<img style="width: 90%" th:src="@{'data:image/png;base64,' + ${book.getBookimgconv()} }" />
-						</div>
-						<div class="card-body">
-							<h4>Назва</h4>
-							<p class="card-text" th:text="${book.title}"></p>
-							<h4>Автор</h4>
-							<p class="card-text" th:text="${book.author}"></p>
-							<h4>Рік</h4>
-							<p class="card-text" th:text="${book.year}"></p>
-							<div class="d-flex justify-content-between align-items-center">
-								<div class="btn-group">
-									<a type="button" class="btn btn-sm btn-outline-secondary" th:href="'/allbooks/'+ ${book.id}">Детальніше</a>
-								</div>
-							</div>
-						</div>
+<body style="background-color: white;">
+<div class="container px-4 py-5" id="custom-cards">
+	<h2 class="pb-2 border-bottom">Бібліотека</h2>
+	<div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+		<div class="col"  th:each="book : ${books}">
+			<div class="card card-cover h-100 overflow-hidden text-white  rounded-5 shadow-lg" style="background-color: #E3D9CF;">
+				<div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1" >
+					<p class="pt-2 mt-2 mb-2 display-6 lh-1 fw-bold d-flex align-items-center">
+					<div style="width: 250px; height: 250px" class="d-flex align-items-center">
+						<img  class="rounded-5 mb-5 mt-5" style="width: 100%" th:src="@{'data:image/png;base64,' + ${book.getBookimgconv()} }" />
 					</div>
+					</p>
 				</div>
+				<div class="mt-5 text-center d-flex justify-content-around">
+					<ul class="d-flex list-unstyled mt-auto">
+						<li class="d-flex align-items-center me-3">
+							<small class="fw-normal text-dark" th:text="${book.year}"></small>
+						</li>
+						<li class="d-flex align-items-center me-3">
+							<small class="fw-normal text-dark" th:text="${book.title}"></small>
+						</li>
+						<li class="d-flex align-items-center">
+							<small class="fw-normal text-dark" th:text="${book.author}"></small>
+						</li>
+					</ul></div>
+				<a type="button" class="btn button-submit-addd" th:href="'/allbooks/'+ ${book.id}">
+					Детальніше
+				</a>
 			</div>
-		</div>
-	</div>
+		</div></div>
 </div>
-
 </body>
 </html>
