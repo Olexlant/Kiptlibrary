@@ -1,5 +1,6 @@
 package com.Kipfk.Library.appuser;
 
+import com.Kipfk.Library.appbook.AppBook;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,8 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.*;
 
 
 @Getter
@@ -47,6 +47,10 @@ public class AppUser implements UserDetails {
     private AppUserRole appUserRole;
     private Boolean locked = false;
     private Boolean enabled = false;
+
+
+    @OneToMany(mappedBy = "user")
+    private Set<TakenBooks> userlike = new HashSet<>();
 
     public AppUser(String firstName, String lastName, String phonenum, String password, String email, String groups,  AppUserRole appUserRole) {
         this.firstName = firstName;

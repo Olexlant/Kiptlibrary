@@ -1,0 +1,451 @@
+
+*{
+  font-family: 'Comic Sans' , cursive;
+   margin:0; padding:0;
+   box-sizing: border-box;
+   outline: none; border:none;
+   text-decoration: none;
+   text-transform: capitalize;
+   transition: all .2s linear;
+}
+
+body{
+  background: #CFEAFF;
+   height: 100%;
+  width: 100%;
+}
+
+.main_div{
+  align-items: center;
+  height: 365px;
+
+  position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+
+}
+nav{
+  position: fixed;
+  width: 100%;
+  padding: 20px;
+  font-family: 'Comic Sans' , cursive;
+  transition: all 0.4s ease;
+  z-index: 988;
+}
+nav.sticky{
+  background: #4070f4;
+  padding: 13px 0;
+}
+
+.header-button{
+  margin: 0 8px;
+}
+.header-button .header-button-reg{
+  position: relative;
+	color: #fff;
+	padding: 8px 8px;
+	background: linear-gradient(90deg, #6616d0, #ac34e7);
+	border-radius: 5px;
+	margin: 0 15px;
+	font-size: 18px;
+	text-decoration: none;
+	overflow: hidden;
+}
+.header-button-reg:hover{
+  background: linear-gradient(-90deg,#6616d0, #ac34e7);
+}
+nav .navbar{
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: auto;
+}
+nav .navbar .logo a{
+  font-size: 40px;
+  font-weight: 500;
+  color:#4070F4 ;
+  text-decoration: none;
+}
+.navbar .btn .login-button  a{
+  text-decoration: none;
+}
+
+nav.sticky .navbar .logo a{
+  color:#fff ;
+}
+nav.sticky .navbar .menu li a{
+  color: #fff;
+}
+nav.sticky .navbar .menu li a:hover{
+  color:#4070f4;
+}
+nav.sticky .navbar a{
+  color: #fff;
+}
+.navbar .menu li a:hover{
+color:#4070f4
+}
+.navbar .btn .login-button a:hover{
+  color: #4070f4;
+}
+nav.sticky .navbar .login-button a:hover{
+  color: #0E2431;
+}
+nav.sticky .menu-btn{
+  color: #fff;
+}
+nav .navbar .menu .cancel-btn{
+  color: #fff;
+}
+nav.sticky .navbar .menu li a:hover{
+  color: #0E2431;
+}
+nav.sticky .navbar  .login-button a:hover{
+  color: #0E2431;
+}
+
+nav .navbar .menu{
+  display: flex;
+}
+nav .navbar .menu li{
+  margin: 0 8px;
+  list-style: none;
+}
+nav .navbar .btn {
+  list-style: none;
+  display: flex;
+  font-size: 18px;
+  margin: 0 8px;
+
+}
+.btn li{
+  margin:  0 8px;
+}
+.navbar .menu li{
+  font-size: 18px;
+  font-size: 500;
+  color: #0E2431;
+  transition: all 0.3s ease;
+}
+.navbar .menu a{
+  font-size: 18px;
+  font-weight: 500;
+  color: #0E2431;
+  padding: 6px 0;
+  transition: all 0.4s ease;
+  text-decoration: none;
+}
+.navbar  a{
+  font-size: 18px;
+  font-weight: 500;
+  color: #0E2431;
+  padding: 6px 0;
+  transition: all 0.4s ease;
+}
+
+nav .menu-btn,
+.navbar .cansel-btn{
+  margin-top: 18px;
+  position: absolute;
+  color: #de1e1e;
+  font-size: 20px;
+  display: none;
+}
+nav .cancel-btn i{
+  display:none;
+}
+.title-services{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+.title-services span{
+  font-size: 43px;
+  font-weight: 600;
+padding-bottom: 8px;
+  position: relative;
+}
+.title-services span::before,
+.title-services span::after{
+content: '';
+position: absolute;
+left: 0;
+bottom: 0;
+height: 3px;
+width: 100%;
+background:#4070f4 ;
+}
+.title-services span::after{
+  width: 70%;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -7px;
+}
+.container{
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  padding:110px 20px;
+}
+
+.container .heading{
+  font-size: 40px;
+  margin-bottom: 20px;
+  color:#334;
+}
+
+.container .box-container{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap:25px;
+}
+
+.container .box-container .box{
+  background-color: #fff;
+  padding:20px;
+  border-radius: 15px;
+  box-shadow: 0 5px 10px rgba(0,0,0,.2);
+  display: none;
+}
+
+.container .box-container .box:nth-child(1),
+.container .box-container .box:nth-child(2),
+.container .box-container .box:nth-child(3),
+.container .box-container .box:nth-child(4),
+.container .box-container .box:nth-child(5),
+.container .box-container .box:nth-child(6){
+  display: inline-block;
+}
+
+.container .box-container .box .image{
+  margin-bottom: 20px;
+  overflow: hidden;
+  height: 250px;
+  border-radius: 5px;
+}
+
+.container .box-container .box .image img{
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.container .box-container .box:hover .image img{
+  transform: scale(1.1);
+}
+
+.container .box-container .box .content h3{
+  font-size: 20px;
+  color:#334;
+}
+
+.container .box-container .box .content p{
+  font-size: 15px;
+  color:#777;
+  line-height: 2;
+  padding:15px 0;
+}
+
+.container .box-container .box .content .btn{
+
+
+
+}
+.box .content .button{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+
+}
+  .container .box-container .box .content .btn{
+    border-radius: 6px;
+    display: inline-block;
+    background: #4070f4;
+    padding:10px 30px;
+   color: #ffffff;
+    cursor: pointer;
+    border: 2px solid transparent;
+    font-family: 'Comic Sans' , cursive;
+    transition: all 0.4s ease;
+    font-size: 16px;
+
+}
+
+
+.container .box-container .box .content .btn:hover{
+  border-color: #4070f4;
+  background-color: #fff;
+  color: #4070f4;
+}
+
+.container .box-container .box .content .icons{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top:1px solid #4070f4;
+}
+
+.container .box-container .box .content .icons span{
+  font-size: 14px;
+  color:#777;
+}
+
+.container .box-container .box .content .icons span i{
+  color:#4070f4;
+  padding-right: 5px;
+}
+/*
+#load-more{
+  margin-top: 20px;
+
+  padding:13px 30px;
+  border:1px solid #334;
+  color:#334;
+  font-size: 16px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+#load-more:hover{
+  background-color: crimson;
+  border-color: crimson;
+  color:#fff;
+}*/
+#load-more{
+  margin: 45px 0;
+}
+#load-more{
+  display: inline-block;
+  outline: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 23px;
+  font-weight: 400;
+  background: #4070f4;
+ color: #ffffff;
+  cursor: pointer;
+  border: 2px solid transparent;
+  font-family: 'Comic Sans' , cursive;
+  transition: all 0.4s ease;
+}
+#load-more:hover{
+  border-color: #4070f4;
+  background-color: #fff;
+  color: #4070f4;
+}
+
+@media (max-width:450px){
+
+  .container .heading{
+    font-size: 25px;
+  }
+
+  .container .box-container{
+    grid-template-columns: 1fr;
+  }
+
+  .container .box-container .box .image{
+    height: 200px;
+  }
+
+  .container .box-container .box .content p{
+    font-size: 12px;
+  }
+
+  .container .box-container .box .content .icons span{
+    font-size: 12px;
+  }
+
+}
+
+@media(max-width: 1017px){
+  nav .navbar .menu{
+    position: absolute;
+    left: -100%;
+    top: 0;
+    height: 100vh;
+    max-width: 400px;
+    width: 100%;
+    background:#0E2431 ;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 130px;
+    transition: all 0.6s ease;
+  }
+  nav .navbar.active .menu{
+    left:0;
+  }
+  nav .navbar .btn {
+    position: absolute;
+    max-width: 385px;
+    width: 100%;
+    left: -100%;
+    top: 0;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 30px;
+    transition: all 0.6s ease;
+  }
+  nav .navbar.active .btn{
+    left: 0;
+  }
+  .header-button{
+    margin: 10 8px;
+  }
+
+  .navbar .menu  li a{
+    display: block;
+    margin: 10px 0;
+    font-size: 23px;
+    color: azure;
+  }
+
+  .navbar .btn a{
+   font-size: 23px;
+   display: block;
+   margin: 6px;
+   color: azure;
+  }
+  nav .menu-btn,
+  .navbar .cancel-btn{
+    position: absolute;
+    color: #fff;
+    font-size: 20px;
+    right: 30px;
+    top:20px;
+    cursor: pointer;
+  }
+
+  nav .navbar .cancel-btn{
+    position: absolute;
+    color: #fff;
+    font-size: 20px;
+    right: 30px;
+    top:200px;
+    cursor: pointer;
+  }
+  nav .menu-btn{
+    color: #4070F4;
+  }
+  nav .menu-btn,
+  .navbar .cansel-btn{
+    display: block;
+  }
+  nav .cancel-btn i{
+    display:block;
+  }
+  .home .text .text-two{
+  font-size: 65px;
+
+  }
+  .home .text .text-three{
+  font-size: 35px;
+  }
+}
+

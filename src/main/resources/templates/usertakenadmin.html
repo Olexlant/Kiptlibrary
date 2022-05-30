@@ -1,12 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<!--=== Coding by CodingLab | www.codinglabweb.com === -->
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/admin-home.css" type="text/css">
+
+  <link rel="stylesheet" href="/css/allbookadmin.css" type="text/css" th:href="@{/css/allbookadmin.css}">
+
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-  <title>Admin Dashboard Panel</title>
+
+  <title>Всі книги</title>
 </head>
 <body>
 <nav>
@@ -64,7 +68,7 @@
   </div>
 </nav>
 
-<section class="dashboard">
+<section class="dashboard" >
   <div class="top">
     <i class="uil uil-bars sidebar-toggle"></i>
 
@@ -75,34 +79,53 @@
     <img src="images/webview.gif" alt="">
   </div>
 
-  <div class="dash-content">
-    <div class="overview">
+  <div class="dash-content" >
+    <div class="activity">
       <div class="title">
-        <i class="uil uil-estate"></i>
-        <span class="text">Головна</span>
+        <i class="uil uil-notebooks"></i>
+        <span th:text="${'Книги '+user.getLastName()+' '+user.getFirstName() }" class="text"> </span>
+      </div>
+      <div class="table">
+
+        <div class="table_section">
+          <table>
+            <thead>
+            <tr>
+              <th>Id qr-коду</th>
+              <th>Фото</th>
+              <th>Назва</th>
+              <th>Автор</th>
+              <th>Рік</th>
+              <th>Стилаж</th>
+              <th>Полиця</th>
+              <th>Action</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="takenbook : ${usertaken}">
+              <td th:text="${takenbook.getBook().getQrid()}"></td>
+              <td><img th:src="@{'data:image/png;base64,' + ${takenbook.getBook().getBookimgconv()} }"/></td>
+              <td th:text="${takenbook.getBook().getTitle()}"></td>
+              <td th:text="${takenbook.getBook().getAuthor()}"></td>
+              <td th:text="${takenbook.getBook().getYear()}"></td>
+              <td th:text="${takenbook.getBook().getStilaj()}"></td>
+              <td th:text="${takenbook.getBook().getPolka()}"></td>
+              <td class="btnactions">
+                <form th:action="'/assignedbooks/'+ ${takenbook.getId()}+'/remove'" method="post">
+                  <button style="background-color: #f80000" type="submit" ><i class="uil uil-trash-alt"></i></button>
+                </form>
+            </tr>
+            </tbody>
+
+          </table>
+        </div>
       </div>
 
-      <div class="boxes">
-        <div class="box box1">
-          <i class="uil uil-user"></i>
-          <span class="text">Кількість користувачів</span>
-          <span class="number" th:text="${usercount}"></span>
-        </div>
-        <div class="box box2">
-          <i class="uil uil-books"></i>
-          <span class="text">Кількість книг</span>
-          <span class="number" th:text="${bookcount}"></span>
-        </div>
-        <div class="box box3">
-          <i class="uil uil-share"></i>
-          <span class="text">Видано книг</span>
-          <span class="number" th:text="${takencount}"></span>
-        </div>
-      </div>
-    </div>
-  </div>
+    </div></div>
 </section>
 
 <script src="js/script.js"></script>
 </body>
 </html>
+

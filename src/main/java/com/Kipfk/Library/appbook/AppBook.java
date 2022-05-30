@@ -1,12 +1,15 @@
 package com.Kipfk.Library.appbook;
 
+import com.Kipfk.Library.appuser.AppUser;
+import com.Kipfk.Library.appuser.TakenBooks;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.tomcat.jni.User;
 
 import javax.persistence.*;
-import java.util.Base64;
+import java.util.*;
 
 @Getter
 @Setter
@@ -37,6 +40,9 @@ public class AppBook {
     private String bookimgconv;
     private byte[] qrimg;
     private String qrimgconv;
+
+    @OneToMany(mappedBy = "user")
+    private Set<TakenBooks> userlike = new HashSet<>();
 
     public AppBook(Long qrid, String title, String author, Long year, Long stilaj, Long polka, byte[] bookimg, byte[] qrimg){
         this.qrid = qrid;

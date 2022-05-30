@@ -6,11 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="/css/allbookadmin.css" type="text/css" th:href="@{/css/allbookadmin.css}">
+    <!----======== CSS ======== -->
+    <link rel="stylesheet" href="/css/vudani.css" type="text/css">
 
+    <!----===== Iconscout CSS ===== -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
-    <title>Всі книги</title>
+    <title>Видані книги</title>
 </head>
 <body>
 <nav>
@@ -82,8 +84,8 @@
     <div class="dash-content">
         <div class="activity">
             <div class="title">
-                <i class="uil uil-notebooks"></i>
-                <span class="text">Всі книги</span>
+                <i class="uil uil-book-open"></i>
+                <span class="text">Видані книги</span>
             </div>
             <div class="table">
 
@@ -91,33 +93,31 @@
                     <table>
                         <thead>
                         <tr>
-                            <th>Id qr-коду</th>
-                            <th>Фото</th>
-                            <th>Назва</th>
+                            <th>Група</th>
+                            <th>І'мя</th>
+                            <th>Прізвище</th>
                             <th>Автор</th>
-                            <th>Рік</th>
-                            <th>Стилаж</th>
-                            <th>Полиця</th>
+                            <th>Назва</th>
+                            <th>Видано</th>
                             <th>Action</th>
-
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="book : ${books}">
-                            <td th:text="${book.qrid}"></td>
-                            <td><img th:src="@{'data:image/png;base64,' + ${book.getBookimgconv()} }"/></td>
-                            <td th:text="${book.title}"></td>
-                            <td th:text="${book.author}"></td>
-                            <td th:text="${book.year}"></td>
-                            <td th:text="${book.stilaj}"></td>
-                            <td th:text="${book.polka}"></td>
+                        <tr th:each="takenbook : ${takenbooks}">
+                            <td th:text="${takenbook.getUser().getGroups()}">741</td>
+                            <td th:text="${takenbook.getUser().getFirstName()}">Павло</td>
+                            <td th:text="${takenbook.getUser().getLastName()}">Берлет</td>
+                            <td th:text="${takenbook.getBook().getAuthor()}">Котляревський</td>
+                            <td th:text="${takenbook.getBook().getTitle()}">Енеїда</td>
+                            <td th:text="${takenbook.getTakenat()}">30.05.1010</td>
                             <td class="btnactions">
-                                <form th:action="'/allbooksadmin/'+ ${book.id}+'/remove'" method="post">
+                                <form th:action="'/assignedbooks/'+ ${takenbook.getId()}+'/remove'" method="post">
                                     <button style="background-color: #f80000" type="submit" ><i class="uil uil-trash-alt"></i></button>
                                 </form>
-                                <form th:action="'/allbooksadmin/'+ ${book.id}+'/edit'" method="get">
-                                    <button style="background-color: #4070f4" type="submit"><i class="uil uil-pen"></i></button>
+                                <form th:action="'/usertakenadmin/'+ ${takenbook.getUser().getId()}" method="post">
+                                    <button style="background-color: #4070f4" type="submit"><i class="uil uil-book-open"></i></button>
                                 </form>
+                            </td>
                         </tr>
                         </tbody>
 
@@ -131,4 +131,3 @@
 <script src="js/script.js"></script>
 </body>
 </html>
-

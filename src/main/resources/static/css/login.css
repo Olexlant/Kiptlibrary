@@ -1,0 +1,370 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Comic Sans' , cursive;
+}
+html,body{
+  display: grid;
+  height: 100%;
+  width: 100%;
+  background: #CFEAFF;
+}
+.main_div{
+  align-items: center;
+  height: 365px;
+
+  position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+
+}
+nav{
+  position: fixed;
+  width: 100%;
+  padding: 20px;
+  font-family: 'Comic Sans' , cursive;
+  transition: all 0.4s ease;
+  z-index: 988;
+}
+nav.sticky{
+  background: #4070f4;
+  padding: 13px 0;
+}
+
+.header-button{
+  margin: 0 8px;
+}
+.header-button .header-button-reg{
+  position: relative;
+	color: #fff;
+	padding: 8px 8px;
+	background: linear-gradient(90deg, #6616d0, #ac34e7);
+	border-radius: 5px;
+	margin: 0 15px;
+	font-size: 18px;
+	text-decoration: none;
+	overflow: hidden;
+}
+.header-button-reg:hover{
+  background: linear-gradient(-90deg,#6616d0, #ac34e7);
+}
+nav .navbar{
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: auto;
+}
+nav .navbar .logo a{
+  font-size: 40px;
+  font-weight: 500;
+  color:#4070F4 ;
+  text-decoration: none;
+}
+.navbar .btn .login-button  a{
+  text-decoration: none;
+}
+
+nav.sticky .navbar .logo a{
+  color:#fff ;
+}
+nav.sticky .navbar .menu li a{
+  color: #fff;
+}
+nav.sticky .navbar .menu li a:hover{
+  color:#4070f4;
+}
+nav.sticky .navbar a{
+  color: #fff;
+}
+.navbar .menu li a:hover{
+color:#4070f4
+}
+.navbar .btn .login-button a:hover{
+  color: #4070f4;
+}
+nav.sticky .navbar .login-button a:hover{
+  color: #0E2431;
+}
+nav.sticky .menu-btn{
+  color: #fff;
+}
+nav .navbar .menu .cancel-btn{
+  color: #fff;
+}
+nav.sticky .navbar .menu li a:hover{
+  color: #0E2431;
+}
+nav.sticky .navbar  .login-button a:hover{
+  color: #0E2431;
+}
+
+nav .navbar .menu{
+  display: flex;
+}
+nav .navbar .menu li{
+  margin: 0 8px;
+  list-style: none;
+}
+nav .navbar .btn {
+  list-style: none;
+  display: flex;
+  font-size: 18px;
+  margin: 0 8px;
+
+}
+.btn li{
+  margin:  0 8px;
+}
+.navbar .menu li{
+  font-size: 18px;
+  font-size: 500;
+  color: #0E2431;
+  transition: all 0.3s ease;
+}
+.navbar .menu a{
+  font-size: 18px;
+  font-weight: 500;
+  color: #0E2431;
+  padding: 6px 0;
+  transition: all 0.4s ease;
+  text-decoration: none;
+}
+.navbar  a{
+  font-size: 18px;
+  font-weight: 500;
+  color: #0E2431;
+  padding: 6px 0;
+  transition: all 0.4s ease;
+}
+
+nav .menu-btn,
+.navbar .cansel-btn{
+  margin-top: 18px;
+  position: absolute;
+  color: #de1e1e;
+  font-size: 20px;
+  display: none;
+}
+nav .cancel-btn i{
+  display:none;
+}
+
+nav .navbar .logo a{
+  font-size: 40px;
+  font-weight: 500;
+  color:#4070F4 ;
+  text-decoration: none;
+}
+
+.input_box .icon{
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+  color: #4070f4;
+}
+
+.main_div{
+  width: 365px;
+  background: #fff;
+  padding: 30px;
+  border-radius: 5px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
+}
+.main_div .title{
+  text-align: center;
+  font-size: 30px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.title span {
+  color: #0E2431;
+  font-size: 30px;
+  font-weight: 600;
+  position: relative;
+  padding-bottom: 8px;
+}
+ .title span::before ,.title span::after{
+  content: '';
+  position: absolute;
+  height: 3px;
+  width: 70%;
+  background: #4070f4;
+  left: 0;
+  bottom: 0;
+  transform: translateX(22%);
+}
+
+form {
+  margin-top: 25px;
+}
+form .input_box{
+  height: 50px;
+  width: 100%;
+  position: relative;
+  margin-top: 20px;
+}
+.input_box input{
+  height: 100%;
+  width: 100%;
+  outline: none;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  padding-left: 45px;
+  font-size: 17px;
+  transition: all 0.3s ease;
+}
+.input_box input:focus{
+  border-color: #4070f4;
+
+}
+
+form .option_div{
+  margin-top: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+.option_div .check_box{
+  display: flex;
+  align-items: center;
+}
+.option_div span{
+  margin-left: 5px;
+  font-size: 16px;
+  color: #333;
+}
+.option_div .forget_div a{
+  font-size: 16px;
+  color: #f2b9ff;
+}
+.button input{
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  position: relative;
+  background: none;
+  border: none;
+  color: #fff;
+  padding-left: 0;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 100;
+  cursor: pointer; border: 2px solid transparent;
+  background: #4070f4;transition: all 0.4s ease;
+}
+.button :hover{
+   border-color: #4070f4;
+  background-color: #fff;
+  color: #4070f4;
+
+}
+.box .content .button{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+
+}
+
+form .sign_up{
+  text-align: center;
+  margin-top: 25px;
+}
+.sign_up a{
+  color: #4070f4;
+}
+form a{
+  text-decoration: none;
+}
+form a:hover{
+  text-decoration: underline;
+}
+@media(max-width: 1017px){
+  nav .navbar .menu{
+    position: absolute;
+    left: -100%;
+    top: 0;
+    height: 100vh;
+    max-width: 400px;
+    width: 100%;
+    background:#0E2431 ;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 130px;
+    transition: all 0.6s ease;
+  }
+  nav .navbar.active .menu{
+    left:0;
+  }
+  nav .navbar .btn {
+    position: absolute;
+    max-width: 385px;
+    width: 100%;
+    left: -100%;
+    top: 0;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 30px;
+    transition: all 0.6s ease;
+  }
+  nav .navbar.active .btn{
+    left: 0;
+  }
+  .header-button{
+    margin: 10 8px;
+  }
+
+  .navbar .menu  li a{
+    display: block;
+    margin: 10px 0;
+    font-size: 23px;
+    color: azure;
+  }
+
+  .navbar .btn a{
+   font-size: 23px;
+   display: block;
+   margin: 6px;
+   color: azure;
+  }
+  nav .menu-btn,
+  .navbar .cancel-btn{
+    position: absolute;
+    color: #fff;
+    font-size: 20px;
+    right: 30px;
+    top:20px;
+    cursor: pointer;
+  }
+
+  nav .navbar .cancel-btn{
+    position: absolute;
+    color: #fff;
+    font-size: 20px;
+    right: 30px;
+    top:200px;
+    cursor: pointer;
+  }
+  nav .menu-btn{
+    color: #4070F4;
+  }
+  nav .menu-btn,
+  .navbar .cansel-btn{
+    display: block;
+  }
+  nav .cancel-btn i{
+    display:block;
+  }
+  .home .text .text-two{
+  font-size: 65px;
+
+  }
+  .home .text .text-three{
+  font-size: 35px;
+  }
+}
+

@@ -1,82 +1,159 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <div th:fragment="topbook">
-    <div class="container marketing">
-        <div class="row">
-            <div class="col-lg-4">
-                <a type="buttonkolo" class="buttonkolo buttonkolo1"><!--силка на про нас или шото друге-->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-hand-index-thumb" viewBox="0 0 16 16">
-                        <path d="M6.75 1a.75.75 0 0 1 .75.75V8a.5.5 0 0 0 1 0V5.467l.086-.004c.317-.012.637-.008.816.027.134.027.294.096.448.182.077.042.15.147.15.314V8a.5.5 0 0 0 1 0V6.435l.106-.01c.316-.024.584-.01.708.04.118.046.3.207.486.43.081.096.15.19.2.259V8.5a.5.5 0 1 0 1 0v-1h.342a1 1 0 0 1 .995 1.1l-.271 2.715a2.5 2.5 0 0 1-.317.991l-1.395 2.442a.5.5 0 0 1-.434.252H6.118a.5.5 0 0 1-.447-.276l-1.232-2.465-2.512-4.185a.517.517 0 0 1 .809-.631l2.41 2.41A.5.5 0 0 0 6 9.5V1.75A.75.75 0 0 1 6.75 1zM8.5 4.466V1.75a1.75 1.75 0 1 0-3.5 0v6.543L3.443 6.736A1.517 1.517 0 0 0 1.07 8.588l2.491 4.153 1.215 2.43A1.5 1.5 0 0 0 6.118 16h6.302a1.5 1.5 0 0 0 1.302-.756l1.395-2.441a3.5 3.5 0 0 0 .444-1.389l.271-2.715a2 2 0 0 0-1.99-2.199h-.581a5.114 5.114 0 0 0-.195-.248c-.191-.229-.51-.568-.88-.716-.364-.146-.846-.132-1.158-.108l-.132.012a1.26 1.26 0 0 0-.56-.642 2.632 2.632 0 0 0-.738-.288c-.31-.062-.739-.058-1.05-.046l-.048.002zm2.094 2.025z"/>
-                    </svg>
-                </a>
-                <h2>Зручний інтерфейс</h2>
-                <p>Дуже зручна взаємодія користувача з інформаційною системою.</p>
-                <p><a type="buttonx" class="x buttonx button4" href="#"><span>Детальніше </span></a></p><!--силку на про нас или шото друге козла-->
+    <head>
+        <meta charset="UTF-8">
+
+        <link rel="stylesheet" href="/css/home.css" type="text/css" th:href="@{/css/home.css}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <section class="home" id="home">
+        <div class="home-content">
+            <div class="text">
+                <div class="text-one">Привіт друже,</div>
+                <div class="text-two">Ласкаво просимо</div>
+                <div class="text-three" sec:authorize="isAnonymous()" >до бібліотеки коледжу</div>
+                <div class="text-three" sec:authorize="isAuthenticated()" >
+                    <span sec:authentication="principal.firstName"></span>
+                    <span sec:authentication="principal.lastName"></span>
+                </div>
+
+
+                <div class="text-four">Детальна інформація про наш заклад</div>
             </div>
-            <div class="col-lg-4">
-                <a type="buttonkolo" class="buttonkolo buttonkolo1"><!--силка на Бібліотеку(книги)-->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-book-half" viewBox="0 0 16 16">
-                        <path d="M8.5 2.687c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
-                    </svg>
-                </a>
-                <h2>Велика бібліотека</h2>
-                <p>Загальний книжковий фонд бібліотеки складає 41455 примірників</p>
-                <p><a type="buttonx" class="x buttonx button4" href="#"><span>Детальніше</span> </a></p><!--силка на Бібліотеку(книги)-->
-            </div><!-- /.col-lg-4 -->
-            <div class="col-lg-4">
-                <a type="buttonkolo" class="buttonkolo buttonkolo1"><!--на логин або личний профиль-->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-                    </svg>
-                </a>
-                <h2>Особистий кабінет</h2>
-                <p>Ваша персональна захищена web-сторінка де ти зможеш робити те , що тобі заманеться</p>
-                <p><a type="buttonx" class="x buttonx button4" href="#"><span>Детальніше</span> </a></p><!--на логин або личний профиль-->
-            </div><!-- /.col-lg-4 -->
-        </div><!-- /.row -->
+            <form action="https://kipt.sumdu.edu.ua/uk/">
+                <div class="button">
+                    <button>Знаходиться тут</button>
+                </div>
+            </form>
+        </div>
+    </section>
+    <!--about-->
+    <section class="adout" id="adout">
+        <div class="content">
+            <div class="title"><span>Про нас</span></div>
+            <div class="about-details">
+                <div class="right">
+                    <img src="images/book.jpg" alt="">
+                </div>
+                <div class="left">
+                    <div class="topic">Наша бібліотека</div>
+                    <p>
+                        Наш коледж має бібліотеку загальною площею 410 кв. м, в склад якої входять: читальна зала на 60 посадкових  місць, зала для видачі літератури, книгосховище.
+                        Загальний книжковий фонд бібліотеки складає 41455 примірників – це навчальна література, наукова, технічна та спеціальна література.До бібліотеки коледжу надходять 31  періодичне видання.
+                        Викладачі і студенти мають можливість вільного доступу до Інтернет з
+                        будь якого комп’ютера в технікумі, в гуртожитку, в бібліотеці. В навчальному корпусі технікуму обладнані безкоштовні Wi-Fi зони для доступу до мережі Інтернет.
 
+                    </p>
+                    <form action="https://kipt.sumdu.edu.ua/uk/koledzh/materialna-baza/biblioteka">
+                        <div class="button">
+                            <button>Детальніше</button>
+                        </div>
+                    </form>
 
-        <!-- START THE FEATURETTES -->
-
-        <hr class="featurette-divider">
-        <div class="row featurette">
-            <div class="col-md-7">
-                <h2 class="featurette-heading">Наша Бібліотека</h2>
-                <p class="lead">Наш коледж має бібліотеку загальною площею 410 кв. м, в склад якої входять: читальна зала на 60 посадкових  місць, зала для видачі літератури, книгосховище.
-                    Загальний книжковий фонд бібліотеки складає 41455 примірників – це навчальна література, наукова, технічна та спеціальна література.</p>
-            </div>
-            <div class="col-md-5">
-                <div class="icons9"></div>
+                </div>
             </div>
         </div>
-
-        <hr class="featurette-divider">
-        <div class="row featurette">
-            <div class="col-md-7 order-md-2">
-                <h2 class="featurette-heading">Бібліотека та коледж</h2>
-                <p class="lead">До бібліотеки коледжу надходять 31  періодичне видання.
-                    Викладачі і студенти мають можливість вільного доступу до Інтернет з
-                    будь якого комп’ютера в технікумі, в гуртожитку, в бібліотеці. В навчальному корпусі технікуму обладнані безкоштовні Wi-Fi зони для доступу до мережі Інтернет.
-                </p>
-            </div>
-            <div class="col-md-5 order-md-1">
-                <div class="icons10"></div>
+    </section>
+    <!--library-->
+    <section class="skills" id="skills">
+        <div class="content">
+            <div class="title-library"><span>Бібліотека</span></div>
+            <div class="skills-details">
+                <div class="text">
+                    <div class="topic">Книжковий фонд</div>
+                    <p>Загальний книжковий фонд бібліотеки складає 41455 примірників – це навчальна література, наукова, технічна та спеціальна література.
+                        До бібліотеки коледжу надходять 31 періодичне видання. Викладачі і студенти мають можливість вільного доступу до Інтернет з будь якого комп’ютера в технікумі, в гуртожитку, в бібліотеці.
+                    </p>
+                    <div class="experience">
+                        <div class="num">10</div>
+                        <div class="exp">Років <br> роботи</div>
+                    </div>
+                </div>
+                <div class="boxes">
+                    <div class="box">
+                        <div class="topic">Наукова</div>
+                        <div class="per">58%</div>
+                    </div>
+                    <div class="box">
+                        <div class="topic">Технічна</div>
+                        <div class="per">12%</div>
+                    </div>
+                    <div class="box">
+                        <div class="topic">Спеціальна</div>
+                        <div class="per">15%</div>
+                    </div>
+                    <div class="box">
+                        <div class="topic">Художня</div>
+                        <div class="per">15%</div>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <hr class="featurette-divider">
-
-        <div class="row featurette">
-            <div class="col-md-7">
-                <h2 class="featurette-heading">Коледж</h2>
-                <p class="lead"> Коледж має доступ до фондів Сумського державного університету, який забезпечує
-                    європейський стандарт інформаційної підтримки його науково-освітньої діяльності. Бібліотечно-інформаційна
-                    система університету організована таким чином, що з кожного робочого місця є можливість доступу до необхідної
-                    інформації через сайт Центральної бібліотеки
-                </p>
-            </div>
-            <div class="col-md-5">
-                <div class="icons11"></div>
+    </section>
+    <!--perevagy-->
+    <section class="services" id="services">
+        <div class="content">
+            <div class="title-services"><span>Переваги</span></div>
+            <div class="boxes">
+                <div class="box">
+                    <div class="icon">
+                        <i class="fas fa-desktop"></i>
+                    </div>
+                    <div class="topic">Зручний інтерфейс</div>
+                    <p>Дуже зручна взаємодія користувача з інформаційною системою.</p>
+                </div>
+                <div class="box">
+                    <div class="icon">
+                        <i class="fa fa-book"></i>
+                    </div>
+                    <div class="topic">Велика бібліотека</div>
+                    <p>Загальний книжковий фонд бібліотеки складає 41455 примірників</p>
+                </div>
+                <div class="box">
+                    <div class="icon">
+                        <i class="fa fa-user"></i>
+                    </div>
+                    <div class="topic">Особистий кабінет</div>
+                    <p>Ваша персональна захищена web-сторінка де ти зможеш робити те , що тобі заманеться</p>
+                </div>
+                <div class="box">
+                    <div class="icon">
+                        <i class="fa fa-cogs"></i>
+                    </div>
+                    <div class="topic">Надійність</div>
+                    <p>інформаційна система онлайн бібліотеки працює цілодобово та без проблем</p>
+                </div>
+                <div class="box">
+                    <div class="icon">
+                        <i class="fa fa-lock"></i>
+                    </div>
+                    <div class="topic">Безпека</div>
+                    <p>Система дає тобі захист особистих данних якими ти володієш</p>
+                </div>
+                <div class="box">
+                    <div class="icon">
+                        <i class="fas fa-tablet-alt"></i>
+                    </div>
+                    <div class="topic">Мобільна версія</div>
+                    <p>Система розроблена також для комфортного використаня з смартфону</p>
+                </div>
             </div>
         </div>
-    </div></div>
+    </section>
+    <!-- Contact -->
+    <section class="contact" id="contact">
+        <div class="content">
+            <div class="title-contact"><span>Контакти</span></div>
+            <div class="text">
+                <div class="topic">Виникли питання?</div>
+                <p>Пиши нам на електронну пошту <a href="mailto:kiptlibrary@gmail.com">kiptlibrary@gmail.com</a> або телефонуй <a href="tel:0544723430">(05447) 2-34-30</a>. За особистими питаннями можеш звернутися до бібліотекара
+                    або звоніть Сашку Лантуху за номером <a href="tel:0960854606">096 085 46 06</a></p>
+                <div class="button-contact">
+                    <button>Дізнатись більше</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</html>

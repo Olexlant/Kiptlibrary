@@ -1,5 +1,6 @@
 package com.Kipfk.Library.registration.token;
 
+import com.Kipfk.Library.appuser.AppUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -15,6 +16,7 @@ public interface ConfirmationTokenRepository
         extends JpaRepository<ConfirmationToken, Long> {
 
     Optional<ConfirmationToken> findByToken(String token);
+    Optional<ConfirmationToken> findByAppUser(AppUser appUser);
 
     @Transactional
     @Modifying
