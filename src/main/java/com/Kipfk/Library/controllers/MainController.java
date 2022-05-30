@@ -151,7 +151,6 @@ public class MainController {
         return "allbooksadmin";
     }
 
-    @GetMapping("/allbooksadmin/{id}")
 
 
     @GetMapping("/allbooksadmin/{id}/edit")
