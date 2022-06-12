@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -105,11 +105,14 @@
                             <td th:text="${user.email}"></td>
                             <td th:text="${user.phonenum}"></td>
                             <td class="btnactions">
-                                <form th:action="'/allusers/'+ ${user.id}+'/remove'" method="post">
-                                    <button style="background-color: #f80000" type="submit" ><i class="uil uil-trash-alt"></i></button>
-                                </form>
                                 <form th:action="'/allusers/'+ ${user.id}+'/edit'" method="get">
                                     <button style="background-color: #4070f4" type="submit"><i class="uil uil-pen"></i></button>
+                                </form>
+                                <form th:action="'/usertakenadmin/'+ ${user.id}" method="post">
+                                    <button style="background-color: #4070f4" type="submit"><i class="uil uil-book-open"></i></button>
+                                </form>
+                                <form th:action="'/allusers/'+ ${user.id}+'/remove'" method="post">
+                                    <button style="background-color: #f80000" type="submit" ><i class="uil uil-trash-alt"></i></button>
                                 </form>
                             </td>
                         </tr>

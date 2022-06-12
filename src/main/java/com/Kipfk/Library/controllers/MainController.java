@@ -255,7 +255,7 @@ public class MainController {
         takenBooks.setTakenat(LocalDate.now());
         takenBooksRepository.save(takenBooks);
         model.addAttribute("takenBooks", takenBooksRepository.findAll());
-        return "redirect:/takebook";
+        return "redirect:/assignedbooks";
     }
     @GetMapping("/assignedbooks")
     public String showassignedbooks(Model model){

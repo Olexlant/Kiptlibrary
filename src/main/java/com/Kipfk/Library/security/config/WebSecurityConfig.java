@@ -1,5 +1,6 @@
 package com.Kipfk.Library.security.config;
 
+import com.Kipfk.Library.appuser.AppUser;
 import com.Kipfk.Library.appuser.AppUserRole;
 import com.Kipfk.Library.appuser.AppUserService;
 import com.Kipfk.Library.security.PasswordEncoder;
@@ -65,6 +66,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/users").authenticated()
                 .antMatchers("/admin").hasAuthority(AppUserRole.ADMIN.name())
+                .antMatchers("/addbook").hasAuthority(AppUserRole.ADMIN.name())
+                .antMatchers("/adduser").hasAuthority(AppUserRole.ADMIN.name())
+                .antMatchers("/allbooksadmin").hasAuthority(AppUserRole.ADMIN.name())
+                .antMatchers("/allusers").hasAuthority(AppUserRole.ADMIN.name())
+                .antMatchers("/assignedbooks").hasAuthority(AppUserRole.ADMIN.name())
+                .antMatchers("/bookadminedit").hasAuthority(AppUserRole.ADMIN.name())
+                .antMatchers("/takebook").hasAuthority(AppUserRole.ADMIN.name())
+                .antMatchers("/useradminedit").hasAuthority(AppUserRole.ADMIN.name())
+                .antMatchers("/usertakenadmin").hasAuthority(AppUserRole.ADMIN.name())
+                .antMatchers("/register").permitAll()
+                .antMatchers("/login").permitAll()
                 .anyRequest().permitAll()
                 .and()
                 .formLogin().loginPage("/login")

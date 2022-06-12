@@ -106,9 +106,8 @@ nav .navbar .btn {
 }
 .navbar .menu li{
   font-size: 18px;
-  font-size: 500;
-  color: #0E2431;
-  transition: all 0.3s ease;
+
+
 }
 .navbar .menu a{
   font-size: 18px;
@@ -148,7 +147,6 @@ nav .navbar .logo a{
 .home{
   height: 100vh;
   width: 100%;
-  background: url("images/boyy.jpg") no-repeat;
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -646,7 +644,6 @@ nav .navbar.active .btn{
   left: 0;
 }
 .header-button{
-  margin: 10 8px;
 }
 
 .navbar .menu  li a{

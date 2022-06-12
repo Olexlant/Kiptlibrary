@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--=== Coding by CodingLab | www.codinglabweb.com === -->
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -111,11 +111,11 @@
                             <td th:text="${takenbook.getBook().getTitle()}">Енеїда</td>
                             <td th:text="${takenbook.getTakenat()}">30.05.1010</td>
                             <td class="btnactions">
-                                <form th:action="'/assignedbooks/'+ ${takenbook.getId()}+'/remove'" method="post">
-                                    <button style="background-color: #f80000" type="submit" ><i class="uil uil-trash-alt"></i></button>
-                                </form>
                                 <form th:action="'/usertakenadmin/'+ ${takenbook.getUser().getId()}" method="post">
                                     <button style="background-color: #4070f4" type="submit"><i class="uil uil-book-open"></i></button>
+                                </form>
+                                <form th:action="'/assignedbooks/'+ ${takenbook.getId()}+'/remove'" method="post">
+                                    <button style="background-color: #f80000" type="submit" ><i class="uil uil-trash-alt"></i></button>
                                 </form>
                             </td>
                         </tr>

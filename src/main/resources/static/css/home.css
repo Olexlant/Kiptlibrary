@@ -104,9 +104,6 @@ nav .navbar .btn {
 }
 .navbar .menu li{
   font-size: 18px;
-  font-size: 500;
-  color: #0E2431;
-  transition: all 0.3s ease;
 }
 .navbar .menu a{
   font-size: 18px;
@@ -617,7 +614,7 @@ nav .navbar.active .btn{
   left: 0;
 }
 .header-button{
-  margin: 10 8px;
+
 }
 
 .navbar .menu  li a{
