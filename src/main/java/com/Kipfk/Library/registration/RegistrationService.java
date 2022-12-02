@@ -37,7 +37,7 @@ public class RegistrationService {
                         AppUserRole.ADMIN
                 )
         );
-        String link = "http://localhost:8080/registration/confirm?token=" + token;
+        String link = "https://kcaslibr.herokuapp.com/registration/confirm?token=" + token;
         emailSender.send(
                 user.getEmail(),
                 buildEmail(user.getFirstName(), link));
