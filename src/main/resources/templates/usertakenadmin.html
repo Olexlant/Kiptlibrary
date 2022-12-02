@@ -18,7 +18,7 @@
     <div class="logo-image">
       <img src="images/gears_motor.gif" alt="">
     </div>
-    <span class="logo_name">KIpTLibrary</span>
+    <span class="logo_name">Kcas lib</span>
   </div>
 
   <div class="menu-items">
@@ -59,10 +59,7 @@
       <li><a th:href="@{/logout}">
         <i class="uil uil-signout"></i>
         <span class="link-name">Вийти</span>
-      </a></li>
-      <div class="mode-toggle">
-
-      </div>
+      </a>
       </li>
     </ul>
   </div>
@@ -105,7 +102,7 @@
             <tbody>
             <tr th:each="takenbook : ${usertaken}">
               <td th:text="${takenbook.getBook().getQrid()}"></td>
-              <td><img th:src="@{'data:image/png;base64,' + ${takenbook.getBook().getBookimgconv()} }"/></td>
+              <td><img th:src="@{'data:image/png;base64,' + ${takenbook.getBook().getBookimgconv()} }" alt="Book Image"/></td>
               <td th:text="${takenbook.getBook().getTitle()}"></td>
               <td th:text="${takenbook.getBook().getAuthor()}"></td>
               <td th:text="${takenbook.getBook().getYear()}"></td>
