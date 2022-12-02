@@ -144,8 +144,10 @@ form .button button {
 
 :root{
     /* ===== Colors ===== */
-    --primary-color: #fb9300;
-    --primary-color: #fb9300;
+    font-family: Century Gothic,CenturyGothic,AppleGothic, sans-serif;
+
+    font-family: Century Gothic,CenturyGothic,AppleGothic, sans-serif;
+
     --panel-color: #FFF;
     --text-color: #000;
     --black-light-color: #707070;

@@ -4,7 +4,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Century Gothic";
+   font-family: Century Gothic,CenturyGothic,AppleGothic, sans-serif;
+
 }
 form .button button {
     height: 100%;

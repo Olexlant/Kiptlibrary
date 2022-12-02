@@ -1,6 +1,7 @@
 
 *{
-  font-family: 'Century Gothic';
+  font-family: Century Gothic,CenturyGothic,AppleGothic, sans-serif;
+
    margin:0; padding:0;
    box-sizing: border-box;
    outline: none; border:none;
@@ -270,7 +271,8 @@ background:#fb9300 ;
    color: #ffffff;
     cursor: pointer;
     border: 2px solid transparent;
-    font-family: 'Century Gothic';
+    font-family: Century Gothic,CenturyGothic,AppleGothic, sans-serif;
+
     transition: all 0.4s ease;
     font-size: 16px;
 }
@@ -356,7 +358,8 @@ input {
  color: #ffffff;
   cursor: pointer;
   border: 2px solid transparent;
-  font-family: 'Century Gothic';
+  font-family: Century Gothic,CenturyGothic,AppleGothic, sans-serif;
+
   transition: all 0.4s ease;
 }
 #load-more:hover{

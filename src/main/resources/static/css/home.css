@@ -161,7 +161,8 @@ nav .navbar .logo a{
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  font-family: 'Century Gothic';
+  font-family: Century Gothic,CenturyGothic,AppleGothic, sans-serif;
+
 }
 .home .home-content{
   width: 87%;
@@ -204,7 +205,8 @@ nav .navbar .logo a{
   color: #fff;
   cursor: pointer;
   border: 2px solid transparent;
-  font-family: 'Century Gothic';
+  font-family: Century Gothic,CenturyGothic,AppleGothic, sans-serif;
+
   transition: all 0.4s ease;
 }
 .home .button button:hover{
@@ -289,7 +291,8 @@ section .button button{
   color: #ffffff;
   cursor: pointer;
   border: 2px solid transparent;
-  font-family: 'Century Gothic';
+  font-family: Century Gothic,CenturyGothic,AppleGothic, sans-serif;
+
   transition: all 0.4s ease;
 }
 section .button button:hover{
@@ -507,7 +510,8 @@ section .button-contact button{
   color: black;
   cursor: pointer;
   border: 2px solid transparent;
-  font-family: 'Century Gothic';
+  font-family: Century Gothic,CenturyGothic,AppleGothic, sans-serif;
+
   transition: all 0.4s ease;
 }
 section .button-contact button:hover{
@@ -520,7 +524,8 @@ footer{
   background: #aecdfb;
   padding: 15px 0;
   text-align: center;
-  font-family: 'Century Gothic';
+  font-family: Century Gothic,CenturyGothic,AppleGothic, sans-serif;
+
 }
 footer .text span{
   font-size: 17px;

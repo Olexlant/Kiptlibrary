@@ -4,7 +4,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Century Gothic";
+   font-family: Century Gothic,CenturyGothic,AppleGothic, sans-serif;
+
 }
 
 :root{
@@ -29,7 +30,8 @@
 body{
     min-height: 100vh;
     background-color: var(--primary-color);
-    font-family: "Century Gothic";
+   font-family: Century Gothic,CenturyGothic,AppleGothic, sans-serif;
+
 }
 body.dark{
     --primary-color: #3A3B3C;
