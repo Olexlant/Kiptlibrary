@@ -2,13 +2,13 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Comic Sans' , cursive;
+  font-family: 'Century Gothic';
 }
 html,body{
   display: grid;
   height: 100%;
   width: 100%;
-  background: #CFEAFF;
+  background: #e0fffd;
 }
 .main_div{
   align-items: center;
@@ -23,7 +23,7 @@ nav{
   position: fixed;
   width: 100%;
   padding: 20px;
-  font-family: 'Comic Sans' , cursive;
+  font-family: 'Century Gothic';
   transition: all 0.4s ease;
   z-index: 988;
 }
@@ -167,8 +167,9 @@ nav .navbar .logo a{
 }
 
 .main_div .ic {
-  color: #4070f4;
+  color: #fb9300;
   text-align: center;
+  margin-left: 12px;
   font-size: 55px;
   padding-bottom: 15px;
 }
@@ -182,7 +183,7 @@ nav .navbar .logo a{
   font-size: 19px;
 }
 .main_div{
-  width: 365px;
+  width: 380px;
   background: #fff;
   padding: 30px;
   border-radius: 5px;
@@ -209,7 +210,7 @@ nav .navbar .logo a{
   position: absolute;
   height: 3px;
   width: 70%;
-  background: #4070f4;
+  background: #fb9300;
   left: 0;
   bottom: 0;
   transform: translateX(22%);
@@ -264,6 +265,7 @@ form .option_div{
   position: relative;
   background: none;
   text-align: center;
+  margin-left: 12px;
   border: none;
   color: #fff;
   padding-left: 0;
@@ -271,15 +273,15 @@ form .option_div{
   font-size: 18px;
   font-weight: 100;
   cursor: pointer; border: 2px solid transparent;
-  background: #4070f4;transition: all 0.4s ease;
+  background: #fb9300;transition: all 0.4s ease;
   max-width: 300px;
   width: 100%;
 
 }
 .button :hover{
-   border-color: #4070f4;
+   border-color: #fb9300;
   background-color: #fff;
-  color: #4070f4;
+  color: #fb9300;
 
 }
 .box .content .button{

@@ -1,25 +1,14 @@
 package com.Kipfk.Library.controllers;
 
-import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Stream;
-
 import com.Kipfk.Library.appbook.AppBook;
 import com.Kipfk.Library.appbook.AppBookRepository;
 import com.Kipfk.Library.appbook.AppBookService;
 import com.Kipfk.Library.appbook.QRCodeGenerator;
 import com.Kipfk.Library.appuser.*;
-import com.Kipfk.Library.email.EmailSender;
-import com.Kipfk.Library.email.EmailService;
 import com.Kipfk.Library.registration.RegistrationService;
 import com.Kipfk.Library.registration.token.ConfirmationToken;
 import com.Kipfk.Library.registration.token.ConfirmationTokenRepository;
-import com.Kipfk.Library.registration.token.ConfirmationTokenService;
 import com.google.zxing.WriterException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -28,15 +17,20 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
+
+
 
 
 @Controller
 public class MainController {
 
-    private final EmailSender emailSender;
-    private final EmailService emailService;
     private final RegistrationService registrationService;
-    private final ConfirmationTokenService confirmationTokenService;
     private final ConfirmationTokenRepository confirmationTokenRepository;
     private final AppUserService appUserService;
     private final AppBookService appBookService;
@@ -44,18 +38,12 @@ public class MainController {
     private final AppBookRepository appBookRepository;
     private final TakenBooksRepository takenBooksRepository;
     private final LikedBooksRepository likedBooksRepository;
+    private final AppUserRepository userRepo;
 
 
-    @Autowired
-    private AppUserRepository userRepo;
-    private ConfirmationToken confirmationToken;
 
-
-    public MainController(EmailSender emailSender, EmailService emailService, RegistrationService registrationService, ConfirmationTokenService confirmationTokenService, ConfirmationTokenRepository confirmationTokenRepository, AppUserService appUserService, AppBookService appBookService, AppUserRepository appUserRepository, AppBookRepository appBookRepository, TakenBooksRepository takenBooksRepository, LikedBooksRepository likedBooksRepository) {
-        this.emailSender = emailSender;
-        this.emailService = emailService;
+    public MainController(RegistrationService registrationService, ConfirmationTokenRepository confirmationTokenRepository, AppUserService appUserService, AppBookService appBookService, AppUserRepository appUserRepository, AppBookRepository appBookRepository, TakenBooksRepository takenBooksRepository, LikedBooksRepository likedBooksRepository, AppUserRepository userRepo) {
         this.registrationService = registrationService;
-        this.confirmationTokenService = confirmationTokenService;
         this.confirmationTokenRepository = confirmationTokenRepository;
         this.appUserService = appUserService;
         this.appBookService = appBookService;
@@ -63,6 +51,7 @@ public class MainController {
         this.appBookRepository = appBookRepository;
         this.takenBooksRepository = takenBooksRepository;
         this.likedBooksRepository = likedBooksRepository;
+        this.userRepo = userRepo;
     }
 
 
@@ -90,7 +79,6 @@ public class MainController {
         return "confirm_success";
     }
 
-
     @GetMapping("/addbook")
     public String showBookAddingForm(Model model) {
         model.addAttribute("book", new AppBook());
@@ -117,6 +105,7 @@ public class MainController {
         model.addAttribute("books",books);
         return "allbooks";
     }
+
 
     @GetMapping("/allbooks/{id}")
     public String showBookDetails(@PathVariable(value = "id") long id, Model model){
@@ -230,15 +219,28 @@ public class MainController {
     @PostMapping("/allusers/{id}/remove")
     public String AdminUserDelete(@PathVariable(value = "id") long id) {
         AppUser user = appUserRepository.findById(id).orElseThrow();
-        ConfirmationToken token = confirmationTokenRepository.findByAppUser(user).orElseThrow();
-        confirmationTokenRepository.delete(token);
+        boolean tokenpresent = confirmationTokenRepository.findByAppUser(user).isPresent();
+        boolean bookspresent = likedBooksRepository.findByUser(user).isPresent();
+        boolean takenBookspresent = takenBooksRepository.findByUser(user).isEmpty();
+        if (tokenpresent){
+            ConfirmationToken token = confirmationTokenRepository.findByAppUser(user).get();
+            confirmationTokenRepository.delete(token);
+        }
+        if (bookspresent){
+            LikedBooks books = likedBooksRepository.findByUser(user).get();
+            likedBooksRepository.delete(books);
+        }
+        if (!takenBookspresent){
+            TakenBooks takenBooks = takenBooksRepository.findByUser(user).get();
+            takenBooksRepository.delete(takenBooks);
+        }
         appUserRepository.delete(user);
         return "redirect:/allusers";
     }
 
 
     @GetMapping("/takebook")
-    public String showAssignForm(TakenBooks takenBooks,Model model) {
+    public String showAssignForm(Model model) {
         List<AppUser> listUsers = userRepo.findAll();
         model.addAttribute("users", listUsers);
         List<AppBook> listBooks = appBookRepository.findAll();
@@ -252,8 +254,11 @@ public class MainController {
         takenBooks.setUser(user);
         AppBook book = appBookRepository.findById(bookid).orElseThrow();
         takenBooks.setBook(book);
+        boolean uniquetb = takenBooksRepository.findByUserAndBook(user, book).isEmpty();
         takenBooks.setTakenat(LocalDate.now());
-        takenBooksRepository.save(takenBooks);
+        if (uniquetb){
+            takenBooksRepository.save(takenBooks);
+        }
         model.addAttribute("takenBooks", takenBooksRepository.findAll());
         return "redirect:/assignedbooks";
     }
@@ -281,14 +286,16 @@ public class MainController {
     }
 
     @PostMapping("/likingbook/{id}")
-    public String createlikedbook(@AuthenticationPrincipal UserDetails userDetails,LikedBooks likedBooks, Model model, @PathVariable(value = "id") long bookid) {
+    public String createlikedbook(@AuthenticationPrincipal UserDetails userDetails,LikedBooks likedBooks, @PathVariable(value = "id") long bookid) {
         AppUser user = (AppUser) appUserService.loadUserByUsername(userDetails.getUsername());
         likedBooks.setUser(user);
         AppBook book = appBookRepository.findById(bookid).orElseThrow();
         likedBooks.setBook(book);
         likedBooks.setAddedat(LocalDate.now());
-        likedBooksRepository.save(likedBooks);
-
+        boolean uniquelb = likedBooksRepository.findByUserAndBook(user, book).isEmpty();
+        if (uniquelb){
+            likedBooksRepository.save(likedBooks);
+        }
         return "redirect:/allbooks";
     }
 
@@ -316,6 +323,41 @@ public class MainController {
         model.addAttribute("user",user);
         model.addAttribute("usertaken", tb);
         return "usertakenadmin";
+    }
+
+    @RequestMapping(path = {"/searchbook"})
+    public String searchbook(Model model, String keyword) {
+        if (keyword != null) {
+            List<AppBook> list = appBookService.getAllByKeyword(keyword);
+            model.addAttribute("books", list);
+        } else {
+            Iterable<AppBook> books = appBookRepository.findAll();
+            model.addAttribute("books", books);
+        }
+        return "allbooks";
+    }
+
+    @RequestMapping(path = {"/searchbookadmin"})
+    public String searchbookadmin(Model model, String keyword) {
+        if (keyword != null) {
+            List<AppBook> list = appBookService.getAllByKeyword(keyword);
+            model.addAttribute("books", list);
+        } else {
+            Iterable<AppBook> books = appBookRepository.findAll();
+            model.addAttribute("books", books);
+        }
+        return "allbooksadmin";
+    }
+    @RequestMapping(path = {"/searchuseradmin"})
+    public String searchuser(Model model, String keyword) {
+        if (keyword != null) {
+            List<AppUser> user = appUserService.getByKeyword(keyword);
+            model.addAttribute("Users", user);
+        } else {
+            Iterable<AppUser> users = appUserRepository.findAll();
+            model.addAttribute("Users", users);
+        }
+        return "allusers";
     }
 
 }

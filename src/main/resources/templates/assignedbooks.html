@@ -20,7 +20,7 @@
         <div class="logo-image">
             <img src="images/gears_motor.gif" alt="">
         </div>
-        <span class="logo_name">KIpTLibrary</span>
+        <span class="logo_name">НТБ КНУТД</span>
     </div>
 
     <div class="menu-items">
@@ -112,7 +112,7 @@
                             <td th:text="${takenbook.getTakenat()}">30.05.1010</td>
                             <td class="btnactions">
                                 <form th:action="'/usertakenadmin/'+ ${takenbook.getUser().getId()}" method="post">
-                                    <button style="background-color: #4070f4" type="submit"><i class="uil uil-book-open"></i></button>
+                                    <button style="background-color: #fb9300" type="submit"><i class="uil uil-book-open"></i></button>
                                 </form>
                                 <form th:action="'/assignedbooks/'+ ${takenbook.getId()}+'/remove'" method="post">
                                     <button style="background-color: #f80000" type="submit" ><i class="uil uil-trash-alt"></i></button>

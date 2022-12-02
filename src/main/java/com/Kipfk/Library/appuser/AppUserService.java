@@ -1,5 +1,6 @@
 package com.Kipfk.Library.appuser;
 
+import com.Kipfk.Library.appbook.AppBook;
 import com.Kipfk.Library.registration.token.ConfirmationToken;
 import com.Kipfk.Library.registration.token.ConfirmationTokenService;
 import lombok.AllArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -55,5 +57,8 @@ public class AppUserService implements UserDetailsService {
     }
     public int enableAppUser(String email) {
         return appUserRepository.enableAppUser(email);
+    }
+    public List<AppUser> getByKeyword(String keyword){
+        return appUserRepository.findByKeyword(keyword);
     }
 }

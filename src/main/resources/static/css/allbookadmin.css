@@ -5,12 +5,12 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Comic Sans' , cursive;
+    font-family: "Century Gothic";
 }
 
 :root{
     /* ===== Colors ===== */
-    --primary-color: #0E4BF1;
+    --primary-color: #fb9300;
     --panel-color: #FFF;
     --text-color: #000;
     --black-light-color: #707070;
@@ -113,9 +113,9 @@ input {
     padding: 10px 20px;
     margin: 0 10px;
     outline: none;
-    border: 1px solid #0298cf;
+    border: 2px solid #fb9300;
     border-radius: 6px;
-    color: #0298cf;
+    color: #fb9300;
 }
 
 .table_section {
@@ -155,7 +155,7 @@ td img {
 }
 
 tr:hover td {
-    color: #4070f4;
+    color: #fb9700;
     cursor: pointer;
     background-color: #f6f9fc;
 }
@@ -184,7 +184,7 @@ tr:hover td {
 }
 
 ::placeholder {
-    color: #0298cf;
+    color: #777;
 }
 
 ::-webkit-scrollbar {

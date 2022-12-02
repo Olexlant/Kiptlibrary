@@ -5,12 +5,12 @@
     padding: 0;
     box-sizing: border-box;
 
-      font-family: 'Comic Sans' , cursive;
+    font-family: "Century Gothic";
 }
 
 :root{
     /* ===== Colors ===== */
-    --primary-color: #0E4BF1;
+    --primary-color: #fb9300;
     --panel-color: #FFF;
     --text-color: #000;
     --black-light-color: #707070;
@@ -30,6 +30,7 @@
 body{
     min-height: 100vh;
     background-color: var(--primary-color);
+    font-family: "Century Gothic";
 }
 body.dark{
     --primary-color: #3A3B3C;

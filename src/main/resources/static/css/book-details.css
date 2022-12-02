@@ -12,7 +12,7 @@ nav{
   position: fixed;
   width: 100%;
   padding: 20px;
-  font-family: 'Comic Sans' , cursive;
+  font-family: 'Century Gothic';
   transition: all 0.4s ease;
   z-index: 988;
 }
@@ -90,6 +90,7 @@ nav.sticky .navbar  .login-button a:hover{
 
 nav .navbar .menu{
   display: flex;
+  text-decoration: none;
 }
 nav .navbar .menu li{
   margin: 0 8px;
@@ -183,6 +184,9 @@ nav .navbar .logo a{
 .home .button{
   margin: 14px 0;
 }
+li{
+  text-decoration: none;
+}
 .home .button button{
   outline: none;
   padding: 8px 16px;
@@ -193,7 +197,7 @@ nav .navbar .logo a{
   color: #fff;
   cursor: pointer;
   border: 2px solid transparent;
-  font-family: 'Comic Sans' , cursive;
+  font-family: 'Century Gothic';
   transition: all 0.4s ease;
 }
 .home .button button:hover{
@@ -284,7 +288,7 @@ section .button button{
  color: #ffffff;
   cursor: pointer;
   border: 2px solid transparent;
-  font-family: 'Comic Sans' , cursive;
+  font-family: 'Century Gothic';
   transition: all 0.4s ease;
 }
 section .button button:hover{

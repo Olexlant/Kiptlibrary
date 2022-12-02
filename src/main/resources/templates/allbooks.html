@@ -7,12 +7,17 @@
 		<meta charset="UTF-8">
 		<link rel="stylesheet" href="style-login.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+		<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 		<link rel="stylesheet" href="/css/allbook.css" type="text/css" th:href="@{/css/allbook.css}">
 		<header class="site-header sticky-top py-1" th:insert="bloks/header :: header"></header>
 	</head>
 <body>
 <div class="container">
 	<div class="title-services"><span>Бібліотека</span></div>
+	<form th:action="@{/searchbook}" method="get">
+		<input type="text" name="keyword" th:value="${keyword}"  placeholder="Пошук" size="25" >
+		<button type="submit" style="background-color: #fb9300; " class="uil-search"></button>
+	</form>
 	<div class="box-container" >
 		<div class="box" th:each="book : ${books}">
 			<div class="image">
@@ -28,8 +33,8 @@
 					</form>
 				</div>
 				<div class="icons">
-					<span > <i class="fas fa-calendar" th:text="${' '+book.year}"></i></span>
-					<span > <i class="fas fa-user" th:text="${' '+book.author}"></i></span>
+					<span > <i class="fas fa-calendar"></i><a th:text="${' '+book.year}"></a></span>
+					<span > <i class="fas fa-user"></i><a th:text="${' '+book.author}"></a></span>
 				</div>
 			</div>
 		</div>

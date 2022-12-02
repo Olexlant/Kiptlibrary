@@ -20,7 +20,7 @@
         <div class="logo-image">
             <img src="images/gears_motor.gif" alt="">
         </div>
-        <span class="logo_name">KIpTLibrary</span>
+        <span class="logo_name">НТБ КНУТД</span>
     </div>
 
     <div class="menu-items">
@@ -90,7 +90,7 @@
                     <div class="user-details">
                         <div class="input-box">
                             <span class="details">Id qr-коду</span>
-                            <input type="text" th:field="*{qrid}" placeholder="Ведіть Id qr-коду" required>
+                            <input type="text" th:field="*{qrid}" placeholder="Введіть Id qr-коду" required maxlength="6">
                         </div>
                         <div class="input-box">
                             <span class="details">Назва</span>
@@ -98,11 +98,11 @@
                         </div>
                         <div class="input-box">
                             <span class="details">Автор</span>
-                            <input type="text" th:field="*{author}" placeholder="Ведіть автора" required>
+                            <input type="text" th:field="*{author}" placeholder="Введіть автора" required>
                         </div>
                         <div class="input-box">
                             <span class="details">Рік</span>
-                            <input type="text" th:field="*{year}" placeholder="Введіть рік" required>
+                            <input type="text" th:field="*{year}" placeholder="Введіть рік" required maxlength="4">
                         </div>
                         <div class="input-box">
                             <span class="details">Стилаж</span>

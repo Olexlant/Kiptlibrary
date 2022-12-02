@@ -4,12 +4,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
- font-family: 'Comic Sans' , cursive;
+    font-family: "Century Gothic";
+
 }
 
 :root{
     /* ===== Colors ===== */
-    --primary-color: #0E4BF1;
+    --primary-color: #fb9300;
     --panel-color: #FFF;
     --text-color: #000;
     --black-light-color: #707070;
@@ -154,7 +155,7 @@ td img {
 }
 
 tr:hover td {
-    color: #4070f4;
+    color: #fb9300;
     cursor: pointer;
     background-color: #f6f9fc;
 }

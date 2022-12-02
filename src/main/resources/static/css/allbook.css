@@ -1,6 +1,6 @@
 
 *{
-  font-family: 'Comic Sans' , cursive;
+  font-family: 'Century Gothic';
    margin:0; padding:0;
    box-sizing: border-box;
    outline: none; border:none;
@@ -10,9 +10,10 @@
 }
 
 body{
-  background: #CFEAFF;
+  background: #f0f6ff;
    height: 100%;
   width: 100%;
+  font-family: "Century Gothic";
 }
 
 .main_div{
@@ -30,7 +31,7 @@ nav{
   position: fixed;
   width: 100%;
   padding: 20px;
-  font-family: 'Comic Sans' , cursive;
+  font-family: 'Century Gothic' ;
   transition: all 0.4s ease;
   z-index: 988;
 }
@@ -176,7 +177,7 @@ left: 0;
 bottom: 0;
 height: 3px;
 width: 100%;
-background:#4070f4 ;
+background:#fb9300 ;
 }
 .title-services span::after{
   width: 70%;
@@ -264,22 +265,29 @@ background:#4070f4 ;
   .container .box-container .box .content .btn{
     border-radius: 6px;
     display: inline-block;
-    background: #4070f4;
+    background: #fb9300;
     padding:10px 30px;
    color: #ffffff;
     cursor: pointer;
     border: 2px solid transparent;
-    font-family: 'Comic Sans' , cursive;
+    font-family: 'Century Gothic';
     transition: all 0.4s ease;
     font-size: 16px;
-
+}
+button {
+  outline: none;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 10px;
+  color: #ffffff;
 }
 
 
 .container .box-container .box .content .btn:hover{
-  border-color: #4070f4;
+  border-color: #fb9300;
   background-color: #fff;
-  color: #4070f4;
+  color: #fb9300;
 }
 
 .container .box-container .box .content .icons{
@@ -288,17 +296,34 @@ background:#4070f4 ;
   justify-content: space-between;
   margin-top: 20px;
   padding-top: 15px;
-  border-top:1px solid #4070f4;
+  border-top:1px solid #fb9300;
 }
-
-.container .box-container .box .content .icons span{
+input {
+  padding: 10px 30px;
+  margin-bottom: 20px;
+  outline: none;
+  border: 2px solid #fb9300;
+  border-radius: 6px;
+  color: #fb9300;
+}
+.container .box-container .box .content .icons .year{
   font-size: 14px;
   color:#777;
+  font-family: "Century Gothic";
+
+}
+
+.container .box-container .box .content .icons span {
+  font-size: 14px;
+  color:#777;
+  font-family: "Century Gothic";
+
 }
 
 .container .box-container .box .content .icons span i{
-  color:#4070f4;
+  color:#fb9300;
   padding-right: 5px;
+
 }
 /*
 #load-more{
@@ -331,7 +356,7 @@ background:#4070f4 ;
  color: #ffffff;
   cursor: pointer;
   border: 2px solid transparent;
-  font-family: 'Comic Sans' , cursive;
+  font-family: 'Century Gothic';
   transition: all 0.4s ease;
 }
 #load-more:hover{

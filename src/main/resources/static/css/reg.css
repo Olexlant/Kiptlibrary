@@ -3,44 +3,49 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Comic Sans' , cursive;
+  font-family: 'Century Gothic';
 }
 html,body{
   display: grid;
   height: 100%;
   width: 100%;
-  background: #CFEAFF;
+  background: #e0fffd;
+}
+nav.sticky {
+  background: #aecdfb;
+  padding: 13px 0;
 }
 nav{
   position: fixed;
   width: 100%;
   padding: 20px;
-  font-family: 'Comic Sans' , cursive;
+  font-family: 'Century Gothic';
   transition: all 0.4s ease;
   z-index: 988;
-}
-nav.sticky{
-  background: #4070f4;
-  padding: 13px 0;
 }
 
 .header-button{
   margin: 0 8px;
 }
-.header-button .header-button-reg{
+.header-button .header-button-reg {
   position: relative;
-	color: #fff;
-	padding: 8px 8px;
-	background: linear-gradient(90deg, #6616d0, #ac34e7);
-	border-radius: 5px;
-	margin: 0 15px;
-	font-size: 18px;
-	text-decoration: none;
-	overflow: hidden;
+  color: #fff;
+  padding: 8px 20px;
+  background: #f68247;
+  border-radius: 8px;
+  margin: 0 15px;
+  font-size: 18px;
+  text-decoration: none;
+  overflow: hidden;
+  border: 2px solid transparent;
 }
-.header-button-reg:hover{
-  background: linear-gradient(-90deg,#6616d0, #ac34e7);
+
+.header-button-reg:hover {
+  border-color: #e1521a;
+  background-color: #e1521a;
+  color: #FFF;
 }
+
 nav .navbar{
   width: 90%;
   display: flex;
@@ -48,10 +53,10 @@ nav .navbar{
   justify-content: space-between;
   margin: auto;
 }
-nav .navbar .logo a{
+nav .navbar .logo a {
   font-size: 40px;
   font-weight: 500;
-  color:#4070F4 ;
+  color: #f68247;
   text-decoration: none;
 }
 .navbar .btn .login-button  a{
@@ -159,12 +164,12 @@ form .button button {
   font-size: 18px;
   font-weight: 100;
   cursor: pointer; border: 2px solid transparent;
-  background: #4070f4;transition: all 0.4s ease;
+  background: #fb9300;transition: all 0.4s ease;
 }
 form .button :hover{
-   border-color: #4070f4;
+   border-color: #fb9300;
   background-color: #fff;
-  color: #4070f4;
+  color: #fb9300;
 
 }
 
@@ -219,7 +224,7 @@ form .input-box span.details{
 }
 .user-details .input-box input:focus,
 .user-details .input-box input:valid{
-  border-color: #4070f4;
+  border-color: #fb9300;
 }
  form .gender-details .gender-title{
   font-size: 20px;
@@ -270,7 +275,7 @@ form .input-box span.details{
   position: absolute;
   height: 3px;
   width: 70%;
-  background: #4070f4;
+  background: #fb9300;
   left: 0;
   bottom: 0;
   transform: translateX(22%);

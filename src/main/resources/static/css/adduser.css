@@ -4,7 +4,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-     font-family: 'Comic Sans' , cursive;
+    font-family: "Century Gothic";
+
 }
 form .button button {
     height: 100%;
@@ -19,12 +20,12 @@ form .button button {
     font-size: 18px;
     font-weight: 100;
     cursor: pointer; border: 2px solid transparent;
-    background: #4070f4;transition: all 0.4s ease;
+    background: #fb9300;transition: all 0.4s ease;
   }
   form .button :hover{
-     border-color: #4070f4;
+     border-color: #fb9300;
     background-color: #fff;
-    color: #4070f4;
+    color: #fb9300;
 
   }
   .content form .user-details .v {
@@ -83,7 +84,7 @@ form .button button {
   }
   .user-details .input-box input:focus,
   .user-details .input-box input:valid{
-    border-color: #4070f4;
+    border-color: #fb9300;
   }
    form .gender-details .gender-title{
     font-size: 20px;
@@ -134,7 +135,7 @@ form .button button {
     position: absolute;
     height: 3px;
     width: 70%;
-    background: #4070f4;
+    background: #fb9300;
     left: 0;
     bottom: 0;
     transform: translateX(22%);
@@ -143,7 +144,8 @@ form .button button {
 
 :root{
     /* ===== Colors ===== */
-    --primary-color: #0E4BF1;
+    --primary-color: #fb9300;
+    --primary-color: #fb9300;
     --panel-color: #FFF;
     --text-color: #000;
     --black-light-color: #707070;
@@ -245,12 +247,11 @@ input {
     padding: 10px 20px;
     margin: 0 10px;
     outline: none;
-
     border-radius: 6px;
-    color: #4070f4;
+    color: #777;
 }
 label{
-    color: #0298cf;
+    color: black;
 }
 
 .table_section {
@@ -319,7 +320,7 @@ tr:hover td {
 }
 
 ::placeholder {
-    color: #0298cf;
+    color: #777;
 }
 
 ::-webkit-scrollbar {

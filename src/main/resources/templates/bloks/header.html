@@ -10,35 +10,35 @@
     <body>
     <nav>
         <div class="navbar">
-            <div class="logo"><a href="/#home">KipTLibrary</a>
+            <div class="logo"><a href="/#home">НТБ КНУТД</a>
             </div>
             <ul class="menu" sec:authorize="isAnonymous()">
-                    <li><a href="/#home">Головна</a></li>
-                    <li><a href="/#adout">Про нас</a></li>
-                    <li><a href="/#skills">Бібліотека</a></li>
-                    <li><a href="/#services">Переваги</a></li>
-                    <li><a href="/#contact">Контакти</a></li>
+                    <li><a href="/#home" class="golovna">Головна</a></li>
+                    <li><a href="/#adout" class="golovna">Про нас</a></li>
+                    <li><a href="/#skills" class="golovna">Бібліотека</a></li>
+                    <li><a href="/#services" class="golovna">Переваги</a></li>
+                    <li><a href="/#contact" class="golovna">Контакти</a></li>
                 <div class="cancel-btn">
                     <i class="fa fa-arrow-right"></i>
                 </div>
             </ul >
             <ul class="menu" sec:authorize="isAuthenticated()">
-                    <li><a href="/">Головна</a></li>
-                    <li><a th:href="@{/allbooks}">Всі книги</a></li>
-                    <li><a th:href="@{/userassigned}">Мої книги</a></li>
-                    <li><a th:href="@{/myfavouritebooks}">Улюблені</a></li>
-                    <li><a href="/#contact">Контакти</a></li>
+                    <li><a href="/" class="golovna">Головна</a></li>
+                    <li><a th:href="@{/allbooks}" class="golovna">Всі книги</a></li>
+                    <li><a th:href="@{/userassigned}" class="golovna">Мої книги</a></li>
+                    <li><a th:href="@{/myfavouritebooks}" class="golovna">Улюблені</a></li>
+                    <li><a href="/#contact"class="golovna">Контакти</a></li>
                 <div class="cancel-btn">
                     <i class="fa fa-arrow-right"></i>
                 </div>
             </ul>
             <div class="btn" sec:authorize="isAnonymous()">
-                <li class="login-button"><a  th:href="@{/login}">Вхід</a></li>
+                <li class="login-button golovna"><a  th:href="@{/login}">Вхід</a></li>
                 <div class="header-button">
                     <a class="header-button-reg" th:href="@{/register}" >Реєтрація</a>
                 </div>
             </div>
-            <div sec:authorize="isAuthenticated()">
+            <div class="btn" sec:authorize="isAuthenticated()">
                 <div class="header-button">
                     <a class="header-button-reg" th:href="@{/logout}" >Вийти</a>
                 </div>

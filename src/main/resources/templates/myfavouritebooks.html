@@ -7,6 +7,7 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" href="style-login.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+        <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
         <link rel="stylesheet" href="/css/allbook.css" type="text/css" th:href="@{/css/allbook.css}">
         <header class="site-header sticky-top py-1" th:insert="bloks/header :: header"></header>
     </head>
@@ -28,8 +29,8 @@
                     </form>
                 </div>
                 <div class="icons">
-                    <span > <i class="fas fa-calendar" th:text="${' '+likedbook.getBook().getYear()}"></i></span>
-                    <span > <i class="fa fa-id-card-o" th:text="${' Додана '+likedbook.getAddedat()}"></i></span>
+                    <span > <i class="fas fa-calendar"></i><a th:text="${' '+likedbook.getBook().getYear()}"></a></span>
+                    <span > <i class="fa fa-id-card-o" ></i><a th:text="${' Додана '+likedbook.getAddedat()}"></a></span>
                 </div>
             </div>
         </div>

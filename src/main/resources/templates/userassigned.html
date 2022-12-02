@@ -23,11 +23,10 @@
                 <p th:text="${'Автор: '+takenbook.getBook().getAuthor()}"></p>
                 <div class="button">
                     <a th:href="'/allbooks/'+ ${takenbook.getBook().getId()}" class="btn">Детальніше</a>
-
                 </div>
                 <div class="icons">
-                    <span > <i class="fas fa-calendar" th:text="${' '+takenbook.getBook().getYear()}"></i></span>
-                    <span > <i class="fa fa-id-card-o" th:text="${' Видана '+takenbook.getTakenat()}"></i></span>
+                    <span > <i class="fas fa-calendar" ></i><a  class="year" th:text="${' '+takenbook.getBook().getYear()}"></a></span>
+                    <span > <i class="fa fa-id-card-o" ></i><a class="dataa" th:text="${' Видана '+takenbook.getTakenat()}"></a></span>
                 </div>
             </div>
         </div>
