@@ -5,12 +5,14 @@
   box-sizing: border-box;
   text-decoration: none;
   scroll-behavior: smooth;
+  font-family: Century Gothic,CenturyGothic,AppleGothic, sans-serif;
+
 }
 nav{
   position: fixed;
   width: 100%;
   padding: 20px;
-  font-family: 'Century Gothic';
+  font-family: Century Gothic,CenturyGothic,AppleGothic, sans-serif;
   transition: all 0.4s ease;
   z-index: 988;
 }
