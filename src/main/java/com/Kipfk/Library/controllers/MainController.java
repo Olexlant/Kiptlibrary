@@ -1,9 +1,6 @@
 package com.Kipfk.Library.controllers;
 
-import com.Kipfk.Library.appbook.AppBook;
-import com.Kipfk.Library.appbook.AppBookRepository;
-import com.Kipfk.Library.appbook.AppBookService;
-import com.Kipfk.Library.appbook.QRCodeGenerator;
+import com.Kipfk.Library.appbook.*;
 import com.Kipfk.Library.appuser.*;
 import com.Kipfk.Library.registration.RegistrationService;
 import com.Kipfk.Library.registration.token.ConfirmationToken;
@@ -39,10 +36,12 @@ public class MainController {
     private final TakenBooksRepository takenBooksRepository;
     private final LikedBooksRepository likedBooksRepository;
     private final AppUserRepository userRepo;
+    private final BookCategoryRepository bookCategoryRepository;
+    private final CategoriesOfBooksRepository categoriesOfBooksRepository;
 
 
 
-    public MainController(RegistrationService registrationService, ConfirmationTokenRepository confirmationTokenRepository, AppUserService appUserService, AppBookService appBookService, AppUserRepository appUserRepository, AppBookRepository appBookRepository, TakenBooksRepository takenBooksRepository, LikedBooksRepository likedBooksRepository, AppUserRepository userRepo) {
+    public MainController(RegistrationService registrationService, ConfirmationTokenRepository confirmationTokenRepository, AppUserService appUserService, AppBookService appBookService, AppUserRepository appUserRepository, AppBookRepository appBookRepository, TakenBooksRepository takenBooksRepository, LikedBooksRepository likedBooksRepository, AppUserRepository userRepo, BookCategoryRepository bookCategoryRepository, CategoriesOfBooksRepository categoriesOfBooksRepository) {
         this.registrationService = registrationService;
         this.confirmationTokenRepository = confirmationTokenRepository;
         this.appUserService = appUserService;
@@ -52,6 +51,8 @@ public class MainController {
         this.takenBooksRepository = takenBooksRepository;
         this.likedBooksRepository = likedBooksRepository;
         this.userRepo = userRepo;
+        this.bookCategoryRepository = bookCategoryRepository;
+        this.categoriesOfBooksRepository = categoriesOfBooksRepository;
     }
 
 
@@ -292,6 +293,7 @@ public class MainController {
         AppBook book = appBookRepository.findById(bookid).orElseThrow();
         likedBooks.setBook(book);
         likedBooks.setAddedat(LocalDate.now());
+
         boolean uniquelb = likedBooksRepository.findByUserAndBook(user, book).isEmpty();
         if (uniquelb){
             likedBooksRepository.save(likedBooks);
@@ -335,6 +337,18 @@ public class MainController {
             model.addAttribute("books", books);
         }
         return "allbooks";
+    }
+
+    @GetMapping("/addbookcategory")
+    public String showaddbookcategory(Model model){
+        List<CategoriesOfBooks> categoriesOfBooks = categoriesOfBooksRepository.findAll();
+        model.addAttribute("categories",categoriesOfBooks);
+        return "addbookcategory";
+    }
+    @PostMapping("/addbookcategory")
+    public String addbookcategory(Model model,CategoriesOfBooks categoriesOfBooks){
+        categoriesOfBooksRepository.save(categoriesOfBooks);
+        return "redirect:/addbookcategory";
     }
 
     @RequestMapping(path = {"/searchbookadmin"})
