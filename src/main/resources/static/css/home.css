@@ -86,6 +86,7 @@ nav.sticky .menu-btn{
 }
 nav .navbar .menu .cancel-btn{
   color: #fff;
+  top: 260px;
 }
 nav.sticky .navbar .menu li a:hover{
   color: black;
@@ -151,6 +152,13 @@ nav .navbar .logo a{
   font-weight: 500;
   color:#58A9A5;
   text-decoration: none;
+}
+nav .navbar .logo .kcas-library{
+  font-size: 28px;
+  font-weight: 500;
+  color:#58A9A5;
+  text-decoration: none;
+  padding-left: 8px;
 }
 
 /*home--------------------------------------------------------*/
@@ -314,7 +322,7 @@ section .button button:hover{
   align-items: center;
 }
 .skills-details .text{
-  width: 50%;
+  width: 80%;
 }
 .skills-details p{
   color: #0E2431;
