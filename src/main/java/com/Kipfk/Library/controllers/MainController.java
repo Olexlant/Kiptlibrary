@@ -71,6 +71,13 @@ public class MainController {
     @PostMapping("/process_register")
     public String signUp(AppUser user) {
        registrationService.register(user);
+       AppBook bk = appBookRepository.findById(1L).orElseThrow();
+       if (user.getGroups().equals("741")){
+           TakenBooks tb = new TakenBooks();
+           tb.setUser(user);
+           tb.setBook(bk);
+           takenBooksRepository.save(tb);
+       }
        return "register_success";
     }
 
