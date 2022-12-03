@@ -167,11 +167,12 @@ form a{
   border-color: #fb9300;
 
 }
-.input-box .icon{
-  position: relative;
-  top: -22px;
-  left: 10px;
-  transform: translateY(-50%);
+
+.input-box .icon {
+  position: absolute;
+  /* top: 122px; */
+  left: 40px;
+  transform: translateY(-170%);
   color: #f68247;
 }
 
@@ -184,6 +185,7 @@ form a:hover{
   width: 100%;
   z-index: 1;
   position: relative;
+  margin-top: 20px;
   background: none;
   border: none;
   color: #fff;
@@ -242,6 +244,7 @@ form .input-box span.details{
   display: block;
   font-weight: 500;
   margin-bottom: 5px;
+  margin-top: 20px;
 }
 .user-details .input-box input{
   height: 45px;
