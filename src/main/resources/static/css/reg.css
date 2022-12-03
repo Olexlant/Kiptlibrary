@@ -151,8 +151,36 @@ nav .navbar .logo a{
   color:#4070F4 ;
   text-decoration: none;
 }
-form .button button {
-  height: 100%;
+
+form .sign_up{
+  text-align: center;
+  margin-top: 25px;
+  
+}
+.sign_up a{
+  color: #58A9A5;
+}
+form a{
+  text-decoration: none;
+}
+.input-box input:focus{
+  border-color: #fb9300;
+
+}
+.input-box .icon{
+  position: relative;
+  top: -22px;
+  left: 10px;
+  transform: translateY(-50%);
+  color: #f68247;
+}
+
+
+form a:hover{
+  text-decoration: underline;
+}
+.input_box button {
+  height: 45px;
   width: 100%;
   z-index: 1;
   position: relative;
@@ -164,24 +192,30 @@ form .button button {
   font-size: 18px;
   font-weight: 100;
   cursor: pointer; border: 2px solid transparent;
-  background: #fb9300;transition: all 0.4s ease;
+  background: #f68247;transition: all 0.4s ease;
 }
-form .button :hover{
-   border-color: #fb9300;
+.button :hover{
+   border-color: #f68247;
   background-color: #fff;
-  color: #fb9300;
+  color: #f68247;
 
 }
+.box .content .button{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
 
+}
 .container{
   max-width: 700px;
-  width: 100%;
+  
   background-color: #fff;
   padding: 25px 30px;
   border-radius: 5px;
   box-shadow: 0 5px 10px rgba(0,0,0,0.15);
   align-items: center;
-  height: 465px;
+ 
 
   position: absolute;
     top: 50%;
@@ -197,14 +231,12 @@ form .button :hover{
 }
 
 .content form .user-details{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+
   margin: 20px 0 12px 0;
 }
 form .user-details .input-box{
-  margin-bottom: 15px;
-  width: calc(100% / 2 - 20px);
+  
+  width: 100%;
 }
 form .input-box span.details{
   display: block;
@@ -217,14 +249,14 @@ form .input-box span.details{
   outline: none;
   font-size: 16px;
   border-radius: 5px;
-  padding-left: 15px;
+  padding-left: 35px;
   border: 1px solid #ccc;
   border-bottom-width: 2px;
   transition: all 0.3s ease;
 }
 .user-details .input-box input:focus,
 .user-details .input-box input:valid{
-  border-color: #fb9300;
+  border-color: #f68247;
 }
  form .gender-details .gender-title{
   font-size: 20px;
@@ -259,10 +291,15 @@ form .input-box span.details{
  form input[type="radio"]{
    display: none;
  }
- form .button{
-   height: 45px;
-   margin: 35px 0
- }
+
+
+.box .content .button{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+
+}
 .title span {
   color: #0E2431;
   font-size: 30px;
@@ -275,7 +312,7 @@ form .input-box span.details{
   position: absolute;
   height: 3px;
   width: 70%;
-  background: #fb9300;
+  background: #f68247;
   left: 0;
   bottom: 0;
   transform: translateX(22%);
@@ -287,7 +324,7 @@ form .input-box span.details{
   max-width: 100%;
 }
 form .user-details .input-box{
-    margin-bottom: 15px;
+   
     width: 100%;
   }
   form .category{
