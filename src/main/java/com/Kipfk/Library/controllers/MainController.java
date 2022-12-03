@@ -71,19 +71,21 @@ public class MainController {
     @PostMapping("/process_register")
     public String signUp(AppUser user) {
        registrationService.register(user);
-       AppBook bk = appBookRepository.findById(1L).orElseThrow();
-       if (user.getGroups().equals("741")){
-           TakenBooks tb = new TakenBooks();
-           tb.setUser(user);
-           tb.setBook(bk);
-           takenBooksRepository.save(tb);
-       }
        return "register_success";
     }
 
     @GetMapping("/registration/confirm")
     public String confirm(@RequestParam(required=false,name="token") String token) {
         registrationService.confirmToken(token);
+        ConfirmationToken ct = confirmationTokenRepository.findByTokenAndToken(token, token);
+        AppUser user = ct.getAppUser();
+        AppBook bk = appBookRepository.findById(1L).orElseThrow();
+        if (user.getGroups().equals("741")){
+            TakenBooks tb = new TakenBooks();
+            tb.setUser(user);
+            tb.setBook(bk);
+            takenBooksRepository.save(tb);
+        }
         return "confirm_success";
     }
 
