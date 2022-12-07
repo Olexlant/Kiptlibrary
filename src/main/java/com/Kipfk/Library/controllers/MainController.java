@@ -6,6 +6,8 @@ import com.Kipfk.Library.registration.RegistrationService;
 import com.Kipfk.Library.registration.token.ConfirmationToken;
 import com.Kipfk.Library.registration.token.ConfirmationTokenRepository;
 import com.google.zxing.WriterException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 
@@ -77,15 +81,7 @@ public class MainController {
     @GetMapping("/registration/confirm")
     public String confirm(@RequestParam(required=false,name="token") String token) {
         registrationService.confirmToken(token);
-        ConfirmationToken ct = confirmationTokenRepository.findByTokenAndToken(token, token);
-        AppUser user = ct.getAppUser();
-        AppBook bk = appBookRepository.findById(1L).orElseThrow();
-        if (user.getGroups().equals("741")){
-            TakenBooks tb = new TakenBooks();
-            tb.setUser(user);
-            tb.setBook(bk);
-            takenBooksRepository.save(tb);
-        }
+        appBookService.assignbooksbyregistration(token);
         return "confirm_success";
     }
 
@@ -109,10 +105,22 @@ public class MainController {
         return "redirect:/allbooksadmin";
     }
 
-    @GetMapping("/allbooks")
-    public String showAllBooks(Model model){
-        Iterable<AppBook> books = appBookRepository.findAll();
-        model.addAttribute("books",books);
+    @RequestMapping(value = "/allbooks", method = RequestMethod.GET)
+    public String showAllBooks(Model model,@RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size){
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(6);
+
+        Page<AppBook> bookPage = appBookService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
+        model.addAttribute("books",bookPage);
+
+        int totalPages = bookPage.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
+
         return "allbooks";
     }
 
@@ -336,17 +344,7 @@ public class MainController {
         return "usertakenadmin";
     }
 
-    @RequestMapping(path = {"/searchbook"})
-    public String searchbook(Model model, String keyword) {
-        if (keyword != null) {
-            List<AppBook> list = appBookService.getAllByKeyword(keyword);
-            model.addAttribute("books", list);
-        } else {
-            Iterable<AppBook> books = appBookRepository.findAll();
-            model.addAttribute("books", books);
-        }
-        return "allbooks";
-    }
+
 
     @GetMapping("/addbookcategory")
     public String showaddbookcategory(Model model){
@@ -360,6 +358,19 @@ public class MainController {
         return "redirect:/addbookcategory";
     }
 
+
+
+    @RequestMapping(path = {"/searchbook"})
+    public String searchbook(Model model, String keyword) {
+        if (keyword != null) {
+            List<AppBook> list = appBookService.getAllByKeyword(keyword);
+            model.addAttribute("books", list);
+        } else {
+            Iterable<AppBook> books = appBookRepository.findAll();
+            model.addAttribute("books", books);
+        }
+        return "allbooks";
+    }
     @RequestMapping(path = {"/searchbookadmin"})
     public String searchbookadmin(Model model, String keyword) {
         if (keyword != null) {

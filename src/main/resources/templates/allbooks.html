@@ -19,7 +19,7 @@
 		<button type="submit" style="background-color: #fb9300; " class="uil-search"></button>
 	</form>
 	<div class="box-container" >
-		<div class="box" th:each="book : ${books}">
+		<div class="box" th:each="book, iStat : ${books.content}">
 			<div class="image">
 				<img  class="rounded-5 mb-5 mt-5" style="width: 100%" th:src="@{'data:image/png;base64,' + ${book.getBookimgconv()} }" />
 			</div>
@@ -38,6 +38,12 @@
 				</div>
 			</div>
 		</div>
+	</div>
+	<div th:if="${books.totalPages > 0}" class="pagination"
+			 th:each="pageNumber : ${pageNumbers}">
+		<a th:href="@{/allbooks(size=${books.size}, page=${pageNumber})}"
+			 th:text="${pageNumber}"
+			 th:class="${pageNumber==books.number + 1} ? active"></a>
 	</div>
 </div>
 <script src="/js/slider.js"></script>
