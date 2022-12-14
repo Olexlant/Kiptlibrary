@@ -17,7 +17,7 @@ nav{
   z-index: 988;
 }
 nav.sticky{
-  background: #aecdfd;
+  background:#fff;
   padding: 13px 0;
 }
 
@@ -28,7 +28,7 @@ nav.sticky{
   position: relative;
 	color: #fff;
 	padding: 8px 20px;
-	background: #f69247;
+	background: #25398e;
 	border-radius: 8px;
 	margin: 0 15px;
 	font-size: 18px;
@@ -37,65 +37,65 @@ nav.sticky{
   border: 2px solid transparent;
 }
 .header-button-reg:hover{
-  border-color: #e1521a;
-  background-color: #e1521a;
+  border-color: #3048b1;
+  background-color: #3048b1;
   color: #fff;
 }
+
 nav .navbar{
   width: 90%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin: auto;
+}
 
-}
-nav .navbar .logo a{
-  font-size: 40px;
-  font-weight: 500;
-  color:#4070F4 ;
-  text-decoration: none;
-}
 .navbar .menu .golovna{
-  color: #58A9A5;
+  color: #25398e;
   font-size: 20px;
-  text-decoration: none;
 }
 nav.sticky .navbar .logo a{
-  color:#2b468b ;
+  color: #25398e;
 }
 nav.sticky .navbar .menu li a{
-  color: #2b468b;
+  color: #25398e;
 }
-nav.sticky .navbar .menu li a:hover{
-  color:black;
-}
-nav.sticky .navbar a{
-  color: #2b468b;
-}
-.navbar .menu li a:hover{
-color:black;
-}
-.navbar .btn .login-button a:hover{
-  color: #58A9A5;
-}
+
+
+
 nav.sticky .navbar .login-button a:hover{
-  color: black;
+  color: #25398e;
 }
 nav.sticky .menu-btn{
-  color: #2b468b;
+  color: #25398e;
 }
 nav .navbar .menu .cancel-btn{
-  color: #fff;
+  color: #25398e;
   top: 260px;
 }
-nav.sticky .navbar .menu li a:hover{
-  color: black;
+.navbar .btn .login-button a{
+  color: #25398e;
+  display: inline-block;
+  position: relative;
+  padding: 0;
 }
-nav.sticky .navbar  .login-button a:hover{
-  color: black;
+.navbar .btn .login-button a::after{
+  content: '';
+	position: absolute;
+	width: 100%;
+	transform: scaleX(0);
+	height: 3px;
+	bottom: 0px;
+  border-radius: 6px;
+	left:0;
+	background-color: #f04e4e;
+	transform-origin: bottom center;
+	transition:transform 0.25s ease-out;
 }
-
-
+.navbar .btn .login-button a:hover::after{
+  transform: scaleX(1);
+  transform-origin: bottom center;
+}
 
 nav .navbar .menu{
   display: flex;
@@ -103,8 +103,28 @@ nav .navbar .menu{
 }
 nav .navbar .menu li{
   margin: 0 8px;
-  list-style: none;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
 }
+nav .navbar .menu li::after{
+  content: '';
+	position: absolute;
+	width: 100%;
+	transform: scaleX(0);
+	height: 2px;
+	bottom: 0px;
+  border-radius: 6px;
+	left:0;
+	background-color: #f04e4e;
+	transform-origin: bottom center;
+	transition:transform 0.25s ease-out;
+}
+nav .navbar .menu li:hover::after{
+  transform: scaleX(1);
+  transform-origin: bottom center;
+}
+
 nav .navbar .btn {
   list-style: none;
   display: flex;
@@ -150,22 +170,47 @@ nav .cancel-btn i{
 nav .navbar .logo a{
   font-size: 40px;
   font-weight: 500;
-  color:#58A9A5;
+  color:#25398e;
   text-decoration: none;
 }
 nav .navbar .logo .kcas-library{
   font-size: 28px;
   font-weight: 500;
-  color:#58A9A5;
+  color:#25398e;
   text-decoration: none;
   padding-left: 8px;
 }
+nav .navbar .right{
+  margin-right: -220px;
+}
+nav .navbar .right img{
+  height: 100%;
+width: 50%;
+object-fit: cover;
+margin-top: 5px;
+cursor: pointer;
 
+}
+.home .home-content .left video{
+  height: 420px;
+  width: 420px;
+  object-fit: cover;
+  border-radius: 30px;
+}
+.home .home-content .right{
+width: 55%;
+margin-top: 250px;
+} 
+.home .home-content .left{
+  width: 45%;
+  margin-top: 200px;
+  margin-left: 170px;
+}
 /*home--------------------------------------------------------*/
 .home{
   height: 100vh;
   width: 100%;
-  background: url("../images/fon.jpg") no-repeat;
+  background-color: #fff;
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -177,7 +222,7 @@ nav .navbar .logo .kcas-library{
   height: 100%;
   margin: auto;
   display: flex;
-  flex-direction: column;
+ 
   justify-content: center;
 }
 .home .text-one{
@@ -193,7 +238,7 @@ nav .navbar .logo .kcas-library{
 .home .text-three{
   font-size: 35px;
   margin: 5px 0;
-  color: #58A9A5;
+  color: #25398e;
 }
 .home .text-four{
   font-size: 20px;
@@ -209,7 +254,7 @@ nav .navbar .logo .kcas-library{
   border-radius: 6px;
   font-size: 23px;
   font-weight: 400;
-  background:  #f68247;
+  background:  #25398e;
   color: #fff;
   cursor: pointer;
   border: 2px solid transparent;
@@ -218,9 +263,9 @@ nav .navbar .logo .kcas-library{
   transition: all 0.4s ease;
 }
 .home .button button:hover{
-  border-color: #f68247;
+  border-color: #25398e;
   background-color: #ffffff;
-  color: #f68247;
+  color: #25398e;
 }
 
 /* --------------adout-----------*/
@@ -241,7 +286,7 @@ section .title span{
   font-weight: 600;
 padding-bottom: 8px;
   position: relative;
-  color: #6859d8;
+  color: #25398e;
 }
 section .title span::before,
 section .title span::after{
@@ -251,7 +296,7 @@ left: 0;
 bottom: 0;
 height: 3px;
 width: 100%;
-  background:#fb9300  ;
+  background:#f04e4e;
 }
 section .title span::after{
   width: 70%;
@@ -267,7 +312,7 @@ section .title span::after{
 .adout .about-details .right{
   width: 45%;
 }
-.adout .about-details .right img{
+.adout .about-details .right video{
   height: 400px;
 width: 400px;
 object-fit: cover;
@@ -295,7 +340,7 @@ section .button button{
   border-radius: 6px;
   font-size: 23px;
   font-weight: 400;
-  background: #fb9300;
+  background:#25398e;
   color: #ffffff;
   cursor: pointer;
   border: 2px solid transparent;
@@ -304,9 +349,9 @@ section .button button{
   transition: all 0.4s ease;
 }
 section .button button:hover{
-  border-color: #fb9300;
+  border-color:#25398e;
   background-color: #fff;
-  color: #fb9300;
+  color:#25398e;
 }
 
 /*library*/
@@ -334,7 +379,7 @@ section .button button:hover{
  margin: 0 10px;
 }
 .skills-details .experience .num{
- color: #6859d8;;
+ color: #25398e;
  font-size: 80px;
 }
 .skills-details .experience .exp{
@@ -356,11 +401,11 @@ section .button button:hover{
 }
 .skills-details .boxes .topic{
  font-size: 20px;
-  color: #6859d8;
+  color: #25398e;
 }
 .skills-details .boxes .per{
  font-size: 60px;
-  color: #6859d8;
+  color: #25398e;
 }
 section .title-library{
   display: flex;
@@ -381,7 +426,7 @@ left: 0;
 bottom: 0;
 height: 3px;
 width: 100%;
-background:#6859d8;
+background:#25398e;
 }
 section .title-library span::after{
   width: 70%;
@@ -409,7 +454,7 @@ left: 0;
 bottom: 0;
 height: 3px;
 width: 100%;
-background:#f68247 ;
+background:#25398e ;
 }
 section .title-services span::after{
   width: 70%;
@@ -433,13 +478,13 @@ section .title-services span::after{
   transition: all 0.4s ease;
 }
 .services .boxes .box:hover{
-  background: #f68247;
+  background: #25398e;
   color: #fff;
 }
 .services .boxes .box .icon{
   height: 50px;
   width: 50px;
-  background: #f68247;
+  background: #25398e;
   border-radius: 50%;
   text-align: center;
   line-height: 50px;
@@ -450,7 +495,7 @@ section .title-services span::after{
 }
 .boxes .box:hover .icon{
   background-color: #fff;
-  color: #f68247;
+  color: #25398e;
 }
 .services .boxes .box:hover .topic,
 .services .boxes .box:hover p{
@@ -560,11 +605,35 @@ footer .text span a:hover{
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
 
 }
+@media(max-width:1468px){
+  nav .navbar .logo a{
+    font-size: 30px;
+  }
+  nav .navbar .logo .kcas-library{
+    font-size: 23px;
+  }
+}
+@media(max-width:1430px){
+ nav .navbar .right img{
+  height: 100%;
+    width: 30%;
+    object-fit: cover;
+ } 
+ nav .navbar .logo a{
+  padding-left: 30px;
+}
+}
+@media(max-width:1238px){
+  nav .navbar .logo a{
+    padding-left: 80px;
+  }
+}
 @media(max-width:1138px){
   .navbar .menu .golovna{
     font-size: 18px;
   }
 }
+
 @media(max-width:1080px){
   .navbar .menu .golovna{
     font-size: 14px;
@@ -584,6 +653,34 @@ footer .text span a:hover{
 }
 
 }
+@media (max-width: 973px){
+  .home .home-content {
+    flex-direction: column;
+     }  
+     .home .home-content .right{
+       width: 100%;
+       justify-content:  center;
+     }
+     .home .home-content .left{
+       width: 100%;
+       margin: 40px 0; 
+       display: flex;
+       justify-content:  center;
+       
+     }
+     .home .home-content .text .text-two{
+      width: 100%;
+     }
+     .home .home-content .left video{
+      height: 400px;
+      width: 400px;
+      object-fit: cover;
+      border-radius: 30px;
+    }
+     section .title{
+      margin-top: 90px;
+     }
+     }
 @media(max-width:1105px){
   .adout .about-details {
  flex-direction: column;
@@ -619,15 +716,23 @@ footer .text span a:hover{
       width: 350px;
     }
     }
+    @media(max-width:987px){
+      .adout .about-details .right img{
+        height: 350px;
+        width: 350px;
+      }  
+      }
 
+  
   @media(max-width: 1000px){
     .navbar .menu .golovna{
       font-size: 25px;
-      color: #fff;
+      color: #25398e;
     }
     .navbar .btn .login-button a:hover{
       color: black;
     }
+  
 nav .navbar .menu{
   position: absolute;
   left: -100%;
@@ -635,7 +740,7 @@ nav .navbar .menu{
   height: 100vh;
   max-width: 400px;
   width: 100%;
-  background:#58A9A5 ;
+  background:rgb(232, 232, 232); 
   flex-direction: column;
   align-items: center;
   padding-top: 130px;
@@ -666,7 +771,7 @@ nav .navbar.active .btn{
   display: block;
   margin: 10px 0;
   font-size: 23px;
-  color: #58A9A5;
+  color: #fff;
 }
 
 .navbar .btn a{
@@ -682,15 +787,14 @@ nav .navbar.active .btn{
       color:#fff;
     }
     .navbar .btn a:hover{
-      color: #58A9A5;
+      color: #fff;
     }
 nav .menu-btn,
 .navbar .cancel-btn{
   position: absolute;
-  color: rgb(3, 2, 2);
   font-size: 20px;
   right: 30px;
-  top:20px;
+  top:14px;
   cursor: pointer;
 }
 
@@ -703,7 +807,7 @@ nav .navbar .cancel-btn{
   cursor: pointer;
 }
     nav .menu-btn{
-      color: #58A9A5;
+      color: #25398e;
     }
     nav .menu-btn,
     .navbar .cansel-btn{
@@ -719,6 +823,90 @@ nav .navbar .cancel-btn{
     .home .text .text-three{
       font-size: 30px;
     }
+    nav .navbar .logo a{
+      
+      font-size: 33px;
+    }
+    nav .navbar .logo .kcas-library{
+      padding-right: 640px;
+    }
+    @media(max-width:994px){
+      nav .navbar .logo .kcas-library{
+        padding-right: 600px;
+      }
+    }
+    
+    @media(max-width:956px){
+      nav .navbar .logo .kcas-library{
+        padding-right: 550px;
+      }
+      nav .navbar .right img {
+        height: 100%;
+        width: 50%;
+        object-fit: cover;
+    }
+    }
+    @media(max-width:945px){
+      nav .navbar .logo .kcas-library{
+        padding-right: 500px;
+      }
+    }
+    @media(max-width:889px){
+      nav .navbar .logo .kcas-library{
+        padding-right: 450px;
+      }
+    }
+    @media(max-width:834px){
+      nav .navbar .logo .kcas-library{
+        padding-right: 400px;
+      }
+    }
+    @media(max-width:776px){
+      nav .navbar .logo .kcas-library{
+        padding-right: 350px;
+      }
+    }
+    @media(max-width:722px){
+      nav .navbar .logo .kcas-library{
+        padding-right: 300px;
+      }
+    }
+    @media(max-width:667px){
+      nav .navbar .logo .kcas-library{
+        padding-right: 250px;
+      }
+    }
+    @media(max-width:609px){
+      nav .navbar .logo .kcas-library{
+        padding-right: 200px;
+      }
+    }
+    @media(max-width:549px){
+      nav .navbar .logo .kcas-library{
+        padding-right: 150px;
+      }
+    }
+    @media(max-width:496px){
+      nav .navbar .logo .kcas-library{
+        padding-right: 70px;
+      }
+    }
+    @media(max-width:440px){
+      nav .navbar .logo .kcas-library{
+        padding-right: 70px;
+      }
+    }
+    @media(max-width:408px){
+      nav .navbar .logo .kcas-library{
+        padding-right: 50px;
+      }
+    }
+    @media(max-width:385px){
+      nav .navbar .logo .kcas-library{
+        padding-right: 30px;
+      }
+    }
+  
   }
   @media(max-width:885px){
       .skills .skills-details{
