@@ -23,7 +23,7 @@
                 <p th:text="${'Автор: '+takenbook.getBook().getAuthor()}"></p>
                 <div class="button">
                     <a th:href="'/allbooks/'+ ${takenbook.getBook().getId()}" class="btn">Детальніше</a>
-                    <div th:if="${takenbook.getBook().getBookfileurl()==null && takenbook.getBook().getBookfile()!=null}">
+                    <div th:if="${takenbook.getBook().getBookfileurl()==null}">
                         <a th:href="'/allbooks/'+ ${takenbook.getBook().getId()} +'/ebook'" class="btn">Переглянути</a>
                     </div>
                     <div th:if="${takenbook.getBook().getBookfileurl()!=null && takenbook.getBook().getBookfile()==null}">
