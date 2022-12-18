@@ -40,11 +40,14 @@ public class AppBook {
     private String bookimgconv;
     private byte[] qrimg;
     private String qrimgconv;
+    private byte[] bookfile;
+
+    private String bookfileurl;
 
     @OneToMany(mappedBy = "user")
     private Set<TakenBooks> userlike = new HashSet<>();
 
-    public AppBook(Long qrid, String title, String author, Long year, Long stilaj, Long polka, byte[] bookimg, byte[] qrimg){
+    public AppBook(Long qrid, String title, String author, Long year, Long stilaj, Long polka, byte[] bookimg, byte[] qrimg,byte[] bookfile){
         this.qrid = qrid;
         this.title = title;
         this.author = author;
@@ -53,6 +56,7 @@ public class AppBook {
         this.polka = polka;
         this.bookimg = bookimg;
         this.qrimg = qrimg;
+        this.bookfile = bookfile;
     }
 
 
@@ -87,7 +91,7 @@ public class AppBook {
     public byte[] getBookimg() { return bookimg; }
 
     public byte[] getQrimg() { return qrimg; }
-
+    public byte[] getBookfile() {return bookfile; }
     public String getBookimgconv() {
         if (bookimg!=null){
             bookimgconv = Base64.getEncoder().encodeToString(getBookimg());
@@ -100,4 +104,5 @@ public class AppBook {
         }
         return qrimgconv;
     }
+
 }

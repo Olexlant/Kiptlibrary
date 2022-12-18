@@ -6,6 +6,8 @@ import com.Kipfk.Library.registration.RegistrationService;
 import com.Kipfk.Library.registration.token.ConfirmationToken;
 import com.Kipfk.Library.registration.token.ConfirmationTokenRepository;
 import com.google.zxing.WriterException;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -14,9 +16,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +36,10 @@ import java.util.stream.Stream;
 
 @Controller
 public class MainController {
+    @Bean
+    public MultipartResolver multipartResolver() {
+        return new StandardServletMultipartResolver();
+    }
 
     private final RegistrationService registrationService;
     private final ConfirmationTokenRepository confirmationTokenRepository;
@@ -92,13 +102,16 @@ public class MainController {
     }
 
     @PostMapping("/book_adding")
-    public String bookadd(AppBook appBook, MultipartFile photo) throws IOException {
+    public String bookadd(AppBook appBook,@RequestParam("files") MultipartFile[] multipartFiles) throws IOException {
         try {
             appBook.setQrimg(QRCodeGenerator.getQRCodeImage(String.valueOf(appBook.getQrid()),300,300));
         } catch (WriterException | IOException e) {
             e.printStackTrace();
         }
-        appBook.setBookimg(photo.getBytes());
+        appBook.setBookimg(multipartFiles[0].getBytes());
+        if (!multipartFiles[1].isEmpty()){
+            appBook.setBookfile(multipartFiles[1].getBytes());
+        }
         appBookService.bookadd(appBook);
         appBookRepository.save(appBook);
 
@@ -137,6 +150,16 @@ public class MainController {
         return "bookdetails";
     }
 
+    @GetMapping("/allbooks/{id}/ebook")
+    public void showEbookFile(@PathVariable Long id, HttpServletResponse response) throws IOException {
+        response.setContentType("application/pdf");
+        AppBook book = appBookRepository.findAllById(id);
+        InputStream is = new ByteArrayInputStream(book.getBookfile());
+        IOUtils.copy(is, response.getOutputStream());
+
+    }
+
+
     @GetMapping("/admin")
     public String showAdminHome(Model model){
         List <AppUser> users =  appUserRepository.findAll();
@@ -172,7 +195,7 @@ public class MainController {
         return "bookadminedit";
     }
     @PostMapping("/allbooksadmin/{id}/edit")
-    public String AdminBookUpdate(@PathVariable(value = "id") long id,@RequestParam Long qrid, @RequestParam String title, @RequestParam String author, @RequestParam Long year, @RequestParam Long stilaj, @RequestParam Long polka, MultipartFile photo ) throws IOException {
+    public String AdminBookUpdate(@PathVariable(value = "id") long id,@RequestParam Long qrid, @RequestParam String title, @RequestParam String author, @RequestParam Long year, @RequestParam Long stilaj, @RequestParam Long polka,@RequestParam("files") MultipartFile[] multipartFiles,@RequestParam String bookfileurl ) throws IOException {
         AppBook book = appBookRepository.findById(id).orElseThrow();
         book.setQrid(qrid);
         book.setTitle(title);
@@ -180,7 +203,13 @@ public class MainController {
         book.setYear(year);
         book.setStilaj(stilaj);
         book.setPolka(polka);
-        book.setBookimg(photo.getBytes());
+        if (!multipartFiles[0].isEmpty()){
+            book.setBookimg(multipartFiles[0].getBytes());
+        }
+        if (!multipartFiles[1].isEmpty()){
+            book.setBookfile(multipartFiles[1].getBytes());
+        }
+        book.setBookfileurl(bookfileurl);
         appBookRepository.save(book);
         return "redirect:/allbooksadmin";
     }

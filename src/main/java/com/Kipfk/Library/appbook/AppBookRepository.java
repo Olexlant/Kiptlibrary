@@ -18,6 +18,7 @@ import java.util.function.Predicate;
 public interface AppBookRepository extends JpaRepository<AppBook, Long>, JpaSpecificationExecutor<AppBook> {
 
     Optional<AppBook> findById(Long id);
+    AppBook findAllById(Long id);
 
 
 }

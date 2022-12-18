@@ -56,7 +56,8 @@ public class AppBookService {
                 appBook.getStilaj(),
                 appBook.getPolka(),
                 appBook.getBookimg(),
-                appBook.getQrimg()
+                appBook.getQrimg(),
+                appBook.getBookfile()
         );
     }
     public List<AppBook> getAllByKeyword (String keyword){

@@ -112,7 +112,10 @@
                             <span class="details">Полиця</span>
                             <input type="text" th:field="*{polka}" placeholder="Введіть номер полиці" required>
                         </div>
-                        <div class="v"><label>Додайте зображення</label><input type="file" name="photo"></div>
+                        <div class="v"><label>Додайте зображення</label><input type="file" name="files"></div>
+
+                        <div class="v"><label>Додайте файл книги</label><input type="file" name="files"></div>
+                        <input type="text" th:field="*{bookfileurl}" placeholder="URL до книги" >
                     </div>
                     <div class="button">
                         <button type="submit">Додати</button>
