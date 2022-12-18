@@ -111,6 +111,8 @@ public class MainController {
         appBook.setBookimg(multipartFiles[0].getBytes());
         if (!multipartFiles[1].isEmpty()){
             appBook.setBookfile(multipartFiles[1].getBytes());
+        }else {
+            appBook.setBookfile(null);
         }
         appBookService.bookadd(appBook);
         appBookRepository.save(appBook);
@@ -209,7 +211,12 @@ public class MainController {
         if (!multipartFiles[1].isEmpty()){
             book.setBookfile(multipartFiles[1].getBytes());
         }
-        book.setBookfileurl(bookfileurl);
+        if (bookfileurl.isEmpty()){
+            bookfileurl = null;
+            book.setBookfileurl(bookfileurl);
+        }else {
+            book.setBookfileurl(bookfileurl);
+        }
         appBookRepository.save(book);
         return "redirect:/allbooksadmin";
     }
