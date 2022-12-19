@@ -109,11 +109,17 @@ public class MainController {
             e.printStackTrace();
         }
         appBook.setBookimg(multipartFiles[0].getBytes());
-        if (!multipartFiles[1].isEmpty()){
-            appBook.setBookfile(multipartFiles[1].getBytes());
+        if(appBook.getBookfileurl().isEmpty()){
+            if (!multipartFiles[1].isEmpty()){
+                appBook.setBookfile(multipartFiles[1].getBytes());
+            }else {
+                appBook.setBookfile(null);
+            }
         }else {
             appBook.setBookfile(null);
+
         }
+
         appBookService.bookadd(appBook);
         appBookRepository.save(appBook);
 
@@ -191,8 +197,10 @@ public class MainController {
             return "redirect:/allbooksadmin";
         }
         Optional <AppBook> book = appBookRepository.findById(id);
+        AppBook b = appBookRepository.findAllById(id);
         ArrayList <AppBook> rbook = new ArrayList<>();
         book.ifPresent(rbook::add);
+
         model.addAttribute("bookd", rbook);
         return "bookadminedit";
     }
@@ -208,13 +216,15 @@ public class MainController {
         if (!multipartFiles[0].isEmpty()){
             book.setBookimg(multipartFiles[0].getBytes());
         }
-        if (!multipartFiles[1].isEmpty()){
-            book.setBookfile(multipartFiles[1].getBytes());
-        }
-        if (bookfileurl.isEmpty()){
-            bookfileurl = null;
-            book.setBookfileurl(bookfileurl);
+        if(bookfileurl.isEmpty()){
+            book.setBookfileurl("");
+            if (!multipartFiles[1].isEmpty()){
+                book.setBookfile(multipartFiles[1].getBytes());
+            }else {
+                book.setBookfile(null);
+            }
         }else {
+            book.setBookfile(null);
             book.setBookfileurl(bookfileurl);
         }
         appBookRepository.save(book);
