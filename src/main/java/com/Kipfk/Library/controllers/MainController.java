@@ -394,12 +394,19 @@ public class MainController {
     @GetMapping("/addbookcategory")
     public String showaddbookcategory(Model model){
         List<CategoriesOfBooks> categoriesOfBooks = categoriesOfBooksRepository.findAll();
+        model.addAttribute("newcategory",new CategoriesOfBooks());
         model.addAttribute("categories",categoriesOfBooks);
         return "addbookcategory";
     }
     @PostMapping("/addbookcategory")
     public String addbookcategory(Model model,CategoriesOfBooks categoriesOfBooks){
         categoriesOfBooksRepository.save(categoriesOfBooks);
+        return "redirect:/addbookcategory";
+    }
+    @PostMapping("/deletebookcategory/{id}")
+    public String deletebookcategory(@PathVariable Long id){
+        CategoriesOfBooks categories = categoriesOfBooksRepository.findById(id).orElseThrow();
+        categoriesOfBooksRepository.delete(categories);
         return "redirect:/addbookcategory";
     }
 

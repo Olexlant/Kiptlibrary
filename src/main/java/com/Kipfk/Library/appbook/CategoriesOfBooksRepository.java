@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CategoriesOfBooksRepository extends JpaRepository<CategoriesOfBooks, Long> {
-
+    CategoriesOfBooks findAllById(Long id);
 }
