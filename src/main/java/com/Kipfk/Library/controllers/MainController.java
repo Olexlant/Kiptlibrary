@@ -69,7 +69,7 @@ public class MainController {
         this.categoriesOfBooksRepository = categoriesOfBooksRepository;
     }
 
-
+    //REGISTRATION
     @GetMapping("/")
     public String home(Model model) {
         model.addAttribute("title","Головна сторінка");
@@ -95,6 +95,7 @@ public class MainController {
         return "confirm_success";
     }
 
+    //ADDBOOK
     @GetMapping("/addbook")
     public String showBookAddingForm(Model model) {
         model.addAttribute("book", new AppBook());
@@ -126,6 +127,7 @@ public class MainController {
         return "redirect:/allbooksadmin";
     }
 
+    //ALLBOOKS
     @RequestMapping(value = "/allbooks", method = RequestMethod.GET)
     public String showAllBooks(Model model,@RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size){
         int currentPage = page.orElse(1);
@@ -167,7 +169,7 @@ public class MainController {
 
     }
 
-
+//ADMIN
     @GetMapping("/admin")
     public String showAdminHome(Model model){
         List <AppUser> users =  appUserRepository.findAll();
@@ -188,8 +190,6 @@ public class MainController {
         model.addAttribute("books",books);
         return "allbooksadmin";
     }
-
-
 
     @GetMapping("/allbooksadmin/{id}/edit")
     public String AdminBookEdit(@PathVariable(value = "id") long id, Model model){
@@ -391,7 +391,6 @@ public class MainController {
     }
 
 
-
     @GetMapping("/addbookcategory")
     public String showaddbookcategory(Model model){
         List<CategoriesOfBooks> categoriesOfBooks = categoriesOfBooksRepository.findAll();
@@ -405,7 +404,7 @@ public class MainController {
     }
 
 
-
+//SEARCH
     @RequestMapping(path = {"/searchbook"})
     public String searchbook(Model model, String keyword) {
         if (keyword != null) {
