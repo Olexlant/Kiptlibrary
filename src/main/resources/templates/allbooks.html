@@ -18,6 +18,13 @@
 		<input type="text" name="keyword" th:value="${keyword}"  placeholder="Пошук" size="25" >
 		<button type="submit" style="background-color: #fb9300; " class="uil-search"></button>
 	</form>
+	<select th:field="*{bookcategories}" onchange="window.location.href=this.value;">
+		<option th:value="@{/allbooks(size=${books.size}, page=${pageNumber})}" ></option>
+		<option th:value="@{/allbooks(size=${books.size}, page=${pageNumber})}" th:text="${'Всі книги'}" ></option>
+		<
+		<option th:each="category : ${bookcategories} " th:value="@{/allbooks(size=${books.size}, page=${pageNumber},category=${category.name})}" th:text="${category.name}"
+						></option>
+	</select>
 	<div class="box-container" >
 		<div class="box" th:each="book, iStat : ${books.content}">
 			<div class="image">
@@ -41,7 +48,7 @@
 	</div>
 	<div th:if="${books.totalPages > 0}" class="pagination"
 			 th:each="pageNumber : ${pageNumbers}">
-		<a th:href="@{/allbooks(size=${books.size}, page=${pageNumber})}"
+		<a th:href="@{/allbooks(size=${books.size}, page=${pageNumber},category=${currentcategory})}"
 			 th:text="${pageNumber}"
 			 th:class="${pageNumber==books.number + 1} ? active"></a>
 	</div>

@@ -26,6 +26,7 @@ public class AppBookService {
     private AppBookRepository appBookRepository;
     private ConfirmationTokenRepository confirmationTokenRepository;
     private TakenBooksRepository takenBooksRepository;
+    private BookCategoryRepository bookCategoryRepository;
 
 
     public Page<AppBook> findPaginated(Pageable pageable) {
@@ -41,12 +42,29 @@ public class AppBookService {
             int toIndex = Math.min(startItem + pageSize, books.size());
             list = books.subList(startItem, toIndex);
         }
-
         Page<AppBook> bookPage = new PageImpl<>(list, PageRequest.of(currentPage, pageSize), books.size());
-
         return bookPage;
     }
 
+    public Page<AppBook> findPaginatedWithCategory(Pageable pageable, ArrayList<BookCategory> bc) {
+        ArrayList<AppBook> books = new ArrayList<>();
+        for (BookCategory b : bc){
+            books.add(b.getBook());
+        }
+        int pageSize = pageable.getPageSize();
+        int currentPage = pageable.getPageNumber();
+        int startItem = currentPage * pageSize;
+        List<AppBook> list;
+
+        if (books.size() < startItem) {
+            list = Collections.emptyList();
+        } else {
+            int toIndex = Math.min(startItem + pageSize, books.size());
+            list = books.subList(startItem, toIndex);
+        }
+        Page<AppBook> bookPage = new PageImpl<>(list, PageRequest.of(currentPage, pageSize), books.size());
+        return bookPage;
+    }
     public void bookadd(AppBook appBook) {
         new AppBook(
                 appBook.getQrid(),

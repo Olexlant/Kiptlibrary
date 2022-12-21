@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -120,33 +119,49 @@ public class MainController {
             appBook.setBookfile(null);
 
         }
-
         appBookService.bookadd(appBook);
         appBookRepository.save(appBook);
 
         return "redirect:/allbooksadmin";
     }
 
-    //ALLBOOKS
+//ALLBOOKS
     @RequestMapping(value = "/allbooks", method = RequestMethod.GET)
-    public String showAllBooks(Model model,@RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size){
+    public String showAllBooks(Model model,@RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size, @RequestParam("category") Optional<String> category){
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(12);
-
-        Page<AppBook> bookPage = appBookService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
-        model.addAttribute("books",bookPage);
-
-        int totalPages = bookPage.getTotalPages();
-        if (totalPages > 0) {
-            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
-                    .boxed()
-                    .collect(Collectors.toList());
-            model.addAttribute("pageNumbers", pageNumbers);
+        String categor = "";
+        if (category.isPresent()){
+            categor = category.get();
         }
-
+        if (!categor.isEmpty()){
+            CategoriesOfBooks cb = categoriesOfBooksRepository.findAllByName(category.get());
+            ArrayList<BookCategory> bc = bookCategoryRepository.findAllByCategoryId(cb.getId());
+            Page<AppBook> bookPage = appBookService.findPaginatedWithCategory(PageRequest.of(currentPage - 1, pageSize),bc);
+            model.addAttribute("books",bookPage);
+            int totalPages = bookPage.getTotalPages();
+            if (totalPages > 0) {
+                List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                        .boxed()
+                        .collect(Collectors.toList());
+                model.addAttribute("pageNumbers", pageNumbers);
+            }
+        }else {
+            Page<AppBook> bookPage = appBookService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
+            model.addAttribute("books",bookPage);
+            int totalPages = bookPage.getTotalPages();
+            if (totalPages > 0) {
+                List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                        .boxed()
+                        .collect(Collectors.toList());
+                model.addAttribute("pageNumbers", pageNumbers);
+            }
+        }
+        List<CategoriesOfBooks> categoriesOfBooks = categoriesOfBooksRepository.findAll();
+        model.addAttribute("currentcategory",categor);
+        model.addAttribute("bookcategories", categoriesOfBooks);
         return "allbooks";
     }
-
 
     @GetMapping("/allbooks/{id}")
     public String showBookDetails(@PathVariable(value = "id") long id, Model model){
