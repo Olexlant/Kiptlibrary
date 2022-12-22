@@ -1,27 +1,35 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<!-- Created By CodingLab - www.codinglabweb.com -->
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
-  <title>Реєстрація успішна</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="/css/confirm_success.css" type="text/css" th:href="@{/css/confirm_success.css}">
-  <header  th:insert="bloks/header :: header"></header>
+  <!---<title> Responsive Registration Form | CodingLab </title>--->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+  <link href="/css/reg.css" type="text/css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+<header class="site-header sticky-top py-1" th:insert="bloks/header :: header"></header>
 <body>
-</nav>
-<div class="main_div">
-  <div class="ic"><i class="fa fa-envelope" aria-hidden="true"></i></div>
-  <div class="title"><span>Ваш email підтверджено</span></div>
-  <form th:action="@{/login}">
-    <p>Вітаємо зі створенням акаунту</p>
-    <div class="option_div">
-    </div>
-    <div class="input_box button">
-      <input type="submit" value="Натисніть для входу">
-    </div>
-  </form>
+<div class="container">
+  <div class="content">
+    <form >
+      <div class="user-details">
+        <div class="ic"><i class="fa fa-user" aria-hidden="true"></i></div>
+        <div class="title"><span>Ваш email підтверджено</span></div>
+        <form  th:action="@{/login}" >
+          <p>Вітаємо зі створенням акаунту</p>
+          <div class="option_div">
+          </div>
+          <div class="input_box button">
+            <button type="submit">Натисніть для входу</button>
+          </div>
+        </form>
+      </div>
+    </form>
+  </div>
 </div>
-<script src="js/slider.js"></script>
+<script src="/js/slider.js"></script>
 </body>
 </html>

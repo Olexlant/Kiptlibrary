@@ -9,7 +9,7 @@ html,body{
   display: grid;
   height: 100%;
   width: 100%;
-  background: #e0fffd;
+  background: #FFF;
 }
 nav.sticky {
   background: #aecdfb;
@@ -41,8 +41,8 @@ nav{
 }
 
 .header-button-reg:hover {
-  border-color: #e1521a;
-  background-color: #e1521a;
+  border-color: #25398e;
+  background-color: #25398e;
   color: #FFF;
 }
 
@@ -56,7 +56,7 @@ nav .navbar{
 nav .navbar .logo a {
   font-size: 40px;
   font-weight: 500;
-  color: #f68247;
+  color: #25398e;
   text-decoration: none;
 }
 .navbar .btn .login-button  a{
@@ -69,21 +69,11 @@ nav.sticky .navbar .logo a{
 nav.sticky .navbar .menu li a{
   color: #fff;
 }
-nav.sticky .navbar .menu li a:hover{
-  color:#4070f4;
-}
+
 nav.sticky .navbar a{
   color: #fff;
 }
-.navbar .menu li a:hover{
-color:#4070f4
-}
-.navbar .btn .login-button a:hover{
-  color: #4070f4;
-}
-nav.sticky .navbar .login-button a:hover{
-  color: #0E2431;
-}
+
 nav.sticky .menu-btn{
   color: #fff;
 }
@@ -148,7 +138,7 @@ nav .cancel-btn i{
 nav .navbar .logo a{
   font-size: 40px;
   font-weight: 500;
-  color:#4070F4 ;
+  color:#25398e;
   text-decoration: none;
 }
 form .button button {
@@ -164,12 +154,12 @@ form .button button {
   font-size: 18px;
   font-weight: 100;
   cursor: pointer; border: 2px solid transparent;
-  background: #f68247;transition: all 0.4s ease;
+  background: #25398e;transition: all 0.4s ease;
 }
 form .button :hover{
-   border-color: #f68247;
+   border-color: #25398e;
   background-color: #fff;
-  color: #f68247;
+  color: #25398e;
 
 }
 
@@ -179,7 +169,7 @@ form .button :hover{
   background-color: #fff;
   padding: 25px 30px;
   border-radius: 5px;
-  box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+  box-shadow: 1px 1px 30px 10px rgb(0 0 0 / 20%);
   align-items: center;
   
 
@@ -224,7 +214,7 @@ form .input-box span.details{
 }
 .user-details .input-box input:focus,
 .user-details .input-box input:valid{
-  border-color: #fb9300;
+  border-color: #25398e;
 }
  form .gender-details .gender-title{
   font-size: 20px;
@@ -253,7 +243,7 @@ form .input-box span.details{
  #dot-1:checked ~ .category label .one,
  #dot-2:checked ~ .category label .two,
  #dot-3:checked ~ .category label .three{
-   background: #4070f4;
+   background: #25398e;
    border-color: #d9d9d9;
  }
  form input[type="radio"]{
@@ -275,7 +265,7 @@ form .input-box span.details{
   position: absolute;
   height: 3px;
   width: 70%;
-  background: #fb9300;
+  background: #25398e;
   left: 0;
   bottom: 0;
   transform: translateX(22%);

@@ -9,7 +9,7 @@ html,body{
   display: grid;
   height: 100%;
   width: 100%;
-  background: #e0fffd;
+  background: #ffffff;
 }
 nav.sticky {
   background: #aecdfb;
@@ -31,7 +31,7 @@ nav{
   position: relative;
   color: #fff;
   padding: 8px 20px;
-  background: #f68247;
+  background: #25398e;
   border-radius: 8px;
   margin: 0 15px;
   font-size: 18px;
@@ -41,8 +41,8 @@ nav{
 }
 
 .header-button-reg:hover {
-  border-color: #e1521a;
-  background-color: #e1521a;
+  border-color: #25398e;
+  background-color: #25398e;
   color: #FFF;
 }
 
@@ -56,7 +56,7 @@ nav .navbar{
 nav .navbar .logo a {
   font-size: 40px;
   font-weight: 500;
-  color: #f68247;
+  color: #25398e;
   text-decoration: none;
 }
 .navbar .btn .login-button  a{
@@ -69,18 +69,11 @@ nav.sticky .navbar .logo a{
 nav.sticky .navbar .menu li a{
   color: #fff;
 }
-nav.sticky .navbar .menu li a:hover{
-  color:#4070f4;
-}
+
 nav.sticky .navbar a{
   color: #fff;
 }
-.navbar .menu li a:hover{
-color:#4070f4
-}
-.navbar .btn .login-button a:hover{
-  color: #4070f4;
-}
+
 nav.sticky .navbar .login-button a:hover{
   color: #0E2431;
 }
@@ -158,13 +151,13 @@ form .sign_up{
   
 }
 .sign_up a{
-  color: #58A9A5;
+  color: #25398e;
 }
 form a{
   text-decoration: none;
 }
 .input-box input:focus{
-  border-color: #fb9300;
+  border-color: #25398e;
 
 }
 
@@ -173,12 +166,54 @@ form a{
   /* top: 122px; */
   left: 40px;
   transform: translateY(-170%);
-  color: #f68247;
+  color: #25398e;
 }
 
+.user-details .ic {
+  color: #25398e;
+  text-align: center;
+  font-size: 55px;
+  padding-bottom: 15px;
+}
+.user-details p {
+  display: block;
+  margin-block-start: 2em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  text-align: center;
+  font-size: 19px;
+}
+.button input{
+  height: 100%;
+  z-index: 1;
+  position: relative;
+  background: none;
+  text-align: center;
+  border: none;
+  color: #fff;
+  padding-left: 0;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 100;
+  cursor: pointer; border: 2px solid transparent;
+  background: #25398e;transition: all 0.4s ease;
+  max-width: 300px;
+  width: 100%;
+
+}
+.button input:hover{
+  border-color: #25398e;
+  background-color: #fff;
+  color: #25398e;
+}
 
 form a:hover{
   text-decoration: underline;
+}
+.content .alert{
+  color: red;
+  margin-top: 12px;
+  text-align: center;
 }
 .input_box button {
   height: 45px;
@@ -194,12 +229,12 @@ form a:hover{
   font-size: 18px;
   font-weight: 100;
   cursor: pointer; border: 2px solid transparent;
-  background: #f68247;transition: all 0.4s ease;
+  background: #25398e;transition: all 0.4s ease;
 }
 .button :hover{
-   border-color: #f68247;
+   border-color: #25398e;
   background-color: #fff;
-  color: #f68247;
+  color: #25398e;
 
 }
 .box .content .button{
@@ -215,7 +250,7 @@ form a:hover{
   background-color: #fff;
   padding: 25px 30px;
   border-radius: 5px;
-  box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+  box-shadow: 1px 1px 30px 10px rgb(0 0 0 / 20%);
   align-items: center;
  
 
@@ -259,7 +294,7 @@ form .input-box span.details{
 }
 .user-details .input-box input:focus,
 .user-details .input-box input:valid{
-  border-color: #f68247;
+  border-color: #25398e;
 }
  form .gender-details .gender-title{
   font-size: 20px;
@@ -315,7 +350,7 @@ form .input-box span.details{
   position: absolute;
   height: 3px;
   width: 70%;
-  background: #f68247;
+  background: #25398e;
   left: 0;
   bottom: 0;
   transform: translateX(22%);
@@ -412,7 +447,7 @@ form .user-details .input-box{
     cursor: pointer;
   }
   nav .menu-btn{
-    color: #4070F4;
+    color: #25398e;
   }
   nav .menu-btn,
   .navbar .cansel-btn{

@@ -526,7 +526,7 @@ left: 0;
 bottom: 0;
 height: 3px;
 width: 100%;
-background:#aecdfb;
+background:#f04e4e;
 }
 section .title-contact span::after{
   width: 70%;
@@ -548,7 +548,7 @@ section .title-contact span::after{
 }
 .contact .text a{
   font-weight: bold;
-  color: black;
+  color: #3f3f3f;
 }
 section .button-contact{
   margin: 20px 0;
@@ -559,8 +559,8 @@ section .button-contact button{
   border-radius: 6px;
   font-size: 23px;
   font-weight: 400;
-  background: #aecdfb;
-  color: black;
+  background: #25398e;
+  color: #fff;
   cursor: pointer;
   border: 2px solid transparent;
   font-family: Century Gothic,CenturyGothic,AppleGothic, sans-serif;
@@ -574,7 +574,7 @@ section .button-contact button:hover{
 }
 /* Footer CSS */
 footer{
-  background: #aecdfb;
+  background: #25398e;
   padding: 15px 0;
   text-align: center;
   font-family: Century Gothic,CenturyGothic,AppleGothic, sans-serif;
@@ -583,11 +583,11 @@ footer{
 footer .text span{
   font-size: 17px;
   font-weight: 400;
-  color: black;
+  color: #fff;
 }
 footer .text span a{
   font-weight: 500;
-  color: black;
+  color: rgb(226, 226, 226);;
 }
 footer .text span a:hover{
   text-decoration: underline;
@@ -678,7 +678,7 @@ footer .text span a:hover{
       border-radius: 30px;
     }
      section .title{
-      margin-top: 90px;
+      margin-top: 160px;
      }
      }
 @media(max-width:1105px){
@@ -740,7 +740,7 @@ nav .navbar .menu{
   height: 100vh;
   max-width: 400px;
   width: 100%;
-  background:rgb(232, 232, 232); 
+  background: #fff; 
   flex-direction: column;
   align-items: center;
   padding-top: 130px;
