@@ -404,7 +404,7 @@ public class MainController {
         return "usertakenadmin";
     }
 
-
+//CATEGORIES OF BOOKS
     @GetMapping("/addbookcategory")
     public String showaddbookcategory(Model model){
         List<CategoriesOfBooks> categoriesOfBooks = categoriesOfBooksRepository.findAll();
@@ -424,6 +424,40 @@ public class MainController {
         return "redirect:/addbookcategory";
     }
 
+//ADD CATEGORY TO BOOK
+    @GetMapping("/addcategorytobook/{id}")
+    public String showaddcategorytobook(Model model,@PathVariable Long id){
+        List<BookCategory> bc = bookCategoryRepository.findAllByBookId(id);
+        List<CategoriesOfBooks> cofb = categoriesOfBooksRepository.findAll();
+        model.addAttribute("allcategories", cofb);
+        model.addAttribute("bookcategories", bc);
+        return "addcategorytobook";
+    }
+    @PostMapping("/addcategorytobook/{bookid}/{categoryid}")
+    public String addcategorytobook(Model model,@PathVariable Long bookid,@PathVariable Long categoryid){
+
+        AppBook book = appBookRepository.findById(bookid).get();
+        CategoriesOfBooks category = categoriesOfBooksRepository.findById(categoryid).get();
+        BookCategory bccheck = bookCategoryRepository.findByCategoryAndBook(category, book);
+        if (bccheck == null){
+            BookCategory bc = new BookCategory();
+            bc.setBook(book);
+            bc.setCategory(category);
+            bookCategoryRepository.save(bc);
+        }else {
+            return "redirect:/addcategorytobook/"+bookid;
+        }
+
+        return "redirect:/addcategorytobook/"+bookid;
+    }
+    @PostMapping("/addcategorytobook/{bookid}/{categoryid}/delete")
+    public String deletecategoryfrombook(Model model,@PathVariable Long bookid,@PathVariable Long categoryid){
+        AppBook book = appBookRepository.findById(bookid).get();
+        CategoriesOfBooks category = categoriesOfBooksRepository.findById(categoryid).get();
+        BookCategory bc = bookCategoryRepository.findByCategoryAndBook(category, book);
+        bookCategoryRepository.delete(bc);
+        return "redirect:/addcategorytobook/"+bookid;
+    }
 
 //SEARCH
     @RequestMapping(path = {"/searchbook"})

@@ -9,4 +9,7 @@ import java.util.List;
 @Repository
 public interface BookCategoryRepository extends JpaRepository<BookCategory,Long> {
     ArrayList<BookCategory> findAllByCategoryId(Long id);
+    List<BookCategory> findAllByBookId(Long id);
+
+    BookCategory findByCategoryAndBook (CategoriesOfBooks category, AppBook book);
 }
