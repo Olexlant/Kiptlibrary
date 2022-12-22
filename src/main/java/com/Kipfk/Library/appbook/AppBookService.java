@@ -96,18 +96,6 @@ public class AppBookService {
         return appBookRepository.findAll(specification);
     };
 
-    public void assignbooksbyregistration(String token){
-        ConfirmationToken ct = confirmationTokenRepository.findByTokenAndToken(token, token);
-        AppUser user = ct.getAppUser();
-        AppBook bk = appBookRepository.findById(1L).orElseThrow();
-        if (user.getGroups().equals("741")){
-            TakenBooks tb = new TakenBooks();
-            tb.setUser(user);
-            tb.setBook(bk);
-            tb.setTakenat(LocalDate.now());
-            takenBooksRepository.save(tb);
-        }
-    }
 
 
 }

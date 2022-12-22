@@ -90,7 +90,6 @@ public class MainController {
     @GetMapping("/registration/confirm")
     public String confirm(@RequestParam(required=false,name="token") String token) {
         registrationService.confirmToken(token);
-        appBookService.assignbooksbyregistration(token);
         return "confirm_success";
     }
 
