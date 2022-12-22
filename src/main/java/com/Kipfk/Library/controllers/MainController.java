@@ -89,7 +89,11 @@ public class MainController {
 
     @GetMapping("/registration/confirm")
     public String confirm(@RequestParam(required=false,name="token") String token) {
-        registrationService.confirmToken(token);
+        if(token==null){
+            return "redirect:/login";
+        }else {
+            registrationService.confirmToken(token);
+        }
         return "confirm_success";
     }
 

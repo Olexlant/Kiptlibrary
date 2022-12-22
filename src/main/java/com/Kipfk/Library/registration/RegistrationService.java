@@ -51,13 +51,13 @@ public class RegistrationService {
                         new IllegalStateException("token not found"));
 
         if (confirmationToken.getConfirmedAt() != null) {
-            throw new IllegalStateException("Цей email вже підтверджений");
+            return "redirect:/login";
         }
 
         LocalDateTime expiredAt = confirmationToken.getExpiresAt();
 
         if (expiredAt.isBefore(LocalDateTime.now())) {
-            throw new IllegalStateException("Час для активації вийшов");
+            return "redirect:/login";
         }
 
         confirmationTokenService.setConfirmedAt(token);
