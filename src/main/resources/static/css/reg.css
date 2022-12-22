@@ -256,6 +256,29 @@ form .input-box span.details{
   margin-bottom: 5px;
   margin-top: 20px;
 }
+.button1 input{
+  height: 45px;
+  width: 100%;
+  z-index: 1;
+  position: relative;
+  margin-top: 20px;
+  background: none;
+  border: none;
+  color: #fff;
+  padding-left: 0;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 100;
+  cursor: pointer; border: 2px solid transparent;
+  background: #25398e;transition: all 0.4s ease;
+
+}
+.button1 :hover{
+   border-color: #25398e;
+  background-color: #fff;
+  color: #25398e;
+
+}
 .user-details .input-box input{
   height: 45px;
   width: 100%;
