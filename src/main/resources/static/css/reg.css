@@ -183,29 +183,7 @@ form a{
   text-align: center;
   font-size: 19px;
 }
-.button input{
-  height: 100%;
-  z-index: 1;
-  position: relative;
-  background: none;
-  text-align: center;
-  border: none;
-  color: #fff;
-  padding-left: 0;
-  border-radius: 5px;
-  font-size: 18px;
-  font-weight: 100;
-  cursor: pointer; border: 2px solid transparent;
-  background: #25398e;transition: all 0.4s ease;
-  max-width: 300px;
-  width: 100%;
 
-}
-.button input:hover{
-  border-color: #25398e;
-  background-color: #fff;
-  color: #25398e;
-}
 
 form a:hover{
   text-decoration: underline;
@@ -261,9 +239,6 @@ form a:hover{
     transform: translate(-50%, -50%)
 }
 .container .title{
-  font-size: 30px;
-  font-weight: 600;
-
   text-align: center;
 }
 
@@ -338,6 +313,10 @@ form .input-box span.details{
   margin-top: 20px;
 
 }
+.title p{
+  font-size: 20px;
+  margin: 0;
+}
 .title span {
   color: #0E2431;
   font-size: 30px;
@@ -349,7 +328,7 @@ form .input-box span.details{
   content: '';
   position: absolute;
   height: 3px;
-  width: 70%;
+  width: 60%;
   background: #25398e;
   left: 0;
   bottom: 0;
