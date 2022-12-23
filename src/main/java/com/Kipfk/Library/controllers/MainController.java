@@ -130,7 +130,7 @@ public class MainController {
 
 //ALLBOOKS
     @RequestMapping(value = "/allbooks", method = RequestMethod.GET)
-    public String showAllBooks(Model model,@RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size, @RequestParam("category") Optional<String> category){
+    public String showAllBooks(Model model,@AuthenticationPrincipal UserDetails userDetails, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size, @RequestParam("category") Optional<String> category){
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(12);
         String categor = "";
@@ -161,6 +161,13 @@ public class MainController {
             }
         }
         List<CategoriesOfBooks> categoriesOfBooks = categoriesOfBooksRepository.findAll();
+        AppUser user = (AppUser) appUserService.loadUserByUsername(userDetails.getUsername());
+        List<LikedBooks> lb = likedBooksRepository.findAllByUser(user);
+        ArrayList<AppBook> likedbooks = new ArrayList<>();
+        for (LikedBooks b : lb){
+            likedbooks.add(b.getBook());
+        }
+        model.addAttribute("likedbooks", likedbooks);
         model.addAttribute("currentcategory",categor);
         model.addAttribute("bookcategories", categoriesOfBooks);
         return "allbooks";
@@ -379,6 +386,15 @@ public class MainController {
         if (uniquelb){
             likedBooksRepository.save(likedBooks);
         }
+        return "redirect:/allbooks";
+    }
+
+    @PostMapping("/likingbook/{id}/deletebyuser")
+    public String deletelikedbookbyuser(@AuthenticationPrincipal UserDetails userDetails,LikedBooks likedBooks, @PathVariable(value = "id") long bookid) {
+        AppUser user = (AppUser) appUserService.loadUserByUsername(userDetails.getUsername());
+        AppBook book = appBookRepository.findById(bookid).orElseThrow();
+        LikedBooks likedbook = likedBooksRepository.findByBookAndUser(book, user);
+        likedBooksRepository.delete(likedbook);
         return "redirect:/allbooks";
     }
 

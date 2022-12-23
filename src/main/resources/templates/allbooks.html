@@ -46,9 +46,18 @@
 				<p th:text="${'Автор: '+book.author}">Автор: Тарас Шевченко</p>
 				<div class="button">
 					<a th:href="'/allbooks/'+ ${book.id}" class="btn">Детальніше</a>
-					<form th:action="'/likingbook/'+ ${book.id}" method="post">
-						<button class="btn" type="submit">В улюблене</button>
-					</form>
+					<div >
+						<div th:if="${likedbooks.contains(book)}">
+							<form th:action="'/likingbook/'+ ${book.id} + '/deletebyuser'" method="post">
+								<button class="btn" type="submit">Видалити з улюбленого</button>
+							</form>
+						</div>
+						<div th:if="${!likedbooks.contains(book)}">
+							<form th:action="'/likingbook/'+ ${book.id}" method="post">
+								<button class="btn" type="submit">В улюблене</button>
+							</form>
+						</div>
+					</div>
 				</div>
 				<div class="icons">
 					<span > <i class="fas fa-calendar"></i><a th:text="${' '+book.year}"></a></span>

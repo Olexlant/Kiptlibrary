@@ -11,4 +11,6 @@ import java.util.Optional;
 public interface LikedBooksRepository extends JpaRepository<LikedBooks,Long> {
     Optional<LikedBooks> findByUser(AppUser appUser);
     List<LikedBooks> findByUserAndBook(AppUser appUser, AppBook appBook);
+    LikedBooks findByBookAndUser(AppBook appBook,AppUser appUser);
+    List<LikedBooks> findAllByUser(AppUser user);
 }
