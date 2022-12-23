@@ -34,7 +34,7 @@ public class RegistrationService {
                         user.getPassword(),
                         user.getEmail(),
                         user.getGroups(),
-                        AppUserRole.ADMIN
+                        AppUserRole.USER
                 )
         );
         String link = "https://kcaslibr.herokuapp.com/registration/confirm?token=" + token;
