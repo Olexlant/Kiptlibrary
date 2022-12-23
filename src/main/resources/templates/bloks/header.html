@@ -41,7 +41,7 @@
                 </div>
             </div>
             <div class="btn" sec:authorize="isAuthenticated()">
-                <div class="header-button">
+                <div class="header-button"  sec:authorize="hasAuthority('ADMIN')">
                     <a class="header-button-reg1" th:href="@{/admin}" >Admin панель</a>
                 </div>
                 <div class="header-button">
