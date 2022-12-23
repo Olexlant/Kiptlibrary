@@ -43,8 +43,12 @@
             </div>
             <div class="btn" sec:authorize="isAuthenticated()">
                 <div class="header-button">
+                    <a class="header-button-reg1" th:href="@{/admin}" >Адмін панель</a>
+                </div>
+                <div class="header-button">
                     <a class="header-button-reg" th:href="@{/logout}" >Вийти</a>
                 </div>
+
             </div>
         </div>
         <div class="menu-btn">
