@@ -45,7 +45,7 @@ nav.sticky{
   position: relative;
 	color: #fff;
 	padding: 8px 10px;
-	background: #5FAEA1;
+	background: #3c897d;
 	border-radius: 8px;
 	font-size: 18px;
 	text-decoration: none;
@@ -53,8 +53,8 @@ nav.sticky{
   border: 2px solid transparent;
 }
  .header-button .header-button-reg1:hover{
-  border-color: #3c897d;
-  background-color: #3c897d;
+  border-color: #5FAEA1;
+  background-color: #5FAEA1;
   color: #FFF;
 }
 

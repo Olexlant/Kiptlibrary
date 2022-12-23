@@ -1,30 +1,47 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- Created By CodingLab - www.codinglabweb.com -->
+<html lang="en" dir="ltr">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<title>Всі книги</title>
-	<head>
-		<meta charset="UTF-8">
-		<link rel="stylesheet" href="style-login.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
-		<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-		<link rel="stylesheet" href="/css/allbook.css" type="text/css" th:href="@{/css/allbook.css}">
-		<header class="site-header sticky-top py-1" th:insert="bloks/header :: header"></header>
-	</head>
+	<title>Головна</title>
+	<link href="/css/allbook.css" type="text/css" rel="stylesheet" th:href="@{/css/allbook.css}">
+	<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+	<link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<header class="site-header sticky-top py-1" th:insert="bloks/header :: header"></header>
 <body>
 <div class="container">
 	<div class="title-services"><span>Бібліотека</span></div>
 	<form th:action="@{/searchbook}" method="get">
 		<input type="text" name="keyword" th:value="${keyword}"  placeholder="Пошук" size="25" >
-		<button type="submit" style="background-color: #fb9300; " class="uil-search"></button>
+		<button type="submit" style="background-color: #25398e; " class="uil-search"></button>
 	</form>
 	<select th:field="*{bookcategories}" onchange="window.location.href=this.value;">
 		<option th:value="@{/allbooks(size=${books.size}, page=${pageNumber})}" ></option>
 		<option th:value="@{/allbooks(size=${books.size}, page=${pageNumber})}" th:text="${'Всі книги'}" ></option>
-		<
 		<option th:each="category : ${bookcategories} " th:value="@{/allbooks(size=${books.size}, page=${pageNumber},category=${category.name})}" th:text="${category.name}"
-						></option>
+		></option>
 	</select>
+	<div class="select-menu" >
+		<div class="select-btn" th:field="*{bookcategories}" onchange="window.location.href=this.value;">
+			<span class="sBtn-text">Оберіть категорію</span>
+			<i class="bx bx-chevron-down"></i>
+		</div>
+		<ul class="options">
+			<li class="option"th:field="*{bookcategories}" onchange="window.location.href=this.value;">
+				<i class="bx bxs-book" style="color: #25398e;"></i>
+				<span class="option-text"><a  th:value="@{/allbooks(size=${books.size}, page=${pageNumber})}" th:text="${'Всі книги'}"></a></span>
+			</li>
+			<li class="option"th:field="*{bookcategories}" onchange="window.location.href=this.value;">
+				<i class="bx bxs-book" style="color: #25398e;"></i>
+				<span class="option-text"><a th:each="category : ${bookcategories} " th:value="@{/allbooks(size=${books.size}, page=${pageNumber},category=${category.name})}" th:text="${category.name}"></a></span>
+			</li>
+		</ul>
+	</div>
 	<div class="box-container" >
 		<div class="box" th:each="book, iStat : ${books.content}">
 			<div class="image">
@@ -53,6 +70,6 @@
 			 th:class="${pageNumber==books.number + 1} ? active"></a>
 	</div>
 </div>
-
+<script src="/js/select.js"></script>
 </body>
 </html>
