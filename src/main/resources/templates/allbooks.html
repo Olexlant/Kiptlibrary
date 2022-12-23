@@ -20,25 +20,19 @@
 		<input type="text" name="keyword" th:value="${keyword}"  placeholder="Пошук" size="25" >
 		<button type="submit" style="background-color: #25398e; " class="uil-search"></button>
 	</form>
-	<select th:field="*{bookcategories}" onchange="window.location.href=this.value;">
-		<option th:value="@{/allbooks(size=${books.size}, page=${pageNumber})}" ></option>
-		<option th:value="@{/allbooks(size=${books.size}, page=${pageNumber})}" th:text="${'Всі книги'}" ></option>
-		<option th:each="category : ${bookcategories} " th:value="@{/allbooks(size=${books.size}, page=${pageNumber},category=${category.name})}" th:text="${category.name}"
-		></option>
-	</select>
 	<div class="select-menu" >
 		<div class="select-btn" th:field="*{bookcategories}" onchange="window.location.href=this.value;">
 			<span class="sBtn-text">Оберіть категорію</span>
 			<i class="bx bx-chevron-down"></i>
 		</div>
 		<ul class="options">
-			<li class="option"th:field="*{bookcategories}" onchange="window.location.href=this.value;">
+			<li class="option">
 				<i class="bx bxs-book" style="color: #25398e;"></i>
-				<span class="option-text"><a  th:value="@{/allbooks(size=${books.size}, page=${pageNumber})}" th:text="${'Всі книги'}"></a></span>
+				<span class="option-text"><a  th:href="@{/allbooks(size=${books.size}, page=${pageNumber})}" th:text="${'Всі книги'}"></a></span>
 			</li>
-			<li class="option"th:field="*{bookcategories}" onchange="window.location.href=this.value;">
+			<li class="option"  th:each="category : ${bookcategories} ">
 				<i class="bx bxs-book" style="color: #25398e;"></i>
-				<span class="option-text"><a th:each="category : ${bookcategories} " th:value="@{/allbooks(size=${books.size}, page=${pageNumber},category=${category.name})}" th:text="${category.name}"></a></span>
+				<span class="option-text"><a th:href="@{/allbooks(size=${books.size}, page=${pageNumber},category=${category.name})}" th:text="${category.name}"></a></span>
 			</li>
 		</ul>
 	</div>
