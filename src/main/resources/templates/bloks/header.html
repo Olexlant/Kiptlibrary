@@ -30,7 +30,6 @@
                     <li><a th:href="@{/allbooks}" class="golovna">Всі книги</a></li>
                     <li><a th:href="@{/userassigned}" class="golovna">Мої книги</a></li>
                     <li><a th:href="@{/myfavouritebooks}" class="golovna">Улюблені</a></li>
-                    <li><a href="/#contact"class="golovna">Контакти</a></li>
                 <div class="cancel-btn">
                     <i class="fa fa-arrow-right"></i>
                 </div>
@@ -43,7 +42,7 @@
             </div>
             <div class="btn" sec:authorize="isAuthenticated()">
                 <div class="header-button">
-                    <a class="header-button-reg1" th:href="@{/admin}" >Адмін панель</a>
+                    <a class="header-button-reg1" th:href="@{/admin}" >Admin панель</a>
                 </div>
                 <div class="header-button">
                     <a class="header-button-reg" th:href="@{/logout}" >Вийти</a>
