@@ -68,32 +68,29 @@ public class MainController {
         this.categoriesOfBooksRepository = categoriesOfBooksRepository;
     }
 
-    //REGISTRATION
     @GetMapping("/")
     public String home(Model model) {
         model.addAttribute("title","Головна сторінка");
         return "home";
     }
 
+    //REGISTRATION
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new AppUser());
         return "signup_form";
     }
-
     @PostMapping("/process_register")
     public String signUp(AppUser user) {
        registrationService.register(user);
        return "register_success";
     }
-
     @GetMapping("/registration/confirm")
     public String confirm(@RequestParam(required=false,name="token") String token) {
-        if(token==null){
-            return "redirect:/login";
-        }else {
-            registrationService.confirmToken(token);
-        }
+        return registrationService.confirmToken(token);
+    }
+    @GetMapping("/confirmsuccess")
+    public String ShowConfirmSuccessForm(){
         return "confirm_success";
     }
 

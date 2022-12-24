@@ -14,18 +14,16 @@
 <body>
 <div class="container">
   <div class="content">
-    <form >
-      <div class="user-details">
-        <div class="ic"><i class="fa fa-envelope" aria-hidden="true"></i></div>
-        <div class="title"><p>Ваш email підтверджено</p></div>
-        <form  th:action="@{/login}">
-          <div class="option_div"></div>
-          <div class="input_box button1">
-            <input type="submit" value="Натисніть для входу">
-          </div>
-        </form>
-      </div>
-    </form>
+    <div class="user-details">
+      <div class="ic"><i class="fa fa-envelope" aria-hidden="true"></i></div>
+      <div class="title"><p>Ваш email підтверджено</p></div>
+      <form  th:action="@{/login}">
+        <div class="option_div"></div>
+        <div class="input_box button1">
+          <input type="submit" value="Натисніть для входу">
+        </div>
+      </form>
+    </div>
   </div>
 </div>
 <script src="/js/slider.js"></script>

@@ -5,6 +5,7 @@ import com.Kipfk.Library.appuser.AppUserRole;
 import com.Kipfk.Library.appuser.AppUserService;
 import com.Kipfk.Library.email.EmailSender;
 import com.Kipfk.Library.registration.token.ConfirmationToken;
+import com.Kipfk.Library.registration.token.ConfirmationTokenRepository;
 import com.Kipfk.Library.registration.token.ConfirmationTokenService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ public class RegistrationService {
     private final EmailValidator emailValidator;
     private final ConfirmationTokenService confirmationTokenService;
     private final EmailSender emailSender;
+    private final ConfirmationTokenRepository confirmationTokenRepository;
 
     public String register(AppUser user) {
         boolean isValidEmail = emailValidator.test(user.getEmail());
@@ -47,22 +49,23 @@ public class RegistrationService {
 
     @Transactional
     public String confirmToken(String token) {
-        ConfirmationToken confirmationToken = confirmationTokenService.getToken(token).orElseThrow(() ->
-                        new IllegalStateException("token not found"));
-
+        ConfirmationToken confirmationToken = confirmationTokenRepository.findByToken(token);
+        if (confirmationToken==null){
+            return "redirect:/register?notfound";
+        }
         if (confirmationToken.getConfirmedAt() != null) {
-            return "redirect:/login";
+            return "redirect:/login?alreadyconfirmed";
         }
 
         LocalDateTime expiredAt = confirmationToken.getExpiresAt();
 
         if (expiredAt.isBefore(LocalDateTime.now())) {
-            return "redirect:/login";
+            return "redirect:/register?expired";
         }
 
         confirmationTokenService.setConfirmedAt(token);
         appUserService.enableAppUser(confirmationToken.getAppUser().getEmail());
-        return "confirmed";
+        return "redirect:/confirmsuccess";
     }
     public static String buildEmail(String name, String link) {
         return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +
