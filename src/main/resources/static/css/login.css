@@ -274,7 +274,9 @@ form .input-box span.details{
 
  @media(max-width: 584px){
  .container{
-  max-width: 100%;
+  max-width: 90%;
+  margin-top: 180px;
+  height: 690px;
 }
 form .user-details .input-box{
     margin-bottom: 15px;
@@ -284,7 +286,7 @@ form .user-details .input-box{
     width: 100%;
   }
   .content form .user-details{
-    max-height: 300px;
+   
     overflow-y: scroll;
   }
   .user-details::-webkit-scrollbar{
