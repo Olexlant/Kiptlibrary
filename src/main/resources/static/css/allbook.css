@@ -1,12 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa&family=Exo+2:wght@300&display=swap');
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   text-decoration: none;
   scroll-behavior: smooth;
-  font-family: Century Gothic,CenturyGothic,AppleGothic, sans-serif;
-
+    font-family: 'Comfortaa', cursive;
+font-family: 'Exo 2', sans-serif;
 }
 body{
   background-color: #f0f3ff;
@@ -15,8 +15,8 @@ nav{
   position: fixed;
   width: 100%;
   padding: 20px;
-  font-family: Century Gothic,CenturyGothic,AppleGothic, sans-serif;
-  transition: all 0.4s ease;
+    font-family: 'Comfortaa', cursive;
+font-family: 'Exo 2', sans-serif;  transition: all 0.4s ease;
   z-index: 988;
 }
 nav.sticky{
@@ -334,6 +334,8 @@ background:#25398e ;
   display: inline-block;
 }
 
+
+
 .container .box-container .box .image{
   margin-bottom: 20px;
   overflow: hidden;
@@ -383,11 +385,25 @@ background:#25398e ;
    color: #ffffff;
     cursor: pointer;
     border: 2px solid transparent;
-    font-family: Century Gothic,CenturyGothic,AppleGothic, sans-serif;
-
+      font-family: 'Comfortaa', cursive;
+font-family: 'Exo 2', sans-serif;
     transition: all 0.4s ease;
     font-size: 16px;
 }
+.container .box-container .box .content .btn a {
+  font-size: 15px;
+  
+}
+.container .box-container .box .content .btn iconify-icon{
+  margin-top: 5px;
+  margin-right: 3px;
+}
+.container .box-container .box .content .btn .icon-trash{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 button {
   outline: none;
   border: none;
@@ -423,14 +439,16 @@ input {
 .container .box-container .box .content .icons .year{
   font-size: 14px;
   color:#777;
-  font-family: "Century Gothic";
+   font-family: 'Comfortaa', cursive;
+font-family: 'Exo 2', sans-serif;
 
 }
 
 .container .box-container .box .content .icons span {
   font-size: 14px;
   color:#777;
-  font-family: "Century Gothic";
+   font-family: 'Comfortaa', cursive;
+font-family: 'Exo 2', sans-serif;
 
 }
 

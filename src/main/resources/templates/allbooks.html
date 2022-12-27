@@ -11,8 +11,9 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
 	<link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<script src="https://code.iconify.design/iconify-icon/1.0.2/iconify-icon.min.js"></script>
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Didact+Gothic&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Exo+2:wght@300&display=swap" rel="stylesheet">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <header class="site-header sticky-top py-1" th:insert="bloks/header :: header"></header>
@@ -52,7 +53,14 @@
 					<div >
 						<div th:if="${likedbooks.contains(book)}">
 							<form th:action="'/likingbook/'+ ${book.id} + '/deletebyuser'" method="post">
-								<button class="btn" type="submit">Видалити з улюбленого</button>
+								<button class="btn" type="submit">
+									<div class="icon-trash">
+										<div class="delete-favorite">
+										<iconify-icon  icon="uil:trash-alt"></iconify-icon>
+										</div>
+										<div class="text-favorite"><a>з улюбленого</a></div>
+									</div>
+								</button>
 							</form>
 						</div>
 						<div th:if="${!likedbooks.contains(book)}">
