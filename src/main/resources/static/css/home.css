@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa&family=Didact+Gothic&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa&family=Exo+2:wght@300&display=swap');
 *{
   margin: 0;
   padding: 0;
@@ -6,7 +6,7 @@
   text-decoration: none;
   scroll-behavior: smooth;
   font-family: 'Comfortaa', cursive;
-font-family: 'Didact Gothic', sans-serif;
+font-family: 'Exo 2', sans-serif;
 
 }
 nav{
@@ -14,7 +14,7 @@ nav{
   width: 100%;
   padding: 20px;
   font-family: 'Comfortaa', cursive;
-font-family: 'Didact Gothic', sans-serif;
+font-family: 'Exo 2', sans-serif;
   transition: all 0.4s ease;
   z-index: 988;
 }
@@ -233,7 +233,7 @@ margin-top: 250px;
   background-position: center;
   background-attachment: fixed;
   font-family: 'Comfortaa', cursive;
-font-family: 'Didact Gothic', sans-serif;
+font-family: 'Exo 2', sans-serif;
 
 }
 .home .home-content{
@@ -278,7 +278,7 @@ font-family: 'Didact Gothic', sans-serif;
   cursor: pointer;
   border: 2px solid transparent;
   font-family: 'Comfortaa', cursive;
-font-family: 'Didact Gothic', sans-serif;
+font-family: 'Exo 2', sans-serif;
 
   transition: all 0.4s ease;
 }
@@ -365,7 +365,7 @@ section .button button{
   cursor: pointer;
   border: 2px solid transparent;
   font-family: 'Comfortaa', cursive;
-font-family: 'Didact Gothic', sans-serif;
+font-family: 'Exo 2', sans-serif;
 
   transition: all 0.4s ease;
 }
@@ -415,6 +415,7 @@ section .button button:hover{
  display: flex;
  flex-wrap: wrap;
  justify-content: space-between;
+ margin-left: 35px;
 }
 .skills-details .box{
  width: calc(100% / 2 - 20px);
@@ -585,13 +586,13 @@ section .button-contact button{
   cursor: pointer;
   border: 2px solid transparent;
   font-family: 'Comfortaa', cursive;
-font-family: 'Didact Gothic', sans-serif;
+font-family: 'Exo 2', sans-serif;
 
   transition: all 0.4s ease;
 }
 section .button-contact button:hover{
   border-color: black;
-  background-color: #fff;
+  background-color: #F0F8FF;
   color: black;
 }
 /* Footer CSS */
@@ -600,7 +601,7 @@ footer{
   padding: 15px 0;
   text-align: center;
   font-family: 'Comfortaa', cursive;
-font-family: 'Didact Gothic', sans-serif;
+font-family: 'Exo 2', sans-serif;
 
 }
 footer .text span{
@@ -682,7 +683,7 @@ footer .text span a:hover{
      }  
      .home .home-content .right{
        width: 100%;
-       justify-content:  center;
+      text-align: center;
      }
      .home .home-content .left{
        width: 100%;
@@ -751,6 +752,7 @@ footer .text span a:hover{
     .navbar .menu .golovna{
       font-size: 25px;
       color: #25398e;
+      margin-top: 32px;
     }
     .navbar .btn .login-button a:hover{
       color: black;
@@ -835,7 +837,7 @@ nav .navbar .cancel-btn{
     nav .menu-btn,
     .navbar .cansel-btn{
       display: block;
-      top: 17px;
+      top: 14px;
     }
     nav .cancel-btn i{
       display:block;
@@ -926,6 +928,11 @@ nav .navbar .cancel-btn{
       }
     }
     @media(max-width:385px){
+      nav .navbar .logo .kcas-library{
+        padding-right: 50px;
+      }
+    }
+    @media(max-width:375px){
       nav .navbar .logo .kcas-library{
         padding-right: 30px;
       }
