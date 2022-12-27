@@ -1,18 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa&family=Didact+Gothic&display=swap');
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   text-decoration: none;
   scroll-behavior: smooth;
-  font-family: Century Gothic,CenturyGothic,AppleGothic, sans-serif;
+  font-family: 'Comfortaa', cursive;
+font-family: 'Didact Gothic', sans-serif;
 
 }
 nav{
   position: fixed;
   width: 100%;
   padding: 20px;
-  font-family: Century Gothic,CenturyGothic,AppleGothic, sans-serif;
+  font-family: 'Comfortaa', cursive;
+font-family: 'Didact Gothic', sans-serif;
   transition: all 0.4s ease;
   z-index: 988;
 }
@@ -230,7 +232,8 @@ margin-top: 250px;
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  font-family: Century Gothic,CenturyGothic,AppleGothic, sans-serif;
+  font-family: 'Comfortaa', cursive;
+font-family: 'Didact Gothic', sans-serif;
 
 }
 .home .home-content{
@@ -274,7 +277,8 @@ margin-top: 250px;
   color: #fff;
   cursor: pointer;
   border: 2px solid transparent;
-  font-family: Century Gothic,CenturyGothic,AppleGothic, sans-serif;
+  font-family: 'Comfortaa', cursive;
+font-family: 'Didact Gothic', sans-serif;
 
   transition: all 0.4s ease;
 }
@@ -360,7 +364,8 @@ section .button button{
   color: #ffffff;
   cursor: pointer;
   border: 2px solid transparent;
-  font-family: Century Gothic,CenturyGothic,AppleGothic, sans-serif;
+  font-family: 'Comfortaa', cursive;
+font-family: 'Didact Gothic', sans-serif;
 
   transition: all 0.4s ease;
 }
@@ -579,7 +584,8 @@ section .button-contact button{
   color: #fff;
   cursor: pointer;
   border: 2px solid transparent;
-  font-family: Century Gothic,CenturyGothic,AppleGothic, sans-serif;
+  font-family: 'Comfortaa', cursive;
+font-family: 'Didact Gothic', sans-serif;
 
   transition: all 0.4s ease;
 }
@@ -593,7 +599,8 @@ footer{
   background: #25398e;
   padding: 15px 0;
   text-align: center;
-  font-family: Century Gothic,CenturyGothic,AppleGothic, sans-serif;
+  font-family: 'Comfortaa', cursive;
+font-family: 'Didact Gothic', sans-serif;
 
 }
 footer .text span{
@@ -828,7 +835,7 @@ nav .navbar .cancel-btn{
     nav .menu-btn,
     .navbar .cansel-btn{
       display: block;
-      top: 21px;
+      top: 17px;
     }
     nav .cancel-btn i{
       display:block;

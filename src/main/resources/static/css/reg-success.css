@@ -1,8 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Century Gothic';
+  font-family: 'Comfortaa', cursive;
+font-family: 'Didact Gothic', sans-serif;
 }
 html,body{
   display: grid;
@@ -161,11 +163,11 @@ nav .navbar .logo a{
   top: 50%;
   left: 20px;
   transform: translateY(-50%);
-  color: #4070f4;
+  color: #25398e;
 }
 
 .main_div .ic {
-  color: #fb9300;
+  color: #25398e;
   text-align: center;
   font-size: 55px;
   padding-bottom: 15px;
@@ -173,7 +175,6 @@ nav .navbar .logo a{
 .main_div p{
   display: block;
   margin-block-start: 1em;
-
   margin-inline-start: 0px;
   margin-inline-end: 0px;
   text-align: center;
@@ -207,7 +208,7 @@ nav .navbar .logo a{
   position: absolute;
   height: 3px;
   width: 70%;
-  background: #fb9300;
+  background: #25398e;
   left: 0;
   bottom: 0;
   transform: translateX(22%);
