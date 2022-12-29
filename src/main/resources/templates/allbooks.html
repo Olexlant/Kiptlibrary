@@ -41,7 +41,7 @@
 		</ul>
 	</div>
 	<div class="box-container" >
-		<div class="box" th:each="book, iStat : ${books.content}">
+		<div class="box" th:each="book, iStat : ${books}">
 			<div class="image">
 				<img  class="rounded-5 mb-5 mt-5" style="width: 100%" th:src="@{'data:image/png;base64,' + ${book.getBookimgconv()} }" />
 			</div>
@@ -77,12 +77,33 @@
 			</div>
 		</div>
 	</div>
-	<div th:if="${books.totalPages > 0}" class="pagination"
-			 th:each="pageNumber : ${pageNumbers}">
-		<a th:href="@{/allbooks(size=${books.size}, page=${pageNumber},category=${currentcategory})}"
-			 th:text="${pageNumber}"
-			 th:class="${pageNumber==books.number + 1} ? active"></a>
+	<div th:if="${books.totalPages > 0}" class="pagination" th:each="pageNumber : ${body}">
+
+<!--		<a th:href="@{/allbooks(size=${books.size}, page=${pageNumber},category=${currentcategory})}" th:text="${pageNumber}" th:class="${pageNumber==books.number + 1} ? active"></a>-->
+
+
+		<div th:if="${pageNumberStat.first}" class="page-item">
+			<a th:href="@{/allbooks(size=${books.size}, page=${pageNumber},category=${currentcategory})}" aria-label="Previous">
+				<span aria-hidden="true">&laquo;</span>
+			</a>
+		</div>
+		<div class="page-item active" th:if="${pageNumber} == ${books.getNumber()+1}">
+			<a th:text="${pageNumber}" href="#"></a>
+		</div>
+		<div class="page-item disabled" th:if="${pageNumber} == -1">
+			<a href="#">...</a>
+		</div>
+		<div class="page-item" th:if="${pageNumber} != -1 and ${pageNumber} != ${books.getNumber()+1}">
+			<a th:text="${pageNumber}" th:href="@{/allbooks(size=${books.size}, page=${pageNumber},category=${currentcategory})}"></a>
+		</div>
+		<div th:if="${pageNumberStat.last}" class="page-item"  aria-label="Next">
+			<a th:href="@{/allbooks(size=${books.size}, page=${pageNumber},category=${currentcategory})}">
+				<span aria-hidden="true">&raquo;</span>
+			</a>
+		</div>
+
 	</div>
+
 </div>
 <script src="/js/select.js"></script>
 </body>
