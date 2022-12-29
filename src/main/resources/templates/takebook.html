@@ -2,120 +2,135 @@
 <!--=== Coding by CodingLab | www.codinglabweb.com === -->
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!---- CSS  -->
+  <!---- CSS  -->
 
-    <link rel="stylesheet" href="/css/takebook.css" type="text/css">
-    <!---- Iconscout CSS  -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Exo+2:wght@300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+  <link rel="stylesheet" href="/css/takebook.css" type="text/css">
+  <!---- Iconscout CSS  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Exo+2:wght@300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
-    <title>Видати книгу</title>
+  <title>Видати книгу</title>
 </head>
 <body>
 <nav>
-    <div class="logo-name">
-        <div class="logo-image">
-            <img src="images/gears_motor.gif" alt="">
-        </div>
-        <span class="logo_name">НТБ КНУТД</span>
+  <div class="logo-name">
+    <div class="logo-image">
+      <img src="images/gears_motor.gif" alt="">
     </div>
+    <span class="logo_name">НТБ КНУТД</span>
+  </div>
 
-    <div class="menu-items">
-        <ul class="nav-links">
-            <li><a th:href="@{/admin}">
-                <i class="uil uil-estate"></i>
-                <span class="link-name">Головна</span>
-            </a></li>
-            <li><a th:href="@{/allusers}">
-                <i class="uil uil-users-alt"></i>
-                <span class="link-name" >Користувачі</span>
-            </a></li>
-            <li><a th:href="@{/allbooksadmin}">
-                <i class="uil uil-notebooks"></i>
-                <span class="link-name">Всі книги</span>
-            </a></li>
-            <li><a th:href="@{/assignedbooks}">
-                <i class="uil uil-books"></i>
-                <span class="link-name">Видані книги</span>
-            </a></li>
+  <div class="menu-items">
+    <ul class="nav-links">
+      <li><a th:href="@{/admin}">
+        <i class="uil uil-estate"></i>
+        <span class="link-name">Головна</span>
+      </a></li>
+      <li><a th:href="@{/allusers}">
+        <i class="uil uil-users-alt"></i>
+        <span class="link-name" >Користувачі</span>
+      </a></li>
+      <li><a th:href="@{/allbooksadmin}">
+        <i class="uil uil-notebooks"></i>
+        <span class="link-name">Всі книги</span>
+      </a></li>
+      <li><a th:href="@{/assignedbooks}">
+        <i class="uil uil-books"></i>
+        <span class="link-name">Видані книги</span>
+      </a></li>
 
-            <li><a th:href="@{/addbook}">
-                <i class="uil uil-plus"></i>
-                <span class="link-name">Додати книгу</span>
-            </a></li>
-            <li><a th:href="@{/adduser}">
-                <i class="uil uil-user-plus"></i>
-                <span class="link-name">Додати користувача</span>
-            </a></li>
-            <li><a th:href="@{/takebook}">
-                <i class="uil uil-plus-circle"></i>
-                <span class="link-name">Видати книгу</span>
-            </a></li>
+      <li><a th:href="@{/addbook}">
+        <i class="uil uil-plus"></i>
+        <span class="link-name">Додати книгу</span>
+      </a></li>
+      <li><a th:href="@{/adduser}">
+        <i class="uil uil-user-plus"></i>
+        <span class="link-name">Додати користувача</span>
+      </a></li>
+      <li><a th:href="@{/takebook}">
+        <i class="uil uil-plus-circle"></i>
+        <span class="link-name">Видати книгу</span>
+      </a></li>
 
-        </ul>
+    </ul>
 
-        <ul class="logout-mode">
-            <li><a th:href="@{/logout}">
-                <i class="uil uil-signout"></i>
-                <span class="link-name">Вийти</span>
-            </a></li>
-            <div class="mode-toggle">
+    <ul class="logout-mode">
+      <li><a th:href="@{/logout}">
+        <i class="uil uil-signout"></i>
+        <span class="link-name">Вийти</span>
+      </a></li>
+      <div class="mode-toggle">
 
-            </div>
-            </li>
-        </ul>
-    </div>
+      </div>
+      </li>
+    </ul>
+  </div>
 </nav>
 <section class="dashboard">
-    <div class="top">
-        <i class="uil uil-bars sidebar-toggle"></i>
+  <div class="top">
+    <i class="uil uil-bars sidebar-toggle"></i>
 
-        <div class="search-box">
+    <div class="search-box">
 
+    </div>
+
+    <img src="images/webview.gif" alt="">
+  </div>
+
+  <div class="dash-content">
+    <div class="activity">
+      <div class="title">
+        <i class="uil uil-notebooks"></i>
+        <span class="text">Оберіть книгу</span>
+        <form th:action="@{/searchbookadmin}" method="get">
+          <input type="text" name="keyword" th:value="${keyword}"  placeholder="Пошук" size="50" >
+          <button type="submit" style="background-color: #fb9300; " class="uil-search"></button>
+        </form>
+      </div>
+      <div class="table">
+
+        <div class="table_section">
+          <table>
+            <thead>
+            <tr>
+              <th>Id qr-коду</th>
+              <th>Фото</th>
+              <th>Назва</th>
+              <th>Автор</th>
+              <th>Рік</th>
+              <th>Стилаж</th>
+              <th>Полиця</th>
+              <th>Action</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="book : ${books}">
+              <td th:text="${book.qrid}"></td>
+              <td><img th:src="@{'data:image/png;base64,' + ${book.getBookimgconv()} }"/></td>
+              <td th:text="${book.title}"></td>
+              <td th:text="${book.author}"></td>
+              <td th:text="${book.year}"></td>
+              <td th:text="${book.stilaj}"></td>
+              <td th:text="${book.polka}"></td>
+              <td class="btnactions">
+                <form th:action="'/assigningbook/'+ ${userid}+'/'+${book.id}" method="post">
+                  <button style="background-color: #f80000" type="submit" ><i class="uil uil-book-reader"> Видати книгу</i></button>
+                </form>
+            </tr>
+            </tbody>
+
+          </table>
         </div>
-
-        <img src="images/webview.gif" alt="">
+      </div>
     </div>
-
-    <div class="dash-content">
-
-        <div class="container">
-            <div class="title"><span>Видати книгу</span></div>
-            <div class="content">
-                <form th:action="@{/assigningbook}" method="post">
-                    <div class="user-details">
-                        <div class="input-box">
-                            <span class="details">Користувач</span>
-                            <div class="new-select-style-wpandyou">
-                                <select name="userid" id="userid">
-                                    <option th:each="user : ${users}" th:value="${user.id}"  th:text = "${user.lastName+ ' ' + user.firstName + ' ' + user.groups}"></option>
-                                </select>
-                            </div>
-
-                        </div>
-                        <div class="input-box">
-                            <span class="details">Книга</span>
-                            <div class="new-select-style-wpandyou">
-                                <select name="bookid" id="bookid">
-                                    <option th:each="book : ${books}" th:value="${book.id}"  th:text = "${book.title + ' ' + book.author}"></option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="button">
-                        <button type="submit">Видати</button>
-                    </div>
-                </form> </div>
-
-        </div>
-    </div>
-    </div>
+  </div>
 </section>
 <script src="js/script.js"></script>
 </body>

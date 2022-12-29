@@ -6,15 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!----======== CSS ======== -->
-    <link rel="stylesheet" href="/css/vudani.css" type="text/css">
+    <!---- CSS  -->
 
-    <!----===== Iconscout CSS ===== -->
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="stylesheet" href="/css/takebook.css" type="text/css">
+    <!---- Iconscout CSS  -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Exo+2:wght@300&display=swap" rel="stylesheet">
-    <title>Видані книги</title>
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <title>Видати книгу</title>
 </head>
 <body>
 <nav>
@@ -71,7 +72,6 @@
         </ul>
     </div>
 </nav>
-
 <section class="dashboard">
     <div class="top">
         <i class="uil uil-bars sidebar-toggle"></i>
@@ -86,14 +86,12 @@
     <div class="dash-content">
         <div class="activity">
             <div class="title">
-                <i class="uil uil-book-open"></i>
-                <span class="text">Видані книги</span>
-            </div>
-            <div th:if="${param.success}" class="alert">
-                Успішно видано
-            </div>
-            <div th:if="${param.alreadyassigned}" class="alert">
-                Книга вже видана раніше
+                <i class="uil uil-users-alt"></i>
+                <span class="text">Оберіть користувача</span>
+                <form th:action="@{/searchuseradmin}" method="get">
+                    <input type="text" name="keyword" th:value="${keyword}"  placeholder="Пошук" size="50" >
+                    <button type="submit" style="background-color: #fb9300; " class="uil-search"></button>
+                </form>
             </div>
             <div class="table">
 
@@ -104,38 +102,32 @@
                             <th>Група</th>
                             <th>І'мя</th>
                             <th>Прізвище</th>
-                            <th>Автор</th>
-                            <th>Назва</th>
-                            <th>Видано</th>
+                            <th>Email</th>
+                            <th>Телефон</th>
                             <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="takenbook : ${takenbooks}">
-                            <td th:text="${takenbook.getUser().getGroups()}">741</td>
-                            <td th:text="${takenbook.getUser().getFirstName()}">Павло</td>
-                            <td th:text="${takenbook.getUser().getLastName()}">Берлет</td>
-                            <td th:text="${takenbook.getBook().getAuthor()}">Котляревський</td>
-                            <td th:text="${takenbook.getBook().getTitle()}">Енеїда</td>
-                            <td th:text="${takenbook.getTakenat()}">30.05.1010</td>
+                        <tr th:each="user : ${users}">
+                            <td th:text="${user.groups}"></td>
+                            <td th:text="${user.firstName}"></td>
+                            <td th:text="${user.lastName}"></td>
+                            <td th:text="${user.email}"></td>
+                            <td th:text="${user.phonenum}"></td>
                             <td class="btnactions">
-                                <form th:action="'/usertakenadmin/'+ ${takenbook.getUser().getId()}" method="post">
-                                    <button style="background-color: #fb9300" type="submit"><i class="uil uil-book-open"></i></button>
-                                </form>
-                                <form th:action="'/assignedbooks/'+ ${takenbook.getId()}+'/remove'" method="post">
-                                    <button style="background-color: #f80000" type="submit" ><i class="uil uil-trash-alt"></i></button>
+                                <form th:action="'/takebook/'+${user.id}" method="get">
+                                    <button style="background-color: #58A9A5" type="submit"><i class="uil uil-user-check"> Обрати</i></button>
                                 </form>
                             </td>
                         </tr>
                         </tbody>
-
                     </table>
                 </div>
             </div>
 
-        </div></div>
+        </div>
+    </div>
 </section>
-
 <script src="js/script.js"></script>
 </body>
 </html>

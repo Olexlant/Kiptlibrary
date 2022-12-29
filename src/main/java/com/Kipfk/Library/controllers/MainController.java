@@ -27,8 +27,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 
@@ -354,16 +352,21 @@ public class MainController {
 
 
     @GetMapping("/takebook")
-    public String showAssignForm(Model model) {
+    public String showUsersToTake(Model model) {
         List<AppUser> listUsers = userRepo.findAll();
         model.addAttribute("users", listUsers);
-        List<AppBook> listBooks = appBookRepository.findAll();
-        model.addAttribute("books", listBooks);
+        return "takebookuser";
+    }
+    @GetMapping("/takebook/{id}")
+    public String showBooksToTake(Model model, @PathVariable Long id) {
+        List<AppBook> books = appBookRepository.findAll();
+        model.addAttribute("userid", id);
+        model.addAttribute("books", books);
         return "takebook";
     }
 
-    @PostMapping("/assigningbook")
-    public String createtakenbook(TakenBooks takenBooks, Model model, @Valid Long bookid, @Valid Long userid) {
+    @PostMapping("/assigningbook/{userid}/{bookid}")
+    public String createtakenbook(TakenBooks takenBooks, Model model, @PathVariable Long userid, @PathVariable Long bookid) {
         AppUser user = appUserRepository.findById(userid).orElseThrow();
         takenBooks.setUser(user);
         AppBook book = appBookRepository.findById(bookid).orElseThrow();
@@ -372,9 +375,11 @@ public class MainController {
         takenBooks.setTakenat(LocalDate.now());
         if (uniquetb){
             takenBooksRepository.save(takenBooks);
+        }else {
+            return "redirect:/assignedbooks?alreadyassigned";
         }
         model.addAttribute("takenBooks", takenBooksRepository.findAll());
-        return "redirect:/assignedbooks";
+        return "redirect:/assignedbooks?success";
     }
     @GetMapping("/assignedbooks")
     public String showassignedbooks(Model model){
@@ -422,7 +427,7 @@ public class MainController {
         likedBooksRepository.delete(likedbook);
         return "redirect:/allbooks";
     }
-
+//USER FAVOURITE BOOKS
     @GetMapping("/myfavouritebooks")
     public String showUserFavouriteBooks(@AuthenticationPrincipal UserDetails userDetails,Model model){
         AppUser user = (AppUser) appUserService.loadUserByUsername(userDetails.getUsername());
