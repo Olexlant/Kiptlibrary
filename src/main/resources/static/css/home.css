@@ -876,7 +876,7 @@ footer .text span a:hover{
   
     }
     .navbar .btn .login-button a:hover{
-      color: black;
+      color: #FFF;
     }
     nav .navbar .btn .header-button .logo-image{
       position: relative;
@@ -898,6 +898,7 @@ footer .text span a:hover{
     }
     .user-info img{
       margin-right: 15px;
+      display: none;
     }
     .sub-menu hr{
       border: 0;
@@ -906,6 +907,7 @@ footer .text span a:hover{
       background: #25398e;
       margin: 15px 0 10px;
     }
+   .
     .sub-menu-link{
       display: flex;
       align-items: center;
@@ -933,6 +935,9 @@ footer .text span a:hover{
     }
     .sub-menu-link:hover p{
       font-weight: 600;
+    }
+    .navbar .btn .header-button .sub-menu-wrap .sub-menu a{
+      color:black;
     }
   
 nav .navbar .menu{
@@ -987,7 +992,7 @@ nav .navbar.active .btn{
       font-size: 23px;
       display: flex;
       margin: 6px;
-      color:black;
+      color:#fff;
     }
     .navbar .btn a:hover{
       color: #fff;
