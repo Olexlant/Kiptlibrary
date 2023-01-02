@@ -33,6 +33,7 @@
                     <li><a th:href="@{/allbooks}" class="golovna">Всі книги</a></li>
                     <li><a th:href="@{/userassigned}" class="golovna">Мої книги</a></li>
                     <li><a th:href="@{/myfavouritebooks}" class="golovna">Улюблені</a></li>
+                <li><a th:href="@{/myfavouritebooks}" class="golovna">За програмою</a></li><!--поменять th:href="@{/myfavouritebooks}" -->
                 <div class="cancel-btn">
                     <i class="fa fa-arrow-right"></i>
                 </div>
@@ -48,13 +49,50 @@
                     <a class="header-button-reg1" th:href="@{/admin}" >Admin панель</a>
                 </div>
                 <div class="header-button">
-                    <a class="header-button-reg" th:href="@{/logout}" >Вийти</a>
-                </div>
+                    <div class="logo-image">
+                        <a><img src="/images/book.jpg"  onclick="toggleMenu()"></a>
+                    </div>
+                    <div class="sub-menu-wrap" id="subMenu">
+                        <div class="sub-menu">
+                            <div class="user-info">
+                                <div class="user-info-img">
+                                    <img src="/images/book.jpg">
+                                </div>
+                                <h2 class="">
+                                    <span sec:authentication="principal.firstName"></span>
+                                    <span sec:authentication="principal.lastName"></span>
+                                </h2>
+                            </div>
+                            <hr>
+                            <a href="#" class="sub-menu-link">
+                                <iconify-icon icon="fluent:person-edit-20-regular" style="color: #25398e;"></iconify-icon>
+                                <p>Редагувати профіль</p>
+                                <span>></span>
+                            </a>
+                            <a href="#" class="sub-menu-link">
+                                <iconify-icon icon="material-symbols:settings-rounded"style="color: #25398e;"></iconify-icon>
+                                <p>Налаштування</p>
+                                <span>></span>
+                            </a>
+                            <a href="#" class="sub-menu-link">
+                                <iconify-icon icon="material-symbols:help"style="color: #25398e;"></iconify-icon>
+                                <p>Допомога</p>
+                                <span>></span>
+                            </a>
+                            <a href="#" class="sub-menu-link" th:href="@{/logout}">
+                                <iconify-icon icon="tabler:door-exit"style="color: #25398e;"></iconify-icon>
+                                <p>Вийти</p>
+                                <span>></span>
+                            </a>
 
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="menu-btn">
             <i class="fas fa-bars"></i>
         </div>
     </nav>
+    <script src="https://code.iconify.design/iconify-icon/1.0.2/iconify-icon.min.js"></script>
     <script src="/js/slider.js"></script></body></div></html>

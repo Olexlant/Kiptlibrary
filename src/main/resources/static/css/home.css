@@ -37,6 +37,7 @@ nav.sticky{
 	text-decoration: none;
 	overflow: hidden;
   border: 2px solid transparent;
+  
 }
 .header-button-reg:hover{
   border-color: #3048b1;
@@ -59,6 +60,25 @@ nav.sticky{
   background-color: #5FAEA1;
   color: #FFF;
 }
+.header-button .header-button-reg2{
+  position: relative;
+	color: #fff;
+	padding: 8px 20px;
+	background: #25398e;
+	border-radius: 8px;
+	margin: 0 15px;
+	font-size: 18px;
+	text-decoration: none;
+	overflow: hidden;
+  border: 2px solid transparent;
+  top: 20px;
+}
+.header-button-reg2:hover{
+  border-color: #3048b1;
+  background-color: #3048b1;
+  color: #fff;
+}
+
 
 nav .navbar{
   width: 90%;
@@ -148,6 +168,7 @@ nav .navbar .btn {
   display: flex;
   font-size: 18px;
   margin: 0 8px;
+  margin-right: 50px;
 }
 .btn li{
   margin:  0 8px;
@@ -207,8 +228,108 @@ width: 50%;
 object-fit: cover;
 margin-top: 5px;
 cursor: pointer;
-
 }
+nav .navbar .btn .header-button .logo-image{
+  position: relative;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid transparent;
+  border: #25398e;
+}
+ nav .navbar .btn .header-button .logo-image img{
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+object-fit: cover;
+ }
+/*sub-menu--------------------------------------------------------*/
+.sub-menu-wrap .sub-menu .user-info .user-info-img {
+  position: relative;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.sub-menu-wrap .sub-menu .user-info .user-info-img img {
+  position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+.sub-menu-wrap{
+  position: absolute;
+  top: 100%;
+  right: 10%;
+  width: 320px;
+  max-height: 0px;
+  overflow: hidden;
+  transition: max-height 0.5s;
+}
+.sub-menu-wrap.open-menu{
+  max-height: 400px;
+}
+
+
+.sub-menu{
+  background: #fff;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 12px;
+}
+.user-info{
+  display: flex;
+  align-items: center;
+}
+.user-info h2 span{
+  font-size: 17px;
+  margin-left: 4px;
+}
+.user-info img{
+  margin-right: 15px;
+}
+.sub-menu hr{
+  border: 0;
+  height: 1px;
+  width: 100%;
+  background: #25398e;
+  margin: 15px 0 10px;
+}
+.sub-menu-link{
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #525252;
+  margin: 12px 0;
+}
+.sub-menu-link p{
+  width: 100%;
+  font-size: 18px;
+}
+.sub-menu-link iconify-icon {
+  width: 40px;
+  border-radius: 50%;
+  padding: 8px;
+  margin-right: 15px;
+}
+.sub-menu-link span{
+  font-size: 22px;
+  transition: transform 0.5s;
+}
+
+.sub-menu-link:hover span{
+ transform: translateX(5px);
+}
+.sub-menu-link:hover p{
+  font-weight: 600;
+}
+
 .home .home-content .left video{
   height: 420px;
   width: 420px;
@@ -757,6 +878,62 @@ footer .text span a:hover{
     .navbar .btn .login-button a:hover{
       color: black;
     }
+    nav .navbar .btn .header-button .logo-image{
+      position: relative;
+      width: 75px;
+      height: 75px;
+      border-radius: 50%;
+      overflow: hidden;
+      cursor: pointer;
+      border: 2px solid transparent;
+      border: #25398e;
+    }
+    .user-info{
+      display: flex;
+      align-items: center;
+    }
+    .user-info h2 span{
+      font-size: 17px;
+      margin-left: 4px;
+    }
+    .user-info img{
+      margin-right: 15px;
+    }
+    .sub-menu hr{
+      border: 0;
+      height: 1px;
+      width: 100%;
+      background: #25398e;
+      margin: 15px 0 10px;
+    }
+    .sub-menu-link{
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: #525252;
+      margin: 12px 0;
+    }
+    .sub-menu-link p{
+      width: 100%;
+      font-size: 18px;
+    }
+    .sub-menu-link iconify-icon {
+      width: 40px;
+      border-radius: 50%;
+      padding: 8px;
+      margin-right: 15px;
+    }
+    .sub-menu-link span{
+      font-size: 22px;
+      transition: transform 0.5s;
+    }
+    
+    .sub-menu-link:hover span{
+     transform: translateX(5px);
+    }
+    .sub-menu-link:hover p{
+      font-weight: 600;
+    }
   
 nav .navbar .menu{
   position: absolute;
@@ -768,7 +945,7 @@ nav .navbar .menu{
   background: #fff; 
   flex-direction: column;
   align-items: center;
-  padding-top: 140px;
+  padding-top: 135px;
   transition: all 0.6s ease;
 }
 nav .navbar.active .menu{
@@ -808,9 +985,9 @@ nav .navbar.active .btn{
 }
     .navbar .btn a{
       font-size: 23px;
-      display: block;
+      display: flex;
       margin: 6px;
-      color:#fff;
+      color:black;
     }
     .navbar .btn a:hover{
       color: #fff;

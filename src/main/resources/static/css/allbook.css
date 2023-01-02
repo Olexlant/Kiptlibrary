@@ -435,6 +435,7 @@ input {
   border: 2px solid #25398e;
   border-radius: 6px;
   color: #25398e;
+  background-color: #f0f3ff;
 }
 .container .box-container .box .content .icons .year{
   font-size: 14px;
@@ -457,28 +458,54 @@ font-family: 'Exo 2', sans-serif;
   padding-right: 5px;
 
 }
-.pagination {
+.page-header {
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: normal;
+  border-bottom: 1px solid #ddd;
+  margin: 30px 0
+}
+#pagination {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  font-size: 21px;
+  margin-top: 90px;
+}
+#pagination li {
+  display: inline
+}
+#pagination li a {
   display: inline-block;
-}
-
-.pagination a {
-  color: black;
-  float: left;
-  padding: 8px 16px;
   text-decoration: none;
-  transition: background-color .3s;
-  border: 1px solid #ddd;
-  margin: 0 4px;
-  border-radius: 7px;
+  padding: 5px 10px;
+  color: #000
 }
 
-.pagination a.active {
-  background-color: #25398e;
-  color: white;
-  border: 1px solid #25398e;
-  border-radius: 7px;
-  margin-top: 100px;
+/* Active and Hoverable Pagination */
+#pagination li a {
+  border-radius: 5px;
+  -webkit-transition: background-color 0.3s;
+  transition: background-color 0.3s
+    
 }
+#pagination li a.active {
+  background-color: #25398e;
+  color: #fff
+}
+#pagination li a:hover:not(.active) {
+  background-color: #ddd;
+} 
+
+
+
+.pagination {
+  margin-top: 95px;
+  align-items: center;
+  justify-content: center;
+
+}
+
 
 .pagination a:hover:not(.active) {background-color: #ddd;}
 @media(max-width: 1000px){
@@ -489,6 +516,8 @@ font-family: 'Exo 2', sans-serif;
     .navbar .btn .login-button a:hover{
       color: black;
     }
+
+
   
 nav .navbar .menu{
   position: absolute;
@@ -632,6 +661,13 @@ nav .navbar .cancel-btn{
     @media(max-width:667px){
       nav .navbar .logo .kcas-library{
         padding-right: 250px;
+      }
+      #pagination {
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        font-size: 15px;
+        margin-top: 90px;
       }
     }
     @media(max-width:609px){

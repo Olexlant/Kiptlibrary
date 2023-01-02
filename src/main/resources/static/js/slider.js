@@ -1,3 +1,10 @@
+let subMenu = document.getElementById("subMenu");
+function toggleMenu(){
+  subMenu.classList.toggle("open-menu");
+}
+
+
+
 
 // Sticky Navigation Menu JS Code
 let nav = document.querySelector("nav");
