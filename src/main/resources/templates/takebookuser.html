@@ -88,7 +88,7 @@
             <div class="title">
                 <i class="uil uil-users-alt"></i>
                 <span class="text">Оберіть користувача</span>
-                <form th:action="@{/searchuseradmin}" method="get">
+                <form th:action="@{/searchusertakebook}" method="get">
                     <input type="text" name="keyword" th:value="${keyword}"  placeholder="Пошук" size="50" >
                     <button type="submit" style="background-color: #fb9300; " class="uil-search"></button>
                 </form>

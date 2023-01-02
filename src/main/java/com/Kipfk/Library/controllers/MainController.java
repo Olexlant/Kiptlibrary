@@ -551,4 +551,29 @@ public class MainController {
         return "allusers";
     }
 
+    @RequestMapping(path = {"/searchbooktakebook/{userid}"})
+    public String searchbookintakebook(@PathVariable Long userid, Model model, String keyword) {
+        if (keyword != null) {
+            List<AppBook> list = appBookService.getAllByKeyword(keyword);
+            model.addAttribute("books", list);
+        } else {
+            Iterable<AppBook> books = appBookRepository.findAll();
+            model.addAttribute("books", books);
+        }
+        model.addAttribute("userid", userid);
+        return "takebook";
+    }
+
+    @RequestMapping(path = {"/searchusertakebook"})
+    public String searchuserintakebook(Model model, String keyword) {
+        if (keyword != null) {
+            List<AppUser> user = appUserService.getByKeyword(keyword);
+            model.addAttribute("users", user);
+        } else {
+            Iterable<AppUser> users = appUserRepository.findAll();
+            model.addAttribute("users", users);
+        }
+        return "takebookuser";
+    }
+
 }

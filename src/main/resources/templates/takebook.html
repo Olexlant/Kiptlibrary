@@ -88,7 +88,7 @@
       <div class="title">
         <i class="uil uil-notebooks"></i>
         <span class="text">Оберіть книгу</span>
-        <form th:action="@{/searchbookadmin}" method="get">
+        <form th:action="@{/searchbooktakebook} + '/'+ ${userid}" method="get">
           <input type="text" name="keyword" th:value="${keyword}"  placeholder="Пошук" size="50" >
           <button type="submit" style="background-color: #fb9300; " class="uil-search"></button>
         </form>
