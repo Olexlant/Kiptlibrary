@@ -10,5 +10,6 @@ public interface CategoriesOfBooksRepository extends JpaRepository<CategoriesOfB
     Optional<CategoriesOfBooks> findByName(String name);
 
     CategoriesOfBooks findAllByName(String name);
+    CategoriesOfBooks findAllById(Long id);
 
 }
