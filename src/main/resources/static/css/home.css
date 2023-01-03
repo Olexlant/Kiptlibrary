@@ -273,7 +273,7 @@ object-fit: cover;
   transition: max-height 0.5s;
 }
 .sub-menu-wrap.open-menu{
-  max-height: 400px;
+  max-height: 420px;
 }
 
 
@@ -891,6 +891,7 @@ footer .text span a:hover{
     .user-info{
       display: flex;
       align-items: center;
+      justify-content: center;
     }
     .user-info h2 span{
       font-size: 17px;
@@ -907,7 +908,6 @@ footer .text span a:hover{
       background: #25398e;
       margin: 15px 0 10px;
     }
-   .
     .sub-menu-link{
       display: flex;
       align-items: center;
@@ -915,9 +915,11 @@ footer .text span a:hover{
       color: #525252;
       margin: 12px 0;
     }
+
     .sub-menu-link p{
       width: 100%;
       font-size: 18px;
+      margin-right: 13px;
     }
     .sub-menu-link iconify-icon {
       width: 40px;
@@ -935,6 +937,9 @@ footer .text span a:hover{
     }
     .sub-menu-link:hover p{
       font-weight: 600;
+    }
+    .sub-menu-wrap .sub-menu .user-info .user-info-img{
+      display: none;
     }
     .navbar .btn .header-button .sub-menu-wrap .sub-menu a{
       color:black;

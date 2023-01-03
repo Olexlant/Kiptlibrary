@@ -45,9 +45,6 @@
                 </div>
             </div>
             <div class="btn" sec:authorize="isAuthenticated()">
-                <div class="header-button"  sec:authorize="hasAuthority('ADMIN')">
-                    <a class="header-button-reg1" th:href="@{/admin}" >Admin панель</a>
-                </div>
                 <div class="header-button">
                     <div class="logo-image">
                         <a><img src="/images/book.jpg"  onclick="toggleMenu()"></a>
@@ -77,6 +74,11 @@
                             <a href="#" class="sub-menu-link">
                                 <iconify-icon icon="material-symbols:help"style="color: #25398e;"></iconify-icon>
                                 <p>Допомога</p>
+                                <span>></span>
+                            </a>
+                            <a th:href="@{/admin}" class="sub-menu-link"  sec:authorize="hasAuthority('ADMIN')">
+                                <iconify-icon icon="eos-icons:admin-outlined" style="color: #25398e;"></iconify-icon>
+                                <p>Адмін панель</p>
                                 <span>></span>
                             </a>
                             <a href="#" class="sub-menu-link" th:href="@{/logout}">
