@@ -3,25 +3,21 @@ package com.Kipfk.Library.controllers;
 import com.Kipfk.Library.appbook.*;
 import com.Kipfk.Library.appuser.*;
 import com.Kipfk.Library.registration.RegistrationService;
-import com.Kipfk.Library.registration.token.ConfirmationToken;
 import com.Kipfk.Library.registration.token.ConfirmationTokenRepository;
-import com.google.zxing.WriterException;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -71,6 +67,7 @@ public class MainController {
         this.userRepo = userRepo;
         this.bookCategoryRepository = bookCategoryRepository;
         this.categoriesOfBooksRepository = categoriesOfBooksRepository;
+
     }
 
     @GetMapping("/")
@@ -236,6 +233,14 @@ public class MainController {
         LikedBooks lb = likedBooksRepository.findById(id).orElseThrow();
         likedBooksRepository.delete(lb);
         return "redirect:/myfavouritebooks";
+    }
+
+    @GetMapping("/editprofile")
+    public String showEditProfilePage(@AuthenticationPrincipal UserDetails userDetails, Model model){
+        AppUser user = (AppUser) appUserService.loadUserByUsername(userDetails.getUsername());
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        model.addAttribute("user",user);
+        return "editprofile";
     }
 
 
