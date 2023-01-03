@@ -32,32 +32,35 @@
                 <i class="uil uil-estate"></i>
                 <span class="link-name">Головна</span>
             </a></li>
-            <li><a th:href="@{/allusers}">
+            <li><a th:href="@{/admin/allusers}">
                 <i class="uil uil-users-alt"></i>
                 <span class="link-name" >Користувачі</span>
             </a></li>
-            <li><a th:href="@{/allbooksadmin}">
+            <li><a th:href="@{/admin/allbooksadmin}">
                 <i class="uil uil-notebooks"></i>
                 <span class="link-name">Всі книги</span>
             </a></li>
-            <li><a th:href="@{/assignedbooks}">
+            <li><a th:href="@{/admin/assignedbooks}">
                 <i class="uil uil-books"></i>
                 <span class="link-name">Видані книги</span>
             </a></li>
 
-            <li><a th:href="@{/addbook}">
+            <li><a th:href="@{/admin/addbook}">
                 <i class="uil uil-plus"></i>
                 <span class="link-name">Додати книгу</span>
             </a></li>
-            <li><a th:href="@{/adduser}">
+            <li><a th:href="@{/admin/adduser}">
                 <i class="uil uil-user-plus"></i>
                 <span class="link-name">Додати користувача</span>
             </a></li>
-            <li><a th:href="@{/takebook}">
+            <li><a th:href="@{/admin/takebook}">
                 <i class="uil uil-plus-circle"></i>
                 <span class="link-name">Видати книгу</span>
             </a></li>
-
+            <li><a th:href="@{/admin/addbookcategory}">
+                <i class="uil uil-plus-circle"></i>
+                <span class="link-name">Категорії книг</span>
+            </a></li>
         </ul>
 
         <ul class="logout-mode">
@@ -89,7 +92,7 @@
         <div class="container">
             <div class="title"><span>Додавання книги</span></div>
             <div class="content">
-                <form method="post" th:action="@{/book_adding}" th:object="${book}" enctype="multipart/form-data">
+                <form method="post" th:action="@{/admin/book_adding}" th:object="${book}" enctype="multipart/form-data">
                     <div class="user-details">
                         <div class="input-box">
                             <span class="details">Id qr-коду</span>

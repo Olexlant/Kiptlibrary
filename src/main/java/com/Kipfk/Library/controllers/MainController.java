@@ -79,7 +79,7 @@ public class MainController {
         return "home";
     }
 
-    //REGISTRATION
+//REGISTRATION
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new AppUser());
@@ -99,36 +99,7 @@ public class MainController {
         return "confirm_success";
     }
 
-    //ADDBOOK
-    @GetMapping("/addbook")
-    public String showBookAddingForm(Model model) {
-        model.addAttribute("book", new AppBook());
-        return "addbook";
-    }
 
-    @PostMapping("/book_adding")
-    public String bookadd(AppBook appBook,@RequestParam("files") MultipartFile[] multipartFiles) throws IOException {
-        try {
-            appBook.setQrimg(QRCodeGenerator.getQRCodeImage(String.valueOf(appBook.getQrid()),300,300));
-        } catch (WriterException | IOException e) {
-            e.printStackTrace();
-        }
-        appBook.setBookimg(multipartFiles[0].getBytes());
-        if(appBook.getBookfileurl().isEmpty()){
-            if (!multipartFiles[1].isEmpty()){
-                appBook.setBookfile(multipartFiles[1].getBytes());
-            }else {
-                appBook.setBookfile(null);
-            }
-        }else {
-            appBook.setBookfile(null);
-
-        }
-        appBookService.bookadd(appBook);
-        appBookRepository.save(appBook);
-
-        return "redirect:/allbooksadmin";
-    }
 
 //ALLBOOKS
     @RequestMapping(value = "/allbooks", method = RequestMethod.GET)
@@ -154,7 +125,6 @@ public class MainController {
                 int[] bodyAfter = (pageNumber > 2 && pageNumber < totalPages - 3) ? new int[]{pageNumber+1, pageNumber+2} : new int[]{};
                 int[] tail = (pageNumber < totalPages - 3) ? new int[]{-1, totalPages} : new int[] {totalPages-2, totalPages-1, totalPages};
                 body = MainController.merge(head, bodyBefore, bodyCenter, bodyAfter, tail);
-
             } else {
                 body = new int[bookPage.getTotalPages()];
                 for (int i = 0; i < bookPage.getTotalPages(); i++) {
@@ -175,7 +145,6 @@ public class MainController {
                 int[] bodyAfter = (pageNumber > 2 && pageNumber < totalPages - 3) ? new int[]{pageNumber+1, pageNumber+2} : new int[]{};
                 int[] tail = (pageNumber < totalPages - 3) ? new int[]{-1, totalPages} : new int[] {totalPages-2, totalPages-1, totalPages};
                 body = MainController.merge(head, bodyBefore, bodyCenter, bodyAfter, tail);
-
             } else {
                 body = new int[bookPage.getTotalPages()];
                 for (int i = 0; i < bookPage.getTotalPages(); i++) {
@@ -215,196 +184,18 @@ public class MainController {
         AppBook book = appBookRepository.findAllById(id);
         InputStream is = new ByteArrayInputStream(book.getBookfile());
         IOUtils.copy(is, response.getOutputStream());
-
     }
 
-//ADMIN
-    @GetMapping("/admin")
-    public String showAdminHome(Model model){
-        List <AppUser> users =  appUserRepository.findAll();
-        int usercount = users.size();
-        model.addAttribute("usercount", usercount);
-        List <AppBook> books = appBookRepository.findAll();
-        int bookcount = books.size();
-        model.addAttribute("bookcount",bookcount);
-        List <TakenBooks> taken = takenBooksRepository.findAll();
-        int takencount = taken.size();
-        model.addAttribute("takencount",takencount);
-        return "admin";
-    }
-
-    @GetMapping("/allbooksadmin")
-    public String showAllBooksAdmin(Model model){
-        List<AppBook> books = appBookRepository.findAll();
-        model.addAttribute("books",books);
-        return "allbooksadmin";
-    }
-
-    @GetMapping("/allbooksadmin/{id}/edit")
-    public String AdminBookEdit(@PathVariable(value = "id") long id, Model model){
-        if (!appBookRepository.existsById(id)){
-            return "redirect:/allbooksadmin";
-        }
-        Optional <AppBook> book = appBookRepository.findById(id);
-        AppBook b = appBookRepository.findAllById(id);
-        ArrayList <AppBook> rbook = new ArrayList<>();
-        book.ifPresent(rbook::add);
-
-        model.addAttribute("bookd", rbook);
-        return "bookadminedit";
-    }
-    @PostMapping("/allbooksadmin/{id}/edit")
-    public String AdminBookUpdate(@PathVariable(value = "id") long id,@RequestParam Long qrid, @RequestParam String title, @RequestParam String author, @RequestParam Long year, @RequestParam Long stilaj, @RequestParam Long polka,@RequestParam("files") MultipartFile[] multipartFiles,@RequestParam String bookfileurl ) throws IOException {
-        AppBook book = appBookRepository.findById(id).orElseThrow();
-        book.setQrid(qrid);
-        book.setTitle(title);
-        book.setAuthor(author);
-        book.setYear(year);
-        book.setStilaj(stilaj);
-        book.setPolka(polka);
-        if (!multipartFiles[0].isEmpty()){
-            book.setBookimg(multipartFiles[0].getBytes());
-        }
-        if(bookfileurl.isEmpty()){
-            book.setBookfileurl("");
-            if (!multipartFiles[1].isEmpty()){
-                book.setBookfile(multipartFiles[1].getBytes());
-            }else {
-                book.setBookfile(null);
-            }
-        }else {
-            book.setBookfile(null);
-            book.setBookfileurl(bookfileurl);
-        }
-        appBookRepository.save(book);
-        return "redirect:/allbooksadmin";
-    }
-    @PostMapping("/allbooksadmin/{id}/remove")
-    public String AdminBookDelete(@PathVariable(value = "id") long id) {
-        AppBook book = appBookRepository.findById(id).orElseThrow();
-        appBookRepository.delete(book);
-        return "redirect:/allbooksadmin";
-    }
-
-
-    @GetMapping("/adduser")
-    public String showAddUserForm(Model model) {
-        model.addAttribute("user", new AppUser());
-        return "adduser";
-    }
-
-    @PostMapping("/process_useradd")
-    public String signUpByAdd(AppUser user) {
-        registrationService.register(user);
-        return "redirect:/allusers";
-    }
-
-    @GetMapping("/allusers")
-    public String listUsers(Model model) {
-        List<AppUser> listUsers = userRepo.findAll(Sort.by(Sort.Direction.ASC, "lastName"));
-
-        model.addAttribute("Users", listUsers);
-        return "allusers";
-    }
-
-    @GetMapping("/allusers/{id}/edit")
-    public String AdminUserEdit(@PathVariable(value = "id") long id, Model model){
-        if (!appUserRepository.existsById(id)){
-            return "redirect:/allusers";
-        }
-        Optional <AppUser> user = appUserRepository.findById(id);
-        ArrayList <AppUser> ruser = new ArrayList<>();
-        user.ifPresent(ruser::add);
-        model.addAttribute("userd", ruser);
-        return "useradminedit";
-    }
-    @PostMapping("/allusers/{id}/edit")
-    public String AdminUserUpdate(@PathVariable(value = "id") long id,@RequestParam String firstname, @RequestParam String lastname, @RequestParam String phonenum, @RequestParam String password, @RequestParam String email, @RequestParam String groups) {
-        AppUser user = appUserRepository.findById(id).orElseThrow();
-        user.setFirstName(firstname);
-        user.setLastName(lastname);
-        user.setEmail(email);
-        user.setPhonenum(phonenum);
-        user.setPassword(password);
-        user.setGroups(groups);
-        appUserRepository.save(user);
-        return "redirect:/allusers";
-    }
-    @PostMapping("/allusers/{id}/remove")
-    public String AdminUserDelete(@PathVariable(value = "id") long id) {
-        AppUser user = appUserRepository.findById(id).orElseThrow();
-        boolean tokenpresent = confirmationTokenRepository.findByAppUser(user).isPresent();
-        boolean bookspresent = likedBooksRepository.findByUser(user).isPresent();
-        boolean takenBookspresent = takenBooksRepository.findByUser(user).isEmpty();
-        if (tokenpresent){
-            ConfirmationToken token = confirmationTokenRepository.findByAppUser(user).get();
-            confirmationTokenRepository.delete(token);
-        }
-        if (bookspresent){
-            LikedBooks books = likedBooksRepository.findByUser(user).get();
-            likedBooksRepository.delete(books);
-        }
-        if (!takenBookspresent){
-            TakenBooks takenBooks = takenBooksRepository.findByUser(user).get();
-            takenBooksRepository.delete(takenBooks);
-        }
-        appUserRepository.delete(user);
-        return "redirect:/allusers";
-    }
-
-
-    @GetMapping("/takebook")
-    public String showUsersToTake(Model model) {
-        List<AppUser> listUsers = userRepo.findAll();
-        model.addAttribute("users", listUsers);
-        return "takebookuser";
-    }
-    @GetMapping("/takebook/{id}")
-    public String showBooksToTake(Model model, @PathVariable Long id) {
-        List<AppBook> books = appBookRepository.findAll();
-        model.addAttribute("userid", id);
-        model.addAttribute("books", books);
-        return "takebook";
-    }
-
-    @PostMapping("/assigningbook/{userid}/{bookid}")
-    public String createtakenbook(TakenBooks takenBooks, Model model, @PathVariable Long userid, @PathVariable Long bookid) {
-        AppUser user = appUserRepository.findById(userid).orElseThrow();
-        takenBooks.setUser(user);
-        AppBook book = appBookRepository.findById(bookid).orElseThrow();
-        takenBooks.setBook(book);
-        boolean uniquetb = takenBooksRepository.findByUserAndBook(user, book).isEmpty();
-        takenBooks.setTakenat(LocalDate.now());
-        if (uniquetb){
-            takenBooksRepository.save(takenBooks);
-        }else {
-            return "redirect:/assignedbooks?alreadyassigned";
-        }
-        model.addAttribute("takenBooks", takenBooksRepository.findAll());
-        return "redirect:/assignedbooks?success";
-    }
-    @GetMapping("/assignedbooks")
-    public String showassignedbooks(Model model){
-        List<TakenBooks> takenBooks = takenBooksRepository.findAll();
-        model.addAttribute("takenbooks", takenBooks);
-        return "assignedbooks";
-    }
-
-    @GetMapping("/userassigned")
+    @GetMapping("/mytakenbooks")
     public String showUserAssigned(@AuthenticationPrincipal UserDetails userDetails,Model model){
         AppUser user = (AppUser) appUserService.loadUserByUsername(userDetails.getUsername());
         List<TakenBooks> takenBooks = takenBooksRepository.findAll();
         Stream<TakenBooks> tbs = takenBooks.stream().filter(findEmp -> user.getId().equals(findEmp.getUser().getId()));
         List<TakenBooks> tb = tbs.toList();
         model.addAttribute("takenbooks", tb);
-        return "userassigned";
+        return "mytakenbooks";
     }
-    @PostMapping("/assignedbooks/{id}/remove")
-    public String removeassignedbooks(@PathVariable(value = "id") long id) {
-        TakenBooks tb = takenBooksRepository.findById(id).orElseThrow();
-        takenBooksRepository.delete(tb);
-        return "redirect:/assignedbooks";
-    }
+
 
     @PostMapping("/likingbook/{id}")
     public String createlikedbook(@AuthenticationPrincipal UserDetails userDetails,LikedBooks likedBooks, @PathVariable(value = "id") long bookid) {
@@ -429,6 +220,7 @@ public class MainController {
         likedBooksRepository.delete(likedbook);
         return "redirect:/allbooks";
     }
+
 //USER FAVOURITE BOOKS
     @GetMapping("/myfavouritebooks")
     public String showUserFavouriteBooks(@AuthenticationPrincipal UserDetails userDetails,Model model){
@@ -445,137 +237,8 @@ public class MainController {
         likedBooksRepository.delete(lb);
         return "redirect:/myfavouritebooks";
     }
-    @PostMapping("/usertakenadmin/{id}")
-    public String showusertaken(@PathVariable(value = "id") long userid,Model model){
-        AppUser user = appUserRepository.findById(userid).orElseThrow();
-        List<TakenBooks> takenBooks = takenBooksRepository.findAll();
-        Stream<TakenBooks> tbs = takenBooks.stream().filter(findEmp -> user.getId().equals(findEmp.getUser().getId()));
-        List<TakenBooks> tb = tbs.toList();
-        model.addAttribute("user",user);
-        model.addAttribute("usertaken", tb);
-        return "usertakenadmin";
-    }
 
-//CATEGORIES OF BOOKS
-    @GetMapping("/addbookcategory")
-    public String showaddbookcategory(Model model){
-        List<CategoriesOfBooks> categoriesOfBooks = categoriesOfBooksRepository.findAll();
-        model.addAttribute("newcategory",new CategoriesOfBooks());
-        model.addAttribute("categories",categoriesOfBooks);
-        return "addbookcategory";
-    }
-    @PostMapping("/addbookcategory")
-    public String addbookcategory(Model model,CategoriesOfBooks categoriesOfBooks){
-        categoriesOfBooksRepository.save(categoriesOfBooks);
-        return "redirect:/addbookcategory";
-    }
-    @PostMapping("/deletebookcategory/{id}")
-    public String deletebookcategory(@PathVariable Long id){
-        CategoriesOfBooks categories = categoriesOfBooksRepository.findById(id).orElseThrow();
-        categoriesOfBooksRepository.delete(categories);
-        return "redirect:/addbookcategory";
-    }
 
-//ADD CATEGORY TO BOOK
-    @GetMapping("/addcategorytobook/{id}")
-    public String showaddcategorytobook(Model model,@PathVariable Long id){
-        List<BookCategory> bc = bookCategoryRepository.findAllByBookId(id);
-        List<CategoriesOfBooks> cofb = categoriesOfBooksRepository.findAll();
-        model.addAttribute("allcategories", cofb);
-        model.addAttribute("bookcategories", bc);
-        return "addcategorytobook";
-    }
-    @PostMapping("/addcategorytobook/{bookid}/{categoryid}")
-    public String addcategorytobook(Model model,@PathVariable Long bookid,@PathVariable Long categoryid){
 
-        AppBook book = appBookRepository.findById(bookid).get();
-        CategoriesOfBooks category = categoriesOfBooksRepository.findById(categoryid).get();
-        BookCategory bccheck = bookCategoryRepository.findByCategoryAndBook(category, book);
-        if (bccheck == null){
-            BookCategory bc = new BookCategory();
-            bc.setBook(book);
-            bc.setCategory(category);
-            bookCategoryRepository.save(bc);
-        }else {
-            return "redirect:/addcategorytobook/"+bookid;
-        }
-
-        return "redirect:/addcategorytobook/"+bookid;
-    }
-    @PostMapping("/addcategorytobook/{bookid}/{categoryid}/delete")
-    public String deletecategoryfrombook(Model model,@PathVariable Long bookid,@PathVariable Long categoryid){
-        AppBook book = appBookRepository.findById(bookid).get();
-        CategoriesOfBooks category = categoriesOfBooksRepository.findById(categoryid).get();
-        BookCategory bc = bookCategoryRepository.findByCategoryAndBook(category, book);
-        bookCategoryRepository.delete(bc);
-        return "redirect:/addcategorytobook/"+bookid;
-    }
-
-//SEARCH
-    @RequestMapping(path = {"/searchbook"})
-    public String searchbook(@AuthenticationPrincipal UserDetails userDetails, Model model, String keyword) {
-        if (keyword != null) {
-            List<AppBook> list = appBookService.getAllByKeyword(keyword);
-            model.addAttribute("books", list);
-        } else {
-            Iterable<AppBook> books = appBookRepository.findAll();
-            model.addAttribute("books", books);
-        }
-        AppUser user = (AppUser) appUserService.loadUserByUsername(userDetails.getUsername());
-        List<LikedBooks> lb = likedBooksRepository.findAllByUser(user);
-        ArrayList<AppBook> likedbooks = new ArrayList<>();
-        for (LikedBooks b : lb){
-            likedbooks.add(b.getBook());
-        }
-        model.addAttribute("likedbooks", likedbooks);
-        return "allbooks";
-    }
-    @RequestMapping(path = {"/searchbookadmin"})
-    public String searchbookadmin(Model model, String keyword) {
-        if (keyword != null) {
-            List<AppBook> list = appBookService.getAllByKeyword(keyword);
-            model.addAttribute("books", list);
-        } else {
-            Iterable<AppBook> books = appBookRepository.findAll();
-            model.addAttribute("books", books);
-        }
-        return "allbooksadmin";
-    }
-    @RequestMapping(path = {"/searchuseradmin"})
-    public String searchuser(Model model, String keyword) {
-        if (keyword != null) {
-            List<AppUser> user = appUserService.getByKeyword(keyword);
-            model.addAttribute("Users", user);
-        } else {
-            Iterable<AppUser> users = appUserRepository.findAll();
-            model.addAttribute("Users", users);
-        }
-        return "allusers";
-    }
-
-    @RequestMapping(path = {"/searchbooktakebook/{userid}"})
-    public String searchbookintakebook(@PathVariable Long userid, Model model, String keyword) {
-        if (keyword != null) {
-            List<AppBook> list = appBookService.getAllByKeyword(keyword);
-            model.addAttribute("books", list);
-        } else {
-            Iterable<AppBook> books = appBookRepository.findAll();
-            model.addAttribute("books", books);
-        }
-        model.addAttribute("userid", userid);
-        return "takebook";
-    }
-
-    @RequestMapping(path = {"/searchusertakebook"})
-    public String searchuserintakebook(Model model, String keyword) {
-        if (keyword != null) {
-            List<AppUser> user = appUserService.getByKeyword(keyword);
-            model.addAttribute("users", user);
-        } else {
-            Iterable<AppUser> users = appUserRepository.findAll();
-            model.addAttribute("users", users);
-        }
-        return "takebookuser";
-    }
 
 }
