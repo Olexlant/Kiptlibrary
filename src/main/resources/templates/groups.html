@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<!--=== Coding by CodingLab | www.codinglabweb.com === -->
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!----======== CSS ======== -->
+    <link rel="stylesheet" href="/css/addbook.css" type="text/css">
+
+    <!----===== Iconscout CSS ===== -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Exo+2:wght@300&display=swap" rel="stylesheet">
+    <title>Додавання книги</title>
+</head>
+<body>
+<nav>
+    <div class="logo-name">
+        <div class="logo-image">
+            <img src="images/gears_motor.gif" alt="">
+        </div>
+        <span class="logo_name">НТБ КНУТД</span>
+    </div>
+
+    <div class="menu-items">
+        <ul class="nav-links">
+            <li><a th:href="@{/admin}">
+                <i class="uil uil-estate"></i>
+                <span class="link-name">Головна</span>
+            </a></li>
+            <li><a th:href="@{/admin/allusers}">
+                <i class="uil uil-users-alt"></i>
+                <span class="link-name" >Користувачі</span>
+            </a></li>
+            <li><a th:href="@{/admin/allbooksadmin}">
+                <i class="uil uil-notebooks"></i>
+                <span class="link-name">Всі книги</span>
+            </a></li>
+            <li><a th:href="@{/admin/assignedbooks}">
+                <i class="uil uil-books"></i>
+                <span class="link-name">Видані книги</span>
+            </a></li>
+
+            <li><a th:href="@{/admin/addbook}">
+                <i class="uil uil-plus"></i>
+                <span class="link-name">Додати книгу</span>
+            </a></li>
+            <li><a th:href="@{/admin/adduser}">
+                <i class="uil uil-user-plus"></i>
+                <span class="link-name">Додати користувача</span>
+            </a></li>
+            <li><a th:href="@{/admin/takebook}">
+                <i class="uil uil-plus-circle"></i>
+                <span class="link-name">Видати книгу</span>
+            </a></li>
+            <li><a th:href="@{/admin/addbookcategory}">
+                <i class="uil uil-plus-circle"></i>
+                <span class="link-name">Категорії книг</span>
+            </a></li>
+
+        </ul>
+
+        <ul class="logout-mode">
+            <li><a th:href="@{/logout}">
+                <i class="uil uil-signout"></i>
+                <span class="link-name">Вийти</span>
+            </a></li>
+            <div class="mode-toggle">
+
+            </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<section class="dashboard">
+    <div class="top">
+        <i class="uil uil-bars sidebar-toggle"></i>
+
+        <div class="search-box">
+
+        </div>
+
+        <img src="images/webview.gif" alt="">
+    </div>
+    <div class="dash-content">
+        <div class="activity">
+            <div class="title">
+                <i class="uil uil-notebooks"></i>
+                <span class="text">Всі Групи</span>
+            </div>
+            <div class="table">
+
+                <div class="table_section">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>№</th>
+                            <th>Назва</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="group : ${groups}">
+                            <td th:text="${groups.indexOf(group)+1}"></td>
+                            <td th:text="${group.name}"></td>
+                            <td class="btnactions">
+                                <form th:action="'/admin/groups/'+ ${group.id} +'/delete'" method="post">
+                                    <button style="background-color: #ff0000" type="submit"><i class="uil uil-trash-alt"></i></button>
+                                </form>
+                        </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="dash-content">
+    <div class="container">
+        <div class="title"><span>Додати групу</span></div>
+        <div class="content">
+            <form method="post" th:action="@{/admin/groups/save}" th:object="${group}">
+                <div class="user-details">
+                    <div class="input-box">
+                        <span class="details">Назва</span>
+                        <input type="text" th:field="*{name}" placeholder="Назва групи" required>
+                    </div>
+                </div>
+                <div class="button">
+                    <button type="submit">Додати</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="js/script.js"></script>
+</body>
+</html>

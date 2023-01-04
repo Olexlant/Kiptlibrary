@@ -346,4 +346,25 @@ public class AdminPanelController {
         bookCategoryRepository.delete(bc);
         return "redirect:/admin/addcategorytobook/"+bookid;
     }
+
+//GROUPS
+    @GetMapping("/admin/groups")
+    public String showGroupsForm(Model model) {
+        List<Groups> groups = groupsRepository.findAll();
+        model.addAttribute("groups", groups);
+        model.addAttribute("group", new Groups());
+        return "groups";
+    }
+
+    @PostMapping("/admin/groups/save")
+    public String saveNewGroup(Groups groups) {
+        groupsRepository.save(groups);
+        return "redirect:/admin/groups";
+    }
+    @PostMapping("/admin/groups/{groupid}/delete")
+    public String saveNewGroup(@PathVariable Long groupid) {
+        groupsRepository.delete(groupsRepository.findAllById(groupid));
+        return "redirect:/admin/groups";
+    }
+
 }
