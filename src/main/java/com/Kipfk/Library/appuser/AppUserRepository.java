@@ -24,5 +24,5 @@ public interface AppUserRepository extends JpaRepository<AppUser, Long> {
     @Query(value = "select * from app_user u where u.first_name like %:keyword% or u.last_name like %:keyword% or u.groups like %:keyword% or u.phonenum like %:keyword% or u.email like %:keyword%", nativeQuery = true)
     List<AppUser> findByKeyword(@Param("keyword") String keyword);
 
-
+    int countAllBy();
 }

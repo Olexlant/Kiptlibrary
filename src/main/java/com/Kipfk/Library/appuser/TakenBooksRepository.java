@@ -11,4 +11,6 @@ import java.util.Optional;
 public interface TakenBooksRepository extends JpaRepository <TakenBooks,Long> {
     Optional<TakenBooks> findByUser(AppUser appUser);
     List<TakenBooks> findByUserAndBook(AppUser appUser, AppBook appBook);
+
+    int countAllBy();
 }

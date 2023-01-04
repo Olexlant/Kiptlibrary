@@ -100,14 +100,11 @@ public class AdminPanelController {
     }
     @GetMapping("/admin")
     public String showAdminHome(Model model){
-        List<AppUser> users =  appUserRepository.findAll();
-        int usercount = users.size();
+        int usercount = appUserRepository.countAllBy();
         model.addAttribute("usercount", usercount);
-        List <AppBook> books = appBookRepository.findAll();
-        int bookcount = books.size();
+        int bookcount = appBookRepository.countAllBy();
         model.addAttribute("bookcount",bookcount);
-        List <TakenBooks> taken = takenBooksRepository.findAll();
-        int takencount = taken.size();
+        int takencount = takenBooksRepository.countAllBy();
         model.addAttribute("takencount",takencount);
         return "admin";
     }
@@ -168,12 +165,15 @@ public class AdminPanelController {
 
     @GetMapping("/admin/adduser")
     public String showAddUserForm(Model model) {
+        List<Groups> groups = groupsRepository.findAll();
+        model.addAttribute("groups", groups);
         model.addAttribute("user", new AppUser());
         return "adduser";
     }
 
     @PostMapping("/admin/process_useradd")
-    public String signUpByAdd(AppUser user) {
+    public String signUpByAdd(AppUser user, @RequestParam String groupid) {
+        user.setGroups(groupsRepository.findAllById(Long.valueOf(groupid)));
         registrationService.register(user);
         return "redirect:/allusers";
     }
