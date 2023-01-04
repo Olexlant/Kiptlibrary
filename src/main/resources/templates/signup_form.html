@@ -41,8 +41,7 @@
 				</div>
 				<div class="input-box">
 					<span class="details">Група</span>
-					<select th:field="*{groups}" required>
-						<option selected name="group" th:value="null" th:text="'Оберіть групу'"></option>
+					<select th:name="groupid">
 						<option th:each="group : ${groups}" th:value="${group.getId()}" name="group" th:text="${group.getName()}"></option>
 					</select>
 				</div>
