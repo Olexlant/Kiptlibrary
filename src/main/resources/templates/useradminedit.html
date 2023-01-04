@@ -118,7 +118,9 @@
                         </div>
                         <div class="input-box">
                             <span class="details">Група</span>
-                            <input type="text" th:value="${userd.groups}" name="groups" placeholder="Номер групи" required>
+                            <select th:name="groupid" >
+                                <option th:each="group : ${groups}" th:value="${group.getId()}" th:text="${group.getName()}" th:selected="${group==userd.groups}"></option>
+                            </select>
                         </div>
 
                     </div>

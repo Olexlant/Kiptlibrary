@@ -49,10 +49,10 @@ public class AdminPanelController {
     private final AppUserRepository userRepo;
     private final BookCategoryRepository bookCategoryRepository;
     private final CategoriesOfBooksRepository categoriesOfBooksRepository;
+    private final GroupsRepository groupsRepository;
 
 
-
-    public AdminPanelController(RegistrationService registrationService, ConfirmationTokenRepository confirmationTokenRepository, AppUserService appUserService, AppBookService appBookService, AppUserRepository appUserRepository, AppBookRepository appBookRepository, TakenBooksRepository takenBooksRepository, LikedBooksRepository likedBooksRepository, AppUserRepository userRepo, BookCategoryRepository bookCategoryRepository, CategoriesOfBooksRepository categoriesOfBooksRepository) {
+    public AdminPanelController(RegistrationService registrationService, ConfirmationTokenRepository confirmationTokenRepository, AppUserService appUserService, AppBookService appBookService, AppUserRepository appUserRepository, AppBookRepository appBookRepository, TakenBooksRepository takenBooksRepository, LikedBooksRepository likedBooksRepository, AppUserRepository userRepo, BookCategoryRepository bookCategoryRepository, CategoriesOfBooksRepository categoriesOfBooksRepository, GroupsRepository groupsRepository) {
         this.registrationService = registrationService;
         this.confirmationTokenRepository = confirmationTokenRepository;
         this.appUserService = appUserService;
@@ -64,11 +64,14 @@ public class AdminPanelController {
         this.userRepo = userRepo;
         this.bookCategoryRepository = bookCategoryRepository;
         this.categoriesOfBooksRepository = categoriesOfBooksRepository;
+        this.groupsRepository = groupsRepository;
     }
 
 //ADDBOOK
     @GetMapping("/admin/addbook")
     public String showBookAddingForm(Model model) {
+        List<Groups> groups = groupsRepository.findAll();
+        model.addAttribute("groups", groups);
         model.addAttribute("book", new AppBook());
         return "addbook";
     }
@@ -178,7 +181,6 @@ public class AdminPanelController {
     @GetMapping("/admin/allusers")
     public String listUsers(Model model) {
         List<AppUser> listUsers = userRepo.findAll(Sort.by(Sort.Direction.ASC, "lastName"));
-
         model.addAttribute("Users", listUsers);
         return "allusers";
     }
@@ -188,6 +190,8 @@ public class AdminPanelController {
         if (!appUserRepository.existsById(id)){
             return "redirect:/allusers";
         }
+        List<Groups> groups = groupsRepository.findAll();
+        model.addAttribute("groups", groups);
         Optional <AppUser> user = appUserRepository.findById(id);
         ArrayList <AppUser> ruser = new ArrayList<>();
         user.ifPresent(ruser::add);
@@ -195,16 +199,16 @@ public class AdminPanelController {
         return "useradminedit";
     }
     @PostMapping("/admin/allusers/{id}/edit")
-    public String AdminUserUpdate(@PathVariable(value = "id") long id,@RequestParam String firstname, @RequestParam String lastname, @RequestParam String phonenum, @RequestParam String password, @RequestParam String email, @RequestParam String groups) {
+    public String AdminUserUpdate(@PathVariable(value = "id") long id,@RequestParam String firstname, @RequestParam String lastname, @RequestParam String phonenum, @RequestParam String password, @RequestParam String email, @RequestParam String groupid) {
         AppUser user = appUserRepository.findById(id).orElseThrow();
         user.setFirstName(firstname);
         user.setLastName(lastname);
         user.setEmail(email);
         user.setPhonenum(phonenum);
         user.setPassword(password);
-        user.setGroups(groups);
+        user.setGroups(groupsRepository.findAllById(Long.valueOf(groupid)));
         appUserRepository.save(user);
-        return "redirect:/allusers";
+        return "redirect:/admin/allusers";
     }
     @PostMapping("/admin/allusers/{id}/remove")
     public String AdminUserDelete(@PathVariable(value = "id") long id) {

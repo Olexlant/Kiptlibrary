@@ -42,32 +42,25 @@ public class MainController {
     }
 
     private final RegistrationService registrationService;
-    private final ConfirmationTokenRepository confirmationTokenRepository;
     private final AppUserService appUserService;
     private final AppBookService appBookService;
-    private final AppUserRepository appUserRepository;
     private final AppBookRepository appBookRepository;
     private final TakenBooksRepository takenBooksRepository;
     private final LikedBooksRepository likedBooksRepository;
-    private final AppUserRepository userRepo;
     private final BookCategoryRepository bookCategoryRepository;
     private final CategoriesOfBooksRepository categoriesOfBooksRepository;
+    private final GroupsRepository groupsRepository;
 
-
-
-    public MainController(RegistrationService registrationService, ConfirmationTokenRepository confirmationTokenRepository, AppUserService appUserService, AppBookService appBookService, AppUserRepository appUserRepository, AppBookRepository appBookRepository, TakenBooksRepository takenBooksRepository, LikedBooksRepository likedBooksRepository, AppUserRepository userRepo, BookCategoryRepository bookCategoryRepository, CategoriesOfBooksRepository categoriesOfBooksRepository) {
+    public MainController(RegistrationService registrationService, ConfirmationTokenRepository confirmationTokenRepository, AppUserService appUserService, AppBookService appBookService, AppUserRepository appUserRepository, AppBookRepository appBookRepository, TakenBooksRepository takenBooksRepository, LikedBooksRepository likedBooksRepository, AppUserRepository userRepo, BookCategoryRepository bookCategoryRepository, CategoriesOfBooksRepository categoriesOfBooksRepository, GroupsRepository groupsRepository) {
         this.registrationService = registrationService;
-        this.confirmationTokenRepository = confirmationTokenRepository;
         this.appUserService = appUserService;
         this.appBookService = appBookService;
-        this.appUserRepository = appUserRepository;
         this.appBookRepository = appBookRepository;
         this.takenBooksRepository = takenBooksRepository;
         this.likedBooksRepository = likedBooksRepository;
-        this.userRepo = userRepo;
         this.bookCategoryRepository = bookCategoryRepository;
         this.categoriesOfBooksRepository = categoriesOfBooksRepository;
-
+        this.groupsRepository = groupsRepository;
     }
 
     @GetMapping("/")
@@ -79,11 +72,14 @@ public class MainController {
 //REGISTRATION
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
+        List<Groups> groups = groupsRepository.findAll();
+        model.addAttribute("groups", groups);
         model.addAttribute("user", new AppUser());
         return "signup_form";
     }
     @PostMapping("/process_register")
-    public String signUp(AppUser user) {
+    public String signUp(AppUser user, @RequestParam String group) {
+       user.setGroups(groupsRepository.findAllById(Long.valueOf(group)));
        registrationService.register(user);
        return "register_success";
     }

@@ -1,6 +1,5 @@
 package com.Kipfk.Library.appuser;
 
-import com.Kipfk.Library.appbook.AppBook;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,8 +7,6 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import javax.persistence.*;
 import java.util.*;
@@ -39,8 +36,12 @@ public class AppUser implements UserDetails {
     private String phonenum;
     private String password;
     private String email;
-    private String groups;
 
+    @ManyToOne
+    @JoinColumn(name = "groups_id")
+    private Groups groups;
+
+    private byte[] profileimage;
     @Enumerated(
             EnumType.STRING
     )
@@ -52,13 +53,12 @@ public class AppUser implements UserDetails {
     @OneToMany(mappedBy = "user")
     private Set<TakenBooks> userlike = new HashSet<>();
 
-    public AppUser(String firstName, String lastName, String phonenum, String password, String email, String groups,  AppUserRole appUserRole) {
+    public AppUser(String firstName, String lastName, String phonenum, String password, String email, Groups groups, AppUserRole appUserRole) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phonenum = phonenum;
         this.password = password;
-        this.email = email;
-        this.groups = groups;
+        this.email = email;;
         this.appUserRole = appUserRole;
     }
 
