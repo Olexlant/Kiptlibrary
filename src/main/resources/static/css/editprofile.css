@@ -241,6 +241,7 @@ background:#25398e ;
   margin: 0 auto;
   text-align: center;
   padding:110px 20px;
+  max-height: 1000px;
 }
 .container .adout .content .title p{
 color: #de1e1e;
@@ -301,17 +302,17 @@ object-fit: cover;
   width: 65%;
   
 }
-.container .content .about-details .left form .user-details{
+.container .content form .about-details .left  .user-details{
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   margin: 20px 0 12px 0;
 }
-.container .content .about-details .left  form .user-details .input-box{
+.container .content form .about-details .left   .user-details .input-box{
   margin-bottom: 15px;
   width: calc(100% / 2 - 20px);
 }
-.container .content .about-details .left form .input-box span.details{
+.container .content form .about-details .left  .input-box span.details{
   display: block;
   font-weight: 500;
   margin-bottom: 5px;
@@ -367,16 +368,16 @@ form .button :hover{
 }
 @media(max-width: 584px){
   
- form .user-details .input-box{
+ form .about-details .left .user-details .input-box{
      margin-bottom: 15px;
      width: 100%;
    }
    form .category{
      width: 100%;
    }
-   .content form .user-details{
-    
-     overflow-y: scroll;
+   .content form .about-details .left  .user-details{
+    flex-direction: column;
+    align-content: center;
    }
    .user-details::-webkit-scrollbar{
      width: 5px;
@@ -384,7 +385,7 @@ form .button :hover{
    .container .content .about-details .left{
     width: 100%;
    }
-   .container .content .about-details .left  form .user-details .input-box{
+   .container .content form .about-details .left  .user-details .input-box{
     margin-bottom: 15px;
     width: calc(170% / 2 - 20px);
   }
