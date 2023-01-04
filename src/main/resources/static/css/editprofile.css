@@ -1,0 +1,632 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa&family=Exo+2:wght@300&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  scroll-behavior: smooth;
+    font-family: 'Comfortaa', cursive;
+font-family: 'Exo 2', sans-serif;
+}
+body{
+  background-color: #f0f3ff;
+}
+nav{
+  position: fixed;
+  width: 100%;
+  padding: 20px;
+    font-family: 'Comfortaa', cursive;
+font-family: 'Exo 2', sans-serif;  transition: all 0.4s ease;
+  z-index: 988;
+}
+nav.sticky{
+  background:#fff;
+  padding: 13px 0;
+}
+
+.header-button{
+  margin: 0 8px;
+}
+.header-button .header-button-reg{
+  position: relative;
+	color: #fff;
+	padding: 8px 20px;
+	background: #25398e;
+	border-radius: 8px;
+	margin: 0 15px;
+	font-size: 18px;
+	text-decoration: none;
+	overflow: hidden;
+  border: 2px solid transparent;
+}
+.header-button-reg:hover{
+  border-color: #3048b1;
+  background-color: #3048b1;
+  color: #fff;
+}
+.header-button .header-button-reg1{
+  position: relative;
+	color: #fff;
+	padding: 8px 10px;
+	background: #3c897d;
+	border-radius: 8px;
+	font-size: 18px;
+	text-decoration: none;
+	overflow: hidden;
+  border: 2px solid transparent;
+}
+ .header-button .header-button-reg1:hover{
+  border-color: #5FAEA1;
+  background-color: #5FAEA1;
+  color: #FFF;
+}
+
+nav .navbar{
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: auto;
+}
+
+.navbar .menu .golovna{
+  color: #25398e;
+  font-size: 20px;
+}
+nav.sticky .navbar .logo a{
+  color: #25398e;
+}
+nav.sticky .navbar .menu li a{
+  color: #25398e;
+}
+
+
+
+nav.sticky .navbar .login-button a:hover{
+  color: #25398e;
+}
+nav.sticky .menu-btn{
+  color: #25398e;
+}
+nav .navbar .menu .cancel-btn{
+  color: #25398e;
+  top: 260px;
+}
+.navbar .btn .login-button a{
+  color: #25398e;
+  display: inline-block;
+  position: relative;
+  padding: 0;
+}
+.navbar .btn .login-button a::after{
+  content: '';
+	position: absolute;
+	width: 100%;
+	transform: scaleX(0);
+	height: 3px;
+	bottom: 0px;
+  border-radius: 6px;
+	left:0;
+	background-color: #f04e4e;
+	transform-origin: bottom center;
+	transition:transform 0.25s ease-out;
+}
+.navbar .btn .login-button a:hover::after{
+  transform: scaleX(1);
+  transform-origin: bottom center;
+}
+
+nav .navbar .menu{
+  display: flex;
+
+}
+nav .navbar .menu li{
+  margin: 0 8px;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+}
+nav .navbar .menu li::after{
+  content: '';
+	position: absolute;
+	width: 100%;
+	transform: scaleX(0);
+	height: 2px;
+	bottom: 0px;
+  border-radius: 6px;
+	left:0;
+	background-color: #f04e4e;
+	transform-origin: bottom center;
+	transition:transform 0.25s ease-out;
+}
+nav .navbar .menu li:hover::after{
+  transform: scaleX(1);
+  transform-origin: bottom center;
+}
+
+nav .navbar .btn {
+  list-style: none;
+  display: flex;
+  font-size: 18px;
+  margin: 0 8px;
+}
+.btn li{
+  margin:  0 8px;
+}
+.navbar .menu li{
+  font-size: 18px;
+
+  color: #0E2431;
+  transition: all 0.3s ease;
+}
+.navbar .menu a{
+  font-size: 18px;
+  font-weight: 500;
+  color: #0E2431;
+  padding: 6px 0;
+  transition: all 0.4s ease;
+}
+.navbar  a{
+  font-size: 18px;
+  font-weight: 500;
+  color: #0E2431;
+  padding: 6px 0;
+  transition: all 0.4s ease;
+}
+
+nav .menu-btn,
+.navbar .cansel-btn{
+  margin-top: 18px;
+  position: absolute;
+  color: #de1e1e;
+  font-size: 20px;
+  display: none;
+}
+nav .cancel-btn i{
+  display:none;
+}
+
+nav .navbar .logo a{
+  font-size: 40px;
+  font-weight: 500;
+  color:#25398e;
+  text-decoration: none;
+}
+nav .navbar .logo .kcas-library{
+  font-size: 28px;
+  font-weight: 500;
+  color:#25398e;
+  text-decoration: none;
+  padding-left: 8px;
+}
+nav .navbar .right{
+  margin-right: -220px;
+}
+nav .navbar .right img{
+  height: 100%;
+width: 50%;
+object-fit: cover;
+margin-top: 5px;
+cursor: pointer;
+}
+.title-services{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+.title-services span{
+  font-size: 43px;
+  font-weight: 600;
+padding-bottom: 8px;
+  position: relative;
+}
+.title-services span::before,
+.title-services span::after{
+content: '';
+position: absolute;
+left: 0;
+bottom: 0;
+height: 3px;
+width: 100%;
+background:#25398e ;
+}
+.title-services span::after{
+  width: 70%;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -7px;
+}
+.container{
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  padding:110px 20px;
+}
+.container .adout .content .title p{
+color: #de1e1e;
+font-size: 24px;
+display: flex;
+justify-content: center;
+
+}
+.container .adout .content{
+    width: 100%;
+    margin: 40px auto;
+    font-family: 'Century Gothic' ;
+}
+.container .adout .content .about-details .right .v{
+    font-size: 18px;
+    margin-top: 23px;
+    display: inline-grid;
+}
+.container .adout .content .about-details .right .v label{
+    color: #25398e;
+}
+.container .adout .content .about-details .right .v input{
+    margin-top: 10px;
+}
+
+.container .adout .about-details .right{
+    width: 20%;
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-direction: column;
+
+}
+.adout .about-details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .adout .about-details .right{
+    width: 45%;
+  }
+.container .content .about-details .right .user-info-img{
+    position: relative;
+    width: 230px;
+    height: 230px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.container .content .about-details .right .user-info-img img{
+    position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+.container .content .about-details .left{
+  width: 65%;
+  
+}
+.container .content .about-details .left form .user-details{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 20px 0 12px 0;
+}
+.container .content .about-details .left  form .user-details .input-box{
+  margin-bottom: 15px;
+  width: calc(100% / 2 - 20px);
+}
+.container .content .about-details .left form .input-box span.details{
+  display: block;
+  font-weight: 500;
+  margin-bottom: 5px;
+  text-align: left;
+}
+.container .content .about-details .left  .user-details .input-box input{
+  height: 45px;
+  width: 100%;
+  outline: none;
+  font-size: 16px;
+  border-radius: 5px;
+  padding-left: 15px;
+  border: 1px solid #ccc;
+  border-bottom-width: 2px;
+  transition: all 0.3s ease;
+}
+.container .content .about-details .left .user-details .input-box input:focus,
+.container .content .about-details .left .user-details .input-box input:valid{
+  border-color: #25398e;
+}
+form .button button {
+  height: 40px;
+  width: 130px;
+  z-index: 1;
+  position: relative;
+  background: none;
+  border: none;
+  color: #fff;
+  padding-left: 0;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 100;
+  cursor: pointer; border: 2px solid transparent;
+  background: #25398e;transition: all 0.4s ease;
+}
+form .button :hover{
+   border-color: #25398e;
+  background-color: #f0f3ff;
+  color: #25398e;
+
+}
+
+
+@media(max-width: 733px){
+  .container .content .about-details .left form .user-details{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px 0 12px 0;
+    flex-direction: column;
+    align-content: center;
+  }
+}
+@media(max-width: 584px){
+  
+ form .user-details .input-box{
+     margin-bottom: 15px;
+     width: 100%;
+   }
+   form .category{
+     width: 100%;
+   }
+   .content form .user-details{
+    
+     overflow-y: scroll;
+   }
+   .user-details::-webkit-scrollbar{
+     width: 5px;
+   }
+   .container .content .about-details .left{
+    width: 100%;
+   }
+   .container .content .about-details .left  form .user-details .input-box{
+    margin-bottom: 15px;
+    width: calc(170% / 2 - 20px);
+  }
+  .container .adout .content .about-details .right .v{
+    font-size: 18px;
+    margin-top: 23px;
+  }
+   
+  }
+
+
+
+@media(max-width: 1000px){
+    .navbar .menu .golovna{
+      font-size: 25px;
+      color: #25398e;
+    }
+    .navbar .btn .login-button a:hover{
+      color: black;
+    }
+
+nav .navbar .menu{
+  position: absolute;
+  left: -100%;
+  top: 0;
+  height: 100vh;
+  max-width: 400px;
+  width: 100%;
+  background: #fff; 
+  flex-direction: column;
+  align-items: center;
+  padding-top: 130px;
+  transition: all 0.6s ease;
+}
+nav .navbar.active .menu{
+  left:0;
+}
+nav .navbar .btn {
+  position: absolute;
+  max-width: 385px;
+  width: 100%;
+  left: -100%;
+  top: 0;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 30px;
+  transition: all 0.6s ease;
+}
+nav .navbar.active .btn{
+  left: 0;
+}
+.header-button{
+  margin: 10 8px;
+}
+
+.navbar .menu  li a{
+  display: block;
+  margin: 10px 0;
+  font-size: 23px;
+  color: #fff;
+}
+
+.navbar .btn a{
+ font-size: 23px;
+ display: block;
+ margin: 6px;
+ color: #ffffff;
+}
+    .navbar .btn a{
+      font-size: 23px;
+      display: block;
+      margin: 6px;
+      color:#fff;
+    }
+    .navbar .btn a:hover{
+      color: #fff;
+    }
+nav .menu-btn,
+.navbar .cancel-btn{
+  position: absolute;
+  font-size: 20px;
+  right: 30px;
+  top:14px;
+  cursor: pointer;
+}
+
+nav .navbar .cancel-btn{
+  position: absolute;
+  color: rgb(16, 12, 12);
+  font-size: 20px;
+  right: 30px;
+  top:200px;
+  cursor: pointer;
+}
+    nav .menu-btn{
+      color: #25398e;
+    }
+    nav .menu-btn,
+    .navbar .cansel-btn{
+      display: block;
+      top: 21px;
+    }
+    nav .cancel-btn i{
+      display:block;
+    }
+    .home .text .text-two{
+      font-size: 65px;
+
+    }
+    .home .text .text-three{
+      font-size: 30px;
+    }
+    nav .navbar .logo a{
+      
+      font-size: 33px;
+    }
+    nav .navbar .logo .kcas-library{
+      padding-right: 640px;
+    }
+    @media(max-width:994px){
+      nav .navbar .logo .kcas-library{
+        padding-right: 600px;
+      }
+    }
+    
+    @media(max-width:956px){
+      nav .navbar .logo .kcas-library{
+        padding-right: 550px;
+      }
+      nav .navbar .right img {
+        height: 100%;
+        width: 50%;
+        object-fit: cover;
+    }
+    }
+    @media(max-width:945px){
+      nav .navbar .logo .kcas-library{
+        padding-right: 500px;
+      }
+    }
+    @media(max-width:889px){
+      nav .navbar .logo .kcas-library{
+        padding-right: 450px;
+      }
+    }
+    @media(max-width:834px){
+      nav .navbar .logo .kcas-library{
+        padding-right: 400px;
+      }
+    }
+    @media(max-width:776px){
+      nav .navbar .logo .kcas-library{
+        padding-right: 350px;
+      }
+    }
+    @media(max-width:722px){
+      nav .navbar .logo .kcas-library{
+        padding-right: 300px;
+      }
+    }
+    @media(max-width:667px){
+      nav .navbar .logo .kcas-library{
+        padding-right: 250px;
+      }
+      #pagination {
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        font-size: 14px;
+        margin-top: 90px;
+      }
+    }
+    @media(max-width:609px){
+      nav .navbar .logo .kcas-library{
+        padding-right: 200px;
+      }
+    }
+    @media(max-width:549px){
+      nav .navbar .logo .kcas-library{
+        padding-right: 150px;
+      }
+    }
+    @media(max-width:496px){
+      nav .navbar .logo .kcas-library{
+        padding-right: 70px;
+      }
+      .container .box-container .box .content .btn{
+        border: none;
+        padding: 10px 20px;
+      }
+    }
+    @media(max-width:440px){
+      nav .navbar .logo .kcas-library{
+        padding-right: 70px;
+      }
+    }
+    @media(max-width:408px){
+      nav .navbar .logo .kcas-library{
+        padding-right: 50px;
+      }
+    }
+    @media(max-width:385px){
+      nav .navbar .logo .kcas-library{
+        padding-right: 30px;
+      }
+    }
+  
+  }
+   @media(max-width:398px){
+      .container .box-container .box .content .btn{
+        border: none;
+        padding: 10px 20px;
+      }
+
+    }
+  @media(max-width:885px){
+      .skills .skills-details{
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+  }
+  @media(max-width: 416px){
+   .select-menu{
+    width: 354px;
+
+   }
+  }
+
+  @media(max-width: 647px){
+    .home .text .text-two{
+      font-size: 55px;
+
+      }
+      .home .text .text-three{
+      font-size: 25px;
+      }
+      .skills .skills-details .left{
+        width: 90%;
+        }
+        .skills .skills-details .boxes{
+          width: 90%;
+          margin: 40px 0;
+        }
+  }

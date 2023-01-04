@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Головна</title>
-    <link href="/css/allbook.css" type="text/css" rel="stylesheet" th:href="@{/css/allbook.css}">
+    <link href="/css/editprofile.css" type="text/css" rel="stylesheet" th:href="@{/css/editprofile.css}">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
@@ -19,13 +19,68 @@
 <header class="site-header sticky-top py-1" th:insert="bloks/header :: header"></header>
 <body>
 <div class="container">
-    <div th:each="user : ${user}" style="margin-top: 300px">
-        <h4 th:text="${user.getEmail()}"></h4>
-        <h4 th:text="${user.getLastName()}"></h4>
-        <h4 th:text="${user.getFirstName()}"></h4>
-        <h4 th:text="${user.getPhonenum()}"></h4>
-        <h4 th:text="${user.getPassword()}"></h4>
-        <h4 th:text="${user.getGroups()}"></h4>
+    <div class="adout" id="adout">
+        <div class="content">
+            <div class="about-details">
+                <div class="right">
+                    <div class="user-info-img">
+                        <img src="/images/book.jpg">
+                    </div>
+                    <div class="v">
+                        <label>
+                            <iconify-icon icon="material-symbols:add-a-photo-outline" style="color: #25398e;"></iconify-icon>
+                            Редагувати зображення
+                        </label>
+                        
+                        <input type="file" name="files" accept="image/*">
+                    </div>
+                </div>
+                <div class="left">
+                    <div class="title">
+                        <p>Внесіть всі данні</p>
+                    </div>
+                    <form  method="post" enctype="multipart/form-data">
+                        <div class="user-details">
+                            <div class="input-box">
+                                <span class="details">Email</span>
+                                <!--th:text="${user.getEmail()}"--><input type="text" name="qrid" placeholder="Ведіть  email" required>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">Пароль</span>
+                                <!--th:text="${user.getPassword()} --><input type="password"  name="title" placeholder="Введіть пароль" required>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">Ім'я</span>
+                                <!-- th:text="${user.getFirstName()}"--><input  type="text" name="author" placeholder="Ведіть Ім'я" required>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">Прізвище</span>
+                                <!-- th:text="${user.getLastName()}" --><input type="text" name="year" placeholder="Введіть прізвище" required>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">Група</span>
+                                <!-- th:text="${user.getGroups()}"--><input  type="text" name="stilaj" placeholder="Введіть групу" required>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">Дата народження</span>
+                                <input type="text" name="polka" placeholder="Введіть номер полиці" required>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">Домашня адресса</span>
+                                <input type="text" name="polka" placeholder="Введіть номер полиці" required>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">Телефон</span>
+                                <!-- th:text="${user.getPhonenum()}"--><input type="text" name="polka" placeholder="Введіть номер телефону" required>
+                            </div>
+                        </div>
+                        <div class="button">
+                            <button type="submit">Зберегти</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <script src="/js/slider.js"></script>
