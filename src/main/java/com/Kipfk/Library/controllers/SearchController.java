@@ -4,15 +4,19 @@ import com.Kipfk.Library.appbook.*;
 import com.Kipfk.Library.appuser.*;
 import com.Kipfk.Library.registration.RegistrationService;
 import com.Kipfk.Library.registration.token.ConfirmationTokenRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class SearchController {
@@ -22,24 +26,64 @@ public class SearchController {
     private final AppUserRepository appUserRepository;
     private final AppBookRepository appBookRepository;
     private final LikedBooksRepository likedBooksRepository;
+    private final CategoriesOfBooksRepository categoriesOfBooksRepository;
 
 
-    public SearchController(RegistrationService registrationService, ConfirmationTokenRepository confirmationTokenRepository, AppUserService appUserService, AppBookService appBookService, AppUserRepository appUserRepository, AppBookRepository appBookRepository, TakenBooksRepository takenBooksRepository, LikedBooksRepository likedBooksRepository, AppUserRepository userRepo, BookCategoryRepository bookCategoryRepository, CategoriesOfBooksRepository categoriesOfBooksRepository) {
+    public SearchController(RegistrationService registrationService, ConfirmationTokenRepository confirmationTokenRepository, AppUserService appUserService, AppBookService appBookService, AppUserRepository appUserRepository, AppBookRepository appBookRepository, TakenBooksRepository takenBooksRepository, LikedBooksRepository likedBooksRepository, AppUserRepository userRepo, BookCategoryRepository bookCategoryRepository, CategoriesOfBooksRepository categoriesOfBooksRepository, CategoriesOfBooksRepository categoriesOfBooksRepository1) {
         this.appUserService = appUserService;
         this.appBookService = appBookService;
         this.appUserRepository = appUserRepository;
         this.appBookRepository = appBookRepository;
         this.likedBooksRepository = likedBooksRepository;
+        this.categoriesOfBooksRepository = categoriesOfBooksRepository1;
     }
     //SEARCH
     @RequestMapping(path = {"/searchbook"})
-    public String searchbook(@AuthenticationPrincipal UserDetails userDetails, Model model, String keyword) {
+    public String searchbook(@AuthenticationPrincipal UserDetails userDetails, Model model, String keyword, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(12);
         if (keyword != null) {
-            List<AppBook> list = appBookService.getAllByKeyword(keyword);
-            model.addAttribute("books", list);
+            ArrayList<AppBook> list = (ArrayList<AppBook>) appBookService.getAllByKeyword(keyword);
+            Page<AppBook> bookPage = appBookService.searchpagepaginated(PageRequest.of(currentPage - 1, pageSize),list);
+            model.addAttribute("books", bookPage);
+            int[] body;
+            if (bookPage.getTotalPages() > 7) {
+                int totalPages = bookPage.getTotalPages();
+                int pageNumber = bookPage.getNumber()+1;
+                int[] head = (pageNumber > 4) ? new int[]{1, -1} : new int[]{1,2,3};
+                int[] bodyBefore = (pageNumber > 4 && pageNumber < totalPages - 1) ? new int[]{pageNumber-2, pageNumber-1} : new int[]{};
+                int[] bodyCenter = (pageNumber > 3 && pageNumber < totalPages - 2) ? new int[]{pageNumber} : new int[]{};
+                int[] bodyAfter = (pageNumber > 2 && pageNumber < totalPages - 3) ? new int[]{pageNumber+1, pageNumber+2} : new int[]{};
+                int[] tail = (pageNumber < totalPages - 3) ? new int[]{-1, totalPages} : new int[] {totalPages-2, totalPages-1, totalPages};
+                body = MainController.merge(head, bodyBefore, bodyCenter, bodyAfter, tail);
+            } else {
+                body = new int[bookPage.getTotalPages()];
+                for (int i = 0; i < bookPage.getTotalPages(); i++) {
+                    body[i] = 1+i;
+                }
+            }
+            model.addAttribute("body", body);
         } else {
-            Iterable<AppBook> books = appBookRepository.findAll();
-            model.addAttribute("books", books);
+            List<AppBook> list = appBookRepository.findAll();
+            Page<AppBook> bookPage = appBookService.searchpagepaginated(PageRequest.of(currentPage - 1, pageSize),list);
+            model.addAttribute("books", bookPage);
+            int[] body;
+            if (bookPage.getTotalPages() > 7) {
+                int totalPages = bookPage.getTotalPages();
+                int pageNumber = bookPage.getNumber()+1;
+                int[] head = (pageNumber > 4) ? new int[]{1, -1} : new int[]{1,2,3};
+                int[] bodyBefore = (pageNumber > 4 && pageNumber < totalPages - 1) ? new int[]{pageNumber-2, pageNumber-1} : new int[]{};
+                int[] bodyCenter = (pageNumber > 3 && pageNumber < totalPages - 2) ? new int[]{pageNumber} : new int[]{};
+                int[] bodyAfter = (pageNumber > 2 && pageNumber < totalPages - 3) ? new int[]{pageNumber+1, pageNumber+2} : new int[]{};
+                int[] tail = (pageNumber < totalPages - 3) ? new int[]{-1, totalPages} : new int[] {totalPages-2, totalPages-1, totalPages};
+                body = MainController.merge(head, bodyBefore, bodyCenter, bodyAfter, tail);
+            } else {
+                body = new int[bookPage.getTotalPages()];
+                for (int i = 0; i < bookPage.getTotalPages(); i++) {
+                    body[i] = 1+i;
+                }
+            }
+            model.addAttribute("body", body);
         }
         AppUser user = (AppUser) appUserService.loadUserByUsername(userDetails.getUsername());
         List<LikedBooks> lb = likedBooksRepository.findAllByUser(user);
@@ -47,6 +91,9 @@ public class SearchController {
         for (LikedBooks b : lb){
             likedbooks.add(b.getBook());
         }
+        model.addAttribute("keyword",keyword);
+        model.addAttribute("status","search");
+        model.addAttribute("bookcategories", categoriesOfBooksRepository.findAll());
         model.addAttribute("likedbooks", likedbooks);
         return "allbooks";
     }

@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import java.security.Principal;
@@ -64,17 +65,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/users").authenticated()
-                .antMatchers("/admin").hasAuthority(AppUserRole.ADMIN.name())
-                .antMatchers("/addbook").hasAuthority(AppUserRole.ADMIN.name())
-                .antMatchers("/adduser").hasAuthority(AppUserRole.ADMIN.name())
-                .antMatchers("/allbooksadmin").hasAuthority(AppUserRole.ADMIN.name())
-                .antMatchers("/allusers").hasAuthority(AppUserRole.ADMIN.name())
-                .antMatchers("/assignedbooks").hasAuthority(AppUserRole.ADMIN.name())
-                .antMatchers("/bookadminedit").hasAuthority(AppUserRole.ADMIN.name())
-                .antMatchers("/takebook").hasAuthority(AppUserRole.ADMIN.name())
-                .antMatchers("/useradminedit").hasAuthority(AppUserRole.ADMIN.name())
-                .antMatchers("/usertakenadmin").hasAuthority(AppUserRole.ADMIN.name())
+                .antMatchers("/admin/**").hasAuthority(AppUserRole.ADMIN.name())
                 .antMatchers("/register").permitAll()
                 .antMatchers("/login").permitAll()
                 .anyRequest().permitAll()
@@ -85,6 +76,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .logout().logoutSuccessUrl("/").permitAll();
+        http.sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
         http.cors().and().csrf().disable();
     }
 

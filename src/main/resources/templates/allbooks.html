@@ -25,10 +25,9 @@
 		<button type="submit" style="background-color: #25398e; " class="uil-search"></button>
 	</form>
 	<div class="categor">
-		<select th:field="*{bookcategories}" onchange="window.location.href=this.value;">
-		  <option th:value="@{/allbooks(size=${books.size}, page=${pageNumber})}"></option>
+		<select id="bookcategories" name="bookcategories" onchange="window.location.href=this.value;">
 		  <option th:value="@{/allbooks(size=${books.size}, page=${pageNumber})}" th:text="${'Всі книги'}" ></option>
-		  <option th:each="category : ${bookcategories} " th:value="@{/allbooks(size=${books.size}, page=${pageNumber},category=${category.name})}" th:text="${category.name}"></option>
+		  <option th:each="category : ${bookcategories}" th:selected="${category.name==currentcategory}" th:value="@{/allbooks(size=${books.size}, page=${pageNumber},category=${category.name})}" th:text="${category.name}"></option>
 		</select>
 	  </div>
 	<div class="box-container" >
@@ -68,7 +67,7 @@
 			</div>
 		</div>
 	</div>
-	<ul id="pagination"  th:if="${books.totalPages > 0}">
+	<ul id="pagination"  th:if="${books.totalPages > 0 && status!='search'}">
 		<th:block th:each="pageNumber : ${body}">
 		<li th:if="${pageNumberStat.first}">
 			<a class="" th:href="@{/allbooks(size=${books.size}, page=${pageNumber},category=${currentcategory})}">«</a>
@@ -78,11 +77,27 @@
 		</li>
 		<li  th:if="${pageNumber} == -1"><a href="#">...</a></li>
 		<li th:if="${pageNumber} != -1 and ${pageNumber} != ${books.getNumber()+1}">
-			<a th:text="${pageNumber}" th:href="@{/allbooks(size=${books.size}, page=${pageNumber},category=${currentcategory})}"></a>
+			<a th:text="${pageNumber}" th:href="@{/allbooks(size=${books.size}, page=${pageNumber},keyword=${keyword})}"></a>
 		</li>
 		<li th:if="${pageNumberStat.last}" >
-			<a th:href="@{/allbooks(size=${books.size}, page=${pageNumber},category=${currentcategory})}">»</a></li>
+			<a th:href="@{/allbooks(size=${books.size}, page=${pageNumber},keyword=${keyword})}">»</a></li>
 			</th:block>
+	</ul>
+	<ul id="pagination"  th:if="${books.totalPages > 0 && status=='search'}">
+		<th:block th:each="pageNumber : ${body}">
+			<li th:if="${pageNumberStat.first}">
+				<a class="" th:href="@{/searchbook(size=${books.size}, page=${pageNumber},keyword=${keyword})}">«</a>
+			</li>
+			<li th:if="${pageNumber} == ${books.getNumber()+1}">
+				<a  class="active" th:text="${pageNumber}" href="#" ></a>
+			</li>
+			<li  th:if="${pageNumber} == -1"><a href="#">...</a></li>
+			<li th:if="${pageNumber} != -1 and ${pageNumber} != ${books.getNumber()+1}">
+				<a th:text="${pageNumber}" th:href="@{/searchbook(size=${books.size}, page=${pageNumber},keyword=${keyword})}"></a>
+			</li>
+			<li th:if="${pageNumberStat.last}" >
+				<a th:href="@{/searchbook(size=${books.size}, page=${pageNumber},keyword=${keyword})}">»</a></li>
+		</th:block>
 	</ul>
 	</div>
 <script src="/js/select.js"></script>

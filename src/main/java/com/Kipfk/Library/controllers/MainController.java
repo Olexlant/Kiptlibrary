@@ -153,6 +153,7 @@ public class MainController {
         for (LikedBooks b : lb){
             likedbooks.add(b.getBook());
         }
+        model.addAttribute("status","allbookspage");
         model.addAttribute("likedbooks", likedbooks);
         model.addAttribute("currentcategory",categor);
         model.addAttribute("bookcategories", categoriesOfBooks);
