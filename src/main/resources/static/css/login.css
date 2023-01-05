@@ -182,7 +182,6 @@ form .button :hover{
 .container .title{
   font-size: 30px;
   font-weight: 600;
-
   text-align: center;
 }
 
@@ -270,6 +269,46 @@ form .input-box span.details{
   bottom: 0;
   transform: translateX(22%);
 }
+.categor{
+  margin-bottom: 25px;
+}
+.categor select {
+  border: 1px solid #ccc;
+    border-bottom-width: 2px;
+  border-radius: 12px;
+  background-color: #Fff;
+  color: #25398e;
+  padding: 8.3px;
+  width: 100%;
+  font-size: 20px;
+  -webkit-appearance: button;
+  appearance: button;
+  outline: none;
+}
+
+.categor::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 12px;
+  width: 20%;
+  height: 100%;
+  text-align: center;
+  font-size: 28px;
+  line-height: 45px;
+  color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.1);
+  pointer-events: none;
+}
+
+.categor:hover::before {
+  color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.categor select option {
+  padding: 30px;
+}
 
 
  @media(max-width: 584px){
@@ -277,6 +316,9 @@ form .input-box span.details{
   max-width: 90%;
   margin-top: 180px;
   height: 690px;
+}
+.categor{
+  margin-bottom: 0;
 }
 form .user-details .input-box{
     margin-bottom: 15px;
