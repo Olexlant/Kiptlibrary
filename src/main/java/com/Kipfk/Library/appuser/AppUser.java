@@ -42,6 +42,7 @@ public class AppUser implements UserDetails {
     private Groups groups;
 
     private byte[] profileimage;
+    private String profileimgconv;
     @Enumerated(
             EnumType.STRING
     )
@@ -88,6 +89,13 @@ public class AppUser implements UserDetails {
 
     public String getPhonenum() {
         return phonenum;
+    }
+
+    public String getProfileimgconv() {
+        if (profileimage!=null){
+           profileimgconv = Base64.getEncoder().encodeToString(getProfileimage());
+        }
+        return profileimgconv;
     }
 
     @Override

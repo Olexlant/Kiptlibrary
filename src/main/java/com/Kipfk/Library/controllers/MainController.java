@@ -10,10 +10,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 
@@ -50,8 +50,9 @@ public class MainController {
     private final BookCategoryRepository bookCategoryRepository;
     private final CategoriesOfBooksRepository categoriesOfBooksRepository;
     private final GroupsRepository groupsRepository;
+    private final AppUserRepository appUserRepository;
 
-    public MainController(RegistrationService registrationService, ConfirmationTokenRepository confirmationTokenRepository, AppUserService appUserService, AppBookService appBookService, AppUserRepository appUserRepository, AppBookRepository appBookRepository, TakenBooksRepository takenBooksRepository, LikedBooksRepository likedBooksRepository, AppUserRepository userRepo, BookCategoryRepository bookCategoryRepository, CategoriesOfBooksRepository categoriesOfBooksRepository, GroupsRepository groupsRepository) {
+    public MainController(RegistrationService registrationService, ConfirmationTokenRepository confirmationTokenRepository, AppUserService appUserService, AppBookService appBookService, AppUserRepository appUserRepository, AppBookRepository appBookRepository, TakenBooksRepository takenBooksRepository, LikedBooksRepository likedBooksRepository, AppUserRepository userRepo, BookCategoryRepository bookCategoryRepository, CategoriesOfBooksRepository categoriesOfBooksRepository, GroupsRepository groupsRepository, AppUserRepository appUserRepository1) {
         this.registrationService = registrationService;
         this.appUserService = appUserService;
         this.appBookService = appBookService;
@@ -61,6 +62,7 @@ public class MainController {
         this.bookCategoryRepository = bookCategoryRepository;
         this.categoriesOfBooksRepository = categoriesOfBooksRepository;
         this.groupsRepository = groupsRepository;
+        this.appUserRepository = appUserRepository1;
     }
 
     @GetMapping("/")
@@ -235,12 +237,34 @@ public class MainController {
     @GetMapping("/editprofile")
     public String showEditProfilePage(@AuthenticationPrincipal UserDetails userDetails, Model model){
         AppUser user = (AppUser) appUserService.loadUserByUsername(userDetails.getUsername());
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        model.addAttribute("groups", groupsRepository.findAll());
         model.addAttribute("user",user);
         return "editprofile";
     }
 
+    @PostMapping("/editprofile/save")
+    public String saveProfileChanges(@AuthenticationPrincipal UserDetails userDetails, Model model, MultipartFile imgfile, @RequestParam String firstname, @RequestParam String lastname, @RequestParam String phonenum, @RequestParam String password, @RequestParam String email, @RequestParam String groupid) throws IOException {
+        AppUser user = (AppUser) appUserService.loadUserByUsername(userDetails.getUsername());
+        user.setFirstName(firstname);
+        user.setLastName(lastname);
+        user.setEmail(email);
+        user.setPhonenum(phonenum);
+        if (!imgfile.isEmpty()){
+            user.setProfileimage(imgfile.getBytes());
+        }
+        user.setGroups(groupsRepository.findAllById(Long.valueOf(groupid)));
+        appUserRepository.save(user);
+        model.addAttribute("user",user);
+        return "redirect:/editprofile?success";
+    }
 
-
+//GET USER PROFILE PICTURE
+    @GetMapping("/profile/image")
+    public void showProductImage(@AuthenticationPrincipal UserDetails userDetails, HttpServletResponse response) throws IOException {
+        response.setContentType("image/jpeg");
+        AppUser user = (AppUser) appUserService.loadUserByUsername(userDetails.getUsername());
+        InputStream is = new ByteArrayInputStream(user.getProfileimage());
+        IOUtils.copy(is, response.getOutputStream());
+    }
 
 }
