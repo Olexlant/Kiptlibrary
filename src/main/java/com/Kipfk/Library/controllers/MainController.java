@@ -4,6 +4,7 @@ import com.Kipfk.Library.appbook.*;
 import com.Kipfk.Library.appuser.*;
 import com.Kipfk.Library.registration.RegistrationService;
 import com.Kipfk.Library.registration.token.ConfirmationTokenRepository;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
@@ -19,6 +20,8 @@ import org.springframework.web.multipart.support.StandardServletMultipartResolve
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -80,8 +83,8 @@ public class MainController {
         return "signup_form";
     }
     @PostMapping("/process_register")
-    public String signUp(AppUser user, @RequestParam String group) {
-       user.setGroups(groupsRepository.findAllById(Long.valueOf(group)));
+    public String signUp(AppUser user, @RequestParam String groupid) {
+       user.setGroups(groupsRepository.findAllById(Long.valueOf(groupid)));
        registrationService.register(user);
        return "register_success";
     }
@@ -260,10 +263,23 @@ public class MainController {
 
 //GET USER PROFILE PICTURE
     @GetMapping("/profile/image")
-    public void showProductImage(@AuthenticationPrincipal UserDetails userDetails, HttpServletResponse response) throws IOException {
+    public void showProfileImage(@AuthenticationPrincipal UserDetails userDetails, HttpServletResponse response) throws IOException {
         response.setContentType("image/jpeg");
         AppUser user = (AppUser) appUserService.loadUserByUsername(userDetails.getUsername());
+        if (user.getProfileimage()==null){
+            byte[] array = Files.readAllBytes(Paths.get("src/main/resources/static/images/book.jpg"));
+            user.setProfileimage(array);
+        }
         InputStream is = new ByteArrayInputStream(user.getProfileimage());
+        IOUtils.copy(is, response.getOutputStream());
+    }
+
+//GET BOOK IMAGE BY ID
+    @GetMapping("/book/image/{bookid}")
+    public void showProductImage(@PathVariable Long bookid, HttpServletResponse response) throws IOException {
+        response.setContentType("image/jpeg");
+        AppBook book = appBookRepository.findAllById(bookid);
+        InputStream is = new ByteArrayInputStream(book.getBookimg());
         IOUtils.copy(is, response.getOutputStream());
     }
 

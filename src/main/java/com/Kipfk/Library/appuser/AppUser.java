@@ -42,7 +42,6 @@ public class AppUser implements UserDetails {
     private Groups groups;
 
     private byte[] profileimage;
-    private String profileimgconv;
     @Enumerated(
             EnumType.STRING
     )
@@ -91,12 +90,6 @@ public class AppUser implements UserDetails {
         return phonenum;
     }
 
-    public String getProfileimgconv() {
-        if (profileimage!=null){
-           profileimgconv = Base64.getEncoder().encodeToString(getProfileimage());
-        }
-        return profileimgconv;
-    }
 
     @Override
     public boolean isAccountNonExpired() {
@@ -117,5 +110,4 @@ public class AppUser implements UserDetails {
     public boolean isEnabled() {
         return enabled;
     }
-
 }
