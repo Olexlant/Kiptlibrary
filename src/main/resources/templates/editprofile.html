@@ -52,7 +52,7 @@
                             </div>
                             <div class="input-box">
                                 <span class="details">Ім'я</span>
-                                <input th:value="${user.getFirstName()}" type="text" name="firstname" placeholder="Введіть Ім'я" required>
+                                <input th:value="${user.getFirstName()}" type="text" name="firstname" placeholder="Введіть ім'я" required>
                             </div>
                             <div class="input-box">
                                 <span class="details">Прізвище</span>
@@ -68,11 +68,11 @@
                             </div>
                             <div class="input-box">
                                 <span class="details">Дата народження</span>
-                                <input type="text" name="polka" placeholder="Введіть дату народження" required>
+                                <input th:value="${user.getBirthday()}" type="date" name="birthday" placeholder="Введіть дату народження" required>
                             </div>
                             <div class="input-box">
-                                <span class="details">Домашня адресса</span>
-                                <input type="text" name="polka" placeholder="Введіть домашню адресу" required>
+                                <span class="details">Домашня адреса</span>
+                                <input th:value="${user.getAddress()}" type="text" name="address" placeholder="Введіть домашню адресу" required>
                             </div>
                             <div class="input-box">
                                 <span class="details">Телефон</span>

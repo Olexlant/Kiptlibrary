@@ -246,12 +246,14 @@ public class MainController {
     }
 
     @PostMapping("/editprofile/save")
-    public String saveProfileChanges(@AuthenticationPrincipal UserDetails userDetails, Model model, MultipartFile imgfile, @RequestParam String firstname, @RequestParam String lastname, @RequestParam String phonenum, @RequestParam String password, @RequestParam String email, @RequestParam String groupid) throws IOException {
+    public String saveProfileChanges(@AuthenticationPrincipal UserDetails userDetails, Model model, MultipartFile imgfile, @RequestParam String firstname, @RequestParam String lastname, @RequestParam String phonenum, @RequestParam String email, @RequestParam String groupid, @RequestParam String birthday, @RequestParam String address ) throws IOException {
         AppUser user = (AppUser) appUserService.loadUserByUsername(userDetails.getUsername());
         user.setFirstName(firstname);
         user.setLastName(lastname);
         user.setEmail(email);
         user.setPhonenum(phonenum);
+        user.setBirthday(LocalDate.parse(birthday));
+        user.setAddress(address);
         if (!imgfile.isEmpty()){
             user.setProfileimage(imgfile.getBytes());
         }

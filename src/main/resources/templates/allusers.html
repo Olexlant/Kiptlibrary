@@ -109,19 +109,25 @@
                         </thead>
                         <tbody>
                         <tr th:each="user : ${Users}">
-                            <td th:text="${user.groups.name}"></td>
-                            <td th:text="${user.firstName}"></td>
-                            <td th:text="${user.lastName}"></td>
-                            <td th:text="${user.email}"></td>
-                            <td th:text="${user.phonenum}"></td>
+<!--                            <td th:text="${user.getGroups().getName()}"></td>-->
+                            <div th:if="${user.getGroups()==null}">
+                                <td th:text="${'Без групи'}"></td>
+                            </div>
+                            <div th:if="${user.getGroups()!=null}">
+                                <td th:text="${user.getGroups().getName()}"></td>
+                            </div>
+                            <td th:text="${user.getFirstName()}"></td>
+                            <td th:text="${user.getLastName()}"></td>
+                            <td th:text="${user.getEmail()}"></td>
+                            <td th:text="${user.getPhonenum()}"></td>
                             <td class="btnactions">
-                                <form th:action="'/admin/allusers/'+ ${user.id}+'/edit'" method="get">
+                                <form th:action="'/admin/allusers/'+ ${user.getId()}+'/edit'" method="get">
                                     <button style="background-color: #58A9A5" type="submit"><i class="uil uil-pen"></i></button>
                                 </form>
-                                <form th:action="'/admin/usertakenadmin/'+ ${user.id}" method="post">
+                                <form th:action="'/admin/usertakenadmin/'+ ${user.getId()}" method="post">
                                     <button style="background-color: #fb9300" type="submit"><i class="uil uil-book-open"></i></button>
                                 </form>
-                                <form th:action="'/admin/allusers/'+ ${user.id}+'/remove'" method="post">
+                                <form th:action="'/admin/allusers/'+ ${user.getId()}+'/remove'" method="post">
                                     <button style="background-color: #f80000" type="submit" ><i class="uil uil-trash-alt"></i></button>
                                 </form>
                             </td>

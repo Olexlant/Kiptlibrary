@@ -18,7 +18,6 @@ import java.util.*;
 @Entity
 
 public class AppBook {
-
     @SequenceGenerator(
             name = "book_sequence",
             sequenceName = "book_sequence",
@@ -41,8 +40,10 @@ public class AppBook {
     private byte[] qrimg;
     private String qrimgconv;
     private byte[] bookfile;
-
     private String bookfileurl;
+    private String description;
+    private Long count;
+
 
     @OneToMany(mappedBy = "user")
     private Set<TakenBooks> userlike = new HashSet<>();

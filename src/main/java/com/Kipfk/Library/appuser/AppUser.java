@@ -9,6 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.*;
 
 
@@ -36,6 +37,8 @@ public class AppUser implements UserDetails {
     private String phonenum;
     private String password;
     private String email;
+    private LocalDate birthday;
+    private String address;
 
     @ManyToOne
     @JoinColumn(name = "groups_id")
