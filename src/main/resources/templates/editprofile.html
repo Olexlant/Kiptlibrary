@@ -18,9 +18,26 @@
 </head>
 <header class="site-header sticky-top py-1" th:insert="bloks/header :: header"></header>
 <body>
+    <div class="pop_up" id="pop_up">
+        <div class="pop_up_container">
+            <div class="pop_up_body" id="pop_up_body">
+                <p>Зміна паролю</p>
+                <form action="">
+                    <input type="text"placeholder="Старий пароль">
+                    <input type="text"placeholder="Новий пароль">
+                    <input type="text"placeholder="Підтвердіть пароль">
+                    <button>Зберегти</button>
+                </form>
+                <div class="pop_up_close" id="pop_up_close">&#10006</div>
+            </div>
+        </div>
+    </div>
 <div class="container">
     <div class="adout" id="adout">
         <div class="content">
+            <div class="button">
+                <a href="" id="open_pop_up">Зберегти</a>
+            </div>
             <form th:action="@{/editprofile/save}"  method="post" enctype="multipart/form-data">
             <div class="about-details">
                 <div class="right">
@@ -33,7 +50,6 @@
                             <iconify-icon icon="material-symbols:add-a-photo-outline" style="color: #25398e;"></iconify-icon>
                             Редагувати зображення
                         </label>
-                        
                         <input type="file" name="imgfile" accept="image/*">
                     </div>
                 </div>
@@ -48,7 +64,7 @@
                             </div>
                             <div class="input-box">
                                 <span class="details">Пароль</span>
-                                <input th:value="${user.getPassword()}" type="password"  name="password" placeholder="Введіть пароль" required>
+                                <a href="" ><input th:value="${user.getPassword()}" type="password"  name="password" placeholder="Введіть пароль" required></a>
                             </div>
                             <div class="input-box">
                                 <span class="details">Ім'я</span>
@@ -68,7 +84,7 @@
                             </div>
                             <div class="input-box">
                                 <span class="details">Дата народження</span>
-                                <input th:value="${user.getBirthday()}" type="date" name="birthday" placeholder="Введіть дату народження" required>
+                                <input th:value="${user.getBirthday()}" type="date"  min="1950-01-01" max="2015-12-31" name="birthday" placeholder="Введіть дату народження" required>
                             </div>
                             <div class="input-box">
                                 <span class="details">Домашня адреса</span>
@@ -86,9 +102,11 @@
                 </div>
             </div>
             </form>
+            
         </div>
     </div>
 </div>
+    <script src="/js/MenuPass.js"></script>
 <script src="/js/slider.js"></script>
 </body>
 </html>
