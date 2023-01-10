@@ -41,7 +41,10 @@ public class AppBook {
     private String qrimgconv;
     private byte[] bookfile;
     private String bookfileurl;
+
+    @Column(columnDefinition="text", length=10485760)
     private String description;
+
     private Long count;
 
 

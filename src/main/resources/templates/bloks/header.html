@@ -47,13 +47,13 @@
             <div class="btn" sec:authorize="isAuthenticated()">
                 <div class="header-button">
                     <div class="logo-image">
-                        <a><img th:src="@{'profile/image'}"  onclick="toggleMenu()"></a>
+                        <a><img th:src="@{'/profile/image'}"  onclick="toggleMenu()"></a>
                     </div>
                     <div class="sub-menu-wrap" id="subMenu">
                         <div class="sub-menu">
                             <div class="user-info">
                                 <div class="user-info-img">
-                                    <img th:src="@{'profile/image'}">
+                                    <img th:src="@{'/profile/image'}">
                                 </div>
                                 <h2 class="">
                                     <span sec:authentication="principal.firstName"></span>

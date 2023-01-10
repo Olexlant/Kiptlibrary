@@ -118,11 +118,16 @@
                             <span class="details">Полиця</span>
                             <input type="text" th:field="*{polka}" placeholder="Введіть номер полиці" required>
                         </div>
+
+                        <textarea th:field="*{description}" placeholder="Опис книги" required rows="6" ></textarea>
+
                         <div class="v"><label>Додайте зображення</label><input type="file" name="files" accept="image/*"></div>
 
                         <div class="v"><label>Додайте файл книги</label><input type="file" name="files" accept="application/pdf"></div>
 
                         <input type="text" th:field="*{bookfileurl}" placeholder="URL до книги" >
+
+                        <input type="number" th:field="*{count}" placeholder="Кількість книг" >
                     </div>
                     <div class="button">
                         <button type="submit">Додати</button>
