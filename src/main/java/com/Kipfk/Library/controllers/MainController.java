@@ -237,6 +237,7 @@ public class MainController {
         return "redirect:/myfavouritebooks";
     }
 
+//EDIT PROFILE
     @GetMapping("/editprofile")
     public String showEditProfilePage(@AuthenticationPrincipal UserDetails userDetails, Model model){
         AppUser user = (AppUser) appUserService.loadUserByUsername(userDetails.getUsername());

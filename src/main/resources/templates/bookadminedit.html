@@ -118,12 +118,16 @@
                             <span class="details">Полиця</span>
                             <input type="text" th:value="${bookd.polka}" name="polka" placeholder="Введіть номер полиці" required>
                         </div>
+
+                        <textarea th:text="${bookd.getDescription()}" name="description" placeholder="Опис книги" required rows="6" ></textarea>
+
                         <div class="v"><label>Додайте зображення</label><input type="file" name="files" accept="image/*"></div>
 
-                        <div class="v"><label>Додайте файл книги</label><input type="file" name="files" accept="application/pdf">
+                        <div class="v"><label>Додайте файл книги</label><input type="file" name="files" accept="application/pdf"></div>
 
-                        </div>
                         <input type="text" th:value="${bookd.bookfileurl}" name="bookfileurl" placeholder="URL до книги">
+
+                        <input type="number" th:value="${bookd.count}" name="count" placeholder="Кількість книг" >
                     </div>
                     <div class="button">
                         <button type="submit">Зберегти</button>
