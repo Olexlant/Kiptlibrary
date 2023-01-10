@@ -115,7 +115,7 @@
                         <tbody>
                         <tr th:each="book : ${books}">
                             <td th:text="${book.qrid}"></td>
-                            <td><img th:src="@{'data:image/png;base64,' + ${book.getBookimgconv()} }"/></td>
+                            <td><img th:src="@{'/book/image/' + ${book.getId()}}"/></td>
                             <td th:text="${book.title}"></td>
                             <td th:text="${book.author}"></td>
                             <td th:text="${book.year}"></td>

@@ -99,6 +99,8 @@ public class MainController {
 
 
 
+
+
 //ALLBOOKS
     @RequestMapping(value = "/allbooks", method = RequestMethod.GET)
     public String showAllBooks(Model model,@AuthenticationPrincipal UserDetails userDetails, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size, @RequestParam("category") Optional<String> category){
@@ -177,14 +179,6 @@ public class MainController {
         return "bookdetails";
     }
 
-    @GetMapping("/allbooks/{id}/ebook")
-    public void showEbookFile(@PathVariable Long id, HttpServletResponse response) throws IOException {
-        response.setContentType("application/pdf");
-        AppBook book = appBookRepository.findAllById(id);
-        InputStream is = new ByteArrayInputStream(book.getBookfile());
-        IOUtils.copy(is, response.getOutputStream());
-    }
-
     @GetMapping("/mytakenbooks")
     public String showUserAssigned(@AuthenticationPrincipal UserDetails userDetails,Model model){
         AppUser user = (AppUser) appUserService.loadUserByUsername(userDetails.getUsername());
@@ -194,7 +188,14 @@ public class MainController {
         model.addAttribute("takenbooks", tb);
         return "mytakenbooks";
     }
-
+//GET BOOK FILE TO READ
+    @GetMapping("/allbooks/{id}/ebook")
+    public void showEbookFile(@PathVariable Long id, HttpServletResponse response) throws IOException {
+        response.setContentType("application/pdf");
+        AppBook book = appBookRepository.findAllById(id);
+        InputStream is = new ByteArrayInputStream(book.getBookfile());
+        IOUtils.copy(is, response.getOutputStream());
+    }
 
     @PostMapping("/likingbook/{id}")
     public String createlikedbook(@AuthenticationPrincipal UserDetails userDetails,LikedBooks likedBooks, @PathVariable(value = "id") long bookid) {
@@ -279,11 +280,19 @@ public class MainController {
 
 //GET BOOK IMAGE BY ID
     @GetMapping("/book/image/{bookid}")
-    public void showProductImage(@PathVariable Long bookid, HttpServletResponse response) throws IOException {
+    public void showBookImage(@PathVariable Long bookid, HttpServletResponse response) throws IOException {
         response.setContentType("image/jpeg");
         AppBook book = appBookRepository.findAllById(bookid);
         InputStream is = new ByteArrayInputStream(book.getBookimg());
         IOUtils.copy(is, response.getOutputStream());
     }
 
+//GET BOOK QRIMAGE BY BOOK ID
+    @GetMapping("/qrcode/image/{bookid}")
+    public void showQrCodeImage(@PathVariable Long bookid,HttpServletResponse response) throws IOException {
+        response.setContentType("image/jpeg");
+        AppBook book = appBookRepository.findAllById(bookid);
+        InputStream is = new ByteArrayInputStream(book.getQrimg());
+        IOUtils.copy(is, response.getOutputStream());
+    }
 }

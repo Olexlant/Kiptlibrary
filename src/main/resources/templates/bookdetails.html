@@ -30,7 +30,7 @@
                     <p th:text="${'Наявність: '+bookd.count+' штук'}"></p>
             </div>
                 <div class="right">
-                    <img th:src="@{'data:image/png;base64,' + ${bookd.getQqrimgcov()} }" >
+                    <img th:src="@{'/qrcode/image/' + ${bookd.getId()}}" >
                 </div>
             </div> <div class="button">
             <form action="/allbooks">
