@@ -400,7 +400,7 @@ form .button :hover{
   left: 0;
   top: 0;
   background-color: transparent;
-  z-index: 2;
+  z-index: 988;
   transform: translateY(-44.5%) scale(0);
   transition: .4s ease-in-out;
 }
@@ -415,11 +415,11 @@ form .button :hover{
 }
 .pop_up_body{
   margin: auto;
-  width: 500px;
+  width: 400px;
   background-color: #FFF;
   border-radius: 10px;
   text-align: center;
-  padding: 100px 15px 110px 15px;
+  padding: 60px 1px 50px 1px;
   position: relative;
 }
 .pop_up_body p{
@@ -443,18 +443,25 @@ form .button :hover{
   cursor: pointer;
   display: block;
   width: 330px;
-  margin: 60px auto 0px auto;
+  margin: 30px auto 0px auto;
   padding: 20px 0px;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 21px;
   border: none;
   color:#fff;
   border-radius: 10px;
   background-color: #25398e;
+  border: 2px solid transparent;
+  transition: all 0.4s ease;
+}
+.pop_up_body button:hover{
+  border-color: #25398e;
+ background-color: #fff;
+ color: #25398e;
 }
 .pop_up_close{
   position: absolute;
-  top: 15px;
+  top: 20px;
   right: 15px;
   font-size: 21px;
   cursor: pointer;

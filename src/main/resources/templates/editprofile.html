@@ -25,7 +25,7 @@
                 <form action="">
                     <input type="text"placeholder="Старий пароль">
                     <input type="text"placeholder="Новий пароль">
-                    <input type="text"placeholder="Підтвердіть пароль">
+                    <input type="text"placeholder="Підтвердіть новий пароль">
                     <button>Зберегти</button>
                 </form>
                 <div class="pop_up_close" id="pop_up_close">&#10006</div>
@@ -64,7 +64,7 @@
                             </div>
                             <div class="input-box">
                                 <span class="details">Пароль</span>
-                                <a href="" ><input th:value="${user.getPassword()}" type="password"  name="password" placeholder="Введіть пароль" required></a>
+                                <a href="" ><input id="open_pop_up" th:value="${user.getPassword()}" type="password"  name="password" placeholder="Введіть пароль" required></a>
                             </div>
                             <div class="input-box">
                                 <span class="details">Ім'я</span>
