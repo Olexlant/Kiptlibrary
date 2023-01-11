@@ -847,6 +847,7 @@ footer .text span a:hover{
     width: 90%;
   }
   }
+  
   @media(max-width:750px){
     .services .boxes .box{
       width: 100%;

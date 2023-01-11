@@ -352,8 +352,9 @@ form .button :hover{
    border-color: #25398e;
   background-color: #f0f3ff;
   color: #25398e;
-
 }
+
+
 
 .categor select {
   border: 1px solid #ccc;
@@ -415,11 +416,11 @@ form .button :hover{
 }
 .pop_up_body{
   margin: auto;
-  width: 330px;
+  width: 340px;
   background-color: #FFF;
   border-radius: 10px;
   text-align: center;
-  padding: 60px 1px 50px 1px;
+  padding: 60px 15px 50px 15px;
   position: relative;
 }
 .pop_up_body p{
@@ -430,46 +431,54 @@ form .button :hover{
 }
 .pop_up_body input{
   display: block;
-  margin: 20px auto 0px auto;
+  margin: 25px auto 0px auto;
   width: 250px;
-  padding: 15px 20px;
+  outline: none;
+  padding: 17px 20px;
   border-radius: 10px;
   font-weight: 500;
   font-size: 18px;
-  color: #89909f;
   border: 1px solid #ccc;
+  border-bottom-width: 2px;
+  transition: all 0.3s ease;
 }
 .pop_up_body input:focus,
 .pop_up_body input:valid{
-border-color: #25398e;
+  border-color: #25398e;
 }
 .pop_up_body button{
   cursor: pointer;
   display: block;
   width: 250px;
   margin: 30px auto 0px auto;
-  padding: 12px 0px;
+  padding: 14px 0px;
   font-weight: 500;
   font-size: 21px;
   border: none;
   color:#fff;
-  border-radius: 10px;
+  border-radius: 5px;
   background-color: #25398e;
   border: 2px solid transparent;
+  background: #25398e;
   transition: all 0.4s ease;
 }
+
 .pop_up_body button:hover{
-  border-color: #25398e;
- background-color: #fff;
- color: #25398e;
+   border-color: #25398e;
+  background-color: #fff;
+  color: #25398e;
+}
+.pop_up_body input:focus{
+  outline: none;
 }
 .pop_up_close{
   position: absolute;
-  top: 20px;
+  top: 15px;
   right: 15px;
   font-size: 21px;
   cursor: pointer;
 }
+
 
 
 
@@ -522,6 +531,9 @@ border-color: #25398e;
     }
     .navbar .btn .login-button a:hover{
       color: black;
+    }
+    .button-edit-pass{
+     
     }
 
 nav .navbar .menu{
