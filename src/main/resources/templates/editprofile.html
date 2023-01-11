@@ -34,10 +34,9 @@
     </div>
 <div class="container">
     <div class="adout" id="adout">
-        <div class="content">
-            <div class="button">
-                <a href="" id="open_pop_up">Зберегти</a>
-            </div>
+        <div class="content"><div class="button">
+            <a href="" id="open_pop_up">Зберегти</a>
+        </div>
             <form th:action="@{/editprofile/save}"  method="post" enctype="multipart/form-data">
             <div class="about-details">
                 <div class="right">
@@ -63,7 +62,7 @@
                                 <input th:value="${user.getEmail()}" type="text" name="email" placeholder="Введіть email" required>
                             </div>
                             <div class="input-box">
-                                <span class="details">Пароль</span>
+                                <span class="details">Пароль <a href="" id="open_pop_up">Зберегти</a></span>
                                 <a href="" ><input id="open_pop_up" th:value="${user.getPassword()}" type="password"  name="password" placeholder="Введіть пароль" required></a>
                             </div>
                             <div class="input-box">
