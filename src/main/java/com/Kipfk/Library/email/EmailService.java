@@ -19,15 +19,30 @@ public class EmailService implements EmailSender{
 
     private final JavaMailSender mailSender;
 
-    @Override
     @Async
-    public void send(String to, String email) {
+    public void sendregistrationmail(String to, String email) {
         try {
             MimeMessage mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
             helper.setText(email, true);
             helper.setTo(to);
             helper.setSubject("Підтердження email");
+            helper.setFrom("Library@Kipfk.com");
+            mailSender.send(mimeMessage);
+        } catch (MessagingException e) {
+            LOGGER.error("Не вдалось відправити на email", e);
+            throw new IllegalStateException("Не вдалось відправити на email");
+        }
+    }
+
+    @Async
+    public void sendchangepasswordmail(String to, String email) {
+        try {
+            MimeMessage mimeMessage = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
+            helper.setText(email, true);
+            helper.setTo(to);
+            helper.setSubject("Відновлення паролю");
             helper.setFrom("Library@Kipfk.com");
             mailSender.send(mimeMessage);
         } catch (MessagingException e) {

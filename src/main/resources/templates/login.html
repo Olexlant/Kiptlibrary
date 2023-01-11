@@ -23,6 +23,12 @@
     <div th:if="${param.alreadyconfirmed}" class="alert">
       Email вже підтверджено
     </div>
+    <div th:if="${param.passwordchanged}" class="alert">
+      Новий пароль збережено
+    </div>
+    <div th:if="${param.expiredpasschange}" class="alert">
+      Час зміни паролю пройшов
+    </div>
     <form method="post" action="/login">
       <div class="user-details">
         <div class="input-box">
@@ -32,14 +38,14 @@
         </div>
         <div class="input-box">
           <span class="details">Пароль</span>
-          <input type="password" id="password" name="password" class="form-control"  placeholder="Пароль" required minlength="6">
+          <input type="password" id="password" name="password" class="form-control"  placeholder="Пароль" required>
           <div class="icon"><i class="fas fa-lock"></i></div>
         </div>
         <div class="input_box button">
         <button type="submit">Вхід</button>
       </div>
         <div class="sign_up">
-          Забули пароль? <a th:href="@{/register}">Відновити</a>
+          Забули пароль? <a th:href="@{/resetpassword}">Відновити</a>
         </div>
       </div>
     </form>

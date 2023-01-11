@@ -16,8 +16,6 @@ public interface ConfirmationTokenRepository extends JpaRepository<ConfirmationT
 
     ConfirmationToken findByToken(String token);
 
-    ConfirmationToken findByTokenAndToken(String token,String tok);
-
     Optional<ConfirmationToken> findByAppUser(AppUser appUser);
 
     @Transactional

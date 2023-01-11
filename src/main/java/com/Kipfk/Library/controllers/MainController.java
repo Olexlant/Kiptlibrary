@@ -3,8 +3,9 @@ package com.Kipfk.Library.controllers;
 import com.Kipfk.Library.appbook.*;
 import com.Kipfk.Library.appuser.*;
 import com.Kipfk.Library.registration.RegistrationService;
+import com.Kipfk.Library.registration.token.ConfirmationToken;
 import com.Kipfk.Library.registration.token.ConfirmationTokenRepository;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
+import com.google.zxing.qrcode.decoder.Mode;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
@@ -23,6 +24,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -54,8 +56,9 @@ public class MainController {
     private final CategoriesOfBooksRepository categoriesOfBooksRepository;
     private final GroupsRepository groupsRepository;
     private final AppUserRepository appUserRepository;
+    private final ConfirmationTokenRepository confirmationTokenRepository;
 
-    public MainController(RegistrationService registrationService, ConfirmationTokenRepository confirmationTokenRepository, AppUserService appUserService, AppBookService appBookService, AppUserRepository appUserRepository, AppBookRepository appBookRepository, TakenBooksRepository takenBooksRepository, LikedBooksRepository likedBooksRepository, AppUserRepository userRepo, BookCategoryRepository bookCategoryRepository, CategoriesOfBooksRepository categoriesOfBooksRepository, GroupsRepository groupsRepository, AppUserRepository appUserRepository1) {
+    public MainController(RegistrationService registrationService, ConfirmationTokenRepository confirmationTokenRepository, AppUserService appUserService, AppBookService appBookService, AppUserRepository appUserRepository, AppBookRepository appBookRepository, TakenBooksRepository takenBooksRepository, LikedBooksRepository likedBooksRepository, AppUserRepository userRepo, BookCategoryRepository bookCategoryRepository, CategoriesOfBooksRepository categoriesOfBooksRepository, GroupsRepository groupsRepository, AppUserRepository appUserRepository1, ConfirmationTokenRepository confirmationTokenRepository1) {
         this.registrationService = registrationService;
         this.appUserService = appUserService;
         this.appBookService = appBookService;
@@ -66,6 +69,7 @@ public class MainController {
         this.categoriesOfBooksRepository = categoriesOfBooksRepository;
         this.groupsRepository = groupsRepository;
         this.appUserRepository = appUserRepository1;
+        this.confirmationTokenRepository = confirmationTokenRepository1;
     }
 
     @GetMapping("/")
@@ -263,6 +267,41 @@ public class MainController {
         appUserRepository.save(user);
         model.addAttribute("user",user);
         return "redirect:/editprofile?success";
+    }
+
+//RESET PASSWORD
+    @GetMapping("/resetpassword")
+    public String resetPasswordForm(){
+        return "sendresetpasswordmail";
+    }
+
+    @PostMapping("/resetpassword")
+    public String sendResetPasswordMail(@RequestParam String email){
+        if (appUserRepository.findByEmail(email).isPresent()){
+            AppUser user = appUserRepository.findByEmail(email).get();
+            ConfirmationToken token = confirmationTokenRepository.findByAppUser(user).get();
+            token.setPasswordChangeExpiresAt(LocalDateTime.now().plusMinutes(10));
+            confirmationTokenRepository.save(token);
+            registrationService.sendchangepasswordmail(user, token.getToken());
+            return "redirect:/resetpassword?sended";
+        }else {
+            return "redirect:/resetpassword?notfound";
+        }
+    }
+
+    @GetMapping("/resetpassword/reset")
+    public String resetPasswordFormByMail(Model model, @RequestParam(required=false,name="token") String token) {
+        model.addAttribute("token", token);
+        return "resetpassword";
+    }
+    @PostMapping("/resetpassword/reset")
+    public String changePasswordByMail(@RequestParam String newpassword, @RequestParam String confirmnewpassword, @RequestParam(required=false,name="token") String token) {
+        if (newpassword.equals(confirmnewpassword)){
+            return registrationService.changePasswordBytoken(newpassword,token);
+        }else {
+            return "redirect:/resetpassword/reset?token"+token+"?notmatch";
+        }
+
     }
 
 //GET USER PROFILE PICTURE
