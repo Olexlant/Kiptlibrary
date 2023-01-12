@@ -57,9 +57,10 @@ public class MainController {
     private final GroupsRepository groupsRepository;
     private final AppUserRepository appUserRepository;
     private final ConfirmationTokenRepository confirmationTokenRepository;
+    private final BooksByGroupsRepository booksByGroupsRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public MainController(RegistrationService registrationService, ConfirmationTokenRepository confirmationTokenRepository, AppUserService appUserService, AppBookService appBookService, AppUserRepository appUserRepository, AppBookRepository appBookRepository, TakenBooksRepository takenBooksRepository, LikedBooksRepository likedBooksRepository, AppUserRepository userRepo, BookCategoryRepository bookCategoryRepository, CategoriesOfBooksRepository categoriesOfBooksRepository, GroupsRepository groupsRepository, AppUserRepository appUserRepository1, ConfirmationTokenRepository confirmationTokenRepository1, PasswordEncoder passwordEncoder) {
+    public MainController(RegistrationService registrationService, ConfirmationTokenRepository confirmationTokenRepository, AppUserService appUserService, AppBookService appBookService, AppUserRepository appUserRepository, AppBookRepository appBookRepository, TakenBooksRepository takenBooksRepository, LikedBooksRepository likedBooksRepository, AppUserRepository userRepo, BookCategoryRepository bookCategoryRepository, CategoriesOfBooksRepository categoriesOfBooksRepository, GroupsRepository groupsRepository, AppUserRepository appUserRepository1, ConfirmationTokenRepository confirmationTokenRepository1, BooksByGroupsRepository booksByGroupsRepository, PasswordEncoder passwordEncoder) {
         this.registrationService = registrationService;
         this.appUserService = appUserService;
         this.appBookService = appBookService;
@@ -71,6 +72,7 @@ public class MainController {
         this.groupsRepository = groupsRepository;
         this.appUserRepository = appUserRepository1;
         this.confirmationTokenRepository = confirmationTokenRepository1;
+        this.booksByGroupsRepository = booksByGroupsRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -242,6 +244,19 @@ public class MainController {
         LikedBooks lb = likedBooksRepository.findById(id).orElseThrow();
         likedBooksRepository.delete(lb);
         return "redirect:/myfavouritebooks";
+    }
+
+//BOOKS BY USER GROUP
+    @GetMapping("/booksbygroup")
+    public String showBooksByGroup(@AuthenticationPrincipal UserDetails userDetails,Model model){
+        AppUser user = (AppUser) appUserService.loadUserByUsername(userDetails.getUsername());
+        ArrayList<BooksByGroups> booksByGroups = booksByGroupsRepository.findAllByGroups(user.getGroups());
+        List<AppBook> books = new ArrayList<>();
+        for (BooksByGroups b : booksByGroups){
+            books.add(b.getBook());
+        }
+        model.addAttribute("books",books);
+        return "booksbygroup";
     }
 
 //EDIT PROFILE
