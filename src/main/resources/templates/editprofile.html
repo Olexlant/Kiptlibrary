@@ -22,10 +22,10 @@
         <div class="pop_up_container">
             <div class="pop_up_body" id="pop_up_body">
                 <p>Зміна паролю</p>
-                <form action="">
-                    <input type="password"placeholder="Старий пароль">
-                    <input type="password"placeholder="Новий пароль">
-                    <input type="password"placeholder="Підтвердіть пароль">
+                <form th:action="@{/editprofile/changepassword}" method="post">
+                    <input name="currentpassword" type="password" placeholder="Старий пароль">
+                    <input name="newpassword" type="password" placeholder="Новий пароль">
+                    <input name="confirmnewpassword" type="password" placeholder="Підтвердіть пароль">
                     <button class="">Зберегти</button>
                 </form>
                 <div class="pop_up_close" id="pop_up_close">&#10006</div>
@@ -51,8 +51,17 @@
                     </div>
                 </div>
                 <div class="left">
-                    <div class="title">
+                    <div th:if="${param.error}" class="title">
                         <p>Внесіть всі данні</p>
+                    </div>
+                    <div th:if="${param.passchanged}" class="title">
+                        <p>Пароль змінено</p>
+                    </div>
+                    <div th:if="${param.notmatch}" class="title">
+                        <p>Нові паролі не співпадають</p>
+                    </div>
+                    <div th:if="${param.currentnotmatch}" class="title">
+                        <p>Старий пароль не вірний</p>
                     </div>
                         <div class="user-details">
                             <div class="input-box">
@@ -61,7 +70,7 @@
                             </div>
                             <div class="input-box">
                                 <span class="details">Пароль</span>
-                                <a href=""  id="open"><input th:value="${user.getPassword()}" type="password"  name="password" placeholder="Введіть пароль" required></a>
+                                <a href=""  id="open"><input th:value="${'Змінити пароль'}" type="text"  name="password" placeholder="Введіть пароль" required></a>
                             </div>
                             <div class="input-box">
                                 <span class="details">Ім'я</span>

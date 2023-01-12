@@ -5,7 +5,7 @@ import com.Kipfk.Library.appuser.*;
 import com.Kipfk.Library.registration.RegistrationService;
 import com.Kipfk.Library.registration.token.ConfirmationToken;
 import com.Kipfk.Library.registration.token.ConfirmationTokenRepository;
-import com.google.zxing.qrcode.decoder.Mode;
+import com.Kipfk.Library.security.PasswordEncoder;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
@@ -57,8 +57,9 @@ public class MainController {
     private final GroupsRepository groupsRepository;
     private final AppUserRepository appUserRepository;
     private final ConfirmationTokenRepository confirmationTokenRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public MainController(RegistrationService registrationService, ConfirmationTokenRepository confirmationTokenRepository, AppUserService appUserService, AppBookService appBookService, AppUserRepository appUserRepository, AppBookRepository appBookRepository, TakenBooksRepository takenBooksRepository, LikedBooksRepository likedBooksRepository, AppUserRepository userRepo, BookCategoryRepository bookCategoryRepository, CategoriesOfBooksRepository categoriesOfBooksRepository, GroupsRepository groupsRepository, AppUserRepository appUserRepository1, ConfirmationTokenRepository confirmationTokenRepository1) {
+    public MainController(RegistrationService registrationService, ConfirmationTokenRepository confirmationTokenRepository, AppUserService appUserService, AppBookService appBookService, AppUserRepository appUserRepository, AppBookRepository appBookRepository, TakenBooksRepository takenBooksRepository, LikedBooksRepository likedBooksRepository, AppUserRepository userRepo, BookCategoryRepository bookCategoryRepository, CategoriesOfBooksRepository categoriesOfBooksRepository, GroupsRepository groupsRepository, AppUserRepository appUserRepository1, ConfirmationTokenRepository confirmationTokenRepository1, PasswordEncoder passwordEncoder) {
         this.registrationService = registrationService;
         this.appUserService = appUserService;
         this.appBookService = appBookService;
@@ -70,6 +71,7 @@ public class MainController {
         this.groupsRepository = groupsRepository;
         this.appUserRepository = appUserRepository1;
         this.confirmationTokenRepository = confirmationTokenRepository1;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/")
@@ -300,6 +302,23 @@ public class MainController {
             return registrationService.changePasswordBytoken(newpassword,token);
         }else {
             return "redirect:/resetpassword/reset?token"+token+"?notmatch";
+        }
+    }
+
+//CHANGE PASSWORD IN PROFILE
+    @PostMapping("/editprofile/changepassword")
+    public String changePasswordInProfile(@AuthenticationPrincipal UserDetails userDetails,@RequestParam String currentpassword,@RequestParam String newpassword, @RequestParam String confirmnewpassword) {
+        AppUser user = (AppUser) appUserService.loadUserByUsername(userDetails.getUsername());
+        if (passwordEncoder.bCryptPasswordEncoder().matches(currentpassword, user.getPassword())){
+            if (newpassword.equals(confirmnewpassword)){
+                user.setPassword(passwordEncoder.bCryptPasswordEncoder().encode(newpassword));
+                appUserRepository.save(user);
+                return "redirect:/editprofile?passchanged";
+            }else {
+                return "redirect:/editprofile?notmatch";
+            }
+        }else {
+            return "redirect:/editprofile?currentnotmatch";
         }
 
     }
