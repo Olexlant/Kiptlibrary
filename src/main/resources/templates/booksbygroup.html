@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<!-- Created By CodingLab - www.codinglabweb.com -->
+<html lang="en" dir="ltr">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Головна</title>
+    <link href="/css/allbook.css" type="text/css" rel="stylesheet" th:href="@{/css/allbook.css}">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <script src="https://code.iconify.design/iconify-icon/1.0.2/iconify-icon.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Exo+2:wght@300&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<header class="site-header sticky-top py-1" th:insert="bloks/header :: header"></header>
+<div class="container">
+    <div class="title-services"><span>Улюблені</span></div>
+    <div class="box-container" >
+        <div class="box" th:each="likedbook : ${likedbooks}">
+            <div class="image">
+                <img  class="rounded-5 mb-5 mt-5" style="width: 100%" th:src="@{'data:image/png;base64,' + ${likedbook.getBook().getBookimgconv()} }" />
+            </div>
+            <div class="content">
+                <h3 th:text="${likedbook.getBook().getTitle()}"></h3>
+                <p th:text="${'Автор: '+likedbook.getBook().getAuthor()}"></p>
+                <div class="button">
+                    <a th:href="'/allbooks/'+ ${likedbook.getBook().getId()}" class="btn">Детальніше</a>
+                    <form th:action="'/myfavouritebooks/'+ ${likedbook.getId()}+'/remove'" method="post">
+                        <button class="btn" type="submit">Видалити</button>
+                    </form>
+                </div>
+                <div class="icons">
+                    <span > <i class="fas fa-calendar"></i><a th:text="${' '+likedbook.getBook().getYear()}"></a></span>
+                    <span > <i class="fa fa-id-card-o" ></i><a th:text="${' Додана '+likedbook.getAddedat()}"></a></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/slider.js"></script>
+</body>
+</html>

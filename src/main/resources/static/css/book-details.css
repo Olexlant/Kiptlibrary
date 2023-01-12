@@ -236,6 +236,91 @@ background:#25398e ;
   transform: translateX(-50%);
   bottom: -7px;
 }
+.container section .content{
+  width: 100%;
+  margin: 10px auto 10px auto;
+  font-family: 'Century Gothic' ;
+
+}
+.container section .title{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+.container section .title span{
+  font-size: 30px;
+  font-weight: 600;
+padding-bottom: 8px;
+  position: relative;
+  color: #25398e;
+}
+.container section .title span::before,
+.container section .title span::after{
+content: '';
+position: absolute;
+left: 0;
+bottom: 0;
+height: 3px;
+width: 100%;
+  background:#f04e4e;
+}
+.container section .title span::after{
+  width: 70%;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -7px;
+}
+.container .adout .about-details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.container .adout .about-details .right{
+  width: 45%;
+}
+.container .adout .about-details .right img{
+  height: 300px;
+width: 300px;
+object-fit: cover;
+border-radius: 12px;
+}
+.container .adout .about-details .left{
+  width: 55%;
+  text-align: center;
+}
+.container section .topic{
+font-size: 30px;
+font-weight: 500;
+color: #0E2431;
+margin-bottom: 10px;
+}
+.about-details .left p{
+  color: #0E2431;
+  text-align: justify;
+}
+.container section .button{
+  margin: 14px 0;
+}
+.container section .button button{
+  outline: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 23px;
+  font-weight: 400;
+  background:#25398e;
+  color: #ffffff;
+  cursor: pointer;
+  border: 2px solid transparent;
+  font-family: 'Comfortaa', cursive;
+font-family: 'Exo 2', sans-serif;
+
+  transition: all 0.4s ease;
+}
+.container section .button button:hover{
+  border-color:#25398e;
+  background-color: #fff;
+  color:#25398e;
+}
 .container{
   max-width: 1200px;
   margin: 0 auto;
@@ -490,7 +575,17 @@ font-family: 'Exo 2', sans-serif;
   border-radius: 7px;
   margin-top: 100px;
 }
+@media(max-width: 990px){
+  .container section .title{
+    margin-top: 1px;
+  }
+  }
 
+@media(max-width: 600px){
+  .container .adout .about-details .left{
+    width: 90%;
+  }
+  }
 .pagination a:hover:not(.active) {background-color: #ddd;}
 @media(max-width: 1005px){
   .adout .about-details .left-book {

@@ -18,27 +18,30 @@
 <header class="site-header sticky-top py-1" th:insert="bloks/header :: header"></header>
 <body>
 <div class="container">
-    <section class="adout" id="adout">
+    <section class="adout">
         <div class="content" th:each="bookd : ${bookd}">
-            <div class="title-book"><span th:text="${bookd.title}"></span></div>
+            <div class="title"><span  th:text="${bookd.title}"></span></div>
             <div class="about-details">
-                <div class="left-book">
-                    <p th:text="${'Qr-код: '+bookd.qrid}"></p>
-                    <p th:text="${'Автор: '+bookd.author}"></p>
-                    <p th:text="${'Рік: '+bookd.year}"></p>
-                    <p th:text="${'Опис: '+bookd.description}"></p>
-                    <p th:text="${'Наявність: '+bookd.count+' штук'}"></p>
-            </div>
                 <div class="right">
                     <img th:src="@{'/qrcode/image/' + ${bookd.getId()}}" >
                 </div>
-            </div> <div class="button">
-            <form action="/allbooks">
-                <button >Назад</button>
-            </form>
+                <div class="left">
+                    <div class="topic"  th:text="${'Qr-код: '+bookd.qrid}"></div>
+                    <div class="topic" th:text="${'Автор: '+bookd.author}"></div>
+                    <div class="topic" th:text="${'Рік: '+bookd.year}"></div>
+                    <div class="topic"th:text="${'Наявність: '+bookd.count+' штук'}"></div>
+                    <p th:text="${'Опис: '+bookd.description}"></p>
+                    <form action="/allbooks">
+                        <div class="button">
+                            <button>Назад</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
         </div>
-        </div>
-    </section></div>
+    </section>
+</div>
 <script src="/js/select.js"></script>
 </body>
 </html>

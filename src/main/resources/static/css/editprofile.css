@@ -416,27 +416,28 @@ form .button :hover{
 }
 .pop_up_body{
   margin: auto;
-  width: 340px;
+  width: 280px;
   background-color: #FFF;
   border-radius: 10px;
   text-align: center;
-  padding: 60px 15px 50px 15px;
+  padding: 20px 30px;
   position: relative;
 }
 .pop_up_body p{
   font-size: 28px;
   font-weight: 600;
   color: #22262d;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 .pop_up_body input{
-  display: block;
-  margin: 25px auto 0px auto;
-  width: 250px;
+  /* display: block; */
+  /* align-items: center; */
+  margin: 7px 0px;
+  width: 210px;
   outline: none;
-  padding: 17px 20px;
+  padding: 12px 13px;
   border-radius: 10px;
-  font-weight: 500;
+  /* font-weight: 500; */
   font-size: 18px;
   border: 1px solid #ccc;
   border-bottom-width: 2px;
@@ -448,10 +449,10 @@ form .button :hover{
 }
 .pop_up_body button{
   cursor: pointer;
-  display: block;
-  width: 250px;
-  margin: 30px auto 0px auto;
-  padding: 14px 0px;
+  /* display: block; */
+  width: 210px;
+  margin: 20px auto 0px auto;
+  padding: 10px 0px;
   font-weight: 500;
   font-size: 21px;
   border: none;
@@ -478,9 +479,6 @@ form .button :hover{
   font-size: 21px;
   cursor: pointer;
 }
-
-
-
 
 @media(max-width: 733px){
   .container .content .about-details .left form .user-details{
