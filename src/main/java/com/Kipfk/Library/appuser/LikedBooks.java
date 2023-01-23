@@ -16,7 +16,7 @@ public class LikedBooks {
     @GeneratedValue
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "book_id")
     private AppBook book;
 

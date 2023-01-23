@@ -1,12 +1,15 @@
 package com.Kipfk.Library.appbook;
 
 import com.Kipfk.Library.appuser.AppUser;
+import com.Kipfk.Library.appuser.LikedBooks;
 import com.Kipfk.Library.appuser.TakenBooks;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.tomcat.jni.User;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.*;
@@ -36,20 +39,12 @@ public class AppBook {
     private Long stilaj;
     private Long polka;
     private byte[] bookimg;
-    private String bookimgconv;
     private byte[] qrimg;
-    private String qrimgconv;
     private byte[] bookfile;
     private String bookfileurl;
-
     @Column(columnDefinition="text", length=10485760)
     private String description;
-
     private Long count;
-
-
-    @OneToMany(mappedBy = "user")
-    private Set<TakenBooks> userlike = new HashSet<>();
 
     public AppBook(Long qrid, String title, String author, Long year, Long stilaj, Long polka, byte[] bookimg, byte[] qrimg,byte[] bookfile){
         this.qrid = qrid;
@@ -62,6 +57,12 @@ public class AppBook {
         this.qrimg = qrimg;
         this.bookfile = bookfile;
     }
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "book", orphanRemoval = true)
+    private Set<LikedBooks> likedBooks;
+    @OneToMany(mappedBy = "book")
+    private Set<TakenBooks> takenBooks;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "book", orphanRemoval = true)
+    private Set<BooksByGroups> booksByGroups;
 
 
     public Long getId() {
@@ -96,17 +97,5 @@ public class AppBook {
 
     public byte[] getQrimg() { return qrimg; }
     public byte[] getBookfile() {return bookfile; }
-    public String getBookimgconv() {
-        if (bookimg!=null){
-            bookimgconv = Base64.getEncoder().encodeToString(getBookimg());
-        }
-        return bookimgconv;
-    }
-    public String getQqrimgcov() {
-        if (qrimg!=null){
-            qrimgconv = Base64.getEncoder().encodeToString(getQrimg());
-        }
-        return qrimgconv;
-    }
 
 }
