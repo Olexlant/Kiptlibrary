@@ -3,6 +3,8 @@ package com.Kipfk.Library.appuser;
 import com.Kipfk.Library.appbook.AppBook;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDate;

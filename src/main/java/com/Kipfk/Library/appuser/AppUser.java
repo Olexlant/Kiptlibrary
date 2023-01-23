@@ -53,9 +53,6 @@ public class AppUser implements UserDetails {
     private Boolean enabled = false;
 
 
-    @OneToMany(mappedBy = "user")
-    private Set<TakenBooks> userlike = new HashSet<>();
-
     public AppUser(String firstName, String lastName, String phonenum, String password, String email, Groups groups, AppUserRole appUserRole) {
         this.firstName = firstName;
         this.lastName = lastName;

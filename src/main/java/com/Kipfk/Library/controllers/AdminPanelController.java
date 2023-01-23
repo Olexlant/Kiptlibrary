@@ -166,9 +166,13 @@ public class AdminPanelController {
     }
     @PostMapping("/admin/allbooksadmin/{id}/remove")
     public String AdminBookDelete(@PathVariable(value = "id") long id) {
-        AppBook book = appBookRepository.findById(id).orElseThrow();
-        appBookRepository.delete(book);
-        return "redirect:/allbooksadmin";
+        if (takenBooksRepository.findByBookId(id).isPresent()){
+            return "redirect:/admin/allbooksadmin?userNotReturn";
+        } else {
+            appBookRepository.deleteById(id);
+            return "redirect:/admin/allbooksadmin";
+        }
+
     }
 
 
