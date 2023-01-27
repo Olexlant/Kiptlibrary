@@ -9,7 +9,7 @@
 font-family: 'Exo 2', sans-serif;
 }
 body{
-  background-color: #f0f3ff;
+  background-color: #fff;
 }
 nav{
   position: fixed;
@@ -350,7 +350,7 @@ form .button button {
 }
 form .button :hover{
    border-color: #25398e;
-  background-color: #f0f3ff;
+  background-color: #fff;
   color: #25398e;
 }
 
