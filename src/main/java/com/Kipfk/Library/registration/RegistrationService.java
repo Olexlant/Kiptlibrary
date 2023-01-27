@@ -1,9 +1,6 @@
 package com.Kipfk.Library.registration;
 
-import com.Kipfk.Library.appuser.AppUser;
-import com.Kipfk.Library.appuser.AppUserRepository;
-import com.Kipfk.Library.appuser.AppUserRole;
-import com.Kipfk.Library.appuser.AppUserService;
+import com.Kipfk.Library.appuser.*;
 import com.Kipfk.Library.email.EmailSender;
 import com.Kipfk.Library.registration.token.ConfirmationToken;
 import com.Kipfk.Library.registration.token.ConfirmationTokenRepository;

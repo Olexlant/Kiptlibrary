@@ -91,8 +91,9 @@ public class MainController {
         return "signup_form";
     }
     @PostMapping("/process_register")
-    public String signUp(AppUser user, @RequestParam String groupid) {
-       user.setGroups(groupsRepository.findAllById(Long.valueOf(groupid)));
+    public String signUp(AppUser user, @RequestParam Long groupid) {
+       Groups group = groupsRepository.findById(groupid).get();
+       user.setGroups(group);
        registrationService.register(user);
        return "register_success";
     }

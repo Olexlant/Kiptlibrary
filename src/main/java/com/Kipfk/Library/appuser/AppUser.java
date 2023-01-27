@@ -58,7 +58,8 @@ public class AppUser implements UserDetails {
         this.lastName = lastName;
         this.phonenum = phonenum;
         this.password = password;
-        this.email = email;;
+        this.email = email;
+        this.groups = groups;
         this.appUserRole = appUserRole;
     }
 

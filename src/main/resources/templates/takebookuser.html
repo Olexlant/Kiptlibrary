@@ -113,7 +113,12 @@
                         </thead>
                         <tbody>
                         <tr th:each="user : ${users}">
-                            <td th:text="${user.groups.name}"></td>
+                            <div th:if="${user.getGroups()==null}">
+                                <td th:text="${'Без групи'}"></td>
+                            </div>
+                            <div th:if="${user.getGroups()!=null}">
+                                <td th:text="${user.getGroups().getName()}"></td>
+                            </div>
                             <td th:text="${user.firstName}"></td>
                             <td th:text="${user.lastName}"></td>
                             <td th:text="${user.email}"></td>
