@@ -123,43 +123,11 @@ public class MainController {
             ArrayList<BookCategory> bc = bookCategoryRepository.findAllByCategoryId(cb.getId());
             Page<AppBook> bookPage = appBookService.findPaginatedWithCategory(PageRequest.of(currentPage - 1, pageSize),bc);
             model.addAttribute("books",bookPage);
-            int[] body;
-            if (bookPage.getTotalPages() > 7) {
-                int totalPages = bookPage.getTotalPages();
-                int pageNumber = bookPage.getNumber()+1;
-                int[] head = (pageNumber > 4) ? new int[]{1, -1} : new int[]{1,2,3};
-                int[] bodyBefore = (pageNumber > 4 && pageNumber < totalPages - 1) ? new int[]{pageNumber-2, pageNumber-1} : new int[]{};
-                int[] bodyCenter = (pageNumber > 3 && pageNumber < totalPages - 2) ? new int[]{pageNumber} : new int[]{};
-                int[] bodyAfter = (pageNumber > 2 && pageNumber < totalPages - 3) ? new int[]{pageNumber+1, pageNumber+2} : new int[]{};
-                int[] tail = (pageNumber < totalPages - 3) ? new int[]{-1, totalPages} : new int[] {totalPages-2, totalPages-1, totalPages};
-                body = MainController.merge(head, bodyBefore, bodyCenter, bodyAfter, tail);
-            } else {
-                body = new int[bookPage.getTotalPages()];
-                for (int i = 0; i < bookPage.getTotalPages(); i++) {
-                    body[i] = 1+i;
-                }
-            }
-            model.addAttribute("body", body);
+            model.addAttribute("body", appBookService.bodyArrayForPages(bookPage));
         }else {
             Page<AppBook> bookPage = appBookService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
             model.addAttribute("books",bookPage);
-            int[] body;
-            if (bookPage.getTotalPages() > 7) {
-                int totalPages = bookPage.getTotalPages();
-                int pageNumber = bookPage.getNumber()+1;
-                int[] head = (pageNumber > 4) ? new int[]{1, -1} : new int[]{1,2,3};
-                int[] bodyBefore = (pageNumber > 4 && pageNumber < totalPages - 1) ? new int[]{pageNumber-2, pageNumber-1} : new int[]{};
-                int[] bodyCenter = (pageNumber > 3 && pageNumber < totalPages - 2) ? new int[]{pageNumber} : new int[]{};
-                int[] bodyAfter = (pageNumber > 2 && pageNumber < totalPages - 3) ? new int[]{pageNumber+1, pageNumber+2} : new int[]{};
-                int[] tail = (pageNumber < totalPages - 3) ? new int[]{-1, totalPages} : new int[] {totalPages-2, totalPages-1, totalPages};
-                body = MainController.merge(head, bodyBefore, bodyCenter, bodyAfter, tail);
-            } else {
-                body = new int[bookPage.getTotalPages()];
-                for (int i = 0; i < bookPage.getTotalPages(); i++) {
-                    body[i] = 1+i;
-                }
-            }
-            model.addAttribute("body", body);
+            model.addAttribute("body", appBookService.bodyArrayForPages(bookPage));
         }
         List<CategoriesOfBooks> categoriesOfBooks = categoriesOfBooksRepository.findAll();
         AppUser user = (AppUser) appUserService.loadUserByUsername(userDetails.getUsername());
@@ -167,6 +135,9 @@ public class MainController {
         ArrayList<AppBook> likedbooks = new ArrayList<>();
         for (LikedBooks b : lb){
             likedbooks.add(b.getBook());
+        }
+        if (user.getAddress()==null || user.getBirthday()==null){
+            return "redirect:/editprofile?nodata";
         }
         model.addAttribute("status","allbookspage");
         model.addAttribute("likedbooks", likedbooks);
@@ -194,6 +165,9 @@ public class MainController {
         Stream<TakenBooks> tbs = takenBooks.stream().filter(findEmp -> user.getId().equals(findEmp.getUser().getId()));
         List<TakenBooks> tb = tbs.toList();
         model.addAttribute("takenbooks", tb);
+        if (user.getAddress()==null || user.getBirthday()==null){
+            return "redirect:/editprofile?nodata";
+        }
         return "mytakenbooks";
     }
 //GET BOOK FILE TO READ
@@ -205,6 +179,7 @@ public class MainController {
         IOUtils.copy(is, response.getOutputStream());
     }
 
+//USER ADD LIKED BOOKS
     @PostMapping("/likingbook/{id}")
     public String createlikedbook(@AuthenticationPrincipal UserDetails userDetails,LikedBooks likedBooks, @PathVariable(value = "id") long bookid) {
         AppUser user = (AppUser) appUserService.loadUserByUsername(userDetails.getUsername());
@@ -237,6 +212,9 @@ public class MainController {
         Stream<LikedBooks> likedBooksStream = likedBooks.stream().filter(findEmp -> user.getId().equals(findEmp.getUser().getId()));
         List<LikedBooks> lb = likedBooksStream.toList();
         model.addAttribute("likedbooks", lb);
+        if (user.getAddress()==null || user.getBirthday()==null){
+            return "redirect:/editprofile?nodata";
+        }
         return "myfavouritebooks";
     }
     @PostMapping("/myfavouritebooks/{id}/remove")
@@ -256,6 +234,9 @@ public class MainController {
             books.add(b.getBook());
         }
         model.addAttribute("books",books);
+        if (user.getAddress()==null || user.getBirthday()==null){
+            return "redirect:/editprofile?nodata";
+        }
         return "booksbygroup";
     }
 

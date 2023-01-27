@@ -1,6 +1,7 @@
 package com.Kipfk.Library.appbook;
 
 import com.Kipfk.Library.appuser.TakenBooksRepository;
+import com.Kipfk.Library.controllers.MainController;
 import com.Kipfk.Library.registration.token.ConfirmationTokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -40,6 +41,26 @@ public class AppBookService {
         }
         Page<AppBook> bookPage = new PageImpl<>(list, PageRequest.of(currentPage, pageSize), books.size());
         return bookPage;
+    }
+
+    public int[] bodyArrayForPages(Page bookPage){
+        int[] body;
+        if (bookPage.getTotalPages() > 7) {
+            int totalPages = bookPage.getTotalPages();
+            int pageNumber = bookPage.getNumber()+1;
+            int[] head = (pageNumber > 4) ? new int[]{1, -1} : new int[]{1,2,3};
+            int[] bodyBefore = (pageNumber > 4 && pageNumber < totalPages - 1) ? new int[]{pageNumber-2, pageNumber-1} : new int[]{};
+            int[] bodyCenter = (pageNumber > 3 && pageNumber < totalPages - 2) ? new int[]{pageNumber} : new int[]{};
+            int[] bodyAfter = (pageNumber > 2 && pageNumber < totalPages - 3) ? new int[]{pageNumber+1, pageNumber+2} : new int[]{};
+            int[] tail = (pageNumber < totalPages - 3) ? new int[]{-1, totalPages} : new int[] {totalPages-2, totalPages-1, totalPages};
+            body = MainController.merge(head, bodyBefore, bodyCenter, bodyAfter, tail);
+        } else {
+            body = new int[bookPage.getTotalPages()];
+            for (int i = 0; i < bookPage.getTotalPages(); i++) {
+                body[i] = 1+i;
+            }
+        }
+        return body;
     }
     public Page<AppBook> searchpagepaginated(Pageable pageable, List<AppBook> books) {
         int pageSize = pageable.getPageSize();
