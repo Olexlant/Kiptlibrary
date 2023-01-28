@@ -229,17 +229,17 @@ public class AdminPanelController {
         boolean tokenpresent = confirmationTokenRepository.findByAppUser(user).isPresent();
         boolean bookspresent = likedBooksRepository.findByUser(user).isPresent();
         boolean takenBookspresent = takenBooksRepository.findByUser(user).isEmpty();
-        if (tokenpresent){
-            ConfirmationToken token = confirmationTokenRepository.findByAppUser(user).get();
-            confirmationTokenRepository.delete(token);
+        if (!takenBookspresent){
+            return "redirect:/admin/usertakenadmin/"+id+"?notreturn";
         }
+
         if (bookspresent){
             LikedBooks books = likedBooksRepository.findByUser(user).get();
             likedBooksRepository.delete(books);
         }
-        if (!takenBookspresent){
-            TakenBooks takenBooks = takenBooksRepository.findByUser(user).get();
-            takenBooksRepository.delete(takenBooks);
+        if (tokenpresent){
+            ConfirmationToken token = confirmationTokenRepository.findByAppUser(user).get();
+            confirmationTokenRepository.delete(token);
         }
         appUserRepository.delete(user);
         return "redirect:/admin/allusers";
@@ -290,7 +290,7 @@ public class AdminPanelController {
         return "redirect:/admin/assignedbooks";
     }
 
-    @PostMapping("/admin/usertakenadmin/{id}")
+    @GetMapping("/admin/usertakenadmin/{id}")
     public String showusertaken(@PathVariable(value = "id") long userid,Model model){
         AppUser user = appUserRepository.findById(userid).orElseThrow();
         List<TakenBooks> takenBooks = takenBooksRepository.findAll();
@@ -375,8 +375,14 @@ public class AdminPanelController {
         return "redirect:/admin/groups";
     }
     @PostMapping("/admin/groups/{groupid}/delete")
-    public String saveNewGroup(@PathVariable Long groupid) {
-        groupsRepository.delete(groupsRepository.findAllById(groupid));
+    public String deleteGroup(@PathVariable Long groupid) {
+        Groups group = groupsRepository.findAllById(groupid);
+        List<AppUser> users = appUserRepository.findAllByGroups(group);
+        for (AppUser user : users){
+            user.setGroups(null);
+        }
+        appUserRepository.saveAll(users);
+        groupsRepository.delete(group);
         return "redirect:/admin/groups";
     }
 

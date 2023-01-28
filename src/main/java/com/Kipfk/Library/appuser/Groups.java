@@ -2,9 +2,12 @@ package com.Kipfk.Library.appuser;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -26,6 +29,7 @@ public class Groups {
 
     private String name;
 
-    @OneToMany(mappedBy = "groups",cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<AppUser> groups = new HashSet<>();
+    @OneToMany(mappedBy = "groups",cascade = CascadeType.ALL)
+    private List<AppUser> users;
+
 }

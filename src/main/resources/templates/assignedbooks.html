@@ -116,7 +116,12 @@
                         </thead>
                         <tbody>
                         <tr th:each="takenbook : ${takenbooks}">
-                            <td th:text="${takenbook.getUser().getGroups().getName()}">741</td>
+                            <div th:if="${takenbook.getUser().getGroups()==null}">
+                                <td th:text="${'Без групи'}"></td>
+                            </div>
+                            <div th:if="${takenbook.getUser().getGroups()!=null}">
+                                <td th:text="${takenbook.getUser().getGroups().getName()}"></td>
+                            </div>
                             <td th:text="${takenbook.getUser().getFirstName()}">Павло</td>
                             <td th:text="${takenbook.getUser().getLastName()}">Берлет</td>
                             <td th:text="${takenbook.getBook().getAuthor()}">Котляревський</td>

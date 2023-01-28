@@ -25,4 +25,6 @@ public interface AppUserRepository extends JpaRepository<AppUser, Long> {
     List<AppUser> findByKeyword(@Param("keyword") String keyword);
 
     int countAllBy();
+
+    List<AppUser> findAllByGroups(Groups groups);
 }

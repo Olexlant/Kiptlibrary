@@ -41,7 +41,7 @@ public class ConfirmationToken {
 
     private LocalDateTime passwordChangeExpiresAt;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(
             nullable = false,
             name = "app_user_id"

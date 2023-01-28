@@ -92,6 +92,9 @@
         <i class="uil uil-notebooks"></i>
         <span th:text="${'Книги '+user.getLastName()+' '+user.getFirstName() }" class="text"> </span>
       </div>
+      <div th:if="${param.notreturn}" class="alert">
+        <p th:text="${user.getLastName()+' '+user.getFirstName() + ' має неповернуті книги'}"></p>
+      </div>
       <div class="table">
 
         <div class="table_section">
