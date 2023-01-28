@@ -12,8 +12,16 @@ import java.time.LocalDate;
 @Entity
 public class LikedBooks {
 
+    @SequenceGenerator(
+            name = "liked_books_sequence",
+            sequenceName = "liked_books_sequence",
+            allocationSize = 1
+    )
     @Id
-    @GeneratedValue
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "liked_books_sequence"
+    )
     private Long id;
 
     @ManyToOne(cascade = CascadeType.ALL)

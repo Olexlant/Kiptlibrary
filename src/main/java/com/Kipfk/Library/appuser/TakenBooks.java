@@ -15,8 +15,16 @@ import java.time.LocalDateTime;
 @Entity
 public class TakenBooks {
 
+    @SequenceGenerator(
+            name = "taken_books_sequence",
+            sequenceName = "taken_books_sequence",
+            allocationSize = 1
+    )
     @Id
-    @GeneratedValue
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "taken_books_sequence"
+    )
     private Long id;
 
     @ManyToOne

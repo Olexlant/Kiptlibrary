@@ -11,8 +11,16 @@ import javax.persistence.*;
 @Entity
 public class BookCategory {
 
+    @SequenceGenerator(
+            name = "book_category_sequence",
+            sequenceName = "book_category_sequence",
+            allocationSize = 1
+    )
     @Id
-    @GeneratedValue
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "book_category_sequence"
+    )
     private Long id;
 
     @ManyToOne

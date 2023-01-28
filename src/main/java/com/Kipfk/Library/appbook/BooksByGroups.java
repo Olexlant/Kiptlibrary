@@ -11,8 +11,16 @@ import javax.persistence.*;
 @Entity
 public class BooksByGroups {
 
+    @SequenceGenerator(
+            name = "books_by_group_sequence",
+            sequenceName = "books_by_group_sequence",
+            allocationSize = 1
+    )
     @Id
-    @GeneratedValue
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "books_by_group_sequence"
+    )
     private Long id;
 
     @ManyToOne(cascade = CascadeType.ALL)

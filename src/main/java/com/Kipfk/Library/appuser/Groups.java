@@ -3,10 +3,7 @@ package com.Kipfk.Library.appuser;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,12 +12,20 @@ import java.util.Set;
 @Setter
 public class Groups {
 
+    @SequenceGenerator(
+            name = "groups_sequence",
+            sequenceName = "groups_sequence",
+            allocationSize = 1
+    )
     @Id
-    @GeneratedValue
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "groups_sequence"
+    )
     private Long id;
 
     private String name;
 
-    @OneToMany(mappedBy = "groups")
+    @OneToMany(mappedBy = "groups",cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<AppUser> groups = new HashSet<>();
 }
