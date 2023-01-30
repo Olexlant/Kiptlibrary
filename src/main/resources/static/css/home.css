@@ -9,6 +9,19 @@
 font-family: 'Exo 2', sans-serif;
 
 }
+.btnServiceUTOG{
+  background: url(//utog.org/assets/uploads/images/inbox/subtn.png) no-repeat left center;
+  background-size: contain;
+  border-radius: 25px;
+  border: none;
+  bottom: 16px;
+  cursor: pointer;
+  height: 60px;
+  left: 16px;
+  position: fixed;
+  width: 190px;
+  z-index: 100000;
+}
 nav{
   position: fixed;
   width: 100%;
@@ -266,7 +279,7 @@ object-fit: cover;
 .sub-menu-wrap{
   position: absolute;
   top: 100%;
-  right: 10%;
+  right: 1%;
   width: 320px;
   max-height: 0px;
   overflow: hidden;
@@ -350,7 +363,7 @@ margin-top: 250px;
 .home{
   height: 100vh;
   width: 100%;
-  background-color: #fff;
+  background: url("../images/home-image.jpg") no-repeat;
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -412,9 +425,7 @@ font-family: 'Exo 2', sans-serif;
 
 
 /* --------------adout-----------*/
-.adout{
-  background: #f3f7ff;
-}
+
 section .content{
   width: 80%;
   margin: 40px auto;
@@ -804,6 +815,9 @@ footer .text span a:hover{
 }
 
 @media (max-width: 973px){
+  .home{
+    background: url("../images/fon.jpg") no-repeat;
+  }
   .home .home-content {
     flex-direction: column;
      }  
@@ -885,6 +899,11 @@ footer .text span a:hover{
 
   
   @media(max-width: 1000px){
+    .sub-menu-wrap {
+    
+    right: 10%;
+    
+}
     .navbar .menu .golovna{
       font-size: 25px;
       color: #25398e;

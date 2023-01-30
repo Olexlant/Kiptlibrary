@@ -386,7 +386,7 @@ background:#25398e ;
 .container .box-container .box .image img{
   height: 100%;
   width: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .container .box-container .box:hover .image img{

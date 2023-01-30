@@ -8,6 +8,19 @@
     font-family: 'Comfortaa', cursive;
 font-family: 'Exo 2', sans-serif;
 }
+.btnServiceUTOG{
+  background: url(//utog.org/assets/uploads/images/inbox/subtn.png) no-repeat left center;
+  background-size: contain;
+  border-radius: 25px;
+  border: none;
+  bottom: 16px;
+  cursor: pointer;
+  height: 60px;
+  left: 16px;
+  position: fixed;
+  width: 190px;
+  z-index: 100000;
+}
 body{
   background-color: #fff;
 }
