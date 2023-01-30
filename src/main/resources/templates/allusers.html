@@ -123,7 +123,7 @@
                                 <form th:action="'/admin/allusers/'+ ${user.getId()}+'/edit'" method="get">
                                     <button style="background-color: #58A9A5" type="submit"><i class="uil uil-pen"></i></button>
                                 </form>
-                                <form th:action="'/admin/usertakenadmin/'+ ${user.getId()}" method="post">
+                                <form th:action="'/admin/usertakenadmin/'+ ${user.getId()}" method="get">
                                     <button style="background-color: #fb9300" type="submit"><i class="uil uil-book-open"></i></button>
                                 </form>
                                 <form th:action="'/admin/allusers/'+ ${user.getId()}+'/remove'" method="post">
