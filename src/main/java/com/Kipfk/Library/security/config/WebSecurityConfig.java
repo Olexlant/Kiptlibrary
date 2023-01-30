@@ -14,6 +14,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import java.security.Principal;
@@ -61,7 +64,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new AppAuthenticationSuccessHandler();
     }
 
-    
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
@@ -79,12 +81,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**").authenticated()
                 .anyRequest().permitAll()
                 .and()
-                .formLogin().loginPage("/login")
-                .usernameParameter("email")
-                .defaultSuccessUrl("/")
-                .permitAll()
+                .formLogin()
+                    .loginPage("/login")
+                    .usernameParameter("email")
+                    .defaultSuccessUrl("/")
+                    .permitAll()
                 .and()
-                .logout().logoutSuccessUrl("/").permitAll();
+                .rememberMe()
+                    .tokenValiditySeconds(7 * 24 * 60 * 60) // expiration time: 7 days
+                    .key("remember-me")
+                .and()
+                .logout()
+                .logoutSuccessUrl("/");
         http.cors().and().csrf().disable();
     }
 
