@@ -136,6 +136,21 @@
 
         </div>
     </div>
+    <ul id="pagination">
+        <th:block th:each="pageNumber : ${body}">
+            <li th:if="${pageNumberStat.first}">
+                <a class="" th:href="@{/admin/takebook(size=${users.size}, page=${pageNumber})}">«</a>
+            </li>
+            <li th:if="${pageNumber} == ${users.getNumber()+1}">
+                <a  class="active" th:text="${pageNumber}" href="#" ></a>
+            </li>
+            <li  th:if="${pageNumber} == -1"><a href="#">...</a></li>
+            <li th:if="${pageNumber} != -1 and ${pageNumber} != ${users.getNumber()+1}">
+                <a th:text="${pageNumber}" th:href="@{/admin/takebook(size=${users.size}, page=${pageNumber})}"></a>
+            </li>
+            <li th:if="${pageNumberStat.last}" >
+                <a th:href="@{/admin/takebook(size=${users.size}, page=${pageNumber})}">»</a></li>
+        </th:block>
 </section>
 <script src="js/script.js"></script>
 </body>
