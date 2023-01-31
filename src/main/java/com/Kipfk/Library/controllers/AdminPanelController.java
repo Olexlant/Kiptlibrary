@@ -403,5 +403,13 @@ public class AdminPanelController {
         groupsRepository.delete(group);
         return "redirect:/admin/groups";
     }
-
+//USERS BY GROUP
+    @GetMapping("/admin/usersbygroup/{groupid}")
+    public String showUsersByGroup(Model model, @PathVariable Long groupid) {
+        Groups group = groupsRepository.findAllById(groupid);
+        List<AppUser> users = appUserRepository.findAllByGroups(group);
+        model.addAttribute("users", users);
+        model.addAttribute("group", group);
+        return "usersByGroup";
+    }
 }

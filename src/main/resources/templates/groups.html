@@ -107,9 +107,13 @@
                             <td th:text="${groups.indexOf(group)+1}"></td>
                             <td th:text="${group.name}"></td>
                             <td class="btnactions">
+                                <form th:action="'/admin/usersbygroup/'+ ${group.id}" method="get">
+                                    <button style="background-color: #58A9A5" type="submit"><i class="uil uil-users-alt"></i></button>
+                                </form>
                                 <form th:action="'/admin/groups/'+ ${group.id} +'/delete'" method="post">
                                     <button style="background-color: #ff0000" type="submit"><i class="uil uil-trash-alt"></i></button>
                                 </form>
+
                         </tr>
                         </tbody>
 
