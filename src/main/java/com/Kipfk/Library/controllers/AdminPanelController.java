@@ -7,7 +7,8 @@ import com.Kipfk.Library.registration.token.ConfirmationToken;
 import com.Kipfk.Library.registration.token.ConfirmationTokenRepository;
 import com.google.zxing.WriterException;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,9 +51,10 @@ public class AdminPanelController {
     private final BookCategoryRepository bookCategoryRepository;
     private final CategoriesOfBooksRepository categoriesOfBooksRepository;
     private final GroupsRepository groupsRepository;
+    private final TakenBooksService takenBooksService;
 
 
-    public AdminPanelController(RegistrationService registrationService, ConfirmationTokenRepository confirmationTokenRepository, AppUserService appUserService, AppBookService appBookService, AppUserRepository appUserRepository, AppBookRepository appBookRepository, TakenBooksRepository takenBooksRepository, LikedBooksRepository likedBooksRepository, AppUserRepository userRepo, BookCategoryRepository bookCategoryRepository, CategoriesOfBooksRepository categoriesOfBooksRepository, GroupsRepository groupsRepository) {
+    public AdminPanelController(RegistrationService registrationService, ConfirmationTokenRepository confirmationTokenRepository, AppUserService appUserService, AppBookService appBookService, AppUserRepository appUserRepository, AppBookRepository appBookRepository, TakenBooksRepository takenBooksRepository, LikedBooksRepository likedBooksRepository, AppUserRepository userRepo, BookCategoryRepository bookCategoryRepository, CategoriesOfBooksRepository categoriesOfBooksRepository, GroupsRepository groupsRepository, TakenBooksService takenBooksService) {
         this.registrationService = registrationService;
         this.confirmationTokenRepository = confirmationTokenRepository;
         this.appUserService = appUserService;
@@ -65,6 +67,7 @@ public class AdminPanelController {
         this.bookCategoryRepository = bookCategoryRepository;
         this.categoriesOfBooksRepository = categoriesOfBooksRepository;
         this.groupsRepository = groupsRepository;
+        this.takenBooksService = takenBooksService;
     }
 
 //ADDBOOK
@@ -110,9 +113,12 @@ public class AdminPanelController {
     }
 
     @GetMapping("/admin/allbooksadmin")
-    public String showAllBooksAdmin(Model model){
-        List<AppBook> books = appBookRepository.findAll();
-        model.addAttribute("books",books);
+    public String showAllBooksAdmin(Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size){
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(12);
+        Page<AppBook> bookPage = appBookService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
+        model.addAttribute("books",bookPage);
+        model.addAttribute("body", appBookService.bodyArrayForPages(bookPage));
         return "allbooksadmin";
     }
 
@@ -192,9 +198,12 @@ public class AdminPanelController {
     }
 
     @GetMapping("/admin/allusers")
-    public String listUsers(Model model) {
-        List<AppUser> listUsers = userRepo.findAll(Sort.by(Sort.Direction.ASC, "lastName"));
-        model.addAttribute("Users", listUsers);
+    public String listUsers(Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(12);
+        Page<AppUser> userPage = appUserService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
+        model.addAttribute("Users",userPage);
+        model.addAttribute("body", appBookService.bodyArrayForPages(userPage));
         return "allusers";
     }
 
@@ -247,16 +256,22 @@ public class AdminPanelController {
 
 
     @GetMapping("/admin/takebook")
-    public String showUsersToTake(Model model) {
-        List<AppUser> listUsers = userRepo.findAll();
-        model.addAttribute("users", listUsers);
+    public String showUsersToTake(Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(12);
+        Page<AppUser> userPage = appUserService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
+        model.addAttribute("users",userPage);
+        model.addAttribute("body", appBookService.bodyArrayForPages(userPage));
         return "takebookuser";
     }
     @GetMapping("/admin/takebook/{id}")
-    public String showBooksToTake(Model model, @PathVariable Long id) {
-        List<AppBook> books = appBookRepository.findAll();
+    public String showBooksToTake(Model model, @PathVariable Long id, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(12);
+        Page<AppBook> bookPage = appBookService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
+        model.addAttribute("books",bookPage);
+        model.addAttribute("body", appBookService.bodyArrayForPages(bookPage));
         model.addAttribute("userid", id);
-        model.addAttribute("books", books);
         return "takebook";
     }
 
@@ -277,9 +292,12 @@ public class AdminPanelController {
         return "redirect:/admin/assignedbooks?success";
     }
     @GetMapping("/admin/assignedbooks")
-    public String showassignedbooks(Model model){
-        List<TakenBooks> takenBooks = takenBooksRepository.findAll();
-        model.addAttribute("takenbooks", takenBooks);
+    public String showassignedbooks(Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size){
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(12);
+        Page<TakenBooks> takenPage = takenBooksService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
+        model.addAttribute("takenbooks", takenPage);
+        model.addAttribute("body", appBookService.bodyArrayForPages(takenPage));
         return "assignedbooks";
     }
 
