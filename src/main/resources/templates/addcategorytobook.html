@@ -104,9 +104,9 @@
                 <div class="input-box">
                     <div class="categor" >
 
-                        <form th:action="'/admin/addcategorytobook/' + ${book.getId()} + '/' + ${category.id}" method="post">
-                        <select th:name="groupid" >
-                            <option th:each="category : ${allcategories}" th:text="${category.getName()}"></option>
+                        <form th:action="'/admin/addcategorytobook/' + ${book.getId()} + '/add'" method="post">
+                        <select th:name="categoryid" >
+                            <option  th:each="category : ${allcategories}" th:value="${category.getId()}" th:text="${category.getName()}"></option>
                         </select>
                         <div class="button">
                             <button type="submit">Додати</button>
@@ -146,39 +146,29 @@
         </div>
     </div>
 
-    <div class="dash-content">
-        <div class="activity">
-            <div class="title">
-                <i class="uil uil-notebooks"></i>
-                <span class="text" th:text="'Додайте катеегорію для ' + ${book.getTitle()}"></span>
+    <ul th:if="${param.success}"  class="notifications" >
+        <li class="toast success">
+            <div class="column" >
+                <i class="fa-solid fa-circle-check"></i>
+                <span>
+
+                    Категорію додано</span>
             </div>
-            <div class="table">
+            <i class="fa-solid fa-xmark"></i>
+        </li>
+    </ul>
 
-                <div class="table_section">
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>№</th>
-                            <th>Назва</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="category : ${allcategories}">
-                            <td th:text="${allcategories.indexOf(category)+1}"></td>
-                            <td th:text="${category.getName()}"></td>
-                            <td class="btnactions">
-                                <form th:action="'/admin/addcategorytobook/' + ${book.getId()} + '/' + ${category.id}" method="post">
-                                    <button style="background-color: #002b9b" type="submit"><i class="uil uil-book-medical"></i></button>
-                                </form>
+    <ul th:if="${param.alreadyadded}"  class="notifications">
+        <li class="toast success">
+            <div class="column" >
+                <i class="fa-solid fa-circle-check"></i>
+                <span>
 
-                        </tr>
-                        </tbody>
-
-                    </table>
-                </div>
+                    Категорія додана раніше</span>
             </div>
-        </div>
-    </div>
+            <i class="fa-solid fa-xmark"></i>
+        </li>
+    </ul>
 
 </section>
 
