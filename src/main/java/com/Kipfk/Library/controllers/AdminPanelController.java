@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 @Controller
 public class AdminPanelController {
@@ -53,9 +52,10 @@ public class AdminPanelController {
     private final CategoriesOfBooksRepository categoriesOfBooksRepository;
     private final GroupsRepository groupsRepository;
     private final TakenBooksService takenBooksService;
+    private final BooksByGroupsRepository booksByGroupsRepository;
 
 
-    public AdminPanelController(RegistrationService registrationService, ConfirmationTokenRepository confirmationTokenRepository, AppUserService appUserService, AppBookService appBookService, AppUserRepository appUserRepository, AppBookRepository appBookRepository, TakenBooksRepository takenBooksRepository, LikedBooksRepository likedBooksRepository, AppUserRepository userRepo, BookCategoryRepository bookCategoryRepository, CategoriesOfBooksRepository categoriesOfBooksRepository, GroupsRepository groupsRepository, TakenBooksService takenBooksService) {
+    public AdminPanelController(RegistrationService registrationService, ConfirmationTokenRepository confirmationTokenRepository, AppUserService appUserService, AppBookService appBookService, AppUserRepository appUserRepository, AppBookRepository appBookRepository, TakenBooksRepository takenBooksRepository, LikedBooksRepository likedBooksRepository, AppUserRepository userRepo, BookCategoryRepository bookCategoryRepository, CategoriesOfBooksRepository categoriesOfBooksRepository, GroupsRepository groupsRepository, TakenBooksService takenBooksService, BooksByGroupsRepository booksByGroupsRepository) {
         this.registrationService = registrationService;
         this.confirmationTokenRepository = confirmationTokenRepository;
         this.appUserService = appUserService;
@@ -69,6 +69,7 @@ public class AdminPanelController {
         this.categoriesOfBooksRepository = categoriesOfBooksRepository;
         this.groupsRepository = groupsRepository;
         this.takenBooksService = takenBooksService;
+        this.booksByGroupsRepository = booksByGroupsRepository;
     }
 
 //ADDBOOK
@@ -408,5 +409,15 @@ public class AdminPanelController {
         model.addAttribute("users", users);
         model.addAttribute("group", group);
         return "usersByGroup";
+    }
+
+//BOOKS BY GROUP
+    @GetMapping("/admin/booksbygroup/{groupid}")
+    public String showBooksByGroup(Model model, @PathVariable Long groupid) {
+        Groups group = groupsRepository.findAllById(groupid);
+        List<BooksByGroups> users = booksByGroupsRepository.findAllByGroups(group);
+        model.addAttribute("books", users);
+        model.addAttribute("group", group);
+        return "adminBooksByGroup";
     }
 }
