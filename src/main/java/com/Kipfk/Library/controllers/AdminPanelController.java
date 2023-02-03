@@ -9,6 +9,7 @@ import com.google.zxing.WriterException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -73,8 +74,6 @@ public class AdminPanelController {
 //ADDBOOK
     @GetMapping("/admin/addbook")
     public String showBookAddingForm(Model model) {
-        List<Groups> groups = groupsRepository.findAll();
-        model.addAttribute("groups", groups);
         model.addAttribute("book", new AppBook());
         return "addbook";
     }
@@ -184,7 +183,7 @@ public class AdminPanelController {
 
     @GetMapping("/admin/adduser")
     public String showAddUserForm(Model model) {
-        List<Groups> groups = groupsRepository.findAll();
+        List<Groups> groups = groupsRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
         model.addAttribute("groups", groups);
         model.addAttribute("user", new AppUser());
         return "adduser";
@@ -212,7 +211,7 @@ public class AdminPanelController {
         if (!appUserRepository.existsById(id)){
             return "redirect:/allusers";
         }
-        List<Groups> groups = groupsRepository.findAll();
+        List<Groups> groups = groupsRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
         model.addAttribute("groups", groups);
         Optional <AppUser> user = appUserRepository.findById(id);
         ArrayList <AppUser> ruser = new ArrayList<>();
@@ -379,7 +378,7 @@ public class AdminPanelController {
 //GROUPS
     @GetMapping("/admin/groups")
     public String showGroupsForm(Model model) {
-        List<Groups> groups = groupsRepository.findAll();
+        List<Groups> groups = groupsRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
         model.addAttribute("groups", groups);
         model.addAttribute("group", new Groups());
         return "groups";
