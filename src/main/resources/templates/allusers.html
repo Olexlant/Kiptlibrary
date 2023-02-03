@@ -1,67 +1,98 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-</html>  <link rel="stylesheet" href="/css/allusers.css" type="text/css" th:href="@{/css/allusers.css}">
-<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Exo+2:wght@300&display=swap" rel="stylesheet">
-<title>Користувачі</title>
+    <link rel="stylesheet" href="/css/allusers.css" type="text/css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Font Awesome CDN link for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <script src="https://code.iconify.design/iconify-icon/1.0.3/iconify-icon.min.js"></script>
+    <!-- Font Awesome CDN link for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Exo+2:wght@300&display=swap" rel="stylesheet">
+    <title>Користувачі</title>
 </head>
 <body>
+
+
+
+<div class="pop_up" id="pop_up">
+    <div class="pop_up_container">
+        <div class="pop_up_body" id="pop_up_body">
+            <p>
+                <iconify-icon icon="ep:user-filled" style="color: red;" width="60" height="60"></iconify-icon>
+            </p>
+            <p>Видалити користувача?</p>
+            <form>
+                <div class="btn-yes-no">
+                    <button id="pop_up_submit" type="button" onclick="submitForm()">Так</button>
+                    <button class="no" onclick="closepopupwindow()">Ні</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
 <nav>
     <div class="logo-name">
         <div class="logo-image">
-            <img src="images/gears_motor.gif" alt="">
+            <img src="/images/logo.png" alt="">
         </div>
-        <span class="logo_name">НТБ КНУТД</span>
+        <span class="logo_name">KCAS Lib</span>
     </div>
 
     <div class="menu-items">
         <ul class="nav-links">
             <li><a th:href="@{/admin}">
-                <i class="uil uil-estate"></i>
+                <i><iconify-icon icon="fa-solid:home"></iconify-icon></i>
                 <span class="link-name">Головна</span>
             </a></li>
             <li><a th:href="@{/admin/allusers}">
-                <i class="uil uil-users-alt"></i>
+                <i><iconify-icon icon="ion:people-sharp"></iconify-icon></i>
                 <span class="link-name" >Користувачі</span>
             </a></li>
+            <li><a th:href="@{/admin/groups}">
+                <i><iconify-icon icon="fa6-solid:people-group"></iconify-icon></i>
+                <span class="link-name">Групи</span>
+            </a></li>
             <li><a th:href="@{/admin/allbooksadmin}">
-                <i class="uil uil-notebooks"></i>
+                <i><iconify-icon icon="wpf:books"></iconify-icon></i>
                 <span class="link-name">Всі книги</span>
             </a></li>
             <li><a th:href="@{/admin/assignedbooks}">
-                <i class="uil uil-books"></i>
+                <i><iconify-icon icon="mdi:book-arrow-up"></iconify-icon></i>
                 <span class="link-name">Видані книги</span>
             </a></li>
-
             <li><a th:href="@{/admin/addbook}">
-                <i class="uil uil-plus"></i>
+                <i><iconify-icon icon="mdi:book-plus"></iconify-icon></i>
                 <span class="link-name">Додати книгу</span>
             </a></li>
             <li><a th:href="@{/admin/adduser}">
-                <i class="uil uil-user-plus"></i>
+                <i><iconify-icon icon="mdi:user-add"></iconify-icon></i>
                 <span class="link-name">Додати користувача</span>
             </a></li>
             <li><a th:href="@{/admin/takebook}">
-                <i class="uil uil-plus-circle"></i>
+                <i><iconify-icon icon="mdi:book-arrow-right"></iconify-icon></i>
                 <span class="link-name">Видати книгу</span>
             </a></li>
             <li><a th:href="@{/admin/addbookcategory}">
-                <i class="uil uil-plus-circle"></i>
+                <i><iconify-icon icon="mdi:book-information-variant"></iconify-icon></i>
                 <span class="link-name">Категорії книг</span>
             </a></li>
 
         </ul>
 
         <ul class="logout-mode">
-            <li><a th:href="@{/logout}">
-                <i class="uil uil-signout"></i>
+            <li><a th:href="@{/}">
+                <i><iconify-icon icon="mingcute:exit-door-fill"></iconify-icon></i>
                 <span class="link-name">Вийти</span>
             </a></li>
             <div class="mode-toggle">
@@ -80,19 +111,19 @@
 
         </div>
 
-        <img src="images/webview.gif" alt="">
-    </div>
+        </div>
 
     <div class="dash-content">
         <div class="activity">
             <div class="title">
-                <i class="uil uil-users-alt"></i>
+                <i><iconify-icon icon="ion:people-sharp"></iconify-icon></i>
                 <span class="text">Користувачі</span>
                 <form th:action="@{/searchuseradmin}" method="get">
                     <input type="text" name="keyword" th:value="${keyword}"  placeholder="Пошук" size="50" >
-                    <button type="submit" style="background-color: #fb9300; " class="uil-search"></button>
+                    <button type="submit" style="background-color: #25398e; " class="uil-search"></button>
                 </form>
             </div>
+
             <div class="table">
 
                 <div class="table_section">
@@ -104,7 +135,7 @@
                             <th>Прізвище</th>
                             <th>Email</th>
                             <th>Телефон</th>
-                            <th>Action</th>
+                            <th>Дії</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -121,14 +152,17 @@
                             <td th:text="${user.getPhonenum()}"></td>
                             <td class="btnactions">
                                 <form th:action="'/admin/allusers/'+ ${user.getId()}+'/edit'" method="get">
-                                    <button style="background-color: #58A9A5" type="submit"><i class="uil uil-pen"></i></button>
+                                    <button style="background-color: #25398e" type="submit"><i class="uil uil-pen"></i></button>
                                 </form>
                                 <form th:action="'/admin/usertakenadmin/'+ ${user.getId()}" method="get">
-                                    <button style="background-color: #fb9300" type="submit"><i class="uil uil-book-open"></i></button>
+                                    <button style="background-color: #006B49" type="submit"><i><iconify-icon icon="wpf:books"></iconify-icon></i></button>
                                 </form>
-                                <form th:action="'/admin/allusers/'+ ${user.getId()}+'/remove'" method="post">
-                                    <button style="background-color: #f80000" type="submit" ><i class="uil uil-trash-alt"></i></button>
+
+
+                                <form  th:action="'/admin/allusers/'+ ${user.getId()}+'/remove'" method="post">
+                                    <button style="background-color: #FF3F40" type="button" onclick="openpopup(form)"><i class="uil uil-trash-alt"></i></button>
                                 </form>
+
                             </td>
                         </tr>
                         </tbody>
@@ -138,6 +172,19 @@
 
         </div>
     </div>
+
+    <ul th:if="${param.success}"  class="notifications"  id="message">
+        <li class="toast success">
+            <div class="column" >
+                <i class="fa-solid fa-circle-check"></i>
+                <span>
+
+                    Користувача успішно видалено</span>
+            </div>
+            <i class="fa-solid fa-xmark"></i>
+        </li>
+    </ul>
+
     <ul id="pagination">
         <th:block th:each="pageNumber : ${body}">
             <li th:if="${pageNumberStat.first}">
@@ -156,6 +203,9 @@
     </ul>
 </section>
 
-<script src="js/script.js"></script>
+<script src="/js/alert_script.js"></script>
+<script src="/js/popup.js"></script>
+<script src="/js/script.js"></script>
+<script src="https://code.iconify.design/iconify-icon/1.0.3/iconify-icon.min.js"></script>
 </body>
 </html>

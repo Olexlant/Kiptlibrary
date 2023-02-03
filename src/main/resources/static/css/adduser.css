@@ -21,13 +21,28 @@ form .button button {
     font-size: 18px;
     font-weight: 100;
     cursor: pointer; border: 2px solid transparent;
-    background: #fb9300;transition: all 0.4s ease;
+    background: #25398e;transition: all 0.4s ease;
   }
   form .button :hover{
-     border-color: #fb9300;
+     border-color: #25398e;
     background-color: #fff;
-    color: #fb9300;
+    color: #25398e;
 
+  }
+  .categor select {
+      border: 1px solid #ccc;
+      border-bottom-width: 2px;
+      border-radius: 12px;
+      background-color: #Fff;
+      border-color:#25398e;
+      color: #25398e;
+      padding: 8.3px;
+      width: 100%;
+      font-size: 20px;
+      -webkit-appearance: button;
+      appearance: button;
+      outline: none;
+      margin-left: 9px;
   }
   .content form .user-details .v {
       color: red;
@@ -36,14 +51,14 @@ form .button button {
   }
 
   .container{
-    max-width: 700px;
+    max-width: 600px;
     width: 100%;
     background-color: #fff;
     padding: 25px 30px;
     border-radius: 5px;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+    box-shadow: 1px 1px 30px 10px rgb(0 0 0 / 20%);
     align-items: center;
-    height: 510px;
+
     position: absolute;
       top: 50%;
       left: 50%;
@@ -85,7 +100,7 @@ form .button button {
   }
   .user-details .input-box input:focus,
   .user-details .input-box input:valid{
-    border-color: #fb9300;
+    border-color: #25398e;
   }
    form .gender-details .gender-title{
     font-size: 20px;
@@ -136,7 +151,7 @@ form .button button {
     position: absolute;
     height: 3px;
     width: 70%;
-    background: #fb9300;
+    background: #25398e;
     left: 0;
     bottom: 0;
     transform: translateX(22%);
@@ -149,16 +164,23 @@ form .button button {
 font-family: 'Exo 2', sans-serif;
       font-family: 'Comfortaa', cursive;
 font-family: 'Exo 2', sans-serif;
-    --panel-color: #FFF;
-    --text-color: #000;
-    --black-light-color: #707070;
-    --border-color: #e6e5e5;
-    --toggle-color: #DDD;
-    --box1-color: #4DA3FF;
-    --box2-color: #FFE6AC;
-    --box3-color: #E7D1FC;
-    --title-icon-color: #fff;
-
+    --dark: #34495E;
+        --light: #ebebeb;
+        --success: #0ABF30;
+        --error: #E24D4C;
+        --warning: #E9BD0C;
+        --info: #3498DB;
+        /* ===== Colors ===== */
+        --primary-color: #25398e;
+        --panel-color: #FFF;
+        --text-color: #000;
+        --black-light-color: #707070;
+        --border-color: #e6e5e5;
+        --toggle-color: #DDD;
+        --box1-color: #25398e;
+        --box2-color: #006B49;
+        --box3-color: #FF3F40;
+        --title-icon-color: #fff;
     /* ====== Transition ====== */
     --tran-05: all 0.5s ease;
     --tran-03: all 0.3s ease;
@@ -166,8 +188,7 @@ font-family: 'Exo 2', sans-serif;
 }
 
 body{
-    min-height: 100vh;
-    background-color: var(--primary-color);
+
 }
 body.dark{
     --primary-color: #3A3B3C;
@@ -362,9 +383,9 @@ nav .logo-image{
     min-width: 45px;
 }
 nav .logo-image img{
-    width: 40px;
+    width: 60px;
     object-fit: cover;
-    border-radius: 50%;
+
 }
 
 nav .logo-name .logo_name{
@@ -403,9 +424,11 @@ nav .menu-items{
     width: 5px;
     border-radius: 50%;
     background-color: var(--primary-color);
+    text-decoration: none;
 }
 body.dark li a:hover:before{
     background-color: var(--text-color);
+    text-decoration: none;
 }
 .menu-items li a i{
     font-size: 24px;
@@ -415,12 +438,14 @@ body.dark li a:hover:before{
     align-items: center;
     justify-content: center;
     color: var(--black-light-color);
+    text-decoration: none;
 }
 .menu-items li a .link-name{
     font-size: 18px;
     font-weight: 400;
     color: var(--black-light-color);
     transition: var(--tran-05);
+    text-decoration: none;
 }
 nav.close li a .link-name{
     opacity: 0;
@@ -429,10 +454,12 @@ nav.close li a .link-name{
 .nav-links li a:hover i,
 .nav-links li a:hover .link-name{
     color: var(--primary-color);
+    text-decoration: none;
 }
 body.dark .nav-links li a:hover i,
 body.dark .nav-links li a:hover .link-name{
     color: var(--text-color);
+    text-decoration: none;
 }
 .menu-items .logout-mode{
     padding-top: 10px;
@@ -481,7 +508,7 @@ body.dark .switch:before{
     position: relative;
     left: 250px;
     background-color: var(--panel-color);
-    min-height: 100vh;
+    min-height: 90vh;
     width: calc(100% - 250px);
     padding: 10px 14px;
     transition: var(--tran-05);
@@ -495,7 +522,7 @@ nav.close ~ .dashboard{
     top: 0;
     left: 250px;
     display: flex;
-    width: calc(100% - 250px);
+
     justify-content: space-between;
     align-items: center;
     padding: 10px 14px;
@@ -505,7 +532,7 @@ nav.close ~ .dashboard{
 }
 nav.close ~ .dashboard .top{
     left: 73px;
-    width: calc(100% - 73px);
+
 }
 .dashboard .top .sidebar-toggle{
     font-size: 26px;
