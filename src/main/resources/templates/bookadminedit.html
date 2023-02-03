@@ -20,9 +20,9 @@
 <nav>
     <div class="logo-name">
         <div class="logo-image">
-            <img src="images/gears_motor.gif" alt="">
+            <img src="/images/gears_motor.gif" alt="">
         </div>
-        <span class="logo_name">НТБ КНУТД</span>
+        <span class="logo_name">KCAS Lib</span>
     </div>
 
     <div class="menu-items">
@@ -35,6 +35,10 @@
                 <i class="uil uil-users-alt"></i>
                 <span class="link-name" >Користувачі</span>
             </a></li>
+            <li><a th:href="@{/admin/groups}">
+                <i class="uil uil-plus-circle"></i>
+                <span class="link-name">Групи</span>
+            </a></li>
             <li><a th:href="@{/admin/allbooksadmin}">
                 <i class="uil uil-notebooks"></i>
                 <span class="link-name">Всі книги</span>
@@ -43,7 +47,6 @@
                 <i class="uil uil-books"></i>
                 <span class="link-name">Видані книги</span>
             </a></li>
-
             <li><a th:href="@{/admin/addbook}">
                 <i class="uil uil-plus"></i>
                 <span class="link-name">Додати книгу</span>
@@ -64,7 +67,7 @@
         </ul>
 
         <ul class="logout-mode">
-            <li><a th:href="@{/logout}">
+            <li><a th:href="@{/}">
                 <i class="uil uil-signout"></i>
                 <span class="link-name">Вийти</span>
             </a></li>
@@ -84,7 +87,7 @@
 
         </div>
 
-        <img src="images/webview.gif" alt="">
+        <img src="" alt="">
     </div>
 
     <div class="dash-content">
@@ -141,6 +144,6 @@
     </div>
 </section>
 
-<script src="script/script.js"></script>
+<script src="/js/script.js"></script>
 </body>
 </html>

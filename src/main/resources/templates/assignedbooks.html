@@ -5,13 +5,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Font Awesome CDN link for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <script src="https://code.iconify.design/iconify-icon/1.0.3/iconify-icon.min.js"></script>
     <!----======== CSS ======== -->
     <link rel="stylesheet" href="/css/vudani.css" type="text/css">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Awesome CDN link for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <!----===== Iconscout CSS ===== -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
+
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Exo+2:wght@300&display=swap" rel="stylesheet">
     <title>Видані книги</title>
@@ -20,9 +26,9 @@
 <nav>
     <div class="logo-name">
         <div class="logo-image">
-            <img src="images/gears_motor.gif" alt="">
+            <img src="/images/gears_motor.gif" alt="">
         </div>
-        <span class="logo_name">НТБ КНУТД</span>
+        <span class="logo_name">KCAS Lib</span>
     </div>
 
     <div class="menu-items">
@@ -35,6 +41,10 @@
                 <i class="uil uil-users-alt"></i>
                 <span class="link-name" >Користувачі</span>
             </a></li>
+            <li><a th:href="@{/admin/groups}">
+                <i class="uil uil-plus-circle"></i>
+                <span class="link-name">Групи</span>
+            </a></li>
             <li><a th:href="@{/admin/allbooksadmin}">
                 <i class="uil uil-notebooks"></i>
                 <span class="link-name">Всі книги</span>
@@ -43,7 +53,6 @@
                 <i class="uil uil-books"></i>
                 <span class="link-name">Видані книги</span>
             </a></li>
-
             <li><a th:href="@{/admin/addbook}">
                 <i class="uil uil-plus"></i>
                 <span class="link-name">Додати книгу</span>
@@ -64,7 +73,7 @@
         </ul>
 
         <ul class="logout-mode">
-            <li><a th:href="@{/logout}">
+            <li><a th:href="@{/}">
                 <i class="uil uil-signout"></i>
                 <span class="link-name">Вийти</span>
             </a></li>
@@ -84,18 +93,45 @@
 
         </div>
 
-        <img src="images/webview.gif" alt="">
+        <img src="" alt="">
     </div>
+    <!-- alert!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+    <ul th:if="${param.success}" class="notifications"  id="message">
+        <li class="toast success">
+            <div class="column" >
+                <i class="fa-solid fa-circle-check"></i>
+                <span>
+                    Успішно: Книга успішно видана</span>
+            </div>
+            <i class="fa-solid fa-xmark"></i>
+        </li>
+    </ul>
+    <ul th:if="${param.alreadyassigned}" class="notifications"  id="message">
+        <li class="toast warning">
+            <div class="column" >
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span>
+                    Увага: Книга вже видана раніше</span>
+            </div>
+            <i class="fa-solid fa-xmark"></i>
+        </li>
+    </ul>
+
+
 
     <div class="dash-content">
         <div class="activity">
             <div class="title">
                 <i class="uil uil-book-open"></i>
                 <span class="text">Видані книги</span>
+                <form th:action="@{/searchbookadmin}" method="get">
+                    <input type="text" name="keyword" th:value="${keyword}"  placeholder="Пошук" size="50" >
+                    <button type="submit" style="background-color: #fb9300; " class="uil-search"></button>
+                </form>
             </div>
-            <div th:if="${param.success}" class="alert">
-                Успішно видано
-            </div>
+
+
+
             <div th:if="${param.alreadyassigned}" class="alert">
                 Книга вже видана раніше
             </div>
@@ -128,7 +164,7 @@
                             <td th:text="${takenbook.getBook().getTitle()}">Енеїда</td>
                             <td th:text="${takenbook.getTakenat()}">30.05.1010</td>
                             <td class="btnactions">
-                                <form th:action="'/admin/usertakenadmin/'+ ${takenbook.getUser().getId()}" method="post">
+                                <form th:action="'/admin/usertakenadmin/'+ ${takenbook.getUser().getId()}" method="get">
                                     <button style="background-color: #fb9300" type="submit"><i class="uil uil-book-open"></i></button>
                                 </form>
                                 <form th:action="'/admin/assignedbooks/'+ ${takenbook.getId()}+'/remove'" method="post">
@@ -161,6 +197,7 @@
     </ul>
 </section>
 
-<script src="js/script.js"></script>
+<script src="/js/alert_script.js"></script>
+<script src="/js/script.js"></script>
 </body>
 </html>

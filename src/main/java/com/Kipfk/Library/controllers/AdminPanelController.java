@@ -236,22 +236,23 @@ public class AdminPanelController {
     public String AdminUserDelete(@PathVariable(value = "id") long id) {
         AppUser user = appUserRepository.findById(id).orElseThrow();
         boolean tokenpresent = confirmationTokenRepository.findByAppUser(user).isPresent();
-        boolean bookspresent = likedBooksRepository.findByUser(user).isPresent();
+        boolean bookspresent = likedBooksRepository.findByUser(user).isEmpty();
         boolean takenBookspresent = takenBooksRepository.findByUser(user).isEmpty();
         if (!takenBookspresent){
             return "redirect:/admin/usertakenadmin/"+id+"?notreturn";
+        }else {
+            if (!bookspresent){
+                List<LikedBooks> books = likedBooksRepository.findByUser(user);
+                likedBooksRepository.deleteAll(books);
+            }
+            if (tokenpresent){
+                ConfirmationToken token = confirmationTokenRepository.findByAppUser(user).get();
+                confirmationTokenRepository.delete(token);
+            }
+            appUserRepository.delete(user);
+            return "redirect:/admin/allusers?success";
         }
 
-        if (bookspresent){
-            LikedBooks books = likedBooksRepository.findByUser(user).get();
-            likedBooksRepository.delete(books);
-        }
-        if (tokenpresent){
-            ConfirmationToken token = confirmationTokenRepository.findByAppUser(user).get();
-            confirmationTokenRepository.delete(token);
-        }
-        appUserRepository.delete(user);
-        return "redirect:/admin/allusers";
     }
 
 
@@ -311,11 +312,9 @@ public class AdminPanelController {
     @GetMapping("/admin/usertakenadmin/{id}")
     public String showusertaken(@PathVariable(value = "id") long userid,Model model){
         AppUser user = appUserRepository.findById(userid).orElseThrow();
-        List<TakenBooks> takenBooks = takenBooksRepository.findAll();
-        Stream<TakenBooks> tbs = takenBooks.stream().filter(findEmp -> user.getId().equals(findEmp.getUser().getId()));
-        List<TakenBooks> tb = tbs.toList();
+        List<TakenBooks> takenBooks = takenBooksRepository.findAllByUser(user);
         model.addAttribute("user",user);
-        model.addAttribute("usertaken", tb);
+        model.addAttribute("usertaken", takenBooks);
         return "usertakenadmin";
     }
 

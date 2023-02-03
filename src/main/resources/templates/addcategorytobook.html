@@ -7,65 +7,75 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!----======== CSS ======== -->
-    <link rel="stylesheet" href="/css/addbook.css" type="text/css">
+    <link rel="stylesheet" href="/css/allusers.css" type="text/css">
 
-    <!----===== Iconscout CSS ===== -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Font Awesome CDN link for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <script src="https://code.iconify.design/iconify-icon/1.0.3/iconify-icon.min.js"></script>
+    <!-- Font Awesome CDN link for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Exo+2:wght@300&display=swap" rel="stylesheet">
-    <title>Додавання книги</title>
+    <title>Категорії книг</title>
 </head>
 <body>
 <nav>
     <div class="logo-name">
         <div class="logo-image">
-            <img src="images/gears_motor.gif" alt="">
+            <img src="/images/logo.png" alt="">
         </div>
-        <span class="logo_name">НТБ КНУТД</span>
+        <span class="logo_name">KCAS Lib</span>
     </div>
 
     <div class="menu-items">
         <ul class="nav-links">
             <li><a th:href="@{/admin}">
-                <i class="uil uil-estate"></i>
+                <i><iconify-icon icon="fa-solid:home"></iconify-icon></i>
                 <span class="link-name">Головна</span>
             </a></li>
             <li><a th:href="@{/admin/allusers}">
-                <i class="uil uil-users-alt"></i>
+                <i><iconify-icon icon="ion:people-sharp"></iconify-icon></i>
                 <span class="link-name" >Користувачі</span>
             </a></li>
+            <li><a th:href="@{/admin/groups}">
+                <i><iconify-icon icon="fa6-solid:people-group"></iconify-icon></i>
+                <span class="link-name">Групи</span>
+            </a></li>
             <li><a th:href="@{/admin/allbooksadmin}">
-                <i class="uil uil-notebooks"></i>
+                <i><iconify-icon icon="wpf:books"></iconify-icon></i>
                 <span class="link-name">Всі книги</span>
             </a></li>
             <li><a th:href="@{/admin/assignedbooks}">
-                <i class="uil uil-books"></i>
+                <i><iconify-icon icon="mdi:book-arrow-up"></iconify-icon></i>
                 <span class="link-name">Видані книги</span>
             </a></li>
-
             <li><a th:href="@{/admin/addbook}">
-                <i class="uil uil-plus"></i>
+                <i><iconify-icon icon="mdi:book-plus"></iconify-icon></i>
                 <span class="link-name">Додати книгу</span>
             </a></li>
             <li><a th:href="@{/admin/adduser}">
-                <i class="uil uil-user-plus"></i>
+                <i><iconify-icon icon="mdi:user-add"></iconify-icon></i>
                 <span class="link-name">Додати користувача</span>
             </a></li>
             <li><a th:href="@{/admin/takebook}">
-                <i class="uil uil-plus-circle"></i>
+                <i><iconify-icon icon="mdi:book-arrow-right"></iconify-icon></i>
                 <span class="link-name">Видати книгу</span>
             </a></li>
             <li><a th:href="@{/admin/addbookcategory}">
-                <i class="uil uil-plus-circle"></i>
+                <i><iconify-icon icon="mdi:book-information-variant"></iconify-icon></i>
                 <span class="link-name">Категорії книг</span>
             </a></li>
 
         </ul>
 
         <ul class="logout-mode">
-            <li><a th:href="@{/logout}">
-                <i class="uil uil-signout"></i>
+            <li><a th:href="@{/}">
+                <i><iconify-icon icon="mingcute:exit-door-fill"></iconify-icon></i>
                 <span class="link-name">Вийти</span>
             </a></li>
             <div class="mode-toggle">
@@ -84,14 +94,30 @@
 
         </div>
 
-        <img src="images/webview.gif" alt="">
+        <img src="" alt="">
     </div>
     <div class="dash-content">
         <div class="activity">
             <div class="title">
                 <i class="uil uil-notebooks"></i>
                 <span class="text" th:text="'Категорії книги ' + ${book.getTitle()}"></span>
+                <div class="input-box">
+                    <div class="categor" >
+
+                        <form th:action="'/admin/addcategorytobook/' + ${book.getId()} + '/' + ${category.id}" method="post">
+                        <select th:name="groupid" >
+                            <option th:each="category : ${allcategories}" th:text="${category.getName()}"></option>
+                        </select>
+                        <div class="button">
+                            <button type="submit">Додати</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+
             </div>
+
+
             <div class="table">
 
                 <div class="table_section">
@@ -100,6 +126,7 @@
                         <tr>
                             <th>№</th>
                             <th>Назва</th>
+                            <th>Дії</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -143,6 +170,7 @@
                                 <form th:action="'/admin/addcategorytobook/' + ${book.getId()} + '/' + ${category.id}" method="post">
                                     <button style="background-color: #002b9b" type="submit"><i class="uil uil-book-medical"></i></button>
                                 </form>
+
                         </tr>
                         </tbody>
 
@@ -154,6 +182,6 @@
 
 </section>
 
-<script src="js/script.js"></script>
+<script src="/js/script.js"></script>
 </body>
 </html>

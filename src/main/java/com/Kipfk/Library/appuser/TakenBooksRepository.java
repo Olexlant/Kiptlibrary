@@ -9,9 +9,9 @@ import java.util.Optional;
 
 @Repository
 public interface TakenBooksRepository extends JpaRepository <TakenBooks,Long> {
-    Optional<TakenBooks> findByUser(AppUser appUser);
+    List<TakenBooks> findByUser(AppUser appUser);
     List<TakenBooks> findByUserAndBook(AppUser appUser, AppBook appBook);
     Optional<TakenBooks> findByBookId(Long id);
-
+    List<TakenBooks> findAllByUser(AppUser appUser);
     int countAllBy();
 }

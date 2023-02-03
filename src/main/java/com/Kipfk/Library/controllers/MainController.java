@@ -105,12 +105,22 @@ public class MainController {
     public String ShowConfirmSuccessForm(){
         return "confirm_success";
     }
+    @GetMapping("/u")
+    public String ehdui(){
+        return "send_to_mail_password";
+    }
+
+    @GetMapping("/ui")
+    public String ehdаgfui(){
+        return "reset_password";
+    }
 
 
 
 
 
-//ALLBOOKS
+
+    //ALLBOOKS
     @RequestMapping(value = "/allbooks", method = RequestMethod.GET)
     public String showAllBooks(Model model,@AuthenticationPrincipal UserDetails userDetails, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size, @RequestParam("category") Optional<String> category){
         int currentPage = page.orElse(1);

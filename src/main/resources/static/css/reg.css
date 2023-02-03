@@ -147,8 +147,13 @@ nav .navbar .logo a{
 
 form .sign_up{
   text-align: center;
-  margin-top: 25px;
+  margin-top: 10px;
   
+}
+label{
+  display: block;
+  text-align: center;
+  margin-top: 5px;
 }
 .sign_up a{
   color: #25398e;
@@ -198,7 +203,7 @@ form a:hover{
   width: 100%;
   z-index: 1;
   position: relative;
-  margin-top: 20px;
+  margin-top: 12px;
   background: none;
   border: none;
   color: #fff;
@@ -242,10 +247,7 @@ form a:hover{
   text-align: center;
 }
 
-.content form .user-details{
 
-  margin: 20px 0 12px 0;
-}
 form .user-details .input-box{
   
   width: 100%;
@@ -371,7 +373,7 @@ form .user-details .input-box{
     width: 100%;
   }
   .content form .user-details{
-    max-height: 300px;
+    
     overflow-y: scroll;
   }
   .user-details::-webkit-scrollbar{
