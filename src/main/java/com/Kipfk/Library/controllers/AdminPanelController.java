@@ -351,9 +351,8 @@ public class AdminPanelController {
         model.addAttribute("bookcategories", bc);
         return "addcategorytobook";
     }
-    @PostMapping("/admin/addcategorytobook/{bookid}/{categoryid}")
-    public String addcategorytobook(Model model,@PathVariable Long bookid,@PathVariable Long categoryid){
-
+    @PostMapping("/admin/addcategorytobook/{bookid}/add")
+    public String addcategorytobook(Model model,@PathVariable Long bookid,@RequestParam Long categoryid){
         AppBook book = appBookRepository.findById(bookid).get();
         CategoriesOfBooks category = categoriesOfBooksRepository.findById(categoryid).get();
         BookCategory bccheck = bookCategoryRepository.findByCategoryAndBook(category, book);
@@ -363,11 +362,11 @@ public class AdminPanelController {
             bc.setCategory(category);
             bookCategoryRepository.save(bc);
         }else {
-            return "redirect:/admin/addcategorytobook/"+bookid;
+            return "redirect:/admin/addcategorytobook/"+bookid+"?alreadyadded";
         }
-
-        return "redirect:/admin/addcategorytobook/"+bookid;
+        return "redirect:/admin/addcategorytobook/"+bookid+"?success";
     }
+
     @PostMapping("/admin/addcategorytobook/{bookid}/{categoryid}/delete")
     public String deletecategoryfrombook(Model model,@PathVariable Long bookid,@PathVariable Long categoryid){
         AppBook book = appBookRepository.findAllById(bookid);
