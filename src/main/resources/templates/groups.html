@@ -164,6 +164,12 @@
             </div>
         </div>
     </div>
+    <div th:if="${param.success}" class="alert">
+        Групу успішно додано
+    </div>
+    <div th:if="${param.deleted}" class="alert">
+        Групу успішно видалено
+    </div>
 </section>
 <script src="/js/alert_script.js"></script>
 <script src="/js/popup.js"></script>

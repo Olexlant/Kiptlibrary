@@ -186,6 +186,15 @@
                 <a th:href="@{/admin/allbooksadmin(size=${books.size}, page=${pageNumber})}">»</a></li>
         </th:block>
     </ul>
+    <div th:if="${param.changessaved}">
+        Зміни збережено
+    </div>
+    <div th:if="${param.usernotreturn}">
+        Книга видана у деяких користувачів
+    </div>
+    <div th:if="${param.deletesuccess}">
+        Книгу успішно видалено
+    </div>
 </section>
 
 <script src="/js/alert_script.js"></script>

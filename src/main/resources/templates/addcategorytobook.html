@@ -170,6 +170,18 @@
         </li>
     </ul>
 
+    <ul th:if="${param.deleted}"  class="notifications">
+        <li class="toast success">
+            <div class="column" >
+                <i class="fa-solid fa-circle-check"></i>
+                <span>
+
+                    Категорія успішно видалена</span>
+            </div>
+            <i class="fa-solid fa-xmark"></i>
+        </li>
+    </ul>
+
 </section>
 
 <script src="/js/script.js"></script>

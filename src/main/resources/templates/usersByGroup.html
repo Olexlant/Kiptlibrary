@@ -150,12 +150,9 @@
                 <form th:action="'/admin/usertakenadmin/'+ ${user.getId()}" method="get">
                   <button style="background-color: #006B49" type="submit"><i><iconify-icon icon="wpf:books"></iconify-icon></i></button>
                 </form>
-
-
-                <form  th:action="'/admin/allusers/'+ ${user.getId()}+'/remove'" method="post">
+                <form  th:action="'/admin/usersbygroup/'+ ${user.getGroups().getId()}+'/'+${user.getId()}" method="post">
                   <button style="background-color: #FF3F40" type="button" onclick="openpopup(form)"><i class="uil uil-trash-alt"></i></button>
                 </form>
-
               </td>
             </tr>
             </tbody>
@@ -164,6 +161,9 @@
       </div>
 
     </div>
+  </div>
+  <div th:if="${param.userdeletedfromgroup}" class="alert">
+    Користувача видалено з групи
   </div>
 </section>
 <script src="/js/alert_script.js"></script>
