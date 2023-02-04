@@ -164,17 +164,17 @@
   <ul id="pagination">
     <th:block th:each="pageNumber : ${body}">
       <li th:if="${pageNumberStat.first}">
-        <a class="" th:href="@{/admin/addbooktogroup/} + ${group.getId()} + @{(size=${books.size}, page=${pageNumber})}">«</a>
+        <a class="" th:href="@{/admin/addbooktogroup/} + ${group.getId()} + @{/(size=${books.size}, page=${pageNumber})}">«</a>
       </li>
       <li th:if="${pageNumber} == ${books.getNumber()+1}">
         <a  class="active" th:text="${pageNumber}" href="#" ></a>
       </li>
       <li  th:if="${pageNumber} == -1"><a href="#">...</a></li>
       <li th:if="${pageNumber} != -1 and ${pageNumber} != ${books.getNumber()+1}">
-        <a th:text="${pageNumber}" th:href="@{/admin/addbooktogroup/} + ${group.getId()} + @{(size=${books.size}, page=${pageNumber})}"></a>
+        <a th:text="${pageNumber}" th:href="@{/admin/addbooktogroup/} + ${group.getId()} + @{/(size=${books.size}, page=${pageNumber})}"></a>
       </li>
       <li th:if="${pageNumberStat.last}" >
-        <a th:href="@{/admin/addbooktogroup/} + ${group.getId()} + @{(size=${books.size}, page=${pageNumber})}">»</a></li>
+        <a th:href="@{/admin/addbooktogroup/} + ${group.getId()} + @{/(size=${books.size}, page=${pageNumber})}">»</a></li>
     </th:block>
   </ul>
 
