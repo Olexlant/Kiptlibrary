@@ -27,15 +27,17 @@ public class SearchController {
     private final AppBookRepository appBookRepository;
     private final LikedBooksRepository likedBooksRepository;
     private final CategoriesOfBooksRepository categoriesOfBooksRepository;
+    private final GroupsRepository groupsRepository;
 
 
-    public SearchController(RegistrationService registrationService, ConfirmationTokenRepository confirmationTokenRepository, AppUserService appUserService, AppBookService appBookService, AppUserRepository appUserRepository, AppBookRepository appBookRepository, TakenBooksRepository takenBooksRepository, LikedBooksRepository likedBooksRepository, AppUserRepository userRepo, BookCategoryRepository bookCategoryRepository, CategoriesOfBooksRepository categoriesOfBooksRepository, CategoriesOfBooksRepository categoriesOfBooksRepository1) {
+    public SearchController(RegistrationService registrationService, ConfirmationTokenRepository confirmationTokenRepository, AppUserService appUserService, AppBookService appBookService, AppUserRepository appUserRepository, AppBookRepository appBookRepository, TakenBooksRepository takenBooksRepository, LikedBooksRepository likedBooksRepository, AppUserRepository userRepo, BookCategoryRepository bookCategoryRepository, CategoriesOfBooksRepository categoriesOfBooksRepository, CategoriesOfBooksRepository categoriesOfBooksRepository1, GroupsRepository groupsRepository) {
         this.appUserService = appUserService;
         this.appBookService = appBookService;
         this.appUserRepository = appUserRepository;
         this.appBookRepository = appBookRepository;
         this.likedBooksRepository = likedBooksRepository;
         this.categoriesOfBooksRepository = categoriesOfBooksRepository1;
+        this.groupsRepository = groupsRepository;
     }
     //SEARCH
     @RequestMapping(path = {"/searchbook"})
@@ -143,5 +145,18 @@ public class SearchController {
             model.addAttribute("users", users);
         }
         return "takebookuser";
+    }
+
+    @RequestMapping(path = {"/admin/searchbooktoaddtogroup/{groupid}"})
+    public String searchAddBookToGroup(@PathVariable Long groupid, Model model, String keyword) {
+        if (keyword != null) {
+            List<AppBook> list = appBookService.getAllByKeyword(keyword);
+            model.addAttribute("books", list);
+        } else {
+            Iterable<AppBook> books = appBookRepository.findAll();
+            model.addAttribute("books", books);
+        }
+        model.addAttribute("group", groupsRepository.findAllById(groupid));
+        return "addBooksToGroup";
     }
 }

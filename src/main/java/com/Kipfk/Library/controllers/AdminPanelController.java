@@ -442,4 +442,43 @@ public class AdminPanelController {
         model.addAttribute("group", group);
         return "adminBooksByGroup";
     }
+
+    @GetMapping("/admin/addbooktogroup/{groupid}")
+    public String addBookToGroup(Model model, @PathVariable Long groupid, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
+
+        Groups group = groupsRepository.findAllById(groupid);
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(12);
+        Page<AppBook> bookPage = appBookService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
+        model.addAttribute("books",bookPage);
+        model.addAttribute("body", appBookService.bodyArrayForPages(bookPage));
+
+        model.addAttribute("group", group);
+        return "addBooksToGroup";
+    }
+
+    @PostMapping("/admin/booksbygroup/{groupid}/{bookid}")
+    public String addBookToGroup( @PathVariable Long groupid,@PathVariable Long bookid) {
+        Groups group = groupsRepository.findAllById(groupid);
+        AppBook book = appBookRepository.findAllById(bookid);
+        boolean ispresent = booksByGroupsRepository.findByGroupsAndBook(group, book).isEmpty();
+        if (ispresent){
+            BooksByGroups booksByGroups = new BooksByGroups();
+            booksByGroups.setGroups(group);
+            booksByGroups.setBook(book);
+            booksByGroupsRepository.save(booksByGroups);
+            return  "redirect:/admin/booksbygroup/"+groupid+"?bookadded";
+        }else {
+            return  "redirect:/admin/booksbygroup/"+groupid+"?alreadyadded";
+        }
+    }
+
+    @PostMapping("/admin/booksbygroup/{groupid}/{bookid}/delete")
+    public String deleteBookFromGroup(@PathVariable Long groupid,@PathVariable Long bookid) {
+        Groups group = groupsRepository.findAllById(groupid);
+        AppBook book = appBookRepository.findAllById(bookid);
+        List<BooksByGroups> booksByGroups = booksByGroupsRepository.findByGroupsAndBook(group, book);
+        booksByGroupsRepository.deleteAll(booksByGroups);
+        return  "redirect:/admin/booksbygroup/"+groupid+"?bookdeleted";
+    }
 }

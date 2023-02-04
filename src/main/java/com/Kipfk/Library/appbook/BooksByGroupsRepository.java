@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface BooksByGroupsRepository extends JpaRepository<BooksByGroups,Long> {
     ArrayList<BooksByGroups> findAllByGroups(Groups groups);
+    List<BooksByGroups> findByGroupsAndBook(Groups groups,AppBook book);
 }
