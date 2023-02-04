@@ -190,11 +190,25 @@ public class AdminPanelController {
         return "adduser";
     }
 
-    @PostMapping("/admin/process_useradd")
-    public String signUpByAdd(AppUser user, @RequestParam String groupid) {
+    @PostMapping("/admin/processuseradd")
+    public String signUpByAdd(AppUser user, @RequestParam String groupid, @RequestParam String role) {
+        boolean UserExists = appUserRepository.findByEmail(user.getEmail()).isPresent();
+        if(UserExists){
+            return "redirect:/admin/adduser?emailpresent";
+        }
         user.setGroups(groupsRepository.findAllById(Long.valueOf(groupid)));
-        registrationService.register(user);
-        return "redirect:/allusers";
+        if (role.equals("ADMIN")){
+            user.setAppUserRole(AppUserRole.ADMIN);
+        }
+        if (role.equals("USER")){
+            user.setAppUserRole(AppUserRole.USER);
+        }
+        if (role.equals("TEACHER")){
+            user.setAppUserRole(AppUserRole.TEACHER);
+        }
+        appUserService.signUpUser(user);
+        appUserService.enableAppUser(user.getEmail());
+        return "redirect:/admin/adduser?useradded";
     }
 
     @GetMapping("/admin/allusers")
