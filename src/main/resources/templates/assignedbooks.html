@@ -135,6 +135,12 @@
             <div th:if="${param.alreadyassigned}" class="alert">
                 Книга вже видана раніше
             </div>
+            <div th:if="${param.success}" class="alert">
+                Книгу успішно видано
+            </div>
+            <div th:if="${param.returned}" class="alert">
+                Книгу успішно повернуто
+            </div>
             <div class="table">
 
                 <div class="table_section">

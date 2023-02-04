@@ -141,6 +141,12 @@
   </div>
 
   </div>
+  <div th:if="${param.success}" class="alert">
+    Категорію успішно додано
+  </div>
+  <div th:if="${param.deleted}" class="alert">
+    Категорію успішно видалено
+  </div>
 </section>
 
 <script src="/js/script.js"></script>

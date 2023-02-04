@@ -99,7 +99,7 @@ public class AdminPanelController {
         appBookService.bookadd(appBook);
         appBookRepository.save(appBook);
 
-        return "redirect:/admin/allbooksadmin";
+        return "redirect:/admin/addbook?success";
     }
     @GetMapping("/admin")
     public String showAdminHome(Model model){
@@ -168,15 +168,15 @@ public class AdminPanelController {
             book.setBookfileurl(bookfileurl);
         }
         appBookRepository.save(book);
-        return "redirect:/admin/allbooksadmin";
+        return "redirect:/admin/allbooksadmin?changessaved";
     }
     @PostMapping("/admin/allbooksadmin/{id}/remove")
     public String AdminBookDelete(@PathVariable(value = "id") long id) {
         if (takenBooksRepository.findByBookId(id).isPresent()){
-            return "redirect:/admin/allbooksadmin?userNotReturn";
+            return "redirect:/admin/allbooksadmin?usernotreturn";
         } else {
             appBookRepository.deleteById(id);
-            return "redirect:/admin/allbooksadmin";
+            return "redirect:/admin/allbooksadmin?deletesuccess";
         }
 
     }
@@ -230,7 +230,7 @@ public class AdminPanelController {
         user.setPassword(password);
         user.setGroups(groupsRepository.findAllById(Long.valueOf(groupid)));
         appUserRepository.save(user);
-        return "redirect:/admin/allusers";
+        return "redirect:/admin/allusers?changessaved";
     }
     @PostMapping("/admin/allusers/{id}/remove")
     public String AdminUserDelete(@PathVariable(value = "id") long id) {
@@ -306,7 +306,7 @@ public class AdminPanelController {
     public String removeassignedbooks(@PathVariable(value = "id") long id) {
         TakenBooks tb = takenBooksRepository.findById(id).orElseThrow();
         takenBooksRepository.delete(tb);
-        return "redirect:/admin/assignedbooks";
+        return "redirect:/admin/assignedbooks?returned";
     }
 
     @GetMapping("/admin/usertakenadmin/{id}")
@@ -330,13 +330,13 @@ public class AdminPanelController {
     @PostMapping("/admin/addbookcategory")
     public String addbookcategory(Model model,CategoriesOfBooks categoriesOfBooks){
         categoriesOfBooksRepository.save(categoriesOfBooks);
-        return "redirect:/admin/addbookcategory";
+        return "redirect:/admin/addbookcategory?success";
     }
     @PostMapping("/admin/deletebookcategory/{id}")
     public String deletebookcategory(@PathVariable Long id){
         CategoriesOfBooks categories = categoriesOfBooksRepository.findById(id).orElseThrow();
         categoriesOfBooksRepository.delete(categories);
-        return "redirect:/admin/addbookcategory";
+        return "redirect:/admin/addbookcategory?deleted";
     }
 
 
@@ -373,7 +373,7 @@ public class AdminPanelController {
         CategoriesOfBooks category = categoriesOfBooksRepository.findAllById(categoryid);
         BookCategory bc = bookCategoryRepository.findByCategoryAndBook(category, book);
         bookCategoryRepository.delete(bc);
-        return "redirect:/admin/addcategorytobook/"+bookid;
+        return "redirect:/admin/addcategorytobook/"+bookid+"?deleted";
     }
 
 //GROUPS
@@ -388,7 +388,7 @@ public class AdminPanelController {
     @PostMapping("/admin/groups/save")
     public String saveNewGroup(Groups groups) {
         groupsRepository.save(groups);
-        return "redirect:/admin/groups";
+        return "redirect:/admin/groups?success";
     }
     @PostMapping("/admin/groups/{groupid}/delete")
     public String deleteGroup(@PathVariable Long groupid) {
@@ -399,7 +399,7 @@ public class AdminPanelController {
         }
         appUserRepository.saveAll(users);
         groupsRepository.delete(group);
-        return "redirect:/admin/groups";
+        return "redirect:/admin/groups?deleted";
     }
 //USERS BY GROUP
     @GetMapping("/admin/usersbygroup/{groupid}")
@@ -409,6 +409,14 @@ public class AdminPanelController {
         model.addAttribute("users", users);
         model.addAttribute("group", group);
         return "usersByGroup";
+    }
+
+    @PostMapping("/admin/usersbygroup/{groupid}/{userid}")
+    public String deleteUserFromGroup(Model model, @PathVariable Long groupid,@PathVariable Long userid) {
+        AppUser user = appUserRepository.findById(userid).get();
+        user.setGroups(null);
+        appUserRepository.save(user);
+        return "redirect:/admin/usersbygroup/"+groupid+"?userdeletedfromgroup";
     }
 
 //BOOKS BY GROUP

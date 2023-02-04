@@ -184,6 +184,9 @@
             <i class="fa-solid fa-xmark"></i>
         </li>
     </ul>
+    <div th:if="${param.changessaved}">
+        Дані користувача оновлено
+    </div>
 
     <ul id="pagination">
         <th:block th:each="pageNumber : ${body}">
