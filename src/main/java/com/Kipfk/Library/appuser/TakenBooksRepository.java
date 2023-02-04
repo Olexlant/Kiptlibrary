@@ -13,5 +13,6 @@ public interface TakenBooksRepository extends JpaRepository <TakenBooks,Long> {
     List<TakenBooks> findByUserAndBook(AppUser appUser, AppBook appBook);
     Optional<TakenBooks> findByBookId(Long id);
     List<TakenBooks> findAllByUser(AppUser appUser);
+    List<TakenBooks> findAllByBook(AppBook book);
     int countAllBy();
 }

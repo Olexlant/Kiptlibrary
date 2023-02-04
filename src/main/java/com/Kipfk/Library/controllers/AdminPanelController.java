@@ -175,6 +175,19 @@ public class AdminPanelController {
         if (takenBooksRepository.findByBookId(id).isPresent()){
             return "redirect:/admin/allbooksadmin?usernotreturn";
         } else {
+            AppBook book = appBookRepository.findAllById(id);
+            List<LikedBooks> likedBooks = likedBooksRepository.findAllByBook(book);
+            if (!likedBooks.isEmpty()){
+                likedBooksRepository.deleteAll(likedBooks);
+            }
+            List<BookCategory> bookCategories = bookCategoryRepository.findAllByBookId(id);
+            if (!bookCategories.isEmpty()){
+                bookCategoryRepository.deleteAll(bookCategories);
+            }
+            List<BooksByGroups> booksByGroups = booksByGroupsRepository.findAllByBook(book);
+            if (!booksByGroups.isEmpty()){
+                booksByGroupsRepository.deleteAll(booksByGroups);
+            }
             appBookRepository.deleteById(id);
             return "redirect:/admin/allbooksadmin?deletesuccess";
         }
