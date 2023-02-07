@@ -184,9 +184,16 @@
             <i class="fa-solid fa-xmark"></i>
         </li>
     </ul>
-    <div th:if="${param.changessaved}">
-        Дані користувача оновлено
-    </div>
+    <ul th:if="${param.changessaved}"  class="notifications"  id="message">
+        <li class="toast success">
+            <div class="column" >
+                <i class="fa-solid fa-circle-check"></i>
+                <span>
+                     Дані користувача оновлено</span>
+            </div>
+            <i class="fa-solid fa-xmark"></i>
+        </li>
+    </ul>
 
     <ul id="pagination">
         <th:block th:each="pageNumber : ${body}">

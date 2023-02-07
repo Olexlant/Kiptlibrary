@@ -29,6 +29,18 @@ form .button button {
     color: #25398e;
 
   }
+  textarea {
+    width: 100%;
+    height: 100px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    resize: none;
+    border-color: rgb(37, 57, 142);
+  }
   .categor select {
       border: 1px solid #ccc;
       border-bottom-width: 2px;
@@ -58,7 +70,6 @@ form .button button {
     border-radius: 5px;
     box-shadow: 1px 1px 30px 10px rgb(0 0 0 / 20%);
     align-items: center;
-
     position: absolute;
       top: 50%;
       left: 50%;
@@ -71,6 +82,26 @@ form .button button {
 
     text-align: center;
   }
+  .container2{
+      max-width: 600px;
+      width: 100%;
+      background-color: #fff;
+      padding: 25px 30px;
+      border-radius: 5px;
+      box-shadow: 1px 1px 30px 10px rgb(0 0 0 / 20%);
+      align-items: center;
+      position: absolute;
+        top: 57%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%)
+    }
+    .container2 .title{
+      font-size: 30px;
+      font-weight: 600;
+
+      text-align: center;
+    }
 
   .content form .user-details{
     display: flex;
@@ -98,7 +129,7 @@ form .button button {
     border-bottom-width: 2px;
     transition: all 0.3s ease;
   }
-  .user-details .input-box input:focus,
+.user-details .input-box input:focus,
   .user-details .input-box input:valid{
     border-color: #25398e;
   }
@@ -137,7 +168,7 @@ form .button button {
    }
    form .button{
      height: 45px;
-     margin: 35px 0
+     margin: 15px 0px 0px 0px;
    }
   .title span {
     color: #0E2431;
@@ -156,6 +187,190 @@ form .button button {
     bottom: 0;
     transform: translateX(22%);
   }
+  .categor{
+    margin-bottom: 25px;
+  }
+  .categor select {
+    border: 1px solid #ccc;
+      border-bottom-width: 2px;
+    border-radius: 12px;
+    background-color: #Fff;
+    color: #25398e;
+    padding: 8.3px;
+    width: 100%;
+    font-size: 20px;
+    -webkit-appearance: button;
+    appearance: button;
+    outline: none;
+  }
+
+  .categor::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 12px;
+    width: 20%;
+    height: 100%;
+    text-align: center;
+    font-size: 28px;
+    line-height: 45px;
+    color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.1);
+    pointer-events: none;
+  }
+
+  .categor:hover::before {
+    color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .categor select option {
+    padding: 30px;
+  }
+
+
+  .categor1 select {
+    border: 1px solid #ccc;
+      border-bottom-width: 2px;
+    border-radius: 12px;
+    background-color: #Fff;
+    color: #25398e;
+    padding: 8.3px;
+    width: 538px;
+    font-size: 20px;
+    -webkit-appearance: button;
+    appearance: button;
+    outline: none;
+  }
+
+  .categor1::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 12px;
+    width: 20%;
+    height: 100%;
+    text-align: center;
+    font-size: 28px;
+    line-height: 45px;
+    color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.1);
+    pointer-events: none;
+  }
+
+  .categor1:hover::before {
+    color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+
+
+
+
+
+.notifications {
+  position: fixed;
+  top: 30px;
+  right: 20px;
+}
+.notifications :where(.toast, .column) {
+  display: flex;
+  align-items: center;
+}
+.notifications .toast {
+  width: 400px;
+  position: relative;
+  overflow: hidden;
+  list-style: none;
+  border-radius: 4px;
+  padding: 16px 17px;
+  margin-bottom: 10px;
+  background: var(--light);
+  justify-content: space-between;
+  animation: show_toast 0.3s ease forwards;
+}
+@keyframes show_toast {
+  0% {
+    transform: translateX(100%);
+  }
+  40% {
+    transform: translateX(-5%);
+  }
+  80% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-10px);
+  }
+}
+.notifications .toast.hide {
+  animation: hide_toast 0.3s ease forwards;
+}
+@keyframes hide_toast {
+  0% {
+    transform: translateX(-10px);
+  }
+  40% {
+    transform: translateX(0%);
+  }
+  80% {
+    transform: translateX(-5%);
+  }
+  100% {
+    transform: translateX(calc(100% + 20px));
+  }
+}
+.toast::before {
+  position: absolute;
+  content: "";
+  height: 3px;
+  width: 100%;
+  bottom: 0px;
+  left: 0px;
+  animation: progress 5s linear forwards;
+}
+@keyframes progress {
+  100% {
+    width: 0%;
+  }
+}
+.toast.success::before, .btn#success {
+  background: var(--success);
+}
+.toast.error::before, .btn#error {
+  background: var(--error);
+}
+.toast.warning::before, .btn#warning {
+  background: var(--warning);
+}
+.toast.info::before, .btn#info {
+  background: var(--info);
+}
+.toast .column i {
+  font-size: 1.75rem;
+}
+.toast.success .column i {
+  color: var(--success);
+}
+.toast.error .column i {
+  color: var(--error);
+}
+.toast.warning .column i {
+  color: var(--warning);
+}
+.toast.info .column i {
+  color: var(--info);
+}
+.toast .column span {
+  font-size: 1.07rem;
+  margin-left: 12px;
+}
+.toast i:last-child {
+  color: #aeb0d7;
+  cursor: pointer;
+}
+.toast i:last-child:hover {
+  color: var(--dark);
+}
 
 
 :root{

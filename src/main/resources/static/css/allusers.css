@@ -64,6 +64,7 @@ font-family: 'Exo 2', sans-serif;
          border: 2px solid transparent;
          background: #25398e;
          transition: all 0.4s ease;
+         margin-left:15px;
   }
   form .button :hover{
       border-color: #25398e;
@@ -87,7 +88,22 @@ font-family: 'Exo 2', sans-serif;
   }
   #pagination li a:hover:not(.active) {
     background-color: #ddd;
-  } 
+  }
+  .categor select {
+            border: 1px solid #ccc;
+            border-bottom-width: 2px;
+            border-radius: 12px;
+            background-color: #Fff;
+            border-color:#25398e;
+            color: #25398e;
+            padding: 8.3px;
+            width: 100%;
+            font-size: 15px;
+            -webkit-appearance: button;
+            appearance: button;
+            outline: none;
+            margin-left: 9px;
+        }
   
   .pop_up{
  
@@ -179,6 +195,7 @@ font-family: 'Exo 2', sans-serif;
     border: 2px solid transparent;
     background: #e82f2f;
     transition: all 0.4s ease;
+    margin-left:25px;
   }
   
   .pop_up_body .no:hover{
@@ -408,9 +425,14 @@ button {
 
 form{
     margin: 3px;
+    display:flex;
 }
 td.btnactions{
     display: flex;
+    justify-content: center;
+}
+td.btnactions1{
+
     justify-content: center;
 }
 

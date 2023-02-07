@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="/css/allbookadmin.css" type="text/css" th:href="@{/css/allbookadmin.css}">
+    <link rel="stylesheet" href="/css/allusers.css" type="text/css" th:href="@{/css/allbookadmin.css}">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -120,7 +120,9 @@
                 <i><iconify-icon icon="wpf:books"></iconify-icon></i>
                 <span class="text" th:text="${'Книги групи '+group.getName()}"></span>
                 <form th:action="'/admin/addbooktogroup/'+ ${group.getId()}" method="get">
-                    <button style="background-color: #25398e" type="submit" ><i><iconify-icon icon="fluent:book-star-24-filled"></iconify-icon></i></button>
+                    <div class="button">
+                        <button type="submit">Додати книгу для групи</button>
+                    </div>
                 </form>
             </div>
             <div class="table">
@@ -169,15 +171,41 @@
             </div>
         </div>
     </div>
-    <div th:if="${param.bookadded}">
-        Книгу додано до групи
-    </div>
-    <div th:if="${param.alreadyadded}">
-        Книга була додана раніше
-    </div>
-    <div th:if="${param.bookdeleted}">
-        Книга видалена з програми групи
-    </div>
+    <ul th:if="${param.bookadded}"  class="notifications" id="message">
+        <li class="toast success">
+            <div class="column" >
+                <i class="fa-solid fa-circle-check"></i>
+                <span>
+
+                     Книгу додано до групи</span>
+            </div>
+            <i class="fa-solid fa-xmark"></i>
+        </li>
+    </ul>
+
+    <ul th:if="${param.alreadyadded}"  class="notifications" id="message">
+        <li class="toast warning">
+            <div class="column" >
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span>
+
+                    Книга додана раніше</span>
+            </div>
+            <i class="fa-solid fa-xmark"></i>
+        </li>
+    </ul>
+
+    <ul th:if="${param.bookdeleted}"  class="notifications"  id="message">
+        <li class="toast success">
+            <div class="column" >
+                <i class="fa-solid fa-circle-check"></i>
+                <span>
+
+                   Книга видалена з програми групи</span>
+            </div>
+            <i class="fa-solid fa-xmark"></i>
+        </li>
+    </ul>
 </section>
 
 <script src="/js/alert_script.js"></script>

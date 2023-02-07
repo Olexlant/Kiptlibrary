@@ -7,11 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!----======== CSS ======== -->
-
     <link rel="stylesheet" href="/css/adduser.css" type="text/css">
-
-    <!----===== Iconscout CSS ===== -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Font Awesome CDN link for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <script src="https://code.iconify.design/iconify-icon/1.0.3/iconify-icon.min.js"></script>
+    <!-- Font Awesome CDN link for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Exo+2:wght@300&display=swap" rel="stylesheet">
@@ -21,7 +26,7 @@
 <nav>
     <div class="logo-name">
         <div class="logo-image">
-            <img src="/images/gears_motor.gif" alt="">
+            <img src="/images/logo.png" alt="">
         </div>
         <span class="logo_name">KCAS Lib</span>
     </div>
@@ -29,39 +34,39 @@
     <div class="menu-items">
         <ul class="nav-links">
             <li><a th:href="@{/admin}">
-                <i class="uil uil-estate"></i>
+                <i><iconify-icon icon="fa-solid:home"></iconify-icon></i>
                 <span class="link-name">Головна</span>
             </a></li>
             <li><a th:href="@{/admin/allusers}">
-                <i class="uil uil-users-alt"></i>
+                <i><iconify-icon icon="ion:people-sharp"></iconify-icon></i>
                 <span class="link-name" >Користувачі</span>
             </a></li>
             <li><a th:href="@{/admin/groups}">
-                <i class="uil uil-plus-circle"></i>
+                <i><iconify-icon icon="fa6-solid:people-group"></iconify-icon></i>
                 <span class="link-name">Групи</span>
             </a></li>
             <li><a th:href="@{/admin/allbooksadmin}">
-                <i class="uil uil-notebooks"></i>
+                <i><iconify-icon icon="wpf:books"></iconify-icon></i>
                 <span class="link-name">Всі книги</span>
             </a></li>
             <li><a th:href="@{/admin/assignedbooks}">
-                <i class="uil uil-books"></i>
+                <i><iconify-icon icon="mdi:book-arrow-up"></iconify-icon></i>
                 <span class="link-name">Видані книги</span>
             </a></li>
             <li><a th:href="@{/admin/addbook}">
-                <i class="uil uil-plus"></i>
+                <i><iconify-icon icon="mdi:book-plus"></iconify-icon></i>
                 <span class="link-name">Додати книгу</span>
             </a></li>
             <li><a th:href="@{/admin/adduser}">
-                <i class="uil uil-user-plus"></i>
+                <i><iconify-icon icon="mdi:user-add"></iconify-icon></i>
                 <span class="link-name">Додати користувача</span>
             </a></li>
             <li><a th:href="@{/admin/takebook}">
-                <i class="uil uil-plus-circle"></i>
+                <i><iconify-icon icon="mdi:book-arrow-right"></iconify-icon></i>
                 <span class="link-name">Видати книгу</span>
             </a></li>
             <li><a th:href="@{/admin/addbookcategory}">
-                <i class="uil uil-plus-circle"></i>
+                <i><iconify-icon icon="mdi:book-information-variant"></iconify-icon></i>
                 <span class="link-name">Категорії книг</span>
             </a></li>
 
@@ -69,7 +74,7 @@
 
         <ul class="logout-mode">
             <li><a th:href="@{/}">
-                <i class="uil uil-signout"></i>
+                <i><iconify-icon icon="mingcute:exit-door-fill"></iconify-icon></i>
                 <span class="link-name">Вийти</span>
             </a></li>
             <div class="mode-toggle">
@@ -88,7 +93,6 @@
 
         </div>
 
-        <img src="" alt="">
     </div>
 
     <div class="dash-content">
@@ -120,19 +124,22 @@
                         </div>
                         <div class="input-box">
                             <span class="details">Група</span>
-                            <select th:name="groupid">
-                                <option th:each="group : ${groups}" th:value="${group.getId()}" name="group" th:text="${group.getName()}"></option>
-                            </select>
+                            <div class="categor">
+                                <select th:name="groupid">
+                                    <option th:each="group : ${groups}" th:value="${group.getId()}" th:text="${group.getName()}"></option>
+                                </select>
+                            </div>
                         </div>
                         <div class="input-box">
                             <span class="details">Роль</span>
-                            <select th:name="role" >
-                                <option selected th:value="${'USER'}" th:text="${'Студент'}"></option>
-                                <option th:value="${'TEACHER'}" th:text="${'Вчитель'}"></option>
-                                <option th:value="${'ADMIN'}" th:text="${'Адмін'}"></option>
-                            </select>
+                            <div class="categor1">
+                                <select  th:name="role">
+                                    <option selected th:value="${'USER'}" th:text="${'Студент'}"></option>
+                                    <option th:value="${'TEACHER'}" th:text="${'Вчитель'}"></option>
+                                    <option th:value="${'ADMIN'}" th:text="${'Адмін'}"></option>
+                                </select>
+                            </div>
                         </div>
-
                     </div>
                     <div class="button">
                         <button type="submit">Додати</button>
@@ -143,15 +150,34 @@
     </div>
 
     </div>
-    <div th:if="${param.emailpresent}" class="alert">
-        Користувач з таким email вже існує
-    </div>
-    <div th:if="${param.useradded}" class="alert">
-        Нового користувача додано
-    </div>
+    <ul  th:if="${param.emailpresent}"  class="notifications"  id="message">
+        <li class="toast error">
+            <div class="column" >
+                <i class="fa-solid fa-circle-xmark"></i>
+                <span>
+                      Користувач з таким email вже існує</span>
+            </div>
+            <i class="fa-solid fa-xmark"></i>
+        </li>
+    </ul>
+
+    <ul th:if="${param.useradded}" class="notifications"  id="message">
+        <li class="toast success">
+            <div class="column" >
+                <i class="fa-solid fa-circle-check"></i>
+                <span>
+                     Нового корисувача успішно додано</span>
+            </div>
+            <i class="fa-solid fa-xmark"></i>
+        </li>
+    </ul>
+
 
 </section>
 
+<script src="/js/alert_script.js"></script>
+<script src="/js/popup.js"></script>
 <script src="/js/script.js"></script>
+<script src="https://code.iconify.design/iconify-icon/1.0.3/iconify-icon.min.js"></script>
 </body>
 </html>
