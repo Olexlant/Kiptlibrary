@@ -19,18 +19,20 @@
 <body>
 <div class="container">
     <section class="adout">
-        <div class="content" th:each="bookd : ${bookd}">
-            <div class="title"><span  th:text="${bookd.title}"></span></div>
+        <div class="content" th:each="book : ${bookd}">
+            <div class="title"><span  th:text="${book.title}"></span></div>
             <div class="about-details">
                 <div class="right">
-                    <img th:src="@{'/qrcode/image/' + ${bookd.getId()}}" >
+                    <img th:src="@{'/qrcode/image/' + ${book.getId()}}" >
                 </div>
                 <div class="left">
-                    <div class="topic"  th:text="${'Qr-код: '+bookd.qrid}"></div>
-                    <div class="topic" th:text="${'Автор: '+bookd.author}"></div>
-                    <div class="topic" th:text="${'Рік: '+bookd.year}"></div>
-                    <div class="topic"th:text="${'Наявність: '+bookd.count+' штук'}"></div>
-                    <p th:text="${'Опис: '+bookd.description}"></p>
+                    <div class="topic"  th:text="${'Qr-код: '+book.qrid}"></div>
+                    <div class="topic" th:text="${'Автор: '+book.author}"></div>
+                    <div class="topic" th:text="${'Рік: '+book.year}"></div>
+                    <div class="topic"th:text="${'Наявність: '+book.count+' штук'}"></div>
+                    <div th:if="${book.description!=null}">
+                        <p th:text="${'Опис: '+book.description}"></p>
+                    </div>
                     <form action="/allbooks">
                         <div class="button">
                             <button>Назад</button>
