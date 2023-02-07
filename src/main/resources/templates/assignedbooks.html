@@ -171,6 +171,7 @@
                             <th>Прізвище</th>
                             <th>Автор</th>
                             <th>Назва</th>
+                            <th>Кількість</th>
                             <th>Видано</th>
                             <th>Дії</th>
                         </tr>
@@ -187,6 +188,7 @@
                             <td th:text="${takenbook.getUser().getLastName()}">Берлет</td>
                             <td th:text="${takenbook.getBook().getAuthor()}">Котляревський</td>
                             <td th:text="${takenbook.getBook().getTitle()}">Енеїда</td>
+                            <td th:text="${takenbook.getCount()}">200</td>
                             <td th:text="${takenbook.getTakenat()}">30.05.1010</td>
                             <td class="btnactions">
                                 <form th:action="'/admin/usertakenadmin/'+ ${takenbook.getUser().getId()}" method="get">

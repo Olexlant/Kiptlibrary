@@ -31,9 +31,8 @@
       <p>
         <iconify-icon icon="mdi:book-plus"style="color: #25398e;" width="60" height="60"></iconify-icon>
       </p>
-      <p>Введіть кількість книг</p>
+      <p>Видати книгу?</p>
       <form class="input-number">
-        <input type="number" placeholder="Кількість книг" min="1">
         <div class="btn-yes-no">
           <button id="pop_up_submit" type="button" onclick="submitForm()">Видати</button>
           <button class="no" onclick="closepopupwindow()">Назад</button>
@@ -144,17 +143,17 @@
             </thead>
             <tbody>
             <tr th:each="book : ${books}">
-              <td th:text="${book.qrid}"></td>
+              <td th:text="${book.getQrid()}"></td>
               <td><img th:src="@{'/book/image/' + ${book.getId()}}"/></td>
-              <td th:text="${book.title}"></td>
-              <td th:text="${book.author}"></td>
-              <td th:text="${book.year}"></td>
-              <td th:text="${book.stilaj}"></td>
-              <td th:text="${book.polka}"></td>
+              <td th:text="${book.getTitle()}"></td>
+              <td th:text="${book.getAuthor()}"></td>
+              <td th:text="${book.getYear()}"></td>
+              <td th:text="${book.getStilaj()}"></td>
+              <td th:text="${book.getPolka()}"></td>
               <td class="btnactions1">
-                <form th:action="'/admin/assigningbook/'+ ${userid}+'/'+${book.id}" method="post">
-                  <input type="number" placeholder="Кількість книг" min="1">
-                  <button style="background-color: #258e47" type="submit" onclick="openpopup(form)" ><i> Видати книгу</i></button>
+                <form th:action="'/admin/assigningbook/'+ ${userid}+'/'+${book.getId()}" method="post">
+                  <input type="number" name="takeCount" placeholder="Кількість книг" min="0" th:max="${book.getCount()}">
+                  <button style="background-color: #258e47" type="button" onclick="openpopup(form)" ><i> Видати книгу</i></button>
                 </form>
             </tr>
             </tbody>

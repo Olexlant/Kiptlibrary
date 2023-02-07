@@ -304,19 +304,21 @@ public class AdminPanelController {
     }
 
     @PostMapping("/admin/assigningbook/{userid}/{bookid}")
-    public String createtakenbook(TakenBooks takenBooks, Model model, @PathVariable Long userid, @PathVariable Long bookid) {
+    public String createtakenbook(TakenBooks takenBooks, @PathVariable Long userid, @PathVariable Long bookid, @RequestParam Long takeCount) {
         AppUser user = appUserRepository.findById(userid).orElseThrow();
-        takenBooks.setUser(user);
         AppBook book = appBookRepository.findById(bookid).orElseThrow();
-        takenBooks.setBook(book);
         boolean uniquetb = takenBooksRepository.findByUserAndBook(user, book).isEmpty();
-        takenBooks.setTakenat(LocalDate.now());
         if (uniquetb){
+            takenBooks.setUser(user);
+            takenBooks.setBook(book);
+            takenBooks.setTakenat(LocalDate.now());
+            takenBooks.setCount(takeCount);
+            book.setCount(book.getCount()-takeCount);
             takenBooksRepository.save(takenBooks);
+            appBookRepository.save(book);
         }else {
             return "redirect:/admin/assignedbooks?alreadyassigned";
         }
-        model.addAttribute("takenBooks", takenBooksRepository.findAll());
         return "redirect:/admin/assignedbooks?success";
     }
     @GetMapping("/admin/assignedbooks")
@@ -332,6 +334,9 @@ public class AdminPanelController {
     @PostMapping("/admin/assignedbooks/{id}/remove")
     public String removeassignedbooks(@PathVariable(value = "id") long id) {
         TakenBooks tb = takenBooksRepository.findById(id).orElseThrow();
+        AppBook appBook = appBookRepository.findAllById(tb.getBook().getId());
+        appBook.setCount(appBook.getCount()+tb.getCount());
+        appBookRepository.save(appBook);
         takenBooksRepository.delete(tb);
         return "redirect:/admin/assignedbooks?returned";
     }
