@@ -5,10 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <!----======== CSS ======== -->
     <link rel="stylesheet" href="/css/allusers.css" type="text/css">
-
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -24,6 +22,23 @@
     <title>Категорії книг</title>
 </head>
 <body>
+<div class="pop_up" id="pop_up">
+    <div class="pop_up_container">
+        <div class="pop_up_body" id="pop_up_body">
+            <p>
+                <iconify-icon icon="fluent:book-star-24-filled"style="color: red" width="60" height="60"></iconify-icon>
+            </p>
+            <p>Видалити категорію?</p>
+            <form>
+                <div class="btn-yes-no">
+                    <button id="pop_up_submit" type="button" onclick="submitForm()">Так</button>
+                    <button class="no" onclick="closepopupwindow()">Ні</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
 <nav>
     <div class="logo-name">
         <div class="logo-image">
@@ -99,11 +114,10 @@
     <div class="dash-content">
         <div class="activity">
             <div class="title">
-                <i class="uil uil-notebooks"></i>
+                <i><iconify-icon icon="fluent:book-star-24-filled"></iconify-icon></i>
                 <span class="text" th:text="'Категорії книги ' + ${book.getTitle()}"></span>
                 <div class="input-box">
-                    <div class="categor" >
-
+                    <div class="categor">
                         <form th:action="'/admin/addcategorytobook/' + ${book.getId()} + '/add'" method="post">
                         <select th:name="categoryid" >
                             <option  th:each="category : ${allcategories}" th:value="${category.getId()}" th:text="${category.getName()}"></option>
@@ -135,7 +149,7 @@
                             <td th:text="${category.getCategory().getName()}"></td>
                             <td class="btnactions">
                                 <form th:action="'/admin/addcategorytobook/' + ${book.getId()} + '/' + ${category.getCategory().getId()} + '/delete'" method="post">
-                                    <button style="background-color: #ff0000" type="submit"><i class="uil uil-trash-alt"></i></button>
+                                    <button style="background-color: #FF3F40" type="button" onclick="openpopup(form)"><i class="uil uil-trash-alt"></i></button>
                                 </form>
                         </tr>
                         </tbody>
@@ -146,7 +160,7 @@
         </div>
     </div>
 
-    <ul th:if="${param.success}"  class="notifications" >
+    <ul th:if="${param.success}"  class="notifications" id="message">
         <li class="toast success">
             <div class="column" >
                 <i class="fa-solid fa-circle-check"></i>
@@ -158,10 +172,10 @@
         </li>
     </ul>
 
-    <ul th:if="${param.alreadyadded}"  class="notifications">
-        <li class="toast success">
+    <ul th:if="${param.alreadyadded}"  class="notifications" id="message">
+        <li class="toast warning">
             <div class="column" >
-                <i class="fa-solid fa-circle-check"></i>
+                <i class="fa-solid fa-triangle-exclamation"></i>
                 <span>
 
                     Категорія додана раніше</span>
@@ -170,7 +184,7 @@
         </li>
     </ul>
 
-    <ul th:if="${param.deleted}"  class="notifications">
+    <ul th:if="${param.deleted}"  class="notifications"  id="message">
         <li class="toast success">
             <div class="column" >
                 <i class="fa-solid fa-circle-check"></i>
@@ -184,6 +198,8 @@
 
 </section>
 
+<script src="/js/alert_script.js"></script>
+<script src="/js/popup.js"></script>
 <script src="/js/script.js"></script>
 </body>
 </html>

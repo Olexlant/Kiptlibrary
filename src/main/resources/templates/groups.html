@@ -8,26 +8,28 @@
 
     <!----======== CSS ======== -->
     <link rel="stylesheet" href="/css/allusers.css" type="text/css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <!----===== Iconscout CSS ===== -->
     <!-- Font Awesome CDN link for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <script src="https://code.iconify.design/iconify-icon/1.0.3/iconify-icon.min.js"></script>
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Font Awesome CDN link for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Exo+2:wght@300&display=swap" rel="stylesheet">
-    <title>Додавання книги</title>
+    <title>Групи</title>
 </head>
 <body>
+
+
 <div class="pop_up" id="pop_up">
     <div class="pop_up_container">
         <div class="pop_up_body" id="pop_up_body">
             <p>
-                <iconify-icon icon="fa6-solid:people-group"style="color: #25398e;" width="60" height="60"></iconify-icon>
+                <iconify-icon icon="fa6-solid:people-group"style="color: red;" width="60" height="60"></iconify-icon>
             </p>
             <p>Видалити групу?</p>
             <form>
@@ -164,15 +166,31 @@
             </div>
         </div>
     </div>
-    <div th:if="${param.success}" class="alert">
-        Групу успішно додано
-    </div>
-    <div th:if="${param.deleted}" class="alert">
-        Групу успішно видалено
-    </div>
+
+    <ul th:if="${param.success}" class="notifications"  id="message">
+        <li class="toast success">
+            <div class="column" >
+                <i class="fa-solid fa-circle-check"></i>
+                <span>
+                     Групу успішно додано</span>
+            </div>
+            <i class="fa-solid fa-xmark"></i>
+        </li>
+    </ul>
+    <ul th:if="${param.deleted}" class="notifications"  id="message">
+        <li class="toast success">
+            <div class="column" >
+                <i class="fa-solid fa-circle-check"></i>
+                <span>
+                    Групу успішно видалено</span>
+            </div>
+            <i class="fa-solid fa-xmark"></i>
+        </li>
+    </ul>
 </section>
 <script src="/js/alert_script.js"></script>
 <script src="/js/popup.js"></script>
 <script src="/js/script.js"></script>
+<script src="https://code.iconify.design/iconify-icon/1.0.3/iconify-icon.min.js"></script>
 </body>
 </html>

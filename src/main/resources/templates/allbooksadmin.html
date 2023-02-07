@@ -186,15 +186,44 @@
                 <a th:href="@{/admin/allbooksadmin(size=${books.size}, page=${pageNumber})}">»</a></li>
         </th:block>
     </ul>
-    <div th:if="${param.changessaved}">
-        Зміни збережено
-    </div>
-    <div th:if="${param.usernotreturn}">
-        Книга видана у деяких користувачів
-    </div>
-    <div th:if="${param.deletesuccess}">
-        Книгу успішно видалено
-    </div>
+
+
+
+    <ul th:if="${param.changessaved}" class="notifications" id="message">
+        <li class="toast success">
+            <div class="column" >
+                <i class="fa-solid fa-circle-check"></i>
+                <span>
+
+                     Зміни збережено</span>
+            </div>
+            <i class="fa-solid fa-xmark"></i>
+        </li>
+    </ul>
+
+    <ul th:if="${param.usernotreturn}" class="notifications" id="message">
+        <li class="toast warning">
+            <div class="column" >
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span>
+
+                   Книга вже видана у деяких користувачів</span>
+            </div>
+            <i class="fa-solid fa-xmark"></i>
+        </li>
+    </ul>
+
+    <ul th:if="${param.deletesuccess}" class="notifications"  id="message">
+        <li class="toast success">
+            <div class="column" >
+                <i class="fa-solid fa-circle-check"></i>
+                <span>
+
+                     Книгу успішно видалено</span>
+            </div>
+            <i class="fa-solid fa-xmark"></i>
+        </li>
+    </ul>
 </section>
 
 <script src="/js/alert_script.js"></script>

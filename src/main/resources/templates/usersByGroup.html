@@ -162,9 +162,17 @@
 
     </div>
   </div>
-  <div th:if="${param.userdeletedfromgroup}" class="alert">
-    Користувача видалено з групи
-  </div>
+  <ul th:if="${param.userdeletedfromgroup}" class="notifications"  id="message">
+    <li class="toast success">
+      <div class="column" >
+        <i class="fa-solid fa-circle-check"></i>
+        <span>
+                   Користувача видалено з групи</span>
+      </div>
+      <i class="fa-solid fa-xmark"></i>
+    </li>
+  </ul>
+
 </section>
 <script src="/js/alert_script.js"></script>
 <script src="/js/popup.js"></script>
