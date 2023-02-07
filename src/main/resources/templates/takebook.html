@@ -8,7 +8,7 @@
 
   <!---- CSS  -->
 
-  <link rel="stylesheet" href="/css/allusers.css" type="text/css">
+  <link rel="stylesheet" href="/css/takebook.css" type="text/css">
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -24,6 +24,26 @@
   <title>Видати книгу</title>
 </head>
 <body>
+
+<div class="pop_up" id="pop_up">
+  <div class="pop_up_container">
+    <div class="pop_up_body" id="pop_up_body">
+      <p>
+        <iconify-icon icon="mdi:book-plus"style="color: #25398e;" width="60" height="60"></iconify-icon>
+      </p>
+      <p>Введіть кількість книг</p>
+      <form class="input-number">
+        <input type="number" placeholder="Кількість книг" min="1">
+        <div class="btn-yes-no">
+          <button id="pop_up_submit" type="button" onclick="submitForm()">Видати</button>
+          <button class="no" onclick="closepopupwindow()">Назад</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
 <nav>
   <div class="logo-name">
     <div class="logo-image">
@@ -102,7 +122,7 @@
         <i><iconify-icon icon="wpf:books"></iconify-icon></i>
         <span class="text">Оберіть книгу</span>
         <form th:action="@{/searchbooktakebook} + '/'+ ${userid}" method="get">
-          <input type="text" name="keyword" th:value="${keyword}"  placeholder="Пошук" size="50" >
+          <input type="text" name="keyword" th:value="${keyword}" class="inp" placeholder="Пошук" size="50" >
           <button type="submit" style="background-color: #25398e; " class="uil-search"></button>
         </form>
       </div>
@@ -133,7 +153,8 @@
               <td th:text="${book.polka}"></td>
               <td class="btnactions1">
                 <form th:action="'/admin/assigningbook/'+ ${userid}+'/'+${book.id}" method="post">
-                  <button style="background-color: #258e47" type="submit" ><i> Видати книгу</i></button>
+                  <input type="number" placeholder="Кількість книг" min="1">
+                  <button style="background-color: #258e47" type="submit" onclick="openpopup(form)" ><i> Видати книгу</i></button>
                 </form>
             </tr>
             </tbody>
