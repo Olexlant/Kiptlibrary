@@ -155,7 +155,7 @@
             <div class="title">
                 <i><iconify-icon icon="mdi:book-arrow-up"></iconify-icon></i>
                 <span class="text">Видані книги</span>
-                <form th:action="@{/searchbookadmin}" method="get">
+                <form th:action="@{/admin/searchassignedbooks}" method="get">
                     <input type="text" name="keyword" th:value="${keyword}"  placeholder="Пошук" size="50" >
                     <button type="submit" style="background-color: #25398e; " class="uil-search"></button>
                 </form>
