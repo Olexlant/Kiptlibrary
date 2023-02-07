@@ -105,20 +105,6 @@ public class MainController {
     public String ShowConfirmSuccessForm(){
         return "confirm_success";
     }
-    @GetMapping("/u")
-    public String ehdui(){
-        return "send_to_mail_password";
-    }
-
-    @GetMapping("/ui")
-    public String ehdаgfui(){
-        return "reset_password";
-    }
-
-
-
-
-
 
     //ALLBOOKS
     @RequestMapping(value = "/allbooks", method = RequestMethod.GET)
@@ -308,7 +294,7 @@ public class MainController {
         if (newpassword.equals(confirmnewpassword)){
             return registrationService.changePasswordBytoken(newpassword,token);
         }else {
-            return "redirect:/resetpassword/reset?token"+token+"?notmatch";
+            return "redirect:/resetpassword/reset?token="+token+"&notmatch";
         }
     }
 

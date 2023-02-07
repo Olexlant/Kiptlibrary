@@ -362,6 +362,8 @@ public class AdminPanelController {
     @PostMapping("/admin/deletebookcategory/{id}")
     public String deletebookcategory(@PathVariable Long id){
         CategoriesOfBooks categories = categoriesOfBooksRepository.findById(id).orElseThrow();
+        ArrayList<BookCategory> bookCategory = bookCategoryRepository.findAllByCategoryId(id);
+        bookCategoryRepository.deleteAll(bookCategory);
         categoriesOfBooksRepository.delete(categories);
         return "redirect:/admin/addbookcategory?deleted";
     }

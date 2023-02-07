@@ -28,9 +28,11 @@ public class SearchController {
     private final LikedBooksRepository likedBooksRepository;
     private final CategoriesOfBooksRepository categoriesOfBooksRepository;
     private final GroupsRepository groupsRepository;
+    private final TakenBooksRepository takenBooksRepository;
+    private final TakenBooksService takenBooksService;
 
 
-    public SearchController(RegistrationService registrationService, ConfirmationTokenRepository confirmationTokenRepository, AppUserService appUserService, AppBookService appBookService, AppUserRepository appUserRepository, AppBookRepository appBookRepository, TakenBooksRepository takenBooksRepository, LikedBooksRepository likedBooksRepository, AppUserRepository userRepo, BookCategoryRepository bookCategoryRepository, CategoriesOfBooksRepository categoriesOfBooksRepository, CategoriesOfBooksRepository categoriesOfBooksRepository1, GroupsRepository groupsRepository) {
+    public SearchController(RegistrationService registrationService, ConfirmationTokenRepository confirmationTokenRepository, AppUserService appUserService, AppBookService appBookService, AppUserRepository appUserRepository, AppBookRepository appBookRepository, TakenBooksRepository takenBooksRepository, LikedBooksRepository likedBooksRepository, AppUserRepository userRepo, BookCategoryRepository bookCategoryRepository, CategoriesOfBooksRepository categoriesOfBooksRepository, CategoriesOfBooksRepository categoriesOfBooksRepository1, GroupsRepository groupsRepository, TakenBooksRepository takenBooksRepository1, TakenBooksService takenBooksService) {
         this.appUserService = appUserService;
         this.appBookService = appBookService;
         this.appUserRepository = appUserRepository;
@@ -38,6 +40,8 @@ public class SearchController {
         this.likedBooksRepository = likedBooksRepository;
         this.categoriesOfBooksRepository = categoriesOfBooksRepository1;
         this.groupsRepository = groupsRepository;
+        this.takenBooksRepository = takenBooksRepository1;
+        this.takenBooksService = takenBooksService;
     }
     //SEARCH
     @RequestMapping(path = {"/searchbook"})
@@ -158,5 +162,15 @@ public class SearchController {
         }
         model.addAttribute("group", groupsRepository.findAllById(groupid));
         return "addBooksToGroup";
+    }
+    @RequestMapping(path = {"/admin/searchassignedbooks"})
+    public String searchAssugendBooks(Model model, String keyword) {
+        if (keyword != null) {
+            List<TakenBooks> takenBooks = takenBooksService.getAllByKeyword(keyword);
+            model.addAttribute("takenbooks", takenBooks);
+        } else {
+            return "redirect:/admin/assignedbooks";
+        }
+        return "assignedbooks";
     }
 }
