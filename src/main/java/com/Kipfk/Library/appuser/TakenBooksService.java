@@ -38,20 +38,5 @@ public class TakenBooksService {
            return criteriaBuilder.or(predicates.toArray(new Predicate[]{}));
         };
         return takenBooksRepository.findAll(specification);
-    };
-
-    public Page<TakenBooks> findPaginated(Pageable pageable) {
-        List<TakenBooks> takenBooks = takenBooksRepository.findAll(Sort.by(Sort.Direction.ASC, "takenat"));
-        int pageSize = pageable.getPageSize();
-        int currentPage = pageable.getPageNumber();
-        int startItem = currentPage * pageSize;
-        List<TakenBooks> list;
-        if (takenBooks.size() < startItem) {
-            list = Collections.emptyList();
-        } else {
-            int toIndex = Math.min(startItem + pageSize, takenBooks.size());
-            list = takenBooks.subList(startItem, toIndex);
-        }
-        return new PageImpl<>(list, PageRequest.of(currentPage, pageSize), takenBooks.size());
     }
 }

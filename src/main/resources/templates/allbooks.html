@@ -77,10 +77,10 @@
 		</li>
 		<li  th:if="${pageNumber} == -1"><a href="#">...</a></li>
 		<li th:if="${pageNumber} != -1 and ${pageNumber} != ${books.getNumber()+1}">
-			<a th:text="${pageNumber}" th:href="@{/allbooks(size=${books.size}, page=${pageNumber},keyword=${keyword})}"></a>
+			<a th:text="${pageNumber}" th:href="@{/allbooks(size=${books.size}, page=${pageNumber},category=${currentcategory})}"></a>
 		</li>
 		<li th:if="${pageNumberStat.last}" >
-			<a th:href="@{/allbooks(size=${books.size}, page=${pageNumber},keyword=${keyword})}">»</a></li>
+			<a th:href="@{/allbooks(size=${books.size}, page=${pageNumber},category=${currentcategory})}">»</a></li>
 			</th:block>
 	</ul>
 	<ul id="pagination"  th:if="${books.totalPages > 0 && status=='search'}">

@@ -116,7 +116,7 @@ public class AdminPanelController {
     public String showAllBooksAdmin(Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size){
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(12);
-        Page<AppBook> bookPage = appBookService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
+        Page<AppBook> bookPage = appBookRepository.findAll(PageRequest.of(currentPage - 1, pageSize));
         model.addAttribute("books",bookPage);
         model.addAttribute("body", appBookService.bodyArrayForPages(bookPage));
         return "allbooksadmin";
@@ -228,7 +228,7 @@ public class AdminPanelController {
     public String listUsers(Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(12);
-        Page<AppUser> userPage = appUserService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
+        Page<AppUser> userPage = appUserRepository.findAll(PageRequest.of(currentPage - 1, pageSize));
         model.addAttribute("Users",userPage);
         model.addAttribute("body", appBookService.bodyArrayForPages(userPage));
         return "allusers";
@@ -287,7 +287,7 @@ public class AdminPanelController {
     public String showUsersToTake(Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(12);
-        Page<AppUser> userPage = appUserService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
+        Page<AppUser> userPage = appUserRepository.findAll(PageRequest.of(currentPage - 1, pageSize));
         model.addAttribute("users",userPage);
         model.addAttribute("body", appBookService.bodyArrayForPages(userPage));
         return "takebookuser";
@@ -296,7 +296,7 @@ public class AdminPanelController {
     public String showBooksToTake(Model model, @PathVariable Long id, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(12);
-        Page<AppBook> bookPage = appBookService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
+        Page<AppBook> bookPage = appBookRepository.findAll(PageRequest.of(currentPage - 1, pageSize));
         model.addAttribute("books",bookPage);
         model.addAttribute("body", appBookService.bodyArrayForPages(bookPage));
         model.addAttribute("userid", id);
@@ -325,7 +325,7 @@ public class AdminPanelController {
     public String showassignedbooks(Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size){
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(12);
-        Page<TakenBooks> takenPage = takenBooksService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
+        Page<TakenBooks> takenPage = takenBooksRepository.findAll(PageRequest.of(currentPage - 1, pageSize));
         model.addAttribute("takenbooks", takenPage);
         model.addAttribute("body", appBookService.bodyArrayForPages(takenPage));
         return "assignedbooks";
@@ -469,7 +469,7 @@ public class AdminPanelController {
         Groups group = groupsRepository.findAllById(groupid);
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(12);
-        Page<AppBook> bookPage = appBookService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
+        Page<AppBook> bookPage = appBookRepository.findAll(PageRequest.of(currentPage - 1, pageSize));
         model.addAttribute("books",bookPage);
         model.addAttribute("body", appBookService.bodyArrayForPages(bookPage));
 

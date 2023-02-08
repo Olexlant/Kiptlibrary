@@ -112,6 +112,7 @@ public class SearchController {
             Iterable<AppBook> books = appBookRepository.findAll();
             model.addAttribute("books", books);
         }
+        model.addAttribute("keyword", keyword);
         return "allbooksadmin";
     }
     @RequestMapping(path = {"/searchuseradmin"})

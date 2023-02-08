@@ -122,7 +122,7 @@ public class MainController {
             model.addAttribute("books",bookPage);
             model.addAttribute("body", appBookService.bodyArrayForPages(bookPage));
         }else {
-            Page<AppBook> bookPage = appBookService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
+            Page<AppBook> bookPage = appBookRepository.findAll(PageRequest.of(currentPage - 1, pageSize));
             model.addAttribute("books",bookPage);
             model.addAttribute("body", appBookService.bodyArrayForPages(bookPage));
         }

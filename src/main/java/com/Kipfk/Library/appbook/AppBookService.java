@@ -25,24 +25,6 @@ public class AppBookService {
     private TakenBooksRepository takenBooksRepository;
     private BookCategoryRepository bookCategoryRepository;
 
-
-    public Page<AppBook> findPaginated(Pageable pageable) {
-        List<AppBook> books = appBookRepository.findAll();
-        int pageSize = pageable.getPageSize();
-        int currentPage = pageable.getPageNumber();
-        int startItem = currentPage * pageSize;
-        List<AppBook> list;
-
-        if (books.size() < startItem) {
-            list = Collections.emptyList();
-        } else {
-            int toIndex = Math.min(startItem + pageSize, books.size());
-            list = books.subList(startItem, toIndex);
-        }
-        Page<AppBook> bookPage = new PageImpl<>(list, PageRequest.of(currentPage, pageSize), books.size());
-        return bookPage;
-    }
-
     public int[] bodyArrayForPages(Page bookPage){
         int[] body;
         if (bookPage.getTotalPages() > 7) {

@@ -25,22 +25,6 @@ public class AppUserService implements UserDetailsService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ConfirmationTokenService confirmationTokenService;
 
-    public Page<AppUser> findPaginated(Pageable pageable) {
-        List<AppUser> users = appUserRepository.findAll(Sort.by(Sort.Direction.ASC, "lastName"));
-        int pageSize = pageable.getPageSize();
-        int currentPage = pageable.getPageNumber();
-        int startItem = currentPage * pageSize;
-        List<AppUser> list;
-        if (users.size() < startItem) {
-            list = Collections.emptyList();
-        } else {
-            int toIndex = Math.min(startItem + pageSize, users.size());
-            list = users.subList(startItem, toIndex);
-        }
-        Page<AppUser> userPage = new PageImpl<>(list, PageRequest.of(currentPage, pageSize), users.size());
-        return userPage;
-    }
-
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return appUserRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG, email)));
