@@ -29,7 +29,7 @@
             <div class="pop_up_body" id="pop_up_body">
                 <p>Зміна паролю</p>
                 <form th:action="@{/editprofile/changepassword}" method="post">
-                    <input name="currentpassword" type="password" placeholder="Старий пароль"  minlength="4">
+                    <input name="currentpassword" type="password" placeholder="Старий пароль">
                     <input name="newpassword" type="password" placeholder="Новий пароль" minlength="4">
                     <input name="confirmnewpassword" type="password" placeholder="Підтвердіть пароль" minlength="4">
                     <button class="">Зберегти</button>
@@ -62,8 +62,7 @@
                         <li class="toast info">
                             <div class="column" >
                                 <i class="fa-solid fa-circle-info"></i>
-                                <span>
-        Внесіть всі данні</span>
+                                <span>Внесіть всі данні</span>
                             </div>
                             <i class="fa-solid fa-xmark"></i>
                         </li>
@@ -72,8 +71,7 @@
                         <li class="toast success">
                             <div class="column" >
                                 <i class="fa-solid fa-circle-check"></i>
-                                <span>Пароль змінено
-</span>
+                                <span>Пароль змінено</span>
                             </div>
                             <i class="fa-solid fa-xmark"></i>
                         </li>
@@ -82,8 +80,7 @@
                         <li class="toast error">
                             <div class="column" >
                                 <i class="fa-solid fa-circle-xmark"></i>
-                                <span>
-        Нові паролі не співпадають</span>
+                                <span>Нові паролі не співпадають</span>
                             </div>
                             <i class="fa-solid fa-xmark"></i>
                         </li>
@@ -92,8 +89,7 @@
                         <li class="toast error">
                             <div class="column" >
                                 <i class="fa-solid fa-circle-xmark"></i>
-                                <span>
-        Старий пароль не вірний</span>
+                                <span>Старий пароль не вірний</span>
                             </div>
                             <i class="fa-solid fa-xmark"></i>
                         </li>
@@ -102,8 +98,7 @@
                         <li class="toast success">
                             <div class="column" >
                                 <i class="fa-solid fa-circle-check"></i>
-                                <span>Дані збережено
-</span>
+                                <span>Дані збережено</span>
                             </div>
                             <i class="fa-solid fa-xmark"></i>
                         </li>
