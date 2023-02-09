@@ -501,7 +501,7 @@ form .input-box span.details{
   }
   .notifications{
     left: 51.3%;
-    top: 34.3%;
+    top: 31.3%;
   }
 @media(max-width: 900px){
   
@@ -510,7 +510,7 @@ form .input-box span.details{
   }
   .notifications{
     left: 51.3%;
-    top: 32.3%;
+    top: 29.3%;
   }
   @media(max-width: 800px){
     .notifications .toast{
@@ -518,7 +518,7 @@ form .input-box span.details{
     }
     .notifications{
       left: 51.3%;
-      top: 29.3%;
+      top: 27.3%;
     }
   }
   @media(max-width: 584px){
@@ -530,7 +530,7 @@ form .input-box span.details{
    }
    .notifications{
      left:52.5%;
-     top: 26.7%;
+     top: 24.7%;
    }
    form .user-details .input-box{
       
@@ -555,12 +555,12 @@ form .input-box span.details{
   @media(max-width: 400px){
   .notifications{
     left:52.5%;
-    top: 25%;
+    top: 23%;
   }
   @media(max-width: 380px){
     .notifications{
       left:53%;
-  top: 19%;
+  top: 17%;
     }
 
 }}
