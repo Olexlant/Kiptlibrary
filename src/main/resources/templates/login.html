@@ -11,24 +11,23 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <!-- Font Awesome CDN link for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+  <script src="https://code.iconify.design/iconify-icon/1.0.3/iconify-icon.min.js"></script>
+  <!-- Font Awesome CDN link for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Exo+2:wght@300&display=swap" rel="stylesheet">
 </head>
 <header class="site-header sticky-top py-1" th:insert="bloks/header :: header"></header>
 <body>
 <div class="container">
   <div class="title"><span>Вхід</span></div>
   <div class="content">
-    <div th:if="${param.error}" class="alert">
-      Невірний логін або пароль
-    </div>
-    <div th:if="${param.alreadyconfirmed}" class="alert">
-      Email вже підтверджено
-    </div>
-    <div th:if="${param.passwordchanged}" class="alert" style="color:#008000;">
-      Новий пароль збережено
-    </div>
-    <div th:if="${param.expiredpasschange}" class="alert">
-      Час зміни паролю пройшов
-    </div>
+
     <form method="post" action="/login">
       <div class="user-details">
         <div class="input-box">
@@ -50,11 +49,52 @@
         <div class="sign_up">
           Забули пароль? <a th:href="@{/resetpassword}">Відновити</a>
         </div>
-
       </div>
     </form>
   </div>
 </div>
-<script src="/js/slider.js"></script>
+<ul th:if="${param.error}" class="notifications"  id="message">
+  <li class="toast error">
+    <div class="column" >
+      <i class="fa-solid fa-circle-xmark"></i>
+      <span>
+        Невірний логін або пароль</span>
+    </div>
+    <i class="fa-solid fa-xmark"></i>
+  </li>
+</ul>
+<ul th:if="${param.alreadyconfirmed}" class="notifications"  id="message">
+  <li class="toast info">
+    <div class="column" >
+      <i class="fa-solid fa-circle-info"></i>
+      <span>
+      Email вже підтверджено</span>
+    </div>
+    <i class="fa-solid fa-xmark"></i>
+  </li>
+</ul>
+<ul th:if="${param.passwordchanged}" class="notifications"  id="message">
+  <li class="toast success">
+    <div class="column" >
+      <i class="fa-solid fa-circle-check"></i>
+      <span> Новий пароль збережено
+</span>
+    </div>
+    <i class="fa-solid fa-xmark"></i>
+  </li>
+</ul>
+<ul th:if="${param.expiredpasschange}" class="notifications"  id="message">
+  <li class="toast warning">
+    <div class="column" >
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      <span> Час зміни паролю вийшов
+</span>
+    </div>
+    <i class="fa-solid fa-xmark"></i>
+  </li>
+</ul>
+<script src="/js/alert_script.js"></script>
+<script src="/js/popup.js"></script>
+<script src="/js/script.js"></script>
 </body>
 </html>
