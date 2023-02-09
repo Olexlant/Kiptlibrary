@@ -5,7 +5,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Головна</title>
+    <title>Профіль</title>
     <link href="/css/editprofile.css" type="text/css" rel="stylesheet" th:href="@{/css/editprofile.css}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,9 +29,9 @@
             <div class="pop_up_body" id="pop_up_body">
                 <p>Зміна паролю</p>
                 <form th:action="@{/editprofile/changepassword}" method="post">
-                    <input name="currentpassword" type="password" placeholder="Старий пароль">
-                    <input name="newpassword" type="password" placeholder="Новий пароль">
-                    <input name="confirmnewpassword" type="password" placeholder="Підтвердіть пароль">
+                    <input name="currentpassword" type="password" placeholder="Старий пароль"  minlength="4">
+                    <input name="newpassword" type="password" placeholder="Новий пароль" minlength="4">
+                    <input name="confirmnewpassword" type="password" placeholder="Підтвердіть пароль" minlength="4">
                     <button class="">Зберегти</button>
                 </form>
                 <div class="pop_up_close" id="pop_up_close">&#10006</div>
@@ -111,11 +111,11 @@
                         <div class="user-details">
                             <div class="input-box">
                                 <span class="details">Email</span>
-                                <input th:value="${user.getEmail()}" type="text" name="email" placeholder="Введіть email" required>
+                                <input th:value="${user.getEmail()}" type="email"  name="email" placeholder="Введіть email" required minlength="5">
                             </div>
                             <div class="input-box">
                                 <span class="details">Пароль</span>
-                                <a href=""  id="open"><input th:value="${'Змінити пароль'}" type="text"  name="password" placeholder="Введіть пароль" required></a>
+                                <a href=""  id="open"><input th:value="${'Змінити пароль'}" name="password" required style="cursor:pointer;"></a>
                             </div>
                             <div class="input-box">
                                 <span class="details">Ім'я</span>
