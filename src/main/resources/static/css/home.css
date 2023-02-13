@@ -33,7 +33,7 @@ font-family: 'Exo 2', sans-serif;
 }
 nav.sticky{
   background:#fff;
-  padding: 13px 0;
+  padding: 13px;
 }
 
 .header-button{
@@ -836,22 +836,14 @@ footer .text span a:hover{
      .home .home-content .text .text-two{
       width: 100%;
      }
-     .home .home-content .left video{
-      height: 400px;
-      width: 400px;
-      object-fit: cover;
-      border-radius: 30px;
-    }
-     section .title{
-      margin-top: 160px;
-     }
+     
      }
      
      @media (max-width: 380px){
       .home .home-content .right{
         width: 100%;
        text-align: center;
-       margin-top: 290px;
+       margin-top: 140px;
       }
     }
 @media(max-width:1105px){
@@ -1070,7 +1062,7 @@ nav .navbar .cancel-btn{
     nav .menu-btn,
     .navbar .cansel-btn{
       display: block;
-      top: 14px;
+      top: 18px;
     }
     nav .cancel-btn i{
       display:block;
@@ -1134,6 +1126,12 @@ nav .navbar .cancel-btn{
       nav .navbar .logo .kcas-library{
         padding-right: 250px;
       }
+      .adout .about-details .right video {
+        height: 330px;
+        width: 330px;
+        object-fit: cover;
+        border-radius: 12px;
+    }
     }
     @media(max-width:609px){
       nav .navbar .logo .kcas-library{
@@ -1182,12 +1180,15 @@ nav .navbar .cancel-btn{
 
   @media(max-width: 647px){
     .home .text .text-two{
-      font-size: 55px;
+      font-size: 35px;
+    }
+    .home .button button{
+      font-size:16px;
+       }
+       .home .text .text-three{
+       font-size: 23px;
+       }
 
-      }
-      .home .text .text-three{
-      font-size: 25px;
-      }
       .skills .skills-details .left{
         width: 90%;
         }
@@ -1195,5 +1196,61 @@ nav .navbar .cancel-btn{
           width: 90%;
           margin: 40px 0;
         }
+        .home .home-content .left video {
+          height: 320px;
+          width: 320px;
+          object-fit: cover;
+          border-radius: 30px;
+      }
+      @media(max-width: 376px){
+        .home .home-content .left video {
+        height: 260px;
+        width: 260px;
+        object-fit: cover;
+        border-radius: 30px;
+    }
+    nav .navbar .logo a {
+      font-size: 29px;
   }
+    .home .text .text-two{
+    font-size: 30px;
+  }
+  .home .button button{
+    font-size:16px;
+     }
+     .home .text .text-three{
+     font-size: 20px;
+     }
+     .home .text-four {
+  font-size: 16px;
+  margin: 5px 0;
+  color: #0E2431;
+}
+
+    .skills .skills-details .left{
+      width: 90%;
+      }
+      }
+      @media(max-width: 330px){
+        .home .home-content .right{
+             width: 100%;
+            text-align: center;
+            margin-top: 240px;
+           }
+           nav .navbar .right {
+         margin-right: -120px;
+     }
+     nav .navbar .logo a {
+         font-size: 23px;
+     }
+     nav .navbar .logo .kcas-library {
+         padding-right: 73px;
+     }
+     nav .menu-btn, .navbar .cansel-btn {
+         display: block;
+         top: 4px;
+         
+     }
+      }
+    }
 
