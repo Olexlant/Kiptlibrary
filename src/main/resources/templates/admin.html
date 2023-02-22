@@ -41,11 +41,11 @@
         <i><iconify-icon icon="wpf:books"></iconify-icon></i>
         <span class="link-name">Всі книги</span>
       </a></li>
-      <li><a th:href="@{/admin/allbooksadmin}">
+      <li><a th:href="@{/admin/allbooksadmin(category=${'electronic'})}">
         <i><iconify-icon icon="fluent:book-open-globe-24-filled"></iconify-icon></i>
         <span class="link-name">Електронні книги</span>
       </a></li>
-      <li><a th:href="@{/admin/allbooksadmin}">
+      <li><a th:href="@{/admin/allbooksadmin(category=${'physical'})}">
         <i><iconify-icon icon="emojione-monotone:books"></iconify-icon></i>
         <span class="link-name">Фізичні книги</span>
       </a></li>

@@ -35,9 +35,9 @@ public class TakenBooks {
     @JoinColumn(name = "user_id")
     private AppUser user;
 
-
     private LocalDate takenat;
     private Long count;
+    private boolean deleted;
 
 
     public void setId(Long id) {

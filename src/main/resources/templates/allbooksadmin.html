@@ -155,6 +155,13 @@
                         <tr th:each="book : ${books}">
                             <td th:text="${book.qrid}"></td>
                             <td><img th:src="@{'/book/image/' + ${book.getId()}}"/></td>
+                            <div th:if="${book.getBookfile()==null || book.getBookfileurl()==null}">
+                                <td th:text="${'Фізична'}"></td>
+                            </div>
+                            <div th:if="${book.getBookfile()!=null && book.getBookfileurl()!=null}">
+                                <td th:text="${'Електронна'}"></td>
+                            </div>
+
                             <td th:text="${book.title}"></td>
                             <td th:text="${book.author}"></td>
                             <td th:text="${book.year}"></td>
@@ -182,17 +189,17 @@
     <ul id="pagination">
         <th:block th:each="pageNumber : ${body}">
             <li th:if="${pageNumberStat.first}">
-                <a class="" th:href="@{/admin/allbooksadmin(size=${books.size}, page=${pageNumber})}">«</a>
+                <a class="" th:href="@{/admin/allbooksadmin(size=${books.size}, page=${pageNumber}, category=${category})}">«</a>
             </li>
             <li th:if="${pageNumber} == ${books.getNumber()+1}">
                 <a  class="active" th:text="${pageNumber}" href="#" ></a>
             </li>
             <li  th:if="${pageNumber} == -1"><a href="#">...</a></li>
             <li th:if="${pageNumber} != -1 and ${pageNumber} != ${books.getNumber()+1}">
-                <a th:text="${pageNumber}" th:href="@{/admin/allbooksadmin(size=${books.size}, page=${pageNumber})}"></a>
+                <a th:text="${pageNumber}" th:href="@{/admin/allbooksadmin(size=${books.size}, page=${pageNumber}, category=${category})}"></a>
             </li>
             <li th:if="${pageNumberStat.last}" >
-                <a th:href="@{/admin/allbooksadmin(size=${books.size}, page=${pageNumber})}">»</a></li>
+                <a th:href="@{/admin/allbooksadmin(size=${books.size}, page=${pageNumber}, category=${category})}">»</a></li>
         </th:block>
     </ul>
 

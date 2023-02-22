@@ -113,14 +113,27 @@ public class AdminPanelController {
     }
 
     @GetMapping("/admin/allbooksadmin")
-    public String showAllBooksAdmin(Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size){
+    public String showAllBooksAdmin(Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size, @RequestParam("category") Optional<String> category){
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(12);
-        Page<AppBook> bookPage = appBookRepository.findAll(PageRequest.of(currentPage - 1, pageSize));
+        String categor = "";
+        Page<AppBook> bookPage;
+        if (category.isPresent()){
+            categor = category.get();
+        }
+        if (categor.equals("electronic")){
+            bookPage = appBookRepository.findAllByBookfileIsNotNullAndBookfileurlIsNotNull(PageRequest.of(currentPage - 1, pageSize));
+        }else if (categor.equals("physical")){
+            bookPage = appBookRepository.findAllByBookfileIsNullOrBookfileurlIsNull(PageRequest.of(currentPage - 1, pageSize));
+        }else {
+            bookPage = appBookRepository.findAll(PageRequest.of(currentPage - 1, pageSize));
+        }
+        model.addAttribute("category", categor);
         model.addAttribute("books",bookPage);
         model.addAttribute("body", appBookService.bodyArrayForPages(bookPage));
         return "allbooksadmin";
     }
+
 
     @GetMapping("/admin/allbooksadmin/{id}/edit")
     public String AdminBookEdit(@PathVariable(value = "id") long id, Model model){
