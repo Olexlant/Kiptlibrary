@@ -51,6 +51,14 @@
                 <i><iconify-icon icon="wpf:books"></iconify-icon></i>
                 <span class="link-name">Всі книги</span>
             </a></li>
+            <li><a th:href="@{/admin/allbooksadmin}">
+                <i><iconify-icon icon="fluent:book-open-globe-24-filled"></iconify-icon></i>
+                <span class="link-name">Електронні книги</span>
+            </a></li>
+            <li><a th:href="@{/admin/allbooksadmin}">
+                <i><iconify-icon icon="emojione-monotone:books"></iconify-icon></i>
+                <span class="link-name">Фізичні книги</span>
+            </a></li>
             <li><a th:href="@{/admin/assignedbooks}">
                 <i><iconify-icon icon="mdi:book-arrow-up"></iconify-icon></i>
                 <span class="link-name">Видані книги</span>
@@ -71,7 +79,14 @@
                 <i><iconify-icon icon="mdi:book-information-variant"></iconify-icon></i>
                 <span class="link-name">Категорії книг</span>
             </a></li>
-
+            <li><a th:href="@{/admin/takebook}">
+                <i><iconify-icon icon="carbon:order-details"></iconify-icon></i>
+                <span class="link-name">Замовлення</span>
+            </a></li>
+            <li><a th:href="@{/admin/takebook}">
+                <i><iconify-icon icon="ic:outline-add-comment"></iconify-icon></i>
+                <span class="link-name">Додати новину</span>
+            </a></li>
         </ul>
 
         <ul class="logout-mode">
@@ -119,14 +134,6 @@
                         <div class="input-box">
                             <span class="details">Рік</span>
                             <input type="text" th:field="*{year}" placeholder="Введіть рік" required maxlength="4">
-                        </div>
-                        <div class="input-box">
-                            <span class="details">Стилаж</span>
-                            <input type="text" th:field="*{stilaj}" placeholder="Введіть стилаж" required>
-                        </div>
-                        <div class="input-box">
-                            <span class="details">Полиця</span>
-                            <input type="text" th:field="*{polka}" placeholder="Введіть номер полиці" required>
                         </div>
                         <div class="input-box">
                             <span class="details">URL до книги</span>

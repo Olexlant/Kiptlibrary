@@ -69,6 +69,14 @@
         <i><iconify-icon icon="wpf:books"></iconify-icon></i>
         <span class="link-name">Всі книги</span>
       </a></li>
+      <li><a th:href="@{/admin/allbooksadmin}">
+        <i><iconify-icon icon="fluent:book-open-globe-24-filled"></iconify-icon></i>
+        <span class="link-name">Електронні книги</span>
+      </a></li>
+      <li><a th:href="@{/admin/allbooksadmin}">
+        <i><iconify-icon icon="emojione-monotone:books"></iconify-icon></i>
+        <span class="link-name">Фізичні книги</span>
+      </a></li>
       <li><a th:href="@{/admin/assignedbooks}">
         <i><iconify-icon icon="mdi:book-arrow-up"></iconify-icon></i>
         <span class="link-name">Видані книги</span>
@@ -89,7 +97,14 @@
         <i><iconify-icon icon="mdi:book-information-variant"></iconify-icon></i>
         <span class="link-name">Категорії книг</span>
       </a></li>
-
+      <li><a th:href="@{/admin/takebook}">
+        <i><iconify-icon icon="carbon:order-details"></iconify-icon></i>
+        <span class="link-name">Замовлення</span>
+      </a></li>
+      <li><a th:href="@{/admin/takebook}">
+        <i><iconify-icon icon="ic:outline-add-comment"></iconify-icon></i>
+        <span class="link-name">Додати новину</span>
+      </a></li>
     </ul>
 
     <ul class="logout-mode">
@@ -136,8 +151,6 @@
               <th>Назва</th>
               <th>Автор</th>
               <th>Рік</th>
-              <th>Стилаж</th>
-              <th>Полиця</th>
               <th>Дії</th>
             </tr>
             </thead>
@@ -148,8 +161,6 @@
               <td th:text="${book.getTitle()}"></td>
               <td th:text="${book.getAuthor()}"></td>
               <td th:text="${book.getYear()}"></td>
-              <td th:text="${book.getStilaj()}"></td>
-              <td th:text="${book.getPolka()}"></td>
               <td class="btnactions1">
                 <form th:action="'/admin/assigningbook/'+ ${userid}+'/'+${book.getId()}" method="post">
                   <input type="number" name="takeCount" placeholder="Кількість книг" min="0" th:max="${book.getCount()}">

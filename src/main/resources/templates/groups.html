@@ -69,6 +69,14 @@
                 <i><iconify-icon icon="wpf:books"></iconify-icon></i>
                 <span class="link-name">Всі книги</span>
             </a></li>
+            <li><a th:href="@{/admin/allbooksadmin}">
+                <i><iconify-icon icon="fluent:book-open-globe-24-filled"></iconify-icon></i>
+                <span class="link-name">Електронні книги</span>
+            </a></li>
+            <li><a th:href="@{/admin/allbooksadmin}">
+                <i><iconify-icon icon="emojione-monotone:books"></iconify-icon></i>
+                <span class="link-name">Фізичні книги</span>
+            </a></li>
             <li><a th:href="@{/admin/assignedbooks}">
                 <i><iconify-icon icon="mdi:book-arrow-up"></iconify-icon></i>
                 <span class="link-name">Видані книги</span>
@@ -89,7 +97,14 @@
                 <i><iconify-icon icon="mdi:book-information-variant"></iconify-icon></i>
                 <span class="link-name">Категорії книг</span>
             </a></li>
-
+            <li><a th:href="@{/admin/takebook}">
+                <i><iconify-icon icon="carbon:order-details"></iconify-icon></i>
+                <span class="link-name">Замовлення</span>
+            </a></li>
+            <li><a th:href="@{/admin/takebook}">
+                <i><iconify-icon icon="ic:outline-add-comment"></iconify-icon></i>
+                <span class="link-name">Додати новину</span>
+            </a></li>
         </ul>
 
         <ul class="logout-mode">
@@ -149,13 +164,16 @@
                             <td th:text="${group.name}"></td>
                             <td class="btnactions">
                                 <form th:action="'/admin/usersbygroup/'+ ${group.id}" method="get">
-                                    <button style="background-color: #25398e" type="submit"><i><iconify-icon icon="ion:people-sharp"></iconify-icon></i></button>
+                                    <button style="background-color: #25398e" title="Користувачі групи" type="submit"><i><iconify-icon icon="ion:people-sharp"></iconify-icon></i></button>
+                                </form>
+                                <form>
+                                    <button style="background-color: #e9bd0c" title="Редагувати групу" type="submit"><i class="uil uil-pen"></i></button>
                                 </form>
                                 <form th:action="'/admin/booksbygroup/'+ ${group.id}" method="get">
-                                    <button style="background-color: #006B49" type="submit"><i><iconify-icon icon="wpf:books"></iconify-icon></i></button>
+                                    <button style="background-color: #006B49" type="submit" title="Книги групи"><i><iconify-icon icon="wpf:books"></iconify-icon></i></button>
                                 </form>
                                 <form th:action="'/admin/groups/'+ ${group.id} +'/delete'" method="post">
-                                    <button style="background-color: #FF3F40" type="button" onclick="openpopup(form)"><i class="uil uil-trash-alt"></i></button>
+                                    <button style="background-color: #FF3F40" title="Видалити групу" type="button" onclick="openpopup(form)"><i class="uil uil-trash-alt"></i></button>
                                 </form>
 
                         </tr>

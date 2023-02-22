@@ -6,9 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!---- CSS  -->
-
-    <link rel="stylesheet" href="/css/allusers.css" type="text/css">
+    <link rel="stylesheet" href="/css/allbookadmin.css" type="text/css" th:href="@{/css/allbookadmin.css}">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -21,9 +19,26 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Exo+2:wght@300&display=swap" rel="stylesheet">
-    <title>Виберіть користувача</title>
+    <title>Замовлення</title>
 </head>
 <body>
+<div class="pop_up" id="pop_up">
+    <div class="pop_up_container">
+        <div class="pop_up_body" id="pop_up_body">
+            <p>
+                <iconify-icon icon="uil:trash-alt" style="color: red;" width="60" height="60"></iconify-icon>
+            </p>
+            <p>Видалити книгу?</p>
+            <form>
+                <div class="btn-yes-no">
+                    <button id="pop_up_submit" type="button" onclick="submitForm()">Так</button>
+                    <button class="no" onclick="closepopupwindow()">Ні</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
 <nav>
     <div class="logo-name">
         <div class="logo-image">
@@ -108,15 +123,15 @@
 
         </div>
 
-
+        <img src="" alt="">
     </div>
 
     <div class="dash-content">
         <div class="activity">
             <div class="title">
-                <i><iconify-icon icon="ion:people-sharp"></iconify-icon></i>
-                <span class="text">Оберіть користувача</span>
-                <form th:action="@{/searchusertakebook}" method="get">
+                <i><iconify-icon icon="carbon:order-details"></iconify-icon></i>
+                <span class="text">Замовлення</span>
+                <form th:action="@{/searchbookadmin}" method="get">
                     <input type="text" name="keyword" th:value="${keyword}"  placeholder="Пошук" size="50" >
                     <button type="submit" style="background-color: #25398e; " class="uil-search"></button>
                 </form>
@@ -127,59 +142,102 @@
                     <table>
                         <thead>
                         <tr>
-                            <th>Група</th>
-                            <th>І'мя</th>
-                            <th>Прізвище</th>
-                            <th>Email</th>
-                            <th>Телефон</th>
+                            <th>Id qr-коду</th>
+                            <th>Фото</th>
+                            <th>Назва</th>
+                            <th>Автор</th>
+                            <th>Рік</th>
                             <th>Дії</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="user : ${users}">
-                            <div th:if="${user.getGroups()==null}">
-                                <td th:text="${'Без групи'}"></td>
-                            </div>
-                            <div th:if="${user.getGroups()!=null}">
-                                <td th:text="${user.getGroups().getName()}"></td>
-                            </div>
-                            <td th:text="${user.firstName}"></td>
-                            <td th:text="${user.lastName}"></td>
-                            <td th:text="${user.email}"></td>
-                            <td th:text="${user.phonenum}"></td>
+                        <tr th:each="book : ${books}">
+                            <td th:text="${book.qrid}"></td>
+                            <td><img th:src="@{'/book/image/' + ${book.getId()}}"/></td>
+                            <td th:text="${book.title}"></td>
+                            <td th:text="${book.author}"></td>
+                            <td th:text="${book.year}"></td>
+
                             <td class="btnactions">
-                                <form th:action="'/admin/takebook/'+${user.id}" method="get">
-                                    <button style="background-color: #25398e" type="submit"><i class="uil uil-user-check"> Обрати</i></button>
+                                <form th:action="'/admin/addcategorytobook/'+ ${book.id}" method="get">
+                                    <button style="background-color: #25398e" title="Категорії книги" type="submit" ><i><iconify-icon icon="fluent:book-star-24-filled"></iconify-icon></i></button>
                                 </form>
-                            </td>
+
+                                <form th:action="'/admin/allbooksadmin/'+ ${book.id}+'/edit'" method="get">
+                                    <button style="background-color: #006B49" title="Редагувати книгу" type="submit"><i class="uil uil-pen"></i></button>
+                                </form>
+
+                                <form th:action="'/admin/allbooksadmin/'+ ${book.id}+'/remove'" method="post">
+                                    <button style="background-color: #FF3F40" type="button"  title="Видалити книгу" onclick="openpopup(form)"><i class="uil uil-trash-alt"></i></button>
+                                </form>
                         </tr>
                         </tbody>
+
                     </table>
                 </div>
             </div>
-
         </div>
     </div>
     <ul id="pagination">
         <th:block th:each="pageNumber : ${body}">
             <li th:if="${pageNumberStat.first}">
-                <a class="" th:href="@{/admin/takebook(size=${users.size}, page=${pageNumber})}">«</a>
+                <a class="" th:href="@{/admin/allbooksadmin(size=${books.size}, page=${pageNumber})}">«</a>
             </li>
-            <li th:if="${pageNumber} == ${users.getNumber()+1}">
+            <li th:if="${pageNumber} == ${books.getNumber()+1}">
                 <a  class="active" th:text="${pageNumber}" href="#" ></a>
             </li>
             <li  th:if="${pageNumber} == -1"><a href="#">...</a></li>
-            <li th:if="${pageNumber} != -1 and ${pageNumber} != ${users.getNumber()+1}">
-                <a th:text="${pageNumber}" th:href="@{/admin/takebook(size=${users.size}, page=${pageNumber})}"></a>
+            <li th:if="${pageNumber} != -1 and ${pageNumber} != ${books.getNumber()+1}">
+                <a th:text="${pageNumber}" th:href="@{/admin/allbooksadmin(size=${books.size}, page=${pageNumber})}"></a>
             </li>
             <li th:if="${pageNumberStat.last}" >
-                <a th:href="@{/admin/takebook(size=${users.size}, page=${pageNumber})}">»</a></li>
+                <a th:href="@{/admin/allbooksadmin(size=${books.size}, page=${pageNumber})}">»</a></li>
         </th:block>
     </ul>
+
+
+
+    <ul th:if="${param.changessaved}" class="notifications" id="message">
+        <li class="toast success">
+            <div class="column" >
+                <i class="fa-solid fa-circle-check"></i>
+                <span>
+
+                     Зміни збережено</span>
+            </div>
+            <i class="fa-solid fa-xmark"></i>
+        </li>
+    </ul>
+
+    <ul th:if="${param.usernotreturn}" class="notifications" id="message">
+        <li class="toast warning">
+            <div class="column" >
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span>
+
+                   Книга вже видана у деяких користувачів</span>
+            </div>
+            <i class="fa-solid fa-xmark"></i>
+        </li>
+    </ul>
+
+    <ul th:if="${param.deletesuccess}" class="notifications"  id="message">
+        <li class="toast success">
+            <div class="column" >
+                <i class="fa-solid fa-circle-check"></i>
+                <span>
+
+                     Книгу успішно видалено</span>
+            </div>
+            <i class="fa-solid fa-xmark"></i>
+        </li>
+    </ul>
 </section>
+
 <script src="/js/alert_script.js"></script>
 <script src="/js/popup.js"></script>
 <script src="/js/script.js"></script>
 <script src="https://code.iconify.design/iconify-icon/1.0.3/iconify-icon.min.js"></script>
 </body>
 </html>
+

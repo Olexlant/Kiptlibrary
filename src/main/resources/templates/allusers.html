@@ -40,7 +40,6 @@
         </div>
     </div>
 </div>
-
 <nav>
     <div class="logo-name">
         <div class="logo-image">
@@ -67,6 +66,14 @@
                 <i><iconify-icon icon="wpf:books"></iconify-icon></i>
                 <span class="link-name">Всі книги</span>
             </a></li>
+            <li><a th:href="@{/admin/allbooksadmin}">
+                <i><iconify-icon icon="fluent:book-open-globe-24-filled"></iconify-icon></i>
+                <span class="link-name">Електронні книги</span>
+            </a></li>
+            <li><a th:href="@{/admin/allbooksadmin}">
+                <i><iconify-icon icon="emojione-monotone:books"></iconify-icon></i>
+                <span class="link-name">Фізичні книги</span>
+            </a></li>
             <li><a th:href="@{/admin/assignedbooks}">
                 <i><iconify-icon icon="mdi:book-arrow-up"></iconify-icon></i>
                 <span class="link-name">Видані книги</span>
@@ -87,7 +94,14 @@
                 <i><iconify-icon icon="mdi:book-information-variant"></iconify-icon></i>
                 <span class="link-name">Категорії книг</span>
             </a></li>
-
+            <li><a th:href="@{/admin/takebook}">
+                <i><iconify-icon icon="carbon:order-details"></iconify-icon></i>
+                <span class="link-name">Замовлення</span>
+            </a></li>
+            <li><a th:href="@{/admin/takebook}">
+                <i><iconify-icon icon="ic:outline-add-comment"></iconify-icon></i>
+                <span class="link-name">Додати новину</span>
+            </a></li>
         </ul>
 
         <ul class="logout-mode">
@@ -102,7 +116,6 @@
         </ul>
     </div>
 </nav>
-
 <section class="dashboard">
     <div class="top">
         <i class="uil uil-bars sidebar-toggle"></i>
@@ -152,15 +165,15 @@
                             <td th:text="${user.getPhonenum()}"></td>
                             <td class="btnactions">
                                 <form th:action="'/admin/allusers/'+ ${user.getId()}+'/edit'" method="get">
-                                    <button style="background-color: #25398e" type="submit"><i class="uil uil-pen"></i></button>
+                                    <button style="background-color: #25398e" title="Редагувати користувача" type="submit"><i class="uil uil-pen"></i></button>
                                 </form>
                                 <form th:action="'/admin/usertakenadmin/'+ ${user.getId()}" method="get">
-                                    <button style="background-color: #006B49" type="submit"><i><iconify-icon icon="wpf:books"></iconify-icon></i></button>
+                                    <button style="background-color: #006B49" title="Книги користувача" type="submit"><i><iconify-icon icon="wpf:books"></iconify-icon></i></button>
                                 </form>
 
 
                                 <form  th:action="'/admin/allusers/'+ ${user.getId()}+'/remove'" method="post">
-                                    <button style="background-color: #FF3F40" type="button" onclick="openpopup(form)"><i class="uil uil-trash-alt"></i></button>
+                                    <button style="background-color: #FF3F40"  title="Видалити користувача" type="button" onclick="openpopup(form)"><i class="uil uil-trash-alt"></i></button>
                                 </form>
 
                             </td>

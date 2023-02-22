@@ -39,8 +39,6 @@
         </div>
     </div>
 </div>
-
-
 <nav>
     <div class="logo-name">
         <div class="logo-image">
@@ -67,6 +65,14 @@
                 <i><iconify-icon icon="wpf:books"></iconify-icon></i>
                 <span class="link-name">Всі книги</span>
             </a></li>
+            <li><a th:href="@{/admin/allbooksadmin}">
+                <i><iconify-icon icon="fluent:book-open-globe-24-filled"></iconify-icon></i>
+                <span class="link-name">Електронні книги</span>
+            </a></li>
+            <li><a th:href="@{/admin/allbooksadmin}">
+                <i><iconify-icon icon="emojione-monotone:books"></iconify-icon></i>
+                <span class="link-name">Фізичні книги</span>
+            </a></li>
             <li><a th:href="@{/admin/assignedbooks}">
                 <i><iconify-icon icon="mdi:book-arrow-up"></iconify-icon></i>
                 <span class="link-name">Видані книги</span>
@@ -87,7 +93,14 @@
                 <i><iconify-icon icon="mdi:book-information-variant"></iconify-icon></i>
                 <span class="link-name">Категорії книг</span>
             </a></li>
-
+            <li><a th:href="@{/admin/takebook}">
+                <i><iconify-icon icon="carbon:order-details"></iconify-icon></i>
+                <span class="link-name">Замовлення</span>
+            </a></li>
+            <li><a th:href="@{/admin/takebook}">
+                <i><iconify-icon icon="ic:outline-add-comment"></iconify-icon></i>
+                <span class="link-name">Додати новину</span>
+            </a></li>
         </ul>
 
         <ul class="logout-mode">
@@ -102,7 +115,6 @@
         </ul>
     </div>
 </nav>
-
 <section class="dashboard">
     <div class="top">
         <i class="uil uil-bars sidebar-toggle"></i>
@@ -132,11 +144,10 @@
                         <tr>
                             <th>Id qr-коду</th>
                             <th>Фото</th>
+                            <th>Статус</th>
                             <th>Назва</th>
                             <th>Автор</th>
                             <th>Рік</th>
-                            <th>Стилаж</th>
-                            <th>Полиця</th>
                             <th>Дії</th>
                         </tr>
                         </thead>
@@ -147,21 +158,19 @@
                             <td th:text="${book.title}"></td>
                             <td th:text="${book.author}"></td>
                             <td th:text="${book.year}"></td>
-                            <td th:text="${book.stilaj}"></td>
-                            <td th:text="${book.polka}"></td>
+
                             <td class="btnactions">
                                 <form th:action="'/admin/addcategorytobook/'+ ${book.id}" method="get">
-                                    <button style="background-color: #25398e" type="submit" ><i><iconify-icon icon="fluent:book-star-24-filled"></iconify-icon></i></button>
+                                    <button style="background-color: #25398e" title="Категорії книги" type="submit" ><i><iconify-icon icon="fluent:book-star-24-filled"></iconify-icon></i></button>
                                 </form>
 
                                 <form th:action="'/admin/allbooksadmin/'+ ${book.id}+'/edit'" method="get">
-                                    <button style="background-color: #006B49" type="submit"><i class="uil uil-pen"></i></button>
+                                    <button style="background-color: #006B49" title="Редагувати книгу" type="submit"><i class="uil uil-pen"></i></button>
                                 </form>
 
                                 <form th:action="'/admin/allbooksadmin/'+ ${book.id}+'/remove'" method="post">
-                                    <button style="background-color: #FF3F40" type="button" onclick="openpopup(form)"><i class="uil uil-trash-alt"></i></button>
+                                    <button style="background-color: #FF3F40" type="button"  title="Видалити книгу" onclick="openpopup(form)"><i class="uil uil-trash-alt"></i></button>
                                 </form>
-
                         </tr>
                         </tbody>
 

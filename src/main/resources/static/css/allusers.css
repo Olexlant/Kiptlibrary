@@ -586,7 +586,7 @@ nav .menu-items{
 .menu-items li a{
     display: flex;
     align-items: center;
-    height: 50px;
+    height: 45px;
     text-decoration: none;
     position: relative;
 }
