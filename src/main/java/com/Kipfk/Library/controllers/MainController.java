@@ -59,8 +59,9 @@ public class MainController {
     private final ConfirmationTokenRepository confirmationTokenRepository;
     private final BooksByGroupsRepository booksByGroupsRepository;
     private final PasswordEncoder passwordEncoder;
+    private final BookOrdersRepository bookOrdersRepository;
 
-    public MainController(RegistrationService registrationService, ConfirmationTokenRepository confirmationTokenRepository, AppUserService appUserService, AppBookService appBookService, AppUserRepository appUserRepository, AppBookRepository appBookRepository, TakenBooksRepository takenBooksRepository, LikedBooksRepository likedBooksRepository, AppUserRepository userRepo, BookCategoryRepository bookCategoryRepository, CategoriesOfBooksRepository categoriesOfBooksRepository, GroupsRepository groupsRepository, AppUserRepository appUserRepository1, ConfirmationTokenRepository confirmationTokenRepository1, BooksByGroupsRepository booksByGroupsRepository, PasswordEncoder passwordEncoder) {
+    public MainController(RegistrationService registrationService, ConfirmationTokenRepository confirmationTokenRepository, AppUserService appUserService, AppBookService appBookService, AppUserRepository appUserRepository, AppBookRepository appBookRepository, TakenBooksRepository takenBooksRepository, LikedBooksRepository likedBooksRepository, AppUserRepository userRepo, BookCategoryRepository bookCategoryRepository, CategoriesOfBooksRepository categoriesOfBooksRepository, GroupsRepository groupsRepository, AppUserRepository appUserRepository1, ConfirmationTokenRepository confirmationTokenRepository1, BooksByGroupsRepository booksByGroupsRepository, PasswordEncoder passwordEncoder, BookOrdersRepository bookOrdersRepository) {
         this.registrationService = registrationService;
         this.appUserService = appUserService;
         this.appBookService = appBookService;
@@ -74,6 +75,7 @@ public class MainController {
         this.confirmationTokenRepository = confirmationTokenRepository1;
         this.booksByGroupsRepository = booksByGroupsRepository;
         this.passwordEncoder = passwordEncoder;
+        this.bookOrdersRepository = bookOrdersRepository;
     }
 
     @GetMapping("/")
@@ -345,5 +347,25 @@ public class MainController {
         AppBook book = appBookRepository.findAllById(bookid);
         InputStream is = new ByteArrayInputStream(book.getQrimg());
         IOUtils.copy(is, response.getOutputStream());
+    }
+
+
+//BOOK ORDERS
+    @PostMapping("/orderbook/{bookid}")
+    public String addBookOrder(@AuthenticationPrincipal UserDetails userDetails, @PathVariable(value = "bookid") long bookid){
+        AppUser user = (AppUser) appUserService.loadUserByUsername(userDetails.getUsername());
+        BookOrders bookOrder = new BookOrders();
+        AppBook book = appBookRepository.findAllById(bookid);
+        if (bookOrdersRepository.findByBookAndUser(book, user).isEmpty()){
+            bookOrder.setBook(book);
+            bookOrder.setUser(user);
+            bookOrder.setCreatedat(LocalDate.now());
+            bookOrder.setDeleted(false);
+            bookOrdersRepository.save(bookOrder);
+            return "redirect:/allbooks/"+bookid+"?ordered";
+        }else{
+            return "redirect:/allbooks/"+bookid+"?orderedlater";
+        }
+
     }
 }

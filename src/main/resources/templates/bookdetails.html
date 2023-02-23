@@ -16,6 +16,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <header class="site-header sticky-top py-1" th:insert="bloks/header :: header"></header>
+<div th:if="${param.ordered}">
+    Книгу замовлено
+</div>
+<div th:if="${param.orderedlater}">
+    Книгу замовлено раніше
+</div>
 <body>
 <div class="container">
     <section class="adout">
@@ -33,7 +39,7 @@
                     <div th:if="${book.description!=null}">
                         <p th:text="${'Опис: '+book.description}"></p>
                     </div>
-                    <form action="/allbooks">
+                    <form th:action="${'/orderbook/'+book.getId()}" method="post">
                         <div class="button">
                             <button>Замовити у бібліотекаря</button>
                         </div>
