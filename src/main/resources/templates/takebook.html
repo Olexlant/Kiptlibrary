@@ -163,7 +163,7 @@
               <td th:text="${book.getYear()}"></td>
               <td class="btnactions1">
                 <form th:action="'/admin/assigningbook/'+ ${userid}+'/'+${book.getId()}" method="post">
-                  <input type="number" name="takeCount" placeholder="Кількість книг" min="0" th:max="${book.getCount()}">
+                  <input type="number" name="takeCount" placeholder="Кількість книг" min="0" th:value="${0}" th:max="${book.getCount()}">
                   <button style="background-color: #258e47" type="button" onclick="openpopup(form)" ><i> Видати книгу</i></button>
                 </form>
             </tr>

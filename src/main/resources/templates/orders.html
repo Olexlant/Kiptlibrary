@@ -153,15 +153,22 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="book : ${books}">
-                            <td th:text="${book.qrid}"></td>
-                            <td><img th:src="@{'/book/image/' + ${book.getId()}}"/></td>
-                            <td th:text="${book.title}"></td>
-                            <td th:text="${book.author}"></td>
-                            <td th:text="${book.year}"></td>
+                        <tr th:each="bookOrder : ${bookOrders}">
+                            <div th:if="${bookOrder.getUser().getGroups()==null}">
+                                <td th:text="${'Без групи'}"></td>
+                            </div>
+                            <div th:if="${bookOrder.getUser().getGroups()!=null}">
+                                <td th:text="${bookOrder.getUser().getGroups().getName()}"></td>
+                            </div>
+                            <td th:text="${bookOrder.getUser().getFirstName()}"></td>
+                            <td th:text="${bookOrder.getUser().getLastName()}"></td>
+                            <td th:text="${bookOrder.getBook().getTitle()}"></td>
+                            <td><img th:src="@{'/book/image/' + ${bookOrder.getBook().getId()}}"/></td>
+                            <td th:text="${bookOrder.getBook().getQrid()}"></td>
+                            <td th:text="${bookOrder.getBook().getYear()}"></td>
                             <td class="btnactions1">
-                                <form th:action="'/admin/assigningbook/'+ ${userid}+'/'+${book.getId()}" method="post">
-                                    <input type="number" name="takeCount" placeholder="Кількість книг" min="0" th:max="${book.getCount()}">
+                                <form th:action="'/admin/assigningbook/'+ ${bookOrder.getUser().getId()}+'/'+${bookOrder.getBook().getId()}" method="post">
+                                    <input type="number" name="takeCount" placeholder="Кількість книг" min="0" th:value="${0}" th:max="${bookOrder.getBook().getCount()}">
                                     <button style="background-color: #258e47" type="button" onclick="openpopup(form)" ><i> Видати книгу</i></button>
                                 </form>
                         </tr>
@@ -175,17 +182,17 @@
     <ul id="pagination">
         <th:block th:each="pageNumber : ${body}">
             <li th:if="${pageNumberStat.first}">
-                <a class="" th:href="@{/admin/allbooksadmin(size=${books.size}, page=${pageNumber})}">«</a>
+                <a class="" th:href="@{/admin/bookorders(size=${bookOrders.size}, page=${pageNumber})}">«</a>
             </li>
-            <li th:if="${pageNumber} == ${books.getNumber()+1}">
+            <li th:if="${pageNumber} == ${bookOrders.getNumber()+1}">
                 <a  class="active" th:text="${pageNumber}" href="#" ></a>
             </li>
             <li  th:if="${pageNumber} == -1"><a href="#">...</a></li>
-            <li th:if="${pageNumber} != -1 and ${pageNumber} != ${books.getNumber()+1}">
-                <a th:text="${pageNumber}" th:href="@{/admin/allbooksadmin(size=${books.size}, page=${pageNumber})}"></a>
+            <li th:if="${pageNumber} != -1 and ${pageNumber} != ${bookOrders.getNumber()+1}">
+                <a th:text="${pageNumber}" th:href="@{/admin/bookorders(size=${bookOrders.size}, page=${pageNumber})}"></a>
             </li>
             <li th:if="${pageNumberStat.last}" >
-                <a th:href="@{/admin/allbooksadmin(size=${books.size}, page=${pageNumber})}">»</a></li>
+                <a th:href="@{/admin/bookorders(size=${bookOrders.size}, page=${pageNumber})}">»</a></li>
         </th:block>
     </ul>
 

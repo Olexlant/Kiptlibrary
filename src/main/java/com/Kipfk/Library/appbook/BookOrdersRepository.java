@@ -12,4 +12,5 @@ import java.util.List;
 public interface BookOrdersRepository extends JpaRepository<BookOrders, Long> {
     Page<BookOrders> findAllByDeletedIsFalse(Pageable pageable);
     List<BookOrders> findByBookAndUser(AppBook book, AppUser user);
+    int countAllByDeletedIsFalse();
 }

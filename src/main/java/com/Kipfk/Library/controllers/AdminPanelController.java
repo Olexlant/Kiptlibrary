@@ -34,11 +34,6 @@ public class AdminPanelController {
         return new StandardServletMultipartResolver();
     }
 
-    public static int[] merge(int[]... intarrays) {
-        return Arrays.stream(intarrays).flatMapToInt(Arrays::stream)
-                .toArray();
-    }
-
     private final RegistrationService registrationService;
     private final ConfirmationTokenRepository confirmationTokenRepository;
     private final AppUserService appUserService;
@@ -54,8 +49,9 @@ public class AdminPanelController {
     private final TakenBooksService takenBooksService;
     private final BooksByGroupsRepository booksByGroupsRepository;
 
+    private final BookOrdersRepository bookOrdersRepository;
 
-    public AdminPanelController(RegistrationService registrationService, ConfirmationTokenRepository confirmationTokenRepository, AppUserService appUserService, AppBookService appBookService, AppUserRepository appUserRepository, AppBookRepository appBookRepository, TakenBooksRepository takenBooksRepository, LikedBooksRepository likedBooksRepository, AppUserRepository userRepo, BookCategoryRepository bookCategoryRepository, CategoriesOfBooksRepository categoriesOfBooksRepository, GroupsRepository groupsRepository, TakenBooksService takenBooksService, BooksByGroupsRepository booksByGroupsRepository) {
+    public AdminPanelController(RegistrationService registrationService, ConfirmationTokenRepository confirmationTokenRepository, AppUserService appUserService, AppBookService appBookService, AppUserRepository appUserRepository, AppBookRepository appBookRepository, TakenBooksRepository takenBooksRepository, LikedBooksRepository likedBooksRepository, AppUserRepository userRepo, BookCategoryRepository bookCategoryRepository, CategoriesOfBooksRepository categoriesOfBooksRepository, GroupsRepository groupsRepository, TakenBooksService takenBooksService, BooksByGroupsRepository booksByGroupsRepository, BookOrdersRepository bookOrdersRepository) {
         this.registrationService = registrationService;
         this.confirmationTokenRepository = confirmationTokenRepository;
         this.appUserService = appUserService;
@@ -70,6 +66,7 @@ public class AdminPanelController {
         this.groupsRepository = groupsRepository;
         this.takenBooksService = takenBooksService;
         this.booksByGroupsRepository = booksByGroupsRepository;
+        this.bookOrdersRepository = bookOrdersRepository;
     }
 
 //ADDBOOK
@@ -105,6 +102,8 @@ public class AdminPanelController {
     public String showAdminHome(Model model){
         int usercount = appUserRepository.countAllBy();
         model.addAttribute("usercount", usercount);
+        int bookOrdersCount = bookOrdersRepository.countAllByDeletedIsFalse();
+        model.addAttribute("bookOrdersCount", bookOrdersCount);
         int bookcount = appBookRepository.countAllBy();
         model.addAttribute("bookcount",bookcount);
         int takencount = takenBooksRepository.countAllBy();
@@ -327,6 +326,11 @@ public class AdminPanelController {
             takenBooks.setTakenat(LocalDate.now());
             takenBooks.setCount(takeCount);
             book.setCount(book.getCount()-takeCount);
+            List<BookOrders> bookOrder = bookOrdersRepository.findByBookAndUser(book, user);
+            for(BookOrders i : bookOrder){
+                i.setDeleted(true);
+            }
+            bookOrdersRepository.saveAll(bookOrder);
             takenBooksRepository.save(takenBooks);
             appBookRepository.save(book);
         }else {
@@ -478,14 +482,12 @@ public class AdminPanelController {
 
     @GetMapping("/admin/addbooktogroup/{groupid}")
     public String addBookToGroup(Model model, @PathVariable Long groupid, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
-
         Groups group = groupsRepository.findAllById(groupid);
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(12);
         Page<AppBook> bookPage = appBookRepository.findAll(PageRequest.of(currentPage - 1, pageSize));
         model.addAttribute("books",bookPage);
         model.addAttribute("body", appBookService.bodyArrayForPages(bookPage));
-
         model.addAttribute("group", group);
         return "addBooksToGroup";
     }
@@ -513,5 +515,16 @@ public class AdminPanelController {
         List<BooksByGroups> booksByGroups = booksByGroupsRepository.findByGroupsAndBook(group, book);
         booksByGroupsRepository.deleteAll(booksByGroups);
         return  "redirect:/admin/booksbygroup/"+groupid+"?bookdeleted";
+    }
+
+//BOOK ORDERS
+    @GetMapping("/admin/bookorders")
+    public String showBookOrders(Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(12);
+        Page<BookOrders> bookOrders = bookOrdersRepository.findAllByDeletedIsFalse(PageRequest.of(currentPage - 1, pageSize));
+        model.addAttribute("bookOrders", bookOrders);
+        model.addAttribute("body", appBookService.bodyArrayForPages(bookOrders));
+        return "orders";
     }
 }
