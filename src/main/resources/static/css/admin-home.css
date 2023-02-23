@@ -26,6 +26,7 @@ font-family: 'Exo 2', sans-serif;
     --box1-color: #25398e;
     --box2-color: #006B49;
     --box3-color: #FF3F40;
+    --box4-color:  #3b14c0;
     --title-icon-color: #fff;
 
     /* ====== Transition ====== */
@@ -557,9 +558,7 @@ nav.close ~ .dashboard .top{
     color: var(--text-color);
     margin-left: 10px;
 }
-.dash-content .boxes {
-    margin-left: 70px;
-}
+
 .dash-content .boxes a{
     display: inline-flex;
     justify-content: end;
@@ -572,7 +571,7 @@ nav.close ~ .dashboard .top{
     flex-direction: column;
     align-items: center;
     border-radius: 12px;
-    width: 300px;
+    width: 250px;
     padding: 15px 20px;
     background-color: var(--box1-color);
     transition: var(--tran-05);
@@ -593,12 +592,16 @@ nav.close ~ .dashboard .top{
     color: #fff;
 }
 .boxes .box.box2{
-    width: 300px;
+    width: 250px;
     background-color: var(--box2-color);
 }
 .boxes .box.box3{
-width: 300px;
+width: 250px;
     background-color: var(--box3-color);
+}
+.boxes .box.box4{
+width: 250px;
+    background-color: var(--box4-color);
 }
 .dash-content .activity .activity-data{
     display: flex;

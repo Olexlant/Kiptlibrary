@@ -69,11 +69,11 @@
         <i><iconify-icon icon="mdi:book-information-variant"></iconify-icon></i>
         <span class="link-name">Категорії книг</span>
       </a></li>
-      <li><a th:href="@{/admin/takebook}">
+      <li><a th:href="@{/admin/orders}">
         <i><iconify-icon icon="carbon:order-details"></iconify-icon></i>
         <span class="link-name">Замовлення</span>
       </a></li>
-      <li><a th:href="@{/admin/takebook}">
+      <li><a th:href="@{/admin/add-news}">
         <i><iconify-icon icon="ic:outline-add-comment"></iconify-icon></i>
         <span class="link-name">Додати новину</span>
       </a></li>
@@ -117,6 +117,13 @@
           <span class="text">Кількість користувачів</span>
           <span class="number" th:text="${usercount}"></span>
         </div>
+        </a>
+        <a th:href="@{/admin/orders}">
+          <div class="box box4">
+            <i><iconify-icon icon="carbon:order-details"></iconify-icon></i>
+            <span class="text">Замовлення</span>
+            <span class="number">0</span>
+          </div>
         </a>
         <a th:href="@{/admin/allbooksadmin}">
         <div class="box box2">

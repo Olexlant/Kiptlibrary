@@ -43,6 +43,20 @@
     </div>
 </div>
 
+<div class="pop_up" id="pop_up1">
+    <div class="pop_up_container">
+        <div class="pop_up_body" id="pop_up_body1">
+            <p>Редагувати групу</p>
+            <form class="edit-name" >
+                <input name="currentpassword" type="text" placeholder="Нова назва групи">
+                <div class="btn-yes-no">
+                    <button id="pop_up_submit1" type="button" onclick="submitForm1()">Зберегти</button>
+                    <button class="no" onclick="closepopupwindow1()">Назад</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <nav>
     <div class="logo-name">
         <div class="logo-image">
@@ -167,7 +181,7 @@
                                     <button style="background-color: #25398e" title="Користувачі групи" type="submit"><i><iconify-icon icon="ion:people-sharp"></iconify-icon></i></button>
                                 </form>
                                 <form>
-                                    <button style="background-color: #e9bd0c" title="Редагувати групу" type="submit"><i class="uil uil-pen"></i></button>
+                                    <button style="background-color: #e9bd0c" title="Редагувати групу" type="button" onclick="openpopup1(form)"><i class="uil uil-pen"></i></button>
                                 </form>
                                 <form th:action="'/admin/booksbygroup/'+ ${group.id}" method="get">
                                     <button style="background-color: #006B49" type="submit" title="Книги групи"><i><iconify-icon icon="wpf:books"></iconify-icon></i></button>

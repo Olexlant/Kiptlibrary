@@ -19,3 +19,21 @@ let currentForm;
 
 
 
+let currentForm1;
+    function openpopup1(form){
+      const popUp1 = document.getElementById('pop_up1');
+      popUp1.classList.add('active');
+      currentForm1 = form;
+    }
+
+    function submitForm1() {
+      currentForm1.submit();
+    }
+
+    function closepopupwindow1(){
+        const closePopUp1 = document.getElementById('pop_up_close1');
+        closePopUp1.addEventListener('click', () => {
+        popUp1.classList.remove('active');
+      })
+    }
+
