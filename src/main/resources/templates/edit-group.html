@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/adduser.css" type="text/css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Awesome CDN link for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Exo+2:wght@300&display=swap" rel="stylesheet">
+    <title>Редагування групи</title>
+</head>
+<body>
+<nav>
+    <div class="logo-name">
+        <div class="logo-image">
+            <img src="/images/logo.png" alt="">
+        </div>
+        <span class="logo_name">KCAS Lib</span>
+    </div>
+
+    <div class="menu-items">
+        <ul class="nav-links">
+            <li><a th:href="@{/admin}">
+                <i><iconify-icon icon="fa-solid:home"></iconify-icon></i>
+                <span class="link-name">Головна</span>
+            </a></li>
+            <li><a th:href="@{/admin/allusers}">
+                <i><iconify-icon icon="ion:people-sharp"></iconify-icon></i>
+                <span class="link-name" >Користувачі</span>
+            </a></li>
+            <li><a th:href="@{/admin/groups}">
+                <i><iconify-icon icon="fa6-solid:people-group"></iconify-icon></i>
+                <span class="link-name">Групи</span>
+            </a></li>
+            <li><a th:href="@{/admin/allbooksadmin}">
+                <i><iconify-icon icon="wpf:books"></iconify-icon></i>
+                <span class="link-name">Всі книги</span>
+            </a></li>
+            <li><a th:href="@{/admin/allbooksadmin(category=${'electronic'})}">
+                <i><iconify-icon icon="fluent:book-open-globe-24-filled"></iconify-icon></i>
+                <span class="link-name">Електронні книги</span>
+            </a></li>
+            <li><a th:href="@{/admin/allbooksadmin(category=${'physical'})}">
+                <i><iconify-icon icon="emojione-monotone:books"></iconify-icon></i>
+                <span class="link-name">Фізичні книги</span>
+            </a></li>
+            <li><a th:href="@{/admin/assignedbooks}">
+                <i><iconify-icon icon="mdi:book-arrow-up"></iconify-icon></i>
+                <span class="link-name">Видані книги</span>
+            </a></li>
+            <li><a th:href="@{/admin/addbook}">
+                <i><iconify-icon icon="mdi:book-plus"></iconify-icon></i>
+                <span class="link-name">Додати книгу</span>
+            </a></li>
+            <li><a th:href="@{/admin/adduser}">
+                <i><iconify-icon icon="mdi:user-add"></iconify-icon></i>
+                <span class="link-name">Додати користувача</span>
+            </a></li>
+            <li><a th:href="@{/admin/takebook}">
+                <i><iconify-icon icon="mdi:book-arrow-right"></iconify-icon></i>
+                <span class="link-name">Видати книгу</span>
+            </a></li>
+            <li><a th:href="@{/admin/addbookcategory}">
+                <i><iconify-icon icon="mdi:book-information-variant"></iconify-icon></i>
+                <span class="link-name">Категорії книг</span>
+            </a></li>
+            <li><a th:href="@{/admin/orders}">
+                <i><iconify-icon icon="carbon:order-details"></iconify-icon></i>
+                <span class="link-name">Замовлення</span>
+            </a></li>
+            <li><a th:href="@{/admin/add-news}">
+                <i><iconify-icon icon="ic:outline-add-comment"></iconify-icon></i>
+                <span class="link-name">Додати новину</span>
+            </a></li>
+        </ul>
+
+        <ul class="logout-mode">
+            <li><a th:href="@{/}">
+                <i><iconify-icon icon="mingcute:exit-door-fill"></iconify-icon></i>
+                <span class="link-name">Вийти</span>
+            </a></li>
+            <div class="mode-toggle">
+
+            </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<section class="dashboard">
+    <div class="top">
+        <i class="uil uil-bars sidebar-toggle"></i>
+
+        <div class="search-box">
+
+        </div>
+
+        <img src="" alt="">
+    </div>
+
+    <div class="dash-content">
+        <div class="container">
+            <div class="title"><span>Редагування групи</span></div>
+            <div class="content">
+                <form method="post">
+                    <div class="user-details">
+                        <div class="input-box">
+                            <span class="details">Ім'я</span>
+                            <input type="text" name="firstname" placeholder="Ім'я" required>
+                        </div>
+
+                    </div>
+                    <div class="button">
+                        <button type="submit">Зберегти</button>
+                    </div>
+                </form> </div>
+
+        </div>
+    </div>
+    </div>
+</section>
+<script src="js/script.js"></script>
+<script src="https://code.iconify.design/iconify-icon/1.0.3/iconify-icon.min.js"></script>
+<script src="https://code.iconify.design/iconify-icon/1.0.2/iconify-icon.min.js"></script>
+</body>
+</html>

@@ -8,6 +8,143 @@
     font-family: 'Comfortaa', cursive;
 font-family: 'Exo 2', sans-serif;
 }
+.notifications {
+  position: absolute;
+  top: 14.6%;
+      left: 50.7%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  
+}
+.notifications :where(.toast, .column) {
+  display: flex;
+  align-items: center;
+}
+.notifications .toast {
+  width: 500px;
+  position: relative;
+  overflow: hidden;
+  list-style: none;
+  border-radius: 4px;
+  padding: 16px 17px;
+  margin-bottom: 10px;
+  background: #dadbff;
+  justify-content: space-between;
+  animation: show_toast 0.3s ease forwards;
+}
+@keyframes show_toast {
+  0% {
+    transform: translateX(100%);
+  }
+  40% {
+    transform: translateX(-5%);
+  }
+  80% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-10px);
+  }
+}
+.notifications .toast.hide {
+  animation: hide_toast 0.3s ease forwards;
+}
+@keyframes hide_toast {
+  0% {
+    transform: translateX(-10px);
+  }
+  40% {
+    transform: translateX(0%);
+  }
+  80% {
+    transform: translateX(-5%);
+  }
+  100% {
+    transform: translateX(calc(100% + 20px));
+  }
+}
+.toast::before {
+  position: absolute;
+  content: "";
+  height: 3px;
+  width: 100%;
+  bottom: 0px;
+  left: 0px;
+  animation: progress 5s linear forwards;
+}
+@keyframes progress {
+  100% {
+    width: 0%;
+  }
+}
+.toast.success::before, .btn#success {
+  background: var(--success);
+}
+.toast.error::before, .btn#error {
+  background: var(--error);
+}
+.toast.warning::before, .btn#warning {
+  background: var(--warning);
+}
+.toast.info::before, .btn#info {
+  background: var(--info);
+}
+.toast .column i {
+  font-size: 1.75rem;
+}
+.toast.success .column i {
+  color: var(--success);
+}
+.toast.error .column i {
+  color: var(--error);
+}
+.toast.warning .column i {
+  color: var(--warning);
+}
+.toast.info .column i {
+  color: var(--info);
+}
+.toast .column span {
+  font-size: 1.07rem;
+  margin-left: 12px;
+}
+.toast i:last-child {
+  color: #21212a;
+  cursor: pointer;
+}
+.toast i:last-child:hover {
+  color: var(--dark);
+}
+
+
+:root{
+    /* ===== Colors ===== */
+      font-family: 'Comfortaa', cursive;
+font-family: 'Exo 2', sans-serif;
+      font-family: 'Comfortaa', cursive;
+font-family: 'Exo 2', sans-serif;
+    --dark: #34495E;
+        --light: #ebebeb;
+        --success: #0ABF30;
+        --error: #E24D4C;
+        --warning: #E9BD0C;
+        --info: #3498DB;
+        /* ===== Colors ===== */
+        --primary-color: #25398e;
+        --panel-color: #FFF;
+        --text-color: #000;
+        --black-light-color: #707070;
+        --border-color: #e6e5e5;
+        --toggle-color: #DDD;
+        --box1-color: #25398e;
+        --box2-color: #006B49;
+        --box3-color: #FF3F40;
+        --title-icon-color: #fff;
+    /* ====== Transition ====== */
+    --tran-05: all 0.5s ease;
+    --tran-03: all 0.3s ease;
+    --tran-03: all 0.2s ease;
+}
 .btnServiceUTOG{
   background: url(//utog.org/assets/uploads/images/inbox/subtn.png) no-repeat left center;
   background-size: contain;
@@ -259,6 +396,7 @@ background:#25398e ;
   display: flex;
   justify-content: center;
   margin-bottom: 40px;
+  margin-top: 50px;
 }
 .container section .title span{
   font-size: 30px;
@@ -588,9 +726,66 @@ font-family: 'Exo 2', sans-serif;
   border-radius: 7px;
   margin-top: 100px;
 }
+@media(max-width: 1000px){
+  .notifications .toast{
+    width: 489px;
+  }
+  .notifications{
+    left: 51.3%;
+    top: 31.3%;
+  }
+@media(max-width: 900px){
+  
+  .notifications .toast{
+    width: 489px;
+    
+  }
+  .notifications{
+    left: 51.3%;
+    top: 29.3%;
+  }
+  @media(max-width: 800px){
+    .notifications .toast{
+      width: 469px;
+    }
+    .notifications{
+      left: 51.3%;
+      top: 27.3%;
+    }
+  }
+  @media(max-width: 584px){
+    .container{
+     max-width: 100%;
+   }
+   .notifications .toast{
+     width: 350px;
+   }
+   .notifications{
+     left:52.5%;
+     top: 24.7%;
+   }
+  }
+}
+@media(max-width: 400px){
+  .notifications{
+    left:52.5%;
+    top: 23%;
+  }
+  @media(max-width: 380px){
+    .notifications{
+      left:53%;
+  top: 17%;
+    }
+
+}}
+}
+
+
+
+
 @media(max-width: 990px){
   .container section .title{
-    margin-top: 1px;
+    margin-top: 50px;
   }
   }
 
