@@ -356,7 +356,7 @@ public class MainController {
         AppUser user = (AppUser) appUserService.loadUserByUsername(userDetails.getUsername());
         BookOrders bookOrder = new BookOrders();
         AppBook book = appBookRepository.findAllById(bookid);
-        if (bookOrdersRepository.findByBookAndUser(book, user).isEmpty()){
+        if (bookOrdersRepository.findByBookAndUserAndDeletedIsFalse(book, user).isEmpty()){
             bookOrder.setBook(book);
             bookOrder.setUser(user);
             bookOrder.setCreatedat(LocalDate.now());

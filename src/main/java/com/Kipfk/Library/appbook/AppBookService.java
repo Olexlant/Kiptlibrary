@@ -85,8 +85,6 @@ public class AppBookService {
                 appBook.getTitle(),
                 appBook.getAuthor(),
                 appBook.getYear(),
-                appBook.getStilaj(),
-                appBook.getPolka(),
                 appBook.getBookimg(),
                 appBook.getQrimg(),
                 appBook.getBookfile()

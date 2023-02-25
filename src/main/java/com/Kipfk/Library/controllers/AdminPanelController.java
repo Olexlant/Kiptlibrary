@@ -148,7 +148,7 @@ public class AdminPanelController {
         return "bookadminedit";
     }
     @PostMapping("/admin/allbooksadmin/{id}/edit")
-    public String AdminBookUpdate(@PathVariable(value = "id") long id,@RequestParam Long qrid, @RequestParam String title, @RequestParam String author, @RequestParam Long year, @RequestParam Long stilaj, @RequestParam Long polka,@RequestParam("files") MultipartFile[] multipartFiles,@RequestParam String bookfileurl, @RequestParam String description, @RequestParam Long count) throws IOException {
+    public String AdminBookUpdate(@PathVariable(value = "id") long id,@RequestParam Long qrid, @RequestParam String title, @RequestParam String author, @RequestParam Long year, @RequestParam("files") MultipartFile[] multipartFiles,@RequestParam String bookfileurl, @RequestParam String description, @RequestParam Long count) throws IOException {
         AppBook book = appBookRepository.findById(id).orElseThrow();
         if (!book.getQrid().equals(qrid)){
             try {
@@ -161,8 +161,6 @@ public class AdminPanelController {
         book.setTitle(title);
         book.setAuthor(author);
         book.setYear(year);
-        book.setStilaj(stilaj);
-        book.setPolka(polka);
         book.setDescription(description);
         book.setCount(count);
         if (!multipartFiles[0].isEmpty()){
@@ -172,8 +170,6 @@ public class AdminPanelController {
             book.setBookfileurl("");
             if (!multipartFiles[1].isEmpty()){
                 book.setBookfile(multipartFiles[1].getBytes());
-            }else {
-                book.setBookfile(null);
             }
         }else {
             book.setBookfile(null);
@@ -326,7 +322,7 @@ public class AdminPanelController {
             takenBooks.setTakenat(LocalDate.now());
             takenBooks.setCount(takeCount);
             book.setCount(book.getCount()-takeCount);
-            List<BookOrders> bookOrder = bookOrdersRepository.findByBookAndUser(book, user);
+            List<BookOrders> bookOrder = bookOrdersRepository.findByBookAndUserAndDeletedIsFalse(book, user);
             for(BookOrders i : bookOrder){
                 i.setDeleted(true);
             }
@@ -342,7 +338,8 @@ public class AdminPanelController {
     public String showassignedbooks(Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size){
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(12);
-        Page<TakenBooks> takenPage = takenBooksRepository.findAll(PageRequest.of(currentPage - 1, pageSize));
+        Page<TakenBooks> takenPage = takenBooksRepository.findAll(PageRequest.of(currentPage - 1, pageSize, Sort.Direction.DESC,"takenat"));
+
         model.addAttribute("takenbooks", takenPage);
         model.addAttribute("body", appBookService.bodyArrayForPages(takenPage));
         return "assignedbooks";

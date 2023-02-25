@@ -155,10 +155,10 @@
                         <tr th:each="book : ${books}">
                             <td th:text="${book.qrid}"></td>
                             <td><img th:src="@{'/book/image/' + ${book.getId()}}"/></td>
-                            <div th:if="${book.getBookfile()==null || book.getBookfileurl()==null}">
+                            <div th:if="${book.getBookfile()==null && book.getBookfileurl()==''}">
                                 <td th:text="${'Фізична'}"></td>
                             </div>
-                            <div th:if="${book.getBookfile()!=null && book.getBookfileurl()!=null}">
+                            <div th:if="${book.getBookfile()!=null || book.getBookfileurl()!=''}">
                                 <td th:text="${'Електронна'}"></td>
                             </div>
 

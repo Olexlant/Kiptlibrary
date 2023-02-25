@@ -3,6 +3,7 @@ package com.Kipfk.Library.appuser;
 import com.Kipfk.Library.appbook.AppBook;
 import com.Kipfk.Library.appuser.AppUserRole;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,7 +15,7 @@ import java.util.Optional;
 
 @Repository
 @Transactional(readOnly = true)
-public interface AppUserRepository extends JpaRepository<AppUser, Long> {
+public interface AppUserRepository extends JpaRepository<AppUser, Long>, JpaSpecificationExecutor<AppUser> {
     Optional<AppUser> findByEmail(String email);
     @Transactional
     @Modifying
