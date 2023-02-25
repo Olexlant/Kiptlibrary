@@ -71,11 +71,12 @@
       </a></li>
       <li><a th:href="@{/admin/bookorders}">
         <i><iconify-icon icon="carbon:order-details"></iconify-icon></i>
-        <span class="link-name">Замовлення</span>
+        <span class="link-name">Замовлення<div class="numder-orders" style="background-color: red;height: 25px;width: 25px;border-radius: 5px; text-align: center;color: #fff;
+    margin-left: 5px;"><p th:text="${bookOrdersCount}"></p></div></span>
       </a></li>
       <li><a th:href="@{/admin/add-news}">
         <i><iconify-icon icon="ic:outline-add-comment"></iconify-icon></i>
-        <span class="link-name">Додати новину</span>
+        <span class="link-name" >Додати новину</span>
       </a></li>
     </ul>
 

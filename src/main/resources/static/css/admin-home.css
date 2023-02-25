@@ -408,6 +408,7 @@ body.dark li a:hover:before{
     font-weight: 400;
     color: var(--black-light-color);
     transition: var(--tran-05);
+    display: flex;
 }
 nav.close li a .link-name{
     opacity: 0;
