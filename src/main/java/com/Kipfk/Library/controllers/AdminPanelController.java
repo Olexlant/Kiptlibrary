@@ -196,6 +196,10 @@ public class AdminPanelController {
             if (!booksByGroups.isEmpty()){
                 booksByGroupsRepository.deleteAll(booksByGroups);
             }
+            List<BookOrders> bookOrders = bookOrdersRepository.findAllByBook(book);
+            if (!bookOrders.isEmpty()){
+                bookOrdersRepository.deleteAll(bookOrders);
+            }
             appBookRepository.deleteById(id);
             return "redirect:/admin/allbooksadmin?deletesuccess";
         }
@@ -271,18 +275,21 @@ public class AdminPanelController {
     public String AdminUserDelete(@PathVariable(value = "id") long id) {
         AppUser user = appUserRepository.findById(id).orElseThrow();
         boolean tokenpresent = confirmationTokenRepository.findByAppUser(user).isPresent();
-        boolean bookspresent = likedBooksRepository.findByUser(user).isEmpty();
         boolean takenBookspresent = takenBooksRepository.findByUser(user).isEmpty();
         if (!takenBookspresent){
             return "redirect:/admin/usertakenadmin/"+id+"?notreturn";
         }else {
-            if (!bookspresent){
-                List<LikedBooks> books = likedBooksRepository.findByUser(user);
-                likedBooksRepository.deleteAll(books);
+            List<LikedBooks> likedBooks = likedBooksRepository.findAllByUser(user);
+            if (!likedBooks.isEmpty()){
+                likedBooksRepository.deleteAll(likedBooks);
             }
             if (tokenpresent){
                 ConfirmationToken token = confirmationTokenRepository.findByAppUser(user).get();
                 confirmationTokenRepository.delete(token);
+            }
+            List<BookOrders> bookOrders = bookOrdersRepository.findAllByUser(user);
+            if (!bookOrders.isEmpty()){
+                bookOrdersRepository.deleteAll(bookOrders);
             }
             appUserRepository.delete(user);
             return "redirect:/admin/allusers?success";
