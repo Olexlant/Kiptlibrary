@@ -15,84 +15,7 @@
   <title>Admin панель</title>
 </head>
 <body>
-<nav>
-  <div class="logo-name">
-    <div class="logo-image">
-      <img src="/images/logo.png" alt="">
-    </div>
-    <span class="logo_name">KCAS Lib</span>
-  </div>
-
-  <div class="menu-items">
-    <ul class="nav-links">
-      <li><a th:href="@{/admin}">
-        <i><iconify-icon icon="fa-solid:home"></iconify-icon></i>
-        <span class="link-name">Головна</span>
-      </a></li>
-      <li><a th:href="@{/admin/allusers}">
-        <i><iconify-icon icon="ion:people-sharp"></iconify-icon></i>
-        <span class="link-name" >Користувачі</span>
-      </a></li>
-      <li><a th:href="@{/admin/groups}">
-        <i><iconify-icon icon="fa6-solid:people-group"></iconify-icon></i>
-        <span class="link-name">Групи</span>
-      </a></li>
-      <li><a th:href="@{/admin/allbooksadmin}">
-        <i><iconify-icon icon="wpf:books"></iconify-icon></i>
-        <span class="link-name">Всі книги</span>
-      </a></li>
-      <li><a th:href="@{/admin/allbooksadmin(category=${'electronic'})}">
-        <i><iconify-icon icon="fluent:book-open-globe-24-filled"></iconify-icon></i>
-        <span class="link-name">Електронні книги</span>
-      </a></li>
-      <li><a th:href="@{/admin/allbooksadmin(category=${'physical'})}">
-        <i><iconify-icon icon="emojione-monotone:books"></iconify-icon></i>
-        <span class="link-name">Фізичні книги</span>
-      </a></li>
-      <li><a th:href="@{/admin/assignedbooks}">
-        <i><iconify-icon icon="mdi:book-arrow-up"></iconify-icon></i>
-        <span class="link-name">Видані книги</span>
-      </a></li>
-      <li><a th:href="@{/admin/addbook}">
-        <i><iconify-icon icon="mdi:book-plus"></iconify-icon></i>
-        <span class="link-name">Додати книгу</span>
-      </a></li>
-      <li><a th:href="@{/admin/adduser}">
-        <i><iconify-icon icon="mdi:user-add"></iconify-icon></i>
-        <span class="link-name">Додати користувача</span>
-      </a></li>
-      <li><a th:href="@{/admin/takebook}">
-        <i><iconify-icon icon="mdi:book-arrow-right"></iconify-icon></i>
-        <span class="link-name">Видати книгу</span>
-      </a></li>
-      <li><a th:href="@{/admin/addbookcategory}">
-        <i><iconify-icon icon="mdi:book-information-variant"></iconify-icon></i>
-        <span class="link-name">Категорії книг</span>
-      </a></li>
-      <li><a th:href="@{/admin/bookorders}">
-        <i><iconify-icon icon="carbon:order-details"></iconify-icon></i>
-        <span class="link-name">Замовлення<div class="numder-orders" style="background-color: red;height: 25px;width: 25px;border-radius: 5px; text-align: center;color: #fff;
-    margin-left: 5px;"><p th:text="${bookOrdersCount}"></p></div></span>
-      </a></li>
-      <li><a th:href="@{/admin/add-news}">
-        <i><iconify-icon icon="ic:outline-add-comment"></iconify-icon></i>
-        <span class="link-name" >Додати новину</span>
-      </a></li>
-    </ul>
-
-    <ul class="logout-mode">
-      <li><a th:href="@{/}">
-        <i><iconify-icon icon="mingcute:exit-door-fill"></iconify-icon></i>
-        <span class="link-name">Вийти</span>
-      </a></li>
-      <div class="mode-toggle">
-
-      </div>
-      </li>
-    </ul>
-  </div>
-</nav>
-
+<nav th:insert="bloks/adminheader :: adminheader"></nav>
 <section class="dashboard">
   <div class="top">
     <i class="uil uil-bars sidebar-toggle"></i>
@@ -106,7 +29,7 @@
 
   <div class="dash-content">
     <div class="overview">
-      <div class="title">
+      <div class="title-home">
         <i><iconify-icon icon="fa-solid:home"></iconify-icon></i>
         <span class="text">Головна</span>
       </div>
@@ -115,7 +38,7 @@
         <a th:href="@{/admin/allusers}">
         <div class="box box1">
           <i><iconify-icon icon="ion:people-sharp"></iconify-icon></i>
-          <span class="text">Кількість користувачів</span>
+          <span class="text">Користувачі</span>
           <span class="number" th:text="${usercount}"></span>
         </div>
         </a>
@@ -129,7 +52,7 @@
         <a th:href="@{/admin/allbooksadmin}">
         <div class="box box2">
           <i><iconify-icon icon="wpf:books"></iconify-icon></i>
-          <span class="text">Кількість книг</span>
+          <span class="text">Всі книги</span>
           <span class="number" th:text="${bookcount}"></span>
         </div>
         </a>

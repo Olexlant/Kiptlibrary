@@ -229,20 +229,8 @@ td button:nth-child(3) {
     background-color: #4070f4;
 }
 
-.add_new {
-    padding: 10px 20px;
-    color: #ffffff;
-    background-color: #0298cf;
-}
 
-input {
-    padding: 10px 20px;
-    margin: 0 10px;
-    outline: none;
-    border: 1px solid #0298cf;
-    border-radius: 6px;
-    color: #0298cf;
-}
+
 
 .table_section {
     height: 500px;
@@ -332,7 +320,7 @@ nav{
     height: 100%;
     width: 250px;
     padding: 10px 14px;
-    background-color: var(--panel-color);
+    background-color: #f4f4f4;
     border-right: 1px solid var(--border-color);
     transition: var(--tran-05);
 }
@@ -375,10 +363,80 @@ nav .menu-items{
 .menu-items li{
     list-style: none;
 }
+   
+   .menu-items ul li {
+    position: relative;
+    margin: 0;
+   
+    width: 200px;
+    }
+    .menu-items .subCat, .chka {
+        top: 0;
+        right: 0px;
+        position: absolute;
+        cursor: pointer;
+        }
+        .menu-items .subCat.plus,
+        .chka:before,
+        .menu-items .subCat.minus,
+        .subCat:checked + .chka:before {
+        content: '+';
+        font-size: 26px;
+        color: #1266B1;
+        font-weight: bold;   
+        font-family: Courier;   
+        }
+        .menu-items .subCat.minus, .subCat:checked + .chka:before {
+        content: '-';
+        }
+        .menu-items a {
+        color: #477AB9;
+        font-size: 16px;
+        font-weight:bold;
+        text-decoration:none;
+        }
+        .menu-items ul li li a {
+        color: #666;
+        font-size: 12px;
+        font-weight:normal;
+        text-decoration:none;
+        }
+        .menu-items a.active {
+        color: #00B1EC;
+        }
+        .menu-items a:hover {
+        text-decoration: none;
+        color: #000 !important;
+        }
+        .menu-items > ul > li ul {
+        display: none;
+        }
+        .menu-items > ul > li a.active + span + ul {
+        display: block !important;
+        }
+        .menu-items > ul > li .subCat:checked ~ ul {
+        display: block !important;
+        }
+        .menu-items input[type=checkbox].subCat {
+        display:none;
+        }
+        .menu-items ul li li a:before {
+        content: '\203A';
+        font-size: 20px;
+        padding-right: 6px;
+        color: #ffffff;
+        font-weight: bold;
+        }
+        .menu-items > ul li li a:hover:before {
+        color: #1266B1;
+        }
+   .menu-items li:hover > ul{
+    display: block;
+   }    
 .menu-items li a{
     display: flex;
     align-items: center;
-    height: 45px;
+    height: 50px;
     text-decoration: none;
     position: relative;
 }
@@ -536,11 +594,24 @@ nav.close ~ .dashboard .top{
 .dashboard .dash-content{
     padding-top: 50px;
 }
-.dash-content .title{
+.dash-content .title-home{
     display: flex;
     align-items: center;
     margin: 60px 0 30px 0;
 }
+.dash-content .title-home i{
+    position: relative;
+    height: 35px;
+    width: 35px;
+    background-color: #25398e;
+    border-radius: 6px;
+    color: var(--title-icon-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
 .dash-content .title i{
     position: relative;
     height: 35px;
