@@ -8,6 +8,11 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Exo+2:wght@300&display=swap" rel="stylesheet">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script>
+            fetch("http://localhost:8080/admin/bookorders/getcount")
+                .then((response) => response.text())
+                .then((data) => document.getElementById("bookOrdersCount").innerHTML = data)
+        </script>
     </head>
         <div class="logo-name">
             <div class="logo-image">
@@ -72,7 +77,7 @@
                 <li><a th:href="@{/admin/bookorders}">
                     <i><iconify-icon icon="carbon:order-details"></iconify-icon></i>
                     <span class="link-name">Замовлення<div class="numder-orders" style="background-color: red;height: 25px;width: 25px;border-radius: 5px; text-align: center;color: #fff;
-    margin-left: 5px;"><p th:text="${bookOrdersCount}"></p></div></span>
+    margin-left: 5px;"><p id="bookOrdersCount">0</p></div></span>
                 </a></li>
                 <li><a th:href="@{/admin/add-news}">
                     <i><iconify-icon icon="ic:outline-add-comment"></iconify-icon></i>
