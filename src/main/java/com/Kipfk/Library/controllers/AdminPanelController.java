@@ -121,9 +121,9 @@ public class AdminPanelController {
             categor = category.get();
         }
         if (categor.equals("electronic")){
-            bookPage = appBookRepository.findAllByBookfileIsNotNullAndBookfileurlIsNotNull(PageRequest.of(currentPage - 1, pageSize));
+            bookPage = appBookRepository.findAllByBookfileIsNotNullOrBookfileurlIsNotLike(PageRequest.of(currentPage - 1, pageSize), "");
         }else if (categor.equals("physical")){
-            bookPage = appBookRepository.findAllByBookfileIsNullOrBookfileurlIsNull(PageRequest.of(currentPage - 1, pageSize));
+            bookPage = appBookRepository.findAllByBookfileIsNullAndBookfileurlIsLike(PageRequest.of(currentPage - 1, pageSize), "");
         }else {
             bookPage = appBookRepository.findAll(PageRequest.of(currentPage - 1, pageSize));
         }

@@ -16,8 +16,8 @@ public interface AppBookRepository extends JpaRepository<AppBook, Long>, JpaSpec
 
     Optional<AppBook> findById(Long id);
     AppBook findAllById(Long id);
-    Page<AppBook> findAllByBookfileIsNotNullAndBookfileurlIsNotNull(Pageable pageable);
-    Page<AppBook> findAllByBookfileIsNullOrBookfileurlIsNull(Pageable pageable);
+    Page<AppBook> findAllByBookfileIsNotNullOrBookfileurlIsNotLike(Pageable pageable,String empty);
+    Page<AppBook> findAllByBookfileIsNullAndBookfileurlIsLike(Pageable pageable, String empty);
     int countAllBy();
 
 
