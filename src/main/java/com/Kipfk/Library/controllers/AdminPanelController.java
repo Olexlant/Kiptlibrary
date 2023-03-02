@@ -456,6 +456,13 @@ public class AdminPanelController {
         groupsRepository.delete(group);
         return "redirect:/admin/groups?deleted";
     }
+    @PostMapping("/admin/groups/{groupId}/{groupName}/update")
+    public String updateGroupName(@PathVariable Long groupId,@PathVariable String groupName) {
+        Groups group = groupsRepository.findAllById(groupId);
+        group.setName(groupName);
+        groupsRepository.save(group);
+        return "redirect:/admin/groups?saved";
+    }
 //USERS BY GROUP
     @GetMapping("/admin/usersbygroup/{groupid}")
     public String showUsersByGroup(Model model, @PathVariable Long groupid) {

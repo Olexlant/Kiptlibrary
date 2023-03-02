@@ -48,9 +48,10 @@
         <div class="pop_up_body" id="pop_up_body1">
             <p>Редагувати групу</p>
             <form class="edit-name" >
-                <input name="currentpassword" type="text" placeholder="Нова назва групи">
+                <input id="newGroupId" hidden>
+                <input id="newGroupName" type="text" placeholder="Нова назва групи">
                 <div class="btn-yes-no">
-                    <button id="pop_up_submit1" type="button" onclick="submitForm1()">Зберегти</button>
+                    <button id="pop_up_submit1" type="button" onclick="submitForm1(form)">Зберегти</button>
                     <button class="no" onclick="closepopupwindow1()">Назад</button>
                 </div>
             </form>
@@ -67,7 +68,6 @@
 
         </div>
 
-        <img src="images/webview.gif" alt="">
     </div>
     <div class="dash-content">
         <div class="activity">
@@ -106,6 +106,8 @@
                                     <button style="background-color: #25398e" title="Користувачі групи" type="submit"><i><iconify-icon icon="ion:people-sharp"></iconify-icon></i></button>
                                 </form>
                                 <form>
+                                    <input name="groupId" th:value="${group.getId()}" hidden>
+                                    <input name="groupName" th:value="${group.getName()}" hidden>
                                     <button style="background-color: #e9bd0c" title="Редагувати групу" type="button" onclick="openpopup1(form)"><i class="uil uil-pen"></i></button>
                                 </form>
                                 <form th:action="'/admin/booksbygroup/'+ ${group.id}" method="get">
@@ -130,6 +132,16 @@
                 <i class="fa-solid fa-circle-check"></i>
                 <span>
                      Групу успішно додано</span>
+            </div>
+            <i class="fa-solid fa-xmark"></i>
+        </li>
+    </ul>
+    <ul th:if="${param.saved}" class="notifications"  id="message">
+        <li class="toast success">
+            <div class="column" >
+                <i class="fa-solid fa-circle-check"></i>
+                <span>
+                     Назву успішно оновлено</span>
             </div>
             <i class="fa-solid fa-xmark"></i>
         </li>
