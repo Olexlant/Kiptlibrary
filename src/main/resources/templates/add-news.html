@@ -42,35 +42,35 @@
         <div class="container2">
             <div class="title"><span>Новина</span></div>
             <div class="content">
-                <form method="post" th:action="@{/admin/book_adding}" th:object="${book}" enctype="multipart/form-data">
+                <form method="post" enctype="multipart/form-data">
                     <div class="user-details">
                         <div class="input-box">
                             <span class="details">Заголовок</span>
-                            <input type="text" th:field="*{qrid}" placeholder="Введіть Id qr-коду" required maxlength="6">
+                            <input type="text" placeholder="Введіть Id qr-коду" required maxlength="6">
                         </div>
                         <div class="input-box">
                             <span class="details">Назва</span>
-                            <input type="text" th:field="*{title}" placeholder="Введіть назву" required>
+                            <input type="text" placeholder="Введіть назву" required>
                         </div>
                         <div class="input-box">
                             <span class="details">Автор</span>
-                            <input type="text" th:field="*{author}" placeholder="Введіть автора" required>
+                            <input type="text" placeholder="Введіть автора" required>
                         </div>
                         <div class="input-box">
                             <span class="details">Рік</span>
-                            <input type="text" th:field="*{year}" placeholder="Введіть рік" required maxlength="4">
+                            <input type="text" placeholder="Введіть рік" required maxlength="4">
                         </div>
                         <div class="input-box">
                             <span class="details">URL до книги</span>
-                            <input type="text" th:field="*{bookfileurl}" placeholder="URL до книги" >
+                            <input type="text" placeholder="URL до книги" >
                         </div>
                         <div class="input-box">
                             <span class="details">Кількість книг</span>
-                            <input type="number" th:field="*{count}" placeholder="Кількість книг" min="0" required>
+                            <input type="number" placeholder="Кількість книг" min="0" required>
                         </div>
                         <div class="v"><label>Додайте зображення</label><input type="file" name="files" accept="image/*"></div>
                         <div class="v"><label>Додайте файл книги</label><input type="file" name="files" accept="application/pdf"></div>
-                        <textarea th:field="*{description}" placeholder="Опис книги"  rows="6" ></textarea>
+                        <textarea placeholder="Опис книги"  rows="6" ></textarea>
                     </div>
                     <div class="button">
                         <button type="submit">Додати</button>

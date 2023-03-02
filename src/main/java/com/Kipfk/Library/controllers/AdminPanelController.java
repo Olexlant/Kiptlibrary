@@ -140,10 +140,8 @@ public class AdminPanelController {
             return "redirect:/allbooksadmin";
         }
         Optional<AppBook> book = appBookRepository.findById(id);
-        AppBook b = appBookRepository.findAllById(id);
         ArrayList<AppBook> rbook = new ArrayList<>();
         book.ifPresent(rbook::add);
-
         model.addAttribute("bookd", rbook);
         return "bookadminedit";
     }
@@ -221,7 +219,11 @@ public class AdminPanelController {
         if(UserExists){
             return "redirect:/admin/adduser?emailpresent";
         }
-        user.setGroups(groupsRepository.findAllById(Long.valueOf(groupid)));
+        if (groupid.equals("")){
+            user.setGroups(null);
+        }else {
+            user.setGroups(groupsRepository.findAllById(Long.valueOf(groupid)));
+        }
         if (role.equals("ADMIN")){
             user.setAppUserRole(AppUserRole.ADMIN);
         }
@@ -267,7 +269,11 @@ public class AdminPanelController {
         user.setEmail(email);
         user.setPhonenum(phonenum);
         user.setPassword(password);
-        user.setGroups(groupsRepository.findAllById(Long.valueOf(groupid)));
+        if (groupid.equals("")){
+            user.setGroups(null);
+        }else {
+            user.setGroups(groupsRepository.findAllById(Long.valueOf(groupid)));
+        }
         appUserRepository.save(user);
         return "redirect:/admin/allusers?changessaved";
     }
@@ -346,7 +352,6 @@ public class AdminPanelController {
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(12);
         Page<TakenBooks> takenPage = takenBooksRepository.findAll(PageRequest.of(currentPage - 1, pageSize, Sort.Direction.DESC,"takenat"));
-
         model.addAttribute("takenbooks", takenPage);
         model.addAttribute("body", appBookService.bodyArrayForPages(takenPage));
         return "assignedbooks";
@@ -381,7 +386,7 @@ public class AdminPanelController {
         return "addbookcategory";
     }
     @PostMapping("/admin/addbookcategory")
-    public String addbookcategory(Model model,CategoriesOfBooks categoriesOfBooks){
+    public String addbookcategory(CategoriesOfBooks categoriesOfBooks){
         categoriesOfBooksRepository.save(categoriesOfBooks);
         return "redirect:/admin/addbookcategory?success";
     }
@@ -537,5 +542,11 @@ public class AdminPanelController {
         model.addAttribute("bookOrders", bookOrders);
         model.addAttribute("body", appBookService.bodyArrayForPages(bookOrders));
         return "orders";
+    }
+
+//NEWS
+    @GetMapping("/admin/news")
+    public String showNews(){
+        return "add-news";
     }
 }

@@ -40,36 +40,37 @@
 
     <div class="dash-content">
 
-        <div class="container" th:each="userd : ${userd}">
+        <div class="container" th:each="user : ${userd}">
             <div class="title"><span>Редагування користувача</span></div>
             <div class="content">
                 <form method="post">
                     <div class="user-details">
                         <div class="input-box">
                             <span class="details">Ім'я</span>
-                            <input type="text" th:value="${userd.firstName}" name="firstname" placeholder="Ім'я" required>
+                            <input type="text" th:value="${user.firstName}" name="firstname" placeholder="Ім'я" required>
                         </div>
                         <div class="input-box">
                             <span class="details">Прізвище</span>
-                            <input type="text" th:value="${userd.lastName}" name="lastname" placeholder="Прізвище" required>
+                            <input type="text" th:value="${user.lastName}" name="lastname" placeholder="Прізвище" required>
                         </div>
                         <div class="input-box">
                             <span class="details">E-mail</span>
-                            <input type="email" th:value="${userd.email}" name="email" placeholder="E-mail" required>
+                            <input type="email" th:value="${user.email}" name="email" placeholder="E-mail" required>
                         </div>
                         <div class="input-box">
                             <span class="details">Пароль</span>
-                            <input type="password" readonly th:value="${userd.password}" name="password" placeholder="Пароль" required>
+                            <input type="password" readonly th:value="${user.password}" name="password" placeholder="Пароль" required>
                         </div>
                         <div class="input-box">
                             <span class="details">Телефон</span>
-                            <input type="text" th:value="${userd.phonenum}" name="phonenum" placeholder="Телефон" required>
+                            <input type="text" th:value="${user.phonenum}" name="phonenum" placeholder="Телефон" required>
                         </div>
                         <div class="input-box">
                             <span class="details">Група</span>
                             <div class="categor">
                             <select th:name="groupid" >
-                                <option th:each="group : ${groups}" th:value="${group.getId()}" th:text="${group.getName()}" th:selected="${group==userd.groups}"></option>
+                                <option th:value="${''}" th:text="${'Без групи'}"></option>
+                                <option th:each="group : ${groups}" th:value="${group.getId()}" th:text="${group.getName()}" th:selected="${group==user.groups}"></option>
                             </select>
                             </div>
                         </div>
