@@ -29,7 +29,7 @@
   <div class="pop_up_container">
     <div class="pop_up_body" id="pop_up_body">
       <p>
-        <iconify-icon icon="mdi:book-plus"style="color: #25398e;" width="60" height="60"></iconify-icon>
+        <iconify-icon icon="mdi:book-plus"style="color: green;" width="60" height="60"></iconify-icon>
       </p>
       <p>Видати книгу?</p>
       <form class="input-number">
@@ -76,6 +76,7 @@
               <th>Назва</th>
               <th>Автор</th>
               <th>Рік</th>
+              <th>Статус</th>
               <th>Дії</th>
             </tr>
             </thead>
@@ -86,6 +87,12 @@
               <td th:text="${book.getTitle()}"></td>
               <td th:text="${book.getAuthor()}"></td>
               <td th:text="${book.getYear()}"></td>
+              <div th:if="${book.getBookfile()==null && book.getBookfileurl()==''}">
+                <td th:text="${'Паперова'}"></td>
+              </div>
+              <div th:if="${book.getBookfile()!=null || book.getBookfileurl()!=''}">
+                <td th:text="${'Електронна'}"></td>
+              </div>
               <td class="btnactions1">
                 <form th:action="'/admin/assigningbook/'+ ${userid}+'/'+${book.getId()}" method="post">
                   <input type="number" name="takeCount" placeholder="Кількість книг" min="0" th:value="${0}" th:max="${book.getCount()}">

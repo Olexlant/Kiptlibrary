@@ -261,8 +261,8 @@ td {
 }
 
 td img {
-    height: 60px;
-    width: 60px;
+    height: 83px;
+    width: 83px;
     object-fit: cover;
     border-radius: 15px;
     border: 5px solid #ced0d2;
@@ -298,7 +298,8 @@ tr:hover td {
 }
 
 ::placeholder {
-    color: #0298cf;
+    color: #000;
+    font-size: 17px;
 }
 
 ::-webkit-scrollbar {
@@ -564,6 +565,10 @@ nav.close ~ .dashboard .top{
     max-width: 600px;
     width: 100%;
     margin: 0 30px;
+}
+input{
+    color: #000000;
+    font-size: 17px;
 }
 .top .search-box input{
     position: absolute;

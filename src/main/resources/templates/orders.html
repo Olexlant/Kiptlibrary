@@ -26,9 +26,9 @@
     <div class="pop_up_container">
         <div class="pop_up_body" id="pop_up_body">
             <p>
-                <iconify-icon icon="uil:trash-alt" style="color: red;" width="60" height="60"></iconify-icon>
+                <iconify-icon icon="mdi:book-arrow-up" style="color: green;" width="60" height="60"></iconify-icon>
             </p>
-            <p>Видалити книгу?</p>
+            <p>Видати книгу?</p>
             <form>
                 <div class="btn-yes-no">
                     <button id="pop_up_submit" type="button" onclick="submitForm()">Так</button>
@@ -71,13 +71,14 @@
                             <th>І'мя</th>
                             <th>Прізвище</th>
                             <th>Назва</th>
-                            <th>Фото</th>
                             <th>Id qr-коду</th>
                             <th>Рік</th>
+                            <th>Статус</th>
                             <th>Дії</th>
                         </tr>
                         </thead>
                         <tbody>
+
                         <tr th:each="bookOrder : ${bookOrders}">
                             <div th:if="${bookOrder.getUser().getGroups()==null}">
                                 <td th:text="${'Без групи'}"></td>
@@ -88,9 +89,15 @@
                             <td th:text="${bookOrder.getUser().getFirstName()}"></td>
                             <td th:text="${bookOrder.getUser().getLastName()}"></td>
                             <td th:text="${bookOrder.getBook().getTitle()}"></td>
-                            <td><img th:src="@{'/book/image/' + ${bookOrder.getBook().getId()}}"/></td>
+
                             <td th:text="${bookOrder.getBook().getQrid()}"></td>
                             <td th:text="${bookOrder.getBook().getYear()}"></td>
+                            <div th:if="${bookOrder.getBook().getBookfile()==null && bookOrder.getBook().getBookfileurl()==''}">
+                                <td th:text="${'Паперова'}"></td>
+                            </div>
+                            <div th:if="${bookOrder.getBook().getBookfile()!=null || bookOrder.getBook().getBookfileurl()!=''}">
+                                <td th:text="${'Електронна'}"></td>
+                            </div>
                             <td class="btnactions1">
                                 <form th:action="'/admin/assigningbook/'+ ${bookOrder.getUser().getId()}+'/'+${bookOrder.getBook().getId()}" method="post">
                                     <input type="number" name="takeCount" title="Введіть кількість книг" min="0" th:value="${0}" th:max="${bookOrder.getBook().getCount()}">
