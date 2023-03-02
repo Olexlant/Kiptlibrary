@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class BooksRestController {
+public class BookOrdersRestController {
     private final BookOrdersRepository bookOrdersRepository;
 
-    public BooksRestController(BookOrdersRepository bookOrdersRepository) {
+    public BookOrdersRestController(BookOrdersRepository bookOrdersRepository) {
         this.bookOrdersRepository = bookOrdersRepository;
     }
 
