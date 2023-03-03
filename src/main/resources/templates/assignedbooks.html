@@ -86,7 +86,16 @@
             <i class="fa-solid fa-xmark"></i>
         </li>
     </ul>
-
+    <ul th:if="${param.tomanybooks}" class="notifications"  id="message">
+        <li class="toast warning">
+            <div class="column" >
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span>
+                    Недостатньо книг у наявності</span>
+            </div>
+            <i class="fa-solid fa-xmark"></i>
+        </li>
+    </ul>
 
 
 
@@ -98,6 +107,10 @@
                 <form th:action="@{/admin/searchassignedbooks}" method="get">
                     <input type="text" name="keyword" th:value="${keyword}"  placeholder="Пошук" size="50" >
                     <button type="submit" style="background-color: #25398e; " class="uil-search"></button>
+                </form>
+<!--                ИСТОРИЯ ВИДАНИХ КНИГ-->
+                <form th:action="@{/admin/assignedbooks/history}" method="get">
+                    <button type="submit" style="background-color: #03b2af; " class="uil-history"></button>
                 </form>
             </div>
             <div class="table">

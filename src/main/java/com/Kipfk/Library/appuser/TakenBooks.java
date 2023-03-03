@@ -38,6 +38,7 @@ public class TakenBooks {
     private LocalDate takenat;
     private Long count;
     private boolean deleted;
+    private LocalDate returnedAt;
 
 
     public void setId(Long id) {

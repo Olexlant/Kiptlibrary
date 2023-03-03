@@ -328,13 +328,18 @@ public class AdminPanelController {
     public String createtakenbook(TakenBooks takenBooks, @PathVariable Long userid, @PathVariable Long bookid, @RequestParam Long takeCount) {
         AppUser user = appUserRepository.findById(userid).orElseThrow();
         AppBook book = appBookRepository.findById(bookid).orElseThrow();
-        boolean uniquetb = takenBooksRepository.findByUserAndBook(user, book).isEmpty();
+        boolean uniquetb = takenBooksRepository.findByUserAndBookAndDeletedIsFalse(user, book).isEmpty();
         if (uniquetb){
             takenBooks.setUser(user);
             takenBooks.setBook(book);
             takenBooks.setTakenat(LocalDate.now());
             takenBooks.setCount(takeCount);
-            book.setCount(book.getCount()-takeCount);
+            takenBooks.setDeleted(false);
+            if (book.getCount()<takeCount){
+                return "redirect:/admin/assignedbooks?tomanybooks";
+            }else {
+                book.setCount(book.getCount()-takeCount);
+            }
             List<BookOrders> bookOrder = bookOrdersRepository.findByBookAndUserAndDeletedIsFalse(book, user);
             for(BookOrders i : bookOrder){
                 i.setDeleted(true);
@@ -348,13 +353,28 @@ public class AdminPanelController {
         return "redirect:/admin/assignedbooks?success";
     }
     @GetMapping("/admin/assignedbooks")
-    public String showassignedbooks(Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size){
+    public String showAssignedBooks(Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size){
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(12);
-        Page<TakenBooks> takenPage = takenBooksRepository.findAll(PageRequest.of(currentPage - 1, pageSize, Sort.Direction.DESC,"takenat"));
+        Page<TakenBooks> takenPage = takenBooksRepository.findAllByDeletedIsFalse(PageRequest.of(currentPage - 1, pageSize, Sort.Direction.DESC,"takenat"));
         model.addAttribute("takenbooks", takenPage);
         model.addAttribute("body", appBookService.bodyArrayForPages(takenPage));
         return "assignedbooks";
+    }
+
+    @GetMapping("/admin/assignedbooks/history")
+    public String showAssignedBooksHistory(Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size){
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(12);
+        Page<TakenBooks> takenPage = takenBooksRepository.findAllByDeletedIsTrue(PageRequest.of(currentPage - 1, pageSize, Sort.Direction.DESC,"returnedAt"));
+        model.addAttribute("takenbooks", takenPage);
+        model.addAttribute("body", appBookService.bodyArrayForPages(takenPage));
+        return "assignedBooksHistory";
+    }
+    @PostMapping("/admin/assignedbooks/history/removeall")
+    public String clearAssignedBooksHistory(){
+        takenBooksRepository.deleteAll(takenBooksRepository.findAllByDeletedIsTrue());
+        return "redirect:/admin/assignedbooks/history?deleted";
     }
 
     @PostMapping("/admin/assignedbooks/{id}/remove")
@@ -363,7 +383,9 @@ public class AdminPanelController {
         AppBook appBook = appBookRepository.findAllById(tb.getBook().getId());
         appBook.setCount(appBook.getCount()+tb.getCount());
         appBookRepository.save(appBook);
-        takenBooksRepository.delete(tb);
+        tb.setDeleted(true);
+        tb.setReturnedAt(LocalDate.now());
+        takenBooksRepository.save(tb);
         return "redirect:/admin/assignedbooks?returned";
     }
 
