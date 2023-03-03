@@ -110,7 +110,7 @@
                 </form>
 <!--                ИСТОРИЯ ВИДАНИХ КНИГ-->
                 <form th:action="@{/admin/assignedbooks/history}" method="get">
-                    <button type="submit" style="background-color: #03b2af; " class="uil-history"></button>
+                    <button  type="submit" style="background-color: #130fff; "  title="Історія повернутих книг"><p class="uil-history" style="font-size:16px;"> Історія виданих книг</p></button>
                 </form>
             </div>
             <div class="table">
@@ -137,18 +137,18 @@
                             <div th:if="${takenbook.getUser().getGroups()!=null}">
                                 <td th:text="${takenbook.getUser().getGroups().getName()}"></td>
                             </div>
-                            <td th:text="${takenbook.getUser().getFirstName()}">Павло</td>
-                            <td th:text="${takenbook.getUser().getLastName()}">Берлет</td>
-                            <td th:text="${takenbook.getBook().getAuthor()}">Котляревський</td>
-                            <td th:text="${takenbook.getBook().getTitle()}">Енеїда</td>
-                            <td th:text="${takenbook.getCount()}">200</td>
-                            <td th:text="${takenbook.getTakenat()}">30.05.1010</td>
+                            <td th:text="${takenbook.getUser().getFirstName()}"></td>
+                            <td th:text="${takenbook.getUser().getLastName()}"></td>
+                            <td th:text="${takenbook.getBook().getAuthor()}"></td>
+                            <td th:text="${takenbook.getBook().getTitle()}"></td>
+                            <td th:text="${takenbook.getCount()}"></td>
+                            <td th:text="${takenbook.getTakenat()}"></td>
                             <td class="btnactions">
                                 <form th:action="'/admin/usertakenadmin/'+ ${takenbook.getUser().getId()}" method="get">
-                                    <button style="background-color: #25398e" type="submit" title="Книги користувача"><i><iconify-icon icon="mdi:book-arrow-up"></iconify-icon></i></button>
+                                    <button style="background-color: #25398e" type="submit" title="Книги користувача"><i><iconify-icon icon="wpf:books"></iconify-icon></i></button>
                                 </form>
                                 <form th:action="'/admin/assignedbooks/'+ ${takenbook.getId()}+'/remove'" method="post">
-                                    <button style="background-color: #FF3F40" type="button" title="Повернути книгу" onclick="openpopup(form)"><i class="uil uil-trash-alt"></i></button>
+                                    <button style="background-color: #219e25" type="button" title="Повернути книгу" onclick="openpopup(form)"><i><iconify-icon icon="ion:arrow-back-circle" rotate="180deg"></iconify-icon></i></button>
                                 </form>
                             </td>
                         </tr>
