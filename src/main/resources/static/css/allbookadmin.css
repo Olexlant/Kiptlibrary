@@ -551,6 +551,15 @@ input {
        border: 2px solid #25398e;
        border-radius: 6px;
        color: #25398e;
+       
+}
+.btnactions1{
+  display: flex;
+}
+.btnactions1_1{
+  display: flex;
+    flex-direction: column;
+    align-items: stretch;
 }
 
 .table_section {

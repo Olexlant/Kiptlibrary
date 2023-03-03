@@ -425,7 +425,7 @@ nav .menu-items{
         content: '\203A';
         font-size: 20px;
         padding-right: 6px;
-        color: #ffffff;
+        
         font-weight: bold;
         }
         .menu-items > ul li li a:hover:before {
