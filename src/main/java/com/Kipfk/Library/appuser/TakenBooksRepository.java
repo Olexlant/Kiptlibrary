@@ -3,11 +3,11 @@ package com.Kipfk.Library.appuser;
 import com.Kipfk.Library.appbook.AppBook;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +20,7 @@ public interface TakenBooksRepository extends JpaRepository <TakenBooks,Long>, J
     List<TakenBooks> findAllByBook(AppBook book);
     Page<TakenBooks> findAllByDeletedIsFalse(Pageable pageable);
     Page<TakenBooks> findAllByDeletedIsTrue(Pageable pageable);
+    List<TakenBooks> findAllByDeletedIsFalseAndNotificationSendedIsFalseAndTakenatIsBefore(LocalDate returnedAt);
     List<TakenBooks> findAllByDeletedIsTrue();
     int countAllBy();
 }
