@@ -795,4 +795,9 @@ nav .navbar .cancel-btn{
           width: 90%;
           margin: 40px 0;
         }
+        .container .box-container {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+          gap: 25px;
+      }
   }
