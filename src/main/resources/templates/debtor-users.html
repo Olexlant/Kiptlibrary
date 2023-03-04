@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<!--=== Coding by CodingLab | www.codinglabweb.com === -->
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Font Awesome CDN link for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <script src="https://code.iconify.design/iconify-icon/1.0.3/iconify-icon.min.js"></script>
+    <!----======== CSS ======== -->
+    <link rel="stylesheet" href="/css/allbookadmin.css" type="text/css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Font Awesome CDN link for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <script src="https://code.iconify.design/iconify-icon/1.0.3/iconify-icon.min.js"></script>
+    <!-- Font Awesome CDN link for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Exo+2:wght@300&display=swap" rel="stylesheet">
+    <title>Боржники</title>
+</head>
+<body>
+<div class="pop_up" id="pop_up">
+    <div class="pop_up_container">
+        <div class="pop_up_body" id="pop_up_body">
+            <p>
+                <iconify-icon icon="mdi:book-arrow-up" style="color: red;" width="60" height="60"></iconify-icon>
+            </p>
+            <p>Повернути книгу?</p>
+            <form>
+                <div class="btn-yes-no">
+                    <button id="pop_up_submit" type="button" onclick="submitForm()">Так</button>
+                    <button class="no" onclick="closepopupwindow()">Ні</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<nav th:insert="bloks/adminheader :: adminheader"></nav>
+
+<section class="dashboard">
+    <div class="top">
+        <i class="uil uil-bars sidebar-toggle"></i>
+
+        <div class="search-box">
+
+        </div>
+
+
+    </div>
+    <!-- alert!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+    <ul th:if="${param.returned}"class="notifications"  id="message">
+        <li class="toast success">
+            <div class="column" >
+                <i class="fa-solid fa-circle-check"></i>
+                <span>
+                    Книгу успішно повернено</span>
+            </div>
+            <i class="fa-solid fa-xmark"></i>
+        </li>
+    </ul>
+    <ul th:if="${param.success}" class="notifications"  id="message">
+        <li class="toast success">
+            <div class="column" >
+                <i class="fa-solid fa-circle-check"></i>
+                <span>
+                    Книга успішно видана</span>
+            </div>
+            <i class="fa-solid fa-xmark"></i>
+        </li>
+    </ul>
+    <ul th:if="${param.alreadyassigned}" class="notifications"  id="message">
+        <li class="toast warning">
+            <div class="column" >
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span>
+                    Книга вже видана раніше</span>
+            </div>
+            <i class="fa-solid fa-xmark"></i>
+        </li>
+    </ul>
+    <ul th:if="${param.tomanybooks}" class="notifications"  id="message">
+        <li class="toast warning">
+            <div class="column" >
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span>
+                    Недостатньо книг у наявності</span>
+            </div>
+            <i class="fa-solid fa-xmark"></i>
+        </li>
+    </ul>
+
+
+
+    <div class="dash-content">
+        <div class="activity">
+            <div class="title_1">
+                <i><iconify-icon icon="gis:map-users" style="color: red;"></iconify-icon></i>
+                <span class="text" style="color:red;">Боржники</span>
+                <form th:action="@{/admin/searchassignedbooks}" method="get">
+                    <input type="text" name="keyword" th:value="${keyword}"  placeholder="Пошук" size="50" >
+                    <button type="submit" style="background-color: #25398e; " class="uil-search"></button>
+                </form>
+            </div>
+            <div class="table">
+
+                <div class="table_section">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Група</th>
+                            <th>І'мя</th>
+                            <th>Прізвище</th>
+                            <th>Автор</th>
+                            <th>Назва</th>
+                            <th>Кількість</th>
+                            <th>Видано</th>
+                            <th>Дії</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="takenbook : ${takenbooks}">
+                            <div th:if="${takenbook.getUser().getGroups()==null}">
+                                <td th:text="${'Без групи'}"></td>
+                            </div>
+                            <div th:if="${takenbook.getUser().getGroups()!=null}">
+                                <td th:text="${takenbook.getUser().getGroups().getName()}"></td>
+                            </div>
+                            <td th:text="${takenbook.getUser().getFirstName()}"></td>
+                            <td th:text="${takenbook.getUser().getLastName()}"></td>
+                            <td th:text="${takenbook.getBook().getAuthor()}"></td>
+                            <td th:text="${takenbook.getBook().getTitle()}"></td>
+                            <td th:text="${takenbook.getCount()}"></td>
+                            <td th:text="${takenbook.getTakenat()}"></td>
+                            <td class="btnactions">
+                                <form th:action="'/admin/usertakenadmin/'+ ${takenbook.getUser().getId()}" method="get">
+                                    <button style="background-color: #25398e" type="submit" title="Книги користувача"><i><iconify-icon icon="wpf:books"></iconify-icon></i></button>
+                                </form>
+                                <form th:action="'/admin/assignedbooks/'+ ${takenbook.getId()}+'/remove'" method="post">
+                                    <button style="background-color: #219e25" type="button" title="Повернути книгу" onclick="openpopup(form)"><i><iconify-icon icon="ion:arrow-back-circle" rotate="180deg"></iconify-icon></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ul id="pagination">
+        <th:block th:each="pageNumber : ${body}">
+            <li th:if="${pageNumberStat.first}">
+                <a class="" th:href="@{/admin/assignedbooks(size=${takenbooks.size}, page=${pageNumber})}">«</a>
+            </li>
+            <li th:if="${pageNumber} == ${takenbooks.getNumber()+1}">
+                <a  class="active" th:text="${pageNumber}" href="#" ></a>
+            </li>
+            <li  th:if="${pageNumber} == -1"><a href="#">...</a></li>
+            <li th:if="${pageNumber} != -1 and ${pageNumber} != ${takenbooks.getNumber()+1}">
+                <a th:text="${pageNumber}" th:href="@{/admin/assignedbooks(size=${takenbooks.size}, page=${pageNumber})}"></a>
+            </li>
+            <li th:if="${pageNumberStat.last}" >
+                <a th:href="@{/admin/assignedbooks(size=${takenbooks.size}, page=${pageNumber})}">»</a></li>
+        </th:block>
+    </ul>
+</section>
+<script src="/js/alert_script.js"></script>
+<script src="/js/popup.js"></script>
+<script src="/js/script.js"></script>
+<script src="https://code.iconify.design/iconify-icon/1.0.3/iconify-icon.min.js"></script>
+
+</body>
+</html>

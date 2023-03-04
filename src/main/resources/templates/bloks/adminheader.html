@@ -79,9 +79,20 @@
                     <span class="link-name">Замовлення<div class="numder-orders" style="background-color: red;height: 25px;width: 25px;border-radius: 5px; text-align: center;color: #fff;
     margin-left: 5px;"><p id="bookOrdersCount">0</p></div></span>
                 </a></li>
+
                 <li><a th:href="@{/admin/news}">
-                    <i><iconify-icon icon="ic:outline-add-comment"></iconify-icon></i>
-                    <span class="link-name" >Додати новину</span>
+                    <i><iconify-icon icon="emojione-monotone:newspaper" width="30" height="30"></iconify-icon></i>
+                    <span class="link-name" >Новини</span></a>
+                    <ul>
+                        <li><a th:href="@{/admin/news}">
+                            <i><iconify-icon icon="ic:outline-add-comment"></iconify-icon></i>
+                            <span class="link-name" style="font-size: 15px;">Додати новину</span>
+                        </a></li>
+                    </ul>
+                </li>
+                <li><a th:href="@{/admin/takebook}">
+                    <i><iconify-icon icon="gis:map-users" style="color: red;"></iconify-icon></i>
+                    <span class="link-name" style="color:red;">Боржники</span>
                 </a></li>
             </ul>
 
