@@ -262,7 +262,7 @@ public class AdminPanelController {
         return "useradminedit";
     }
     @PostMapping("/admin/allusers/{id}/edit")
-    public String AdminUserUpdate(@PathVariable(value = "id") long id,@RequestParam String firstname, @RequestParam String lastname, @RequestParam String phonenum, @RequestParam String password, @RequestParam String email, @RequestParam String groupid) {
+    public String AdminUserUpdate(@PathVariable(value = "id") long id,@RequestParam String firstname, @RequestParam String lastname, @RequestParam String phonenum, @RequestParam String password, @RequestParam String email, @RequestParam String groupid,@RequestParam String role) {
         AppUser user = appUserRepository.findById(id).orElseThrow();
         user.setFirstName(firstname);
         user.setLastName(lastname);
@@ -273,6 +273,15 @@ public class AdminPanelController {
             user.setGroups(null);
         }else {
             user.setGroups(groupsRepository.findAllById(Long.valueOf(groupid)));
+        }
+        if (role.equals("ADMIN")){
+            user.setAppUserRole(AppUserRole.ADMIN);
+        }
+        if (role.equals("USER")){
+            user.setAppUserRole(AppUserRole.USER);
+        }
+        if (role.equals("TEACHER")){
+            user.setAppUserRole(AppUserRole.TEACHER);
         }
         appUserRepository.save(user);
         return "redirect:/admin/allusers?changessaved";

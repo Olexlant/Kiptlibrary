@@ -74,6 +74,16 @@
                             </select>
                             </div>
                         </div>
+                        <div class="input-box">
+                            <span class="details">Роль</span>
+                            <div class="categor1">
+                                <select  th:name="role">
+                                    <option th:selected="${user.getAppUserRole().toString()=='USER'}" th:value="${'USER'}" th:text="${'Студент'}"></option>
+                                    <option th:selected="${user.getAppUserRole().toString()=='TEACHER'}" th:value="${'TEACHER'}" th:text="${'Вчитель'}"></option>
+                                    <option th:selected="${user.getAppUserRole().toString()=='ADMIN'}" th:value="${'ADMIN'}" th:text="${'Адмін'}"></option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                     <div class="button">
                         <button type="submit">Зберегти</button>
