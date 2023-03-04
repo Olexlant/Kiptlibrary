@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<!--=== Coding by CodingLab | www.codinglabweb.com === -->
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- Font Awesome CDN link for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+  <script src="https://code.iconify.design/iconify-icon/1.0.3/iconify-icon.min.js"></script>
+  <!----======== CSS ======== -->
+  <link rel="stylesheet" href="/css/allbookadmin.css" type="text/css">
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <!-- Font Awesome CDN link for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+  <script src="https://code.iconify.design/iconify-icon/1.0.3/iconify-icon.min.js"></script>
+  <!-- Font Awesome CDN link for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Exo+2:wght@300&display=swap" rel="stylesheet">
+  <title>Видані книги</title>
+</head>
+<body>
+
+<nav th:insert="bloks/adminheader :: adminheader"></nav>
+
+<section class="dashboard">
+  <div class="top">
+    <i class="uil uil-bars sidebar-toggle"></i>
+
+    <div class="search-box">
+
+    </div>
+
+
+  </div>
+  <!-- alert!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+  <ul th:if="${param.deleted}"class="notifications"  id="message">
+    <li class="toast success">
+      <div class="column" >
+        <i class="fa-solid fa-circle-check"></i>
+        <span>
+                    Історію очищено</span>
+      </div>
+      <i class="fa-solid fa-xmark"></i>
+    </li>
+  </ul>
+
+  <div class="dash-content">
+    <div class="activity">
+      <div class="title">
+        <i><iconify-icon icon="mdi:book-arrow-up"></iconify-icon></i>
+        <span class="text">Історія виданих книг</span>
+        <form th:action="@{/admin/searchassignedbookshistory}" method="get">
+          <input type="text" name="keyword" th:value="${keyword}"  placeholder="Пошук" size="50" >
+          <button type="submit" style="background-color: #25398e; " class="uil-search"></button>
+        </form>
+<!--        ЧИСТКА ИСТОРИИ -->
+        <form th:action="@{/admin/assignedbooks/history/removeall}" method="post">
+          <button type="submit" style="background-color: #ff0000; " class="uil-trash"> Очистити історію</button>
+        </form>
+      </div>
+      <div class="table">
+
+        <div class="table_section">
+          <table>
+            <thead>
+            <tr>
+              <th>Група</th>
+              <th>І'мя</th>
+              <th>Прізвище</th>
+              <th>Автор</th>
+              <th>Назва</th>
+              <th>Кількість</th>
+              <th>Видано</th>
+              <th>Повернено</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="takenbook : ${takenbooks}">
+              <div th:if="${takenbook.getUser().getGroups()==null}">
+                <td th:text="${'Без групи'}"></td>
+              </div>
+              <div th:if="${takenbook.getUser().getGroups()!=null}">
+                <td th:text="${takenbook.getUser().getGroups().getName()}"></td>
+              </div>
+              <td th:text="${takenbook.getUser().getFirstName()}">Павло</td>
+              <td th:text="${takenbook.getUser().getLastName()}">Берлет</td>
+              <td th:text="${takenbook.getBook().getAuthor()}">Котляревський</td>
+              <td th:text="${takenbook.getBook().getTitle()}">Енеїда</td>
+              <td th:text="${takenbook.getCount()}">200</td>
+              <td th:text="${takenbook.getTakenat()}">30.05.1010</td>
+              <td th:text="${takenbook.getReturnedAt()}">30.05.1010</td>
+            </tr>
+            </tbody>
+
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ul id="pagination">
+    <th:block th:each="pageNumber : ${body}">
+      <li th:if="${pageNumberStat.first}">
+        <a class="" th:href="@{/admin/assignedbooks/history(size=${takenbooks.size}, page=${pageNumber})}">«</a>
+      </li>
+      <li th:if="${pageNumber} == ${takenbooks.getNumber()+1}">
+        <a  class="active" th:text="${pageNumber}" href="#" ></a>
+      </li>
+      <li  th:if="${pageNumber} == -1"><a href="#">...</a></li>
+      <li th:if="${pageNumber} != -1 and ${pageNumber} != ${takenbooks.getNumber()+1}">
+        <a th:text="${pageNumber}" th:href="@{/admin/assignedbooks/history(size=${takenbooks.size}, page=${pageNumber})}"></a>
+      </li>
+      <li th:if="${pageNumberStat.last}" >
+        <a th:href="@{/admin/assignedbooks/history(size=${takenbooks.size}, page=${pageNumber})}">»</a></li>
+    </th:block>
+  </ul>
+</section>
+<script src="/js/alert_script.js"></script>
+<script src="/js/popup.js"></script>
+<script src="/js/script.js"></script>
+<script src="https://code.iconify.design/iconify-icon/1.0.3/iconify-icon.min.js"></script>
+
+</body>
+</html>

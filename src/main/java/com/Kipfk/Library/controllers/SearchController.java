@@ -118,7 +118,7 @@ public class SearchController {
     @RequestMapping(path = {"/searchuseradmin"})
     public String searchuser(Model model, String keyword) {
         if (keyword != null) {
-            List<AppUser> user = appUserService.getByKeyword(keyword);
+            List<AppUser> user = appUserService.getAllByKeyword(keyword);
             model.addAttribute("Users", user);
         } else {
             Iterable<AppUser> users = appUserRepository.findAll();
@@ -143,7 +143,7 @@ public class SearchController {
     @RequestMapping(path = {"/searchusertakebook"})
     public String searchuserintakebook(Model model, String keyword) {
         if (keyword != null) {
-            List<AppUser> user = appUserService.getByKeyword(keyword);
+            List<AppUser> user = appUserService.getAllByKeyword(keyword);
             model.addAttribute("users", user);
         } else {
             Iterable<AppUser> users = appUserRepository.findAll();
@@ -168,10 +168,23 @@ public class SearchController {
     public String searchAssugendBooks(Model model, String keyword) {
         if (keyword != null) {
             List<TakenBooks> takenBooks = takenBooksService.getAllByKeyword(keyword);
+            takenBooks.removeIf(TakenBooks::isDeleted);
             model.addAttribute("takenbooks", takenBooks);
         } else {
             return "redirect:/admin/assignedbooks";
         }
         return "assignedbooks";
+    }
+
+    @RequestMapping(path = {"/admin/searchassignedbookshistory"})
+    public String searchAssignedBooksHistory(Model model, String keyword) {
+        if (keyword != null) {
+            List<TakenBooks> takenBooks = takenBooksService.getAllByKeyword(keyword);
+            takenBooks.removeIf(i -> !i.isDeleted());
+            model.addAttribute("takenbooks", takenBooks);
+        } else {
+            return "redirect:/admin/assignedbooks/history";
+        }
+        return "assignedBooksHistory";
     }
 }

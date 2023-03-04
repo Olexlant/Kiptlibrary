@@ -465,7 +465,7 @@ padding: 10px 3px;
     color: #25398e;
     width: 102px;
     font-size: 12px;
-    font-weight: bold;
+
     }
 
 .table_section {
@@ -602,7 +602,7 @@ nav .menu-items{
 .menu-items li a{
     display: flex;
     align-items: center;
-    height: 50px;
+    height: 45px;
     text-decoration: none;
     position: relative;
 }

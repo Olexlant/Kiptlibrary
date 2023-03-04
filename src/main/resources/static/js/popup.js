@@ -19,3 +19,33 @@ let currentForm;
 
 
 
+let currentForm1;
+    function openpopup1(form){
+      const popUp1 = document.getElementById('pop_up1');
+      popUp1.classList.add('active');
+      currentForm1 = form;
+        const formdata = new FormData(form);
+        const groupId = formdata.get("groupId");
+        const groupName = formdata.get("groupName");
+        document.getElementById("newGroupId").value = groupId;
+        document.getElementById("newGroupName").value = groupName;
+    }
+
+    function submitForm1() {
+      const newGroupId = document.getElementById("newGroupId").value
+      const newGroupName = document.getElementById("newGroupName").value
+        fetch("/admin/groups/"+ newGroupId+"/"+newGroupName+"/update", {
+            method: 'POST'
+        })
+        setTimeout(function(){
+            window.location.assign("/admin/groups?saved")
+        }, 200)
+    }
+
+    function closepopupwindow1(){
+        const closePopUp1 = document.getElementById('pop_up_close1');
+        closePopUp1.addEventListener('click', () => {
+        popUp1.classList.remove('active');
+      })
+    }
+

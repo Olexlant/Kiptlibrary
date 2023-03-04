@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="/css/allbookadmin.css" type="text/css" th:href="@{/css/allbookadmin.css}">
+    <link rel="stylesheet" href="/css/takebook.css" type="text/css" th:href="@{/css/allbookadmin.css}">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -19,16 +19,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Exo+2:wght@300&display=swap" rel="stylesheet">
-    <title>Всі книги</title>
+    <title>Замовлення</title>
 </head>
 <body>
 <div class="pop_up" id="pop_up">
     <div class="pop_up_container">
         <div class="pop_up_body" id="pop_up_body">
             <p>
-                <iconify-icon icon="uil:trash-alt" style="color: red;" width="60" height="60"></iconify-icon>
+                <iconify-icon icon="mdi:book-arrow-up" style="color: green;" width="60" height="60"></iconify-icon>
             </p>
-            <p>Видалити книгу?</p>
+            <p>Видати книгу?</p>
             <form>
                 <div class="btn-yes-no">
                     <button id="pop_up_submit" type="button" onclick="submitForm()">Так</button>
@@ -36,6 +36,22 @@
                 </div>
             </form>
 
+        </div>
+    </div>
+</div>
+<div class="pop_up" id="pop_up1">
+    <div class="pop_up_container">
+        <div class="pop_up_body" id="pop_up_body1">
+            <p>
+                <iconify-icon icon="carbon:order-details" style="color: red;" width="60" height="60"></iconify-icon>
+            </p>
+            <p>Видалити замовлення?</p>
+            <form>
+                <div class="btn-yes-no">
+                    <button id="pop_up_submit1" type="button" onclick="submitForm1(form)">Так</button>
+                    <button class="no" onclick="closepopupwindow1()">Ні</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -54,12 +70,8 @@
     <div class="dash-content">
         <div class="activity">
             <div class="title">
-                <i><iconify-icon icon="wpf:books"></iconify-icon></i>
-                <span class="text">Всі книги</span>
-                <form th:action="@{/searchbookadmin}" method="get">
-                    <input type="text" name="keyword" th:value="${keyword}"  placeholder="Пошук" size="50" >
-                    <button type="submit" style="background-color: #25398e; " class="uil-search"></button>
-                </form>
+                <i><iconify-icon icon="carbon:order-details"></iconify-icon></i>
+                <span class="text">Замовлення</span>
             </div>
             <div class="table">
 
@@ -67,41 +79,44 @@
                     <table>
                         <thead>
                         <tr>
-                            <th>Id qr-коду</th>
-                            <th>Фото</th>
-                            <th>Статус</th>
+                            <th>Група</th>
+                            <th>І'мя</th>
+                            <th>Прізвище</th>
                             <th>Назва</th>
-                            <th>Автор</th>
+                            <th>Id qr-коду</th>
                             <th>Рік</th>
+                            <th>Статус</th>
                             <th>Дії</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="book : ${books}">
-                            <td th:text="${book.qrid}"></td>
-                            <td><img th:src="@{'/book/image/' + ${book.getId()}}"/></td>
-                            <div th:if="${book.getBookfile()==null && book.getBookfileurl()==''}">
+
+                        <tr th:each="bookOrder : ${bookOrders}">
+                            <div th:if="${bookOrder.getUser().getGroups()==null}">
+                                <td th:text="${'Без групи'}"></td>
+                            </div>
+                            <div th:if="${bookOrder.getUser().getGroups()!=null}">
+                                <td th:text="${bookOrder.getUser().getGroups().getName()}"></td>
+                            </div>
+                            <td th:text="${bookOrder.getUser().getFirstName()}"></td>
+                            <td th:text="${bookOrder.getUser().getLastName()}"></td>
+                            <td th:text="${bookOrder.getBook().getTitle()}"></td>
+
+                            <td th:text="${bookOrder.getBook().getQrid()}"></td>
+                            <td th:text="${bookOrder.getBook().getYear()}"></td>
+                            <div th:if="${bookOrder.getBook().getBookfile()==null && bookOrder.getBook().getBookfileurl()==''}">
                                 <td th:text="${'Паперова'}"></td>
                             </div>
-                            <div th:if="${book.getBookfile()!=null || book.getBookfileurl()!=''}">
+                            <div th:if="${bookOrder.getBook().getBookfile()!=null || bookOrder.getBook().getBookfileurl()!=''}">
                                 <td th:text="${'Електронна'}"></td>
                             </div>
-
-                            <td th:text="${book.title}"></td>
-                            <td th:text="${book.author}"></td>
-                            <td th:text="${book.year}"></td>
-
-                            <td class="btnactions">
-                                <form th:action="'/admin/addcategorytobook/'+ ${book.id}" method="get">
-                                    <button style="background-color: #25398e" title="Категорії книги" type="submit" ><i><iconify-icon icon="fluent:book-star-24-filled"></iconify-icon></i></button>
-                                </form>
-
-                                <form th:action="'/admin/allbooksadmin/'+ ${book.id}+'/edit'" method="get">
-                                    <button style="background-color: #006B49" title="Редагувати книгу" type="submit"><i class="uil uil-pen"></i></button>
-                                </form>
-
-                                <form th:action="'/admin/allbooksadmin/'+ ${book.id}+'/remove'" method="post">
-                                    <button style="background-color: #FF3F40" type="button"  title="Видалити книгу" onclick="openpopup(form)"><i class="uil uil-trash-alt"></i></button>
+                            <td class="btnactions1">
+                                <form th:action="'/admin/assigningbook/'+ ${bookOrder.getUser().getId()}+'/'+${bookOrder.getBook().getId()}" method="post">
+                                    <input type="number" name="takeCount" title="Введіть кількість книг" min="0" th:value="${0}" th:max="${bookOrder.getBook().getCount()}">
+                                    <div class="btnactions1_1">
+                                        <button style="background-color: #258e47; margin-bottom: 2px;" type="button" onclick="openpopup(form)" ><i style="font-style: initial;"> Видати книгу</i></button>
+                                        <button style="background-color: #FF3F40" type="button" onclick="openpopup1(form)" title="Видалити замовлення"><i style="font-style: initial;">Видалити</i></button>
+                                    </div>
                                 </form>
                         </tr>
                         </tbody>
@@ -114,17 +129,17 @@
     <ul id="pagination">
         <th:block th:each="pageNumber : ${body}">
             <li th:if="${pageNumberStat.first}">
-                <a class="" th:href="@{/admin/allbooksadmin(size=${books.size}, page=${pageNumber}, category=${category})}">«</a>
+                <a class="" th:href="@{/admin/bookorders(size=${bookOrders.size}, page=${pageNumber})}">«</a>
             </li>
-            <li th:if="${pageNumber} == ${books.getNumber()+1}">
+            <li th:if="${pageNumber} == ${bookOrders.getNumber()+1}">
                 <a  class="active" th:text="${pageNumber}" href="#" ></a>
             </li>
             <li  th:if="${pageNumber} == -1"><a href="#">...</a></li>
-            <li th:if="${pageNumber} != -1 and ${pageNumber} != ${books.getNumber()+1}">
-                <a th:text="${pageNumber}" th:href="@{/admin/allbooksadmin(size=${books.size}, page=${pageNumber}, category=${category})}"></a>
+            <li th:if="${pageNumber} != -1 and ${pageNumber} != ${bookOrders.getNumber()+1}">
+                <a th:text="${pageNumber}" th:href="@{/admin/bookorders(size=${bookOrders.size}, page=${pageNumber})}"></a>
             </li>
             <li th:if="${pageNumberStat.last}" >
-                <a th:href="@{/admin/allbooksadmin(size=${books.size}, page=${pageNumber}, category=${category})}">»</a></li>
+                <a th:href="@{/admin/bookorders(size=${bookOrders.size}, page=${pageNumber})}">»</a></li>
         </th:block>
     </ul>
 

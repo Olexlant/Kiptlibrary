@@ -573,6 +573,9 @@ nav.close .logo_name{
     opacity: 0;
     pointer-events: none;
 }
+.edit-name{
+display:block;
+}
 nav .menu-items{
     margin-top: 40px;
     height: calc(100% - 90px);
@@ -586,7 +589,7 @@ nav .menu-items{
 .menu-items li a{
     display: flex;
     align-items: center;
-    height: 50px;
+    height: 45px;
     text-decoration: none;
     position: relative;
 }

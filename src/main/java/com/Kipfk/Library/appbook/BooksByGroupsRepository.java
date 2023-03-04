@@ -12,4 +12,5 @@ public interface BooksByGroupsRepository extends JpaRepository<BooksByGroups,Lon
     ArrayList<BooksByGroups> findAllByGroups(Groups groups);
     List<BooksByGroups> findByGroupsAndBook(Groups groups,AppBook book);
     List<BooksByGroups> findAllByBook(AppBook appBook);
+
 }

@@ -1,5 +1,8 @@
 package com.Kipfk.Library.appbook;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
@@ -13,6 +16,9 @@ public interface AppBookRepository extends JpaRepository<AppBook, Long>, JpaSpec
 
     Optional<AppBook> findById(Long id);
     AppBook findAllById(Long id);
-
+    Page<AppBook> findAllByBookfileIsNotNullOrBookfileurlIsNotLike(Pageable pageable,String empty);
+    Page<AppBook> findAllByBookfileIsNullAndBookfileurlIsLike(Pageable pageable, String empty);
     int countAllBy();
+
+
 }

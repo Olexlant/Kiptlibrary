@@ -44,6 +44,7 @@
 					<span class="details">Група</span>
 					<div class="categor">
 					<select th:name="groupid">
+						<option th:value="${''}" th:text="${'Без групи'}"></option>
 						<option th:each="group : ${groups}" th:value="${group.getId()}" th:text="${group.getName()}"></option>
 					</select>
 					</div>

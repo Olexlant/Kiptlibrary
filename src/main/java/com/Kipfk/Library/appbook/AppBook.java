@@ -36,8 +36,6 @@ public class AppBook {
     private String title;
     private String author;
     private Long year;
-    private Long stilaj;
-    private Long polka;
     private byte[] bookimg;
     private byte[] qrimg;
     private byte[] bookfile;
@@ -46,13 +44,11 @@ public class AppBook {
     private String description;
     private Long count;
 
-    public AppBook(Long qrid, String title, String author, Long year, Long stilaj, Long polka, byte[] bookimg, byte[] qrimg,byte[] bookfile){
+    public AppBook(Long qrid, String title, String author, Long year, byte[] bookimg, byte[] qrimg,byte[] bookfile){
         this.qrid = qrid;
         this.title = title;
         this.author = author;
         this.year = year;
-        this.stilaj = stilaj;
-        this.polka = polka;
         this.bookimg = bookimg;
         this.qrimg = qrimg;
         this.bookfile = bookfile;
@@ -64,38 +60,5 @@ public class AppBook {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "book", orphanRemoval = true)
     private Set<BooksByGroups> booksByGroups;
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public Long getQrid() {
-        return qrid;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public Long getYear() {
-        return year;
-    }
-
-    public Long getStilaj() {
-        return stilaj;
-    }
-
-    public Long getPolka() {
-        return polka;
-    }
-
-    public byte[] getBookimg() { return bookimg; }
-
-    public byte[] getQrimg() { return qrimg; }
-    public byte[] getBookfile() {return bookfile; }
 
 }

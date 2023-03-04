@@ -50,4 +50,20 @@ public class EmailService implements EmailSender{
             throw new IllegalStateException("Не вдалось відправити на email");
         }
     }
+
+    @Async
+    public void sendNotificationMessage(String to, String email) {
+        try {
+            MimeMessage mimeMessage = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
+            helper.setText(email, true);
+            helper.setTo(to);
+            helper.setSubject("Повернення книги");
+            helper.setFrom("Library@Kipfk.com");
+            mailSender.send(mimeMessage);
+        } catch (MessagingException e) {
+            LOGGER.error("Не вдалось відправити на email", e);
+            throw new IllegalStateException("Не вдалось відправити на email");
+        }
+    }
 }

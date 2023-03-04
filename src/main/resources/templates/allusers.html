@@ -36,73 +36,10 @@
                     <button class="no" onclick="closepopupwindow()">Ні</button>
                 </div>
             </form>
-
         </div>
     </div>
 </div>
-
-<nav>
-    <div class="logo-name">
-        <div class="logo-image">
-            <img src="/images/logo.png" alt="">
-        </div>
-        <span class="logo_name">KCAS Lib</span>
-    </div>
-
-    <div class="menu-items">
-        <ul class="nav-links">
-            <li><a th:href="@{/admin}">
-                <i><iconify-icon icon="fa-solid:home"></iconify-icon></i>
-                <span class="link-name">Головна</span>
-            </a></li>
-            <li><a th:href="@{/admin/allusers}">
-                <i><iconify-icon icon="ion:people-sharp"></iconify-icon></i>
-                <span class="link-name" >Користувачі</span>
-            </a></li>
-            <li><a th:href="@{/admin/groups}">
-                <i><iconify-icon icon="fa6-solid:people-group"></iconify-icon></i>
-                <span class="link-name">Групи</span>
-            </a></li>
-            <li><a th:href="@{/admin/allbooksadmin}">
-                <i><iconify-icon icon="wpf:books"></iconify-icon></i>
-                <span class="link-name">Всі книги</span>
-            </a></li>
-            <li><a th:href="@{/admin/assignedbooks}">
-                <i><iconify-icon icon="mdi:book-arrow-up"></iconify-icon></i>
-                <span class="link-name">Видані книги</span>
-            </a></li>
-            <li><a th:href="@{/admin/addbook}">
-                <i><iconify-icon icon="mdi:book-plus"></iconify-icon></i>
-                <span class="link-name">Додати книгу</span>
-            </a></li>
-            <li><a th:href="@{/admin/adduser}">
-                <i><iconify-icon icon="mdi:user-add"></iconify-icon></i>
-                <span class="link-name">Додати користувача</span>
-            </a></li>
-            <li><a th:href="@{/admin/takebook}">
-                <i><iconify-icon icon="mdi:book-arrow-right"></iconify-icon></i>
-                <span class="link-name">Видати книгу</span>
-            </a></li>
-            <li><a th:href="@{/admin/addbookcategory}">
-                <i><iconify-icon icon="mdi:book-information-variant"></iconify-icon></i>
-                <span class="link-name">Категорії книг</span>
-            </a></li>
-
-        </ul>
-
-        <ul class="logout-mode">
-            <li><a th:href="@{/}">
-                <i><iconify-icon icon="mingcute:exit-door-fill"></iconify-icon></i>
-                <span class="link-name">Вийти</span>
-            </a></li>
-            <div class="mode-toggle">
-
-            </div>
-            </li>
-        </ul>
-    </div>
-</nav>
-
+<nav th:insert="bloks/adminheader :: adminheader"></nav>
 <section class="dashboard">
     <div class="top">
         <i class="uil uil-bars sidebar-toggle"></i>
@@ -152,15 +89,15 @@
                             <td th:text="${user.getPhonenum()}"></td>
                             <td class="btnactions">
                                 <form th:action="'/admin/allusers/'+ ${user.getId()}+'/edit'" method="get">
-                                    <button style="background-color: #25398e" type="submit"><i class="uil uil-pen"></i></button>
+                                    <button style="background-color: #25398e" title="Редагувати користувача" type="submit"><i class="uil uil-pen"></i></button>
                                 </form>
                                 <form th:action="'/admin/usertakenadmin/'+ ${user.getId()}" method="get">
-                                    <button style="background-color: #006B49" type="submit"><i><iconify-icon icon="wpf:books"></iconify-icon></i></button>
+                                    <button style="background-color: #006B49" title="Книги користувача" type="submit"><i><iconify-icon icon="wpf:books"></iconify-icon></i></button>
                                 </form>
 
 
                                 <form  th:action="'/admin/allusers/'+ ${user.getId()}+'/remove'" method="post">
-                                    <button style="background-color: #FF3F40" type="button" onclick="openpopup(form)"><i class="uil uil-trash-alt"></i></button>
+                                    <button style="background-color: #FF3F40"  title="Видалити користувача" type="button" onclick="openpopup(form)"><i class="uil uil-trash-alt"></i></button>
                                 </form>
 
                             </td>

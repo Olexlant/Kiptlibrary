@@ -5,13 +5,16 @@ import com.Kipfk.Library.registration.token.ConfirmationToken;
 import com.Kipfk.Library.registration.token.ConfirmationTokenService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.*;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.Predicate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
@@ -60,7 +63,18 @@ public class AppUserService implements UserDetailsService {
     public int enableAppUser(String email) {
         return appUserRepository.enableAppUser(email);
     }
-    public List<AppUser> getByKeyword(String keyword){
-        return appUserRepository.findByKeyword(keyword);
-    }
+
+    public List<AppUser> getAllByKeyword (String keyword){
+        Specification<AppUser> specification = (root, query, criteriaBuilder) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("firstName")), "%"+keyword.toLowerCase()+"%"));
+            predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("lastName")), "%"+keyword.toLowerCase()+"%"));
+            predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("email")), "%"+keyword.toLowerCase()+"%"));
+            predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("address")), "%"+keyword.toLowerCase()+"%"));
+            predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("phonenum")), "%"+keyword.toLowerCase()+"%"));
+
+            return criteriaBuilder.or(predicates.toArray(new Predicate[]{}));
+        };
+        return appUserRepository.findAll(specification);
+    };
 }

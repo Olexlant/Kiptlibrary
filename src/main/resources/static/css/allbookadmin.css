@@ -535,7 +535,7 @@ form{
 td.btnactions{
     display: flex;
     justify-content: center;
-    padding: 21px;
+    padding: 33px;
 }
 
 .add_new {
@@ -545,12 +545,21 @@ td.btnactions{
 }
 
 input {
-    padding: 10px 20px;
-    margin: 0 10px;
-    outline: none;
-    border: 2px solid #25398e;
-    border-radius: 6px;
-    color: #25398e;
+   padding: 10px 20px;
+       margin: 0px 10px 5px 10px;
+       outline: none;
+       border: 2px solid #25398e;
+       border-radius: 6px;
+       color: #25398e;
+       
+}
+.btnactions1{
+  display: flex;
+}
+.btnactions1_1{
+  display: flex;
+    flex-direction: column;
+    align-items: stretch;
 }
 
 .table_section {
@@ -687,7 +696,7 @@ nav .menu-items{
 .menu-items li a{
     display: flex;
     align-items: center;
-    height: 50px;
+    height: 45px;
     text-decoration: none;
     position: relative;
 }

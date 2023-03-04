@@ -29,7 +29,7 @@
   <div class="pop_up_container">
     <div class="pop_up_body" id="pop_up_body">
       <p>
-        <iconify-icon icon="mdi:book-plus"style="color: #25398e;" width="60" height="60"></iconify-icon>
+        <iconify-icon icon="mdi:book-plus"style="color: green;" width="60" height="60"></iconify-icon>
       </p>
       <p>Видати книгу?</p>
       <form class="input-number">
@@ -43,67 +43,7 @@
   </div>
 </div>
 
-<nav>
-  <div class="logo-name">
-    <div class="logo-image">
-      <img src="/images/logo.png" alt="">
-    </div>
-    <span class="logo_name">KCAS Lib</span>
-  </div>
-
-  <div class="menu-items">
-    <ul class="nav-links">
-      <li><a th:href="@{/admin}">
-        <i><iconify-icon icon="fa-solid:home"></iconify-icon></i>
-        <span class="link-name">Головна</span>
-      </a></li>
-      <li><a th:href="@{/admin/allusers}">
-        <i><iconify-icon icon="ion:people-sharp"></iconify-icon></i>
-        <span class="link-name" >Користувачі</span>
-      </a></li>
-      <li><a th:href="@{/admin/groups}">
-        <i><iconify-icon icon="fa6-solid:people-group"></iconify-icon></i>
-        <span class="link-name">Групи</span>
-      </a></li>
-      <li><a th:href="@{/admin/allbooksadmin}">
-        <i><iconify-icon icon="wpf:books"></iconify-icon></i>
-        <span class="link-name">Всі книги</span>
-      </a></li>
-      <li><a th:href="@{/admin/assignedbooks}">
-        <i><iconify-icon icon="mdi:book-arrow-up"></iconify-icon></i>
-        <span class="link-name">Видані книги</span>
-      </a></li>
-      <li><a th:href="@{/admin/addbook}">
-        <i><iconify-icon icon="mdi:book-plus"></iconify-icon></i>
-        <span class="link-name">Додати книгу</span>
-      </a></li>
-      <li><a th:href="@{/admin/adduser}">
-        <i><iconify-icon icon="mdi:user-add"></iconify-icon></i>
-        <span class="link-name">Додати користувача</span>
-      </a></li>
-      <li><a th:href="@{/admin/takebook}">
-        <i><iconify-icon icon="mdi:book-arrow-right"></iconify-icon></i>
-        <span class="link-name">Видати книгу</span>
-      </a></li>
-      <li><a th:href="@{/admin/addbookcategory}">
-        <i><iconify-icon icon="mdi:book-information-variant"></iconify-icon></i>
-        <span class="link-name">Категорії книг</span>
-      </a></li>
-
-    </ul>
-
-    <ul class="logout-mode">
-      <li><a th:href="@{/}">
-        <i><iconify-icon icon="mingcute:exit-door-fill"></iconify-icon></i>
-        <span class="link-name">Вийти</span>
-      </a></li>
-      <div class="mode-toggle">
-
-      </div>
-      </li>
-    </ul>
-  </div>
-</nav>
+<nav th:insert="bloks/adminheader :: adminheader"></nav>
 <section class="dashboard">
   <div class="top">
     <i class="uil uil-bars sidebar-toggle"></i>
@@ -136,8 +76,7 @@
               <th>Назва</th>
               <th>Автор</th>
               <th>Рік</th>
-              <th>Стилаж</th>
-              <th>Полиця</th>
+              <th>Статус</th>
               <th>Дії</th>
             </tr>
             </thead>
@@ -148,11 +87,15 @@
               <td th:text="${book.getTitle()}"></td>
               <td th:text="${book.getAuthor()}"></td>
               <td th:text="${book.getYear()}"></td>
-              <td th:text="${book.getStilaj()}"></td>
-              <td th:text="${book.getPolka()}"></td>
+              <div th:if="${book.getBookfile()==null && book.getBookfileurl()==''}">
+                <td th:text="${'Паперова'}"></td>
+              </div>
+              <div th:if="${book.getBookfile()!=null || book.getBookfileurl()!=''}">
+                <td th:text="${'Електронна'}"></td>
+              </div>
               <td class="btnactions1">
                 <form th:action="'/admin/assigningbook/'+ ${userid}+'/'+${book.getId()}" method="post">
-                  <input type="number" name="takeCount" placeholder="Кількість книг" min="0" th:max="${book.getCount()}">
+                  <input type="number" name="takeCount" placeholder="Кількість книг" min="0" th:value="${0}" th:max="${book.getCount()}">
                   <button style="background-color: #258e47" type="button" onclick="openpopup(form)" ><i> Видати книгу</i></button>
                 </form>
             </tr>
