@@ -9,7 +9,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Exo+2:wght@300&display=swap" rel="stylesheet">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script>
-            fetch("http://localhost:8080/admin/bookorders/getcount")
+            fetch("/admin/bookorders/getcount")
                 .then((response) => response.text())
                 .then((data) => document.getElementById("bookOrdersCount").innerHTML = data)
         </script>
@@ -84,13 +84,13 @@
                     <i><iconify-icon icon="emojione-monotone:newspaper" width="30" height="30"></iconify-icon></i>
                     <span class="link-name" >Новини</span></a>
                     <ul>
-                        <li><a th:href="@{/admin/news}">
+                        <li><a th:href="@{/admin/add-news}">
                             <i><iconify-icon icon="ic:outline-add-comment"></iconify-icon></i>
                             <span class="link-name" style="font-size: 15px;">Додати новину</span>
                         </a></li>
                     </ul>
                 </li>
-                <li><a th:href="@{/admin/takebook}">
+                <li><a th:href="@{/admin/debtorusers}">
                     <i><iconify-icon icon="gis:map-users" style="color: red;"></iconify-icon></i>
                     <span class="link-name" style="color:red;">Боржники</span>
                 </a></li>

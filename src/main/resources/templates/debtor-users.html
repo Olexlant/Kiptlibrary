@@ -104,10 +104,6 @@
             <div class="title_1">
                 <i><iconify-icon icon="gis:map-users" style="color: red;"></iconify-icon></i>
                 <span class="text" style="color:red;">Боржники</span>
-                <form th:action="@{/admin/searchassignedbooks}" method="get">
-                    <input type="text" name="keyword" th:value="${keyword}"  placeholder="Пошук" size="50" >
-                    <button type="submit" style="background-color: #25398e; " class="uil-search"></button>
-                </form>
             </div>
             <div class="table">
 
@@ -158,17 +154,17 @@
     <ul id="pagination">
         <th:block th:each="pageNumber : ${body}">
             <li th:if="${pageNumberStat.first}">
-                <a class="" th:href="@{/admin/assignedbooks(size=${takenbooks.size}, page=${pageNumber})}">«</a>
+                <a class="" th:href="@{/admin/debtorusers(size=${takenbooks.size}, page=${pageNumber})}">«</a>
             </li>
             <li th:if="${pageNumber} == ${takenbooks.getNumber()+1}">
                 <a  class="active" th:text="${pageNumber}" href="#" ></a>
             </li>
             <li  th:if="${pageNumber} == -1"><a href="#">...</a></li>
             <li th:if="${pageNumber} != -1 and ${pageNumber} != ${takenbooks.getNumber()+1}">
-                <a th:text="${pageNumber}" th:href="@{/admin/assignedbooks(size=${takenbooks.size}, page=${pageNumber})}"></a>
+                <a th:text="${pageNumber}" th:href="@{/admin/debtorusers(size=${takenbooks.size}, page=${pageNumber})}"></a>
             </li>
             <li th:if="${pageNumberStat.last}" >
-                <a th:href="@{/admin/assignedbooks(size=${takenbooks.size}, page=${pageNumber})}">»</a></li>
+                <a th:href="@{/admin/debtorusers(size=${takenbooks.size}, page=${pageNumber})}">»</a></li>
         </th:block>
     </ul>
 </section>
