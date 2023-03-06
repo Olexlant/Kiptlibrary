@@ -23,7 +23,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Exo+2:wght@300&display=swap" rel="stylesheet">
-    <title>Видані книги</title>
+    <title>Боржники</title>
 </head>
 <body>
 <div class="pop_up" id="pop_up">
@@ -101,17 +101,9 @@
 
     <div class="dash-content">
         <div class="activity">
-            <div class="title">
-                <i><iconify-icon icon="mdi:book-arrow-up"></iconify-icon></i>
-                <span class="text">Видані книги</span>
-                <form th:action="@{/admin/searchassignedbooks}" method="get">
-                    <input type="text" name="keyword" th:value="${keyword}"  placeholder="Пошук" size="50" >
-                    <button type="submit" style="background-color: #25398e; " class="uil-search"></button>
-                </form>
-<!--                ИСТОРИЯ ВИДАНИХ КНИГ-->
-                <form th:action="@{/admin/assignedbooks/history}" method="get">
-                    <button  type="submit" style="background-color: #006b49; "  title="Історія повернутих книг"><p class="uil-history" style="font-size:16px;"> Історія виданих книг</p></button>
-                </form>
+            <div class="title_1">
+                <i><iconify-icon icon="gis:map-users" style="color: red;"></iconify-icon></i>
+                <span class="text" style="color:red;">Боржники</span>
             </div>
             <div class="table">
 
@@ -162,17 +154,17 @@
     <ul id="pagination">
         <th:block th:each="pageNumber : ${body}">
             <li th:if="${pageNumberStat.first}">
-                <a class="" th:href="@{/admin/assignedbooks(size=${takenbooks.size}, page=${pageNumber})}">«</a>
+                <a class="" th:href="@{/admin/debtorusers(size=${takenbooks.size}, page=${pageNumber})}">«</a>
             </li>
             <li th:if="${pageNumber} == ${takenbooks.getNumber()+1}">
                 <a  class="active" th:text="${pageNumber}" href="#" ></a>
             </li>
             <li  th:if="${pageNumber} == -1"><a href="#">...</a></li>
             <li th:if="${pageNumber} != -1 and ${pageNumber} != ${takenbooks.getNumber()+1}">
-                <a th:text="${pageNumber}" th:href="@{/admin/assignedbooks(size=${takenbooks.size}, page=${pageNumber})}"></a>
+                <a th:text="${pageNumber}" th:href="@{/admin/debtorusers(size=${takenbooks.size}, page=${pageNumber})}"></a>
             </li>
             <li th:if="${pageNumberStat.last}" >
-                <a th:href="@{/admin/assignedbooks(size=${takenbooks.size}, page=${pageNumber})}">»</a></li>
+                <a th:href="@{/admin/debtorusers(size=${takenbooks.size}, page=${pageNumber})}">»</a></li>
         </th:block>
     </ul>
 </section>

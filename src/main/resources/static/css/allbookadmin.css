@@ -537,7 +537,18 @@ td.btnactions{
     justify-content: center;
     padding: 33px;
 }
-
+.dash-content .title i{
+position: relative;
+    height: 35px;
+    width: 35px;
+    background-color: #fff;
+    border-radius: 6px;
+    color: var(--title-icon-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
 .add_new {
     padding: 10px 20px;
     color: #ffffff;
@@ -862,9 +873,9 @@ nav.close ~ .dashboard .top{
     position: relative;
     height: 35px;
     width: 35px;
-    background-color: var(--primary-color);
+    background-color: #fff;
     border-radius: 6px;
-    color: var(--title-icon-color);
+
     display: flex;
     align-items: center;
     justify-content: center;
