@@ -575,6 +575,12 @@ public class AdminPanelController {
         return "orders";
     }
 
+    @PostMapping("/admin/bookorders/{bookorderid}/delete")
+    public String deleteBookOrder (@PathVariable Long bookorderid){
+        List<BookOrders> bookOrder = bookOrdersRepository.findAllById(bookorderid);
+        bookOrdersRepository.deleteAll(bookOrder);
+        return "redirect:/admin/bookorders?deletesuccess";
+    }
 //NEWS
     @GetMapping("/admin/news")
     public String showNews(){

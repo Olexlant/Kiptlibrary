@@ -15,4 +15,6 @@ public interface BookOrdersRepository extends JpaRepository<BookOrders, Long> {
     List<BookOrders> findAllByBook(AppBook book);
     List<BookOrders> findAllByUser(AppUser user);
     int countAllByDeletedIsFalse();
+
+    List<BookOrders> findAllById(Long bookorderid);
 }
