@@ -11,6 +11,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="/examples/libs/simple-adaptive-slider/simple-adaptive-slider.min.css">
+    <!-- Подключаем JS слайдера -->
+    <script defer src="/example/libs/simple-adaptive-slider/simple-adaptive-slider.min.js"></script>
+
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Exo+2:wght@300&display=swap" rel="stylesheet">
 
 </head>
@@ -18,6 +22,7 @@
 <header class="site-header sticky-top py-1" th:insert="bloks/header :: header"></header>
 
 <!--головна-->
+
 <div th:insert="bloks/topbook :: topbook">
 </div>
 <span th:text="#{lang.change}"></span>:

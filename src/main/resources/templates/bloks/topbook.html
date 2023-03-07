@@ -3,12 +3,26 @@
     <head>
         <meta charset="UTF-8">
 
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="/css/home.css" type="text/css" th:href="@{/css/home.css}">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Exo+2:wght@300&display=swap" rel="stylesheet">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/examples/libs/simple-adaptive-slider/simple-adaptive-slider.min.css">
+        <!-- Подключаем JS слайдера -->
+        <script defer src="/examples/libs/simple-adaptive-slider/simple-adaptive-slider.min.js"></script>
+        <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // инициализация слайдера
+      var slider = new SimpleAdaptiveSlider('.slider', {
+        autoplay: true,
+        interval: 10000,
+      });
+    });
+  </script>
+
     </head>
     <section class="home" id="home">
         <div class="home-content">
@@ -36,6 +50,7 @@
             </div>
         </div>
     </section>
+
     <!--about-->
     <section class="adout" id="adout">
         <div class="content">
@@ -57,9 +72,16 @@
                             <button>Детальніше</button>
                         </div>
                     </form>
-
                 </div>
             </div>
+        </div>
+
+    </section>
+    <!--slider-->
+    <section class="slider-news">
+        <div class="content">
+            <div class="title"><span>Новини</span></div>
+            <div th:insert="bloks/home-news :: home-news"></div>
         </div>
     </section>
     <!--library-->

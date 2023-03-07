@@ -1,10 +1,79 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div th:fragment="home-news" xmlns:th="http://www.w3.org/1999/xhtml">
+        <meta charset="UTF-8">
+        <link rel="stylesheet"  href="/css/home.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+        <style>
+    /* стили для элемента body */
 
-</body>
-</html>
+
+    /* дополнительные стили для этого примера */
+    .itcss__items {
+      counter-reset: slide;
+    }
+
+    .itcss__item {
+      counter-increment: slide;
+    }
+
+    .itcss__item>div::before {
+      content: counter(slide);
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      color: #fff;
+      font-style: italic;
+      font-size: 32px;
+      font-weight: bold;
+    }
+  </style>
+        <!-- Подключаем JS слайдера -->
+        <script src="/js/simple-adaptive-slider.min.js"></script>
+        <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // активация слайдера
+      new ItcSimpleSlider('.itcss', {
+        autoplay: true,
+        interval: 4000,
+      });
+    });
+  </script>
+        <div class="itcss">
+            <div class="itcss__wrapper">
+                <div class="itcss__items">
+                    <div class="itcss__item">
+                        <div>
+                            <span class="itcss__item_inner">
+                                <span class="itcss__item_img">
+                                    <img class="itcss__item_photo" src="/images/book.jpg" alt="">
+                                </span>
+                                <span class="itcss__item_testimonial">
+                                    <span class="itcss__item_name">Книжкова виставка</span>
+                                    <span class="itcss__item_post"></span>
+                                    <span class="itcss__item_text">
+                                        Представлены самые важные сведения о синтаксисе языка и показаны примеры его применения....
+                                    </span>
+                                    <span class="itcss__item_action">
+                                        <a class="btn" href="#">Детальніше</a>
+                                    </span>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="itcss__item">
+                        <div ></div>
+                    </div>
+                    <div class="itcss__item">
+                        <div ></div>
+                    </div>
+                    <div class="itcss__item">
+                        <div ></div>
+                    </div>
+                </div>
+            </div>
+            <button class="itcss__btn itcss__btn_prev" role="button" data-slide="prev"></button>
+            <button class="itcss__btn itcss__btn_next" role="button" data-slide="next"></button>
+        </div>
+</div>
