@@ -747,7 +747,7 @@ section .button-contact button:hover{
   margin-left: auto;
 }
  .itcss__item:nth-child(1) {
-       background: linear-gradient(45deg, #4552d9 10%, #00d2b1 90%);
+       background: linear-gradient(45deg, #515cd8 10%, #00d2b1 90%);
        height:450px;
      }
 
@@ -765,6 +765,30 @@ section .button-contact button:hover{
        background: linear-gradient(45deg, #f68dfd 10%, #535583 90%);
         height:450px;
      }
+     .itcss__item:nth-child(5) {
+      background: linear-gradient(45deg, #f68dfd 10%, #535583 90%);
+       height:450px;
+    }
+    .itcss__news{
+      display: flex;
+    align-items: center;
+    justify-content: space-between;
+    }
+    .itcss__news .right-news{
+      width: 45%;
+    }
+    .itcss__news .left-news{
+      width: 55%;
+    }
+    .itcss__news .right-news img {
+      height: 300px;
+      width: 300px;
+      object-fit: contain;
+      border-radius: 12px;
+  }
+  .itcss__news .left-news .itcss__item_text {
+    text-align: justify;
+}
      .itcss__item_inner {
       position: absolute;
       left: 8%;
@@ -896,7 +920,7 @@ section .button-contact button:hover{
            display: flex;
            flex-direction: column;
            text-align: center;
-           padding-left: 200px;
+           padding-left: 20px;
          }
 
          .itcss__item_name {
@@ -933,9 +957,10 @@ section .button-contact button:hover{
            }
 
            .itcss__item_img {
-            flex: 0 0 150px;
-    max-width: 150px;
-    height: 250px;
+            height: 300px;
+    width: 300px;
+    object-fit: cover;
+    border-radius: 12px;
            }
 
            .itcss__item_testimonial {
