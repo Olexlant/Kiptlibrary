@@ -3,10 +3,12 @@ package com.Kipfk.Library.controllers;
 import com.Kipfk.Library.appbook.*;
 import com.Kipfk.Library.appuser.*;
 import com.Kipfk.Library.news.News;
+import com.Kipfk.Library.news.NewsRepository;
 import com.Kipfk.Library.registration.RegistrationService;
 import com.Kipfk.Library.registration.token.ConfirmationToken;
 import com.Kipfk.Library.registration.token.ConfirmationTokenRepository;
 import com.google.zxing.WriterException;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,10 +23,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,10 +53,10 @@ public class AdminPanelController {
     private final GroupsRepository groupsRepository;
     private final TakenBooksService takenBooksService;
     private final BooksByGroupsRepository booksByGroupsRepository;
-
     private final BookOrdersRepository bookOrdersRepository;
+    private final NewsRepository newsRepository;
 
-    public AdminPanelController(RegistrationService registrationService, ConfirmationTokenRepository confirmationTokenRepository, AppUserService appUserService, AppBookService appBookService, AppUserRepository appUserRepository, AppBookRepository appBookRepository, TakenBooksRepository takenBooksRepository, LikedBooksRepository likedBooksRepository, AppUserRepository userRepo, BookCategoryRepository bookCategoryRepository, CategoriesOfBooksRepository categoriesOfBooksRepository, GroupsRepository groupsRepository, TakenBooksService takenBooksService, BooksByGroupsRepository booksByGroupsRepository, BookOrdersRepository bookOrdersRepository) {
+    public AdminPanelController(RegistrationService registrationService, ConfirmationTokenRepository confirmationTokenRepository, AppUserService appUserService, AppBookService appBookService, AppUserRepository appUserRepository, AppBookRepository appBookRepository, TakenBooksRepository takenBooksRepository, LikedBooksRepository likedBooksRepository, AppUserRepository userRepo, BookCategoryRepository bookCategoryRepository, CategoriesOfBooksRepository categoriesOfBooksRepository, GroupsRepository groupsRepository, TakenBooksService takenBooksService, BooksByGroupsRepository booksByGroupsRepository, BookOrdersRepository bookOrdersRepository, NewsRepository newsRepository) {
         this.registrationService = registrationService;
         this.confirmationTokenRepository = confirmationTokenRepository;
         this.appUserService = appUserService;
@@ -68,6 +72,7 @@ public class AdminPanelController {
         this.takenBooksService = takenBooksService;
         this.booksByGroupsRepository = booksByGroupsRepository;
         this.bookOrdersRepository = bookOrdersRepository;
+        this.newsRepository = newsRepository;
     }
 
 //ADDBOOK
@@ -584,7 +589,12 @@ public class AdminPanelController {
     }
 //NEWS
     @GetMapping("/admin/news")
-    public String showNews(){
+    public String showNews(Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size){
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(12);
+        Page<News> news = newsRepository.findAll(PageRequest.of(currentPage - 1, pageSize));
+        model.addAttribute("news", news);
+        model.addAttribute("body", appBookService.bodyArrayForPages(news));
         return "news";
     }
 
@@ -592,6 +602,29 @@ public class AdminPanelController {
     public String showAddNewsForm(Model model){
         model.addAttribute("news", new News());
         return "add-news";
+    }
+
+    @PostMapping("/admin/news_adding")
+    public String newsAdd(News news,@RequestParam("files") MultipartFile[] multipartFiles) throws IOException {
+        news.setNewsPhoto(multipartFiles[0].getBytes());
+        news.setNewsFile(multipartFiles[1].getBytes());
+        news.setCreatedAt(LocalDate.now());
+        newsRepository.save(news);
+        return "redirect:/admin/add-news?success";
+    }
+
+    @PostMapping("/admin/news/{newsid}/delete")
+    public String newsDelete(@PathVariable Long newsid){
+        newsRepository.delete(newsRepository.findById(newsid).get());
+        return "redirect:/admin/news?deleted";
+    }
+
+    @GetMapping("/news/image/{newsid}")
+    public void showNewsImage(@PathVariable Long newsid, HttpServletResponse response) throws IOException {
+        response.setContentType("image/jpeg");
+        News news = newsRepository.findById(newsid).get();
+        InputStream is = new ByteArrayInputStream(news.getNewsPhoto());
+        IOUtils.copy(is, response.getOutputStream());
     }
 
 //DEBTOR USERS

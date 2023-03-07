@@ -61,35 +61,25 @@
                     <table>
                         <thead>
                         <tr>
-                            <th>Id qr-коду</th>
+                            <th>Заголовок</th>
                             <th>Фото</th>
-                            <th>Статус</th>
-                            <th>Назва</th>
-                            <th>Автор</th>
-                            <th>Рік</th>
+                            <th>Створена</th>
                             <th>Дії</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-
+                        <tr th:each="inews : ${news}">
+                            <td th:text="${inews.getTitle()}"></td>
+                            <td><img th:src="@{'/news/image/' + ${inews.getId()}}"/></td>
+                            <td th:text="${inews.getCreatedAt()}"></td>
                             <td class="btnactions">
-                                <form  method="get">
-                                    <button style="background-color: #25398e" title="Категорії книги" type="submit" ><i><iconify-icon icon="fluent:book-star-24-filled"></iconify-icon></i></button>
-                                </form>
 
                                 <form  method="get">
                                     <button style="background-color: #006B49" title="Редагувати книгу" type="submit"><i class="uil uil-pen"></i></button>
                                 </form>
 
-                                <form  method="post">
-                                    <button style="background-color: #FF3F40" type="button"  title="Видалити книгу" onclick="openpopup(form)"><i class="uil uil-trash-alt"></i></button>
+                                <form th:action="'/admin/news/'+ ${inews.getId()}+'/delete'"  method="post">
+                                    <button style="background-color: #FF3F40" type="button"  title="Видалити новину" onclick="openpopup(form)"><i class="uil uil-trash-alt"></i></button>
                                 </form>
                         </tr>
                         </tbody>
@@ -102,18 +92,28 @@
     <ul id="pagination">
         <th:block th:each="pageNumber : ${body}">
             <li th:if="${pageNumberStat.first}">
-                <a class="" th:href="@{/admin/allbooksadmin(size=${books.size}, page=${pageNumber}, category=${category})}">«</a>
+                <a class="" th:href="@{/admin/news(size=${news.size}, page=${pageNumber})}">«</a>
             </li>
-            <li th:if="${pageNumber} == ${books.getNumber()+1}">
+            <li th:if="${pageNumber} == ${news.getNumber()+1}">
                 <a  class="active" th:text="${pageNumber}" href="#" ></a>
             </li>
             <li  th:if="${pageNumber} == -1"><a href="#">...</a></li>
-            <li th:if="${pageNumber} != -1 and ${pageNumber} != ${books.getNumber()+1}">
-                <a th:text="${pageNumber}" th:href="@{/admin/allbooksadmin(size=${books.size}, page=${pageNumber}, category=${category})}"></a>
+            <li th:if="${pageNumber} != -1 and ${pageNumber} != ${news.getNumber()+1}">
+                <a th:text="${pageNumber}" th:href="@{/admin/news(size=${news.size}, page=${pageNumber})}"></a>
             </li>
             <li th:if="${pageNumberStat.last}" >
-                <a th:href="@{/admin/allbooksadmin(size=${books.size}, page=${pageNumber}, category=${category})}">»</a></li>
+                <a th:href="@{/admin/news(size=${news.size}, page=${pageNumber})}">»</a></li>
         </th:block>
+    </ul>
+    <ul th:if="${param.deleted}" class="notifications"  id="message">
+        <li class="toast success">
+            <div class="column" >
+                <i class="fa-solid fa-circle-check"></i>
+                <span>
+                    Новину видалено</span>
+            </div>
+            <i class="fa-solid fa-xmark"></i>
+        </li>
     </ul>
 </section>
 

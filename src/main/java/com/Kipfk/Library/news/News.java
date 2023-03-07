@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -25,5 +26,6 @@ public class News {
     @Column(columnDefinition="text", length=10485760)
     private String description;
     private byte[] newsFile;
+    private LocalDate createdAt;
 
 }
