@@ -613,6 +613,27 @@ public class AdminPanelController {
         return "redirect:/admin/add-news?success";
     }
 
+    @GetMapping("/admin/news/{newsid}")
+    public String getOneNews(Model model, @PathVariable Long newsid){
+        News news = newsRepository.findById(newsid).get();
+        model.addAttribute("news", news);
+        return "news-edit";
+    }
+
+    @PostMapping("/admin/news/{newsid}/edit")
+    public String editOneNews(Model model, @PathVariable Long newsid,@RequestParam String title, @RequestParam String description, @RequestParam("files") MultipartFile[] multipartFiles) throws IOException {
+        News news = newsRepository.findById(newsid).get();
+        news.setTitle(title);
+        news.setDescription(description);
+        if (!multipartFiles[0].isEmpty()){
+            news.setNewsPhoto(multipartFiles[0].getBytes());
+        }
+        if (!multipartFiles[1].isEmpty()) {
+            news.setNewsFile(multipartFiles[1].getBytes());
+        }
+        newsRepository.save(news);
+        return "redirect:/admin/news?saved";
+    }
     @PostMapping("/admin/news/{newsid}/delete")
     public String newsDelete(@PathVariable Long newsid){
         newsRepository.delete(newsRepository.findById(newsid).get());
@@ -624,6 +645,14 @@ public class AdminPanelController {
         response.setContentType("image/jpeg");
         News news = newsRepository.findById(newsid).get();
         InputStream is = new ByteArrayInputStream(news.getNewsPhoto());
+        IOUtils.copy(is, response.getOutputStream());
+    }
+
+    @GetMapping("/news/file/{newsid}")
+    public void showNewsFile(@PathVariable Long newsid, HttpServletResponse response) throws IOException {
+        response.setContentType("application/pdf");
+        News news = newsRepository.findById(newsid).get();
+        InputStream is = new ByteArrayInputStream(news.getNewsFile());
         IOUtils.copy(is, response.getOutputStream());
     }
 

@@ -42,17 +42,17 @@
         <div class="container2">
             <div class="title"><span>Редагувати новину</span></div>
             <div class="content">
-                <form method="post" enctype="multipart/form-data">
+                <form method="post" th:action="'/admin/news/'+ ${news.getId()}+'/edit'" enctype="multipart/form-data">
                     <div class="user-details">
                         <div class="input-box">
                             <span class="details">Заголовок</span>
-                            <input type="text" placeholder="Введіть заголовок новини" required>
+                            <input type="text" th:value="${news.getTitle()}" name="title" placeholder="Введіть заголовок новини" required>
                         </div>
                         <div class="input-box_1">
                             <span class="details">Додайте зображення новини</span>
                             <input type="file" name="files" accept="image/*"></div>
                     </div>
-                    <textarea placeholder="Введіть текст новини"  rows="6" ></textarea>
+                    <textarea th:text="${news.getDescription()}" placeholder="Введіть текст новини" name="description"  rows="6" ></textarea>
                     <div class="v"><label>Додайте файл</label><input type="file" name="files" accept="application/pdf"></div>
 
                     <div class="button">

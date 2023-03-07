@@ -74,8 +74,8 @@
                             <td th:text="${inews.getCreatedAt()}"></td>
                             <td class="btnactions">
 
-                                <form  method="get">
-                                    <button style="background-color: #006B49" title="Редагувати книгу" type="submit"><i class="uil uil-pen"></i></button>
+                                <form th:action="'/admin/news/'+ ${inews.getId()}" method="get">
+                                    <button style="background-color: #006B49" title="Редагувати новину" type="submit"><i class="uil uil-pen"></i></button>
                                 </form>
 
                                 <form th:action="'/admin/news/'+ ${inews.getId()}+'/delete'"  method="post">
@@ -111,6 +111,16 @@
                 <i class="fa-solid fa-circle-check"></i>
                 <span>
                     Новину видалено</span>
+            </div>
+            <i class="fa-solid fa-xmark"></i>
+        </li>
+    </ul>
+    <ul th:if="${param.saved}" class="notifications"  id="message">
+        <li class="toast success">
+            <div class="column" >
+                <i class="fa-solid fa-circle-check"></i>
+                <span>
+                    Новину оновлено</span>
             </div>
             <i class="fa-solid fa-xmark"></i>
         </li>
