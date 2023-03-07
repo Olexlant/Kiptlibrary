@@ -21,7 +21,7 @@ public interface TakenBooksRepository extends JpaRepository <TakenBooks,Long>, J
     Page<TakenBooks> findAllByDeletedIsFalse(Pageable pageable);
     Page<TakenBooks> findAllByDeletedIsTrue(Pageable pageable);
     List<TakenBooks> findAllByDeletedIsFalseAndNotificationSendedIsFalseAndTakenatIsBefore(LocalDate returnedAt);
-    Page<TakenBooks> findAllByDeletedIsFalseAndNotificationSendedIsFalseAndTakenatIsBefore(Pageable pageable, LocalDate returnedAt);
+    Page<TakenBooks> findAllByDeletedIsFalseAndTakenatIsBefore(Pageable pageable, LocalDate returnedAt);
     List<TakenBooks> findAllByDeletedIsTrue();
     int countAllBy();
 }

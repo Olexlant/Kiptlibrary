@@ -2,6 +2,7 @@ package com.Kipfk.Library.controllers;
 
 import com.Kipfk.Library.appbook.*;
 import com.Kipfk.Library.appuser.*;
+import com.Kipfk.Library.news.News;
 import com.Kipfk.Library.registration.RegistrationService;
 import com.Kipfk.Library.registration.token.ConfirmationToken;
 import com.Kipfk.Library.registration.token.ConfirmationTokenRepository;
@@ -588,7 +589,8 @@ public class AdminPanelController {
     }
 
     @GetMapping("/admin/add-news")
-    public String showAddNewsForm(){
+    public String showAddNewsForm(Model model){
+        model.addAttribute("news", new News());
         return "add-news";
     }
 
@@ -597,7 +599,7 @@ public class AdminPanelController {
     public String showDebtorUsers(Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size){
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(12);
-        Page<TakenBooks> takenPage = takenBooksRepository.findAllByDeletedIsFalseAndNotificationSendedIsFalseAndTakenatIsBefore(PageRequest.of(currentPage - 1, pageSize, Sort.Direction.DESC,"takenat"), LocalDate.now().minusDays(30));
+        Page<TakenBooks> takenPage = takenBooksRepository.findAllByDeletedIsFalseAndTakenatIsBefore(PageRequest.of(currentPage - 1, pageSize, Sort.Direction.DESC,"takenat"), LocalDate.now().minusDays(30));
         model.addAttribute("takenbooks", takenPage);
         model.addAttribute("body", appBookService.bodyArrayForPages(takenPage));
         return "debtor-users";
