@@ -27,5 +27,6 @@ public class News {
     private String description;
     private byte[] newsFile;
     private LocalDate createdAt;
+    private boolean deleted = false;
 
 }
