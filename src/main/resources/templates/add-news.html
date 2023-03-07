@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!----======== CSS ======== -->
-    <link rel="stylesheet" href="/css/adduser.css" type="text/css">
+    <link rel="stylesheet" href="/css/addnews.css" type="text/css">
 
     <!----===== Iconscout CSS ===== -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
@@ -46,38 +46,21 @@
                     <div class="user-details">
                         <div class="input-box">
                             <span class="details">Заголовок</span>
-                            <input type="text" placeholder="Введіть Id qr-коду" required maxlength="6">
+                            <input type="text" placeholder="Введіть заголовок новини" required>
                         </div>
-                        <div class="input-box">
-                            <span class="details">Назва</span>
-                            <input type="text" placeholder="Введіть назву" required>
+                        <div class="input-box_1">
+                            <span class="details">Додайте зображення новини</span>
+                            <input type="file" name="files" accept="image/*"></div>
                         </div>
-                        <div class="input-box">
-                            <span class="details">Автор</span>
-                            <input type="text" placeholder="Введіть автора" required>
-                        </div>
-                        <div class="input-box">
-                            <span class="details">Рік</span>
-                            <input type="text" placeholder="Введіть рік" required maxlength="4">
-                        </div>
-                        <div class="input-box">
-                            <span class="details">URL до книги</span>
-                            <input type="text" placeholder="URL до книги" >
-                        </div>
-                        <div class="input-box">
-                            <span class="details">Кількість книг</span>
-                            <input type="number" placeholder="Кількість книг" min="0" required>
-                        </div>
-                        <div class="v"><label>Додайте зображення</label><input type="file" name="files" accept="image/*"></div>
-                        <div class="v"><label>Додайте файл книги</label><input type="file" name="files" accept="application/pdf"></div>
-                        <textarea placeholder="Опис книги"  rows="6" ></textarea>
-                    </div>
+                        <textarea placeholder="Введіть текст новини"  rows="6" ></textarea>
+                        <div class="v"><label>Додайте файл</label><input type="file" name="files" accept="application/pdf"></div>
+
                     <div class="button">
                         <button type="submit">Додати</button>
                     </div>
                 </form>
             </div>
-
+    </div>
         </div>
     </div>
 
