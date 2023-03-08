@@ -18,16 +18,7 @@
       counter-increment: slide;
     }
 
-    .itcss__item>div::before {
-      content: counter(slide);
-      position: absolute;
-      top: 10px;
-      right: 20px;
-      color: #fff;
-      font-style: italic;
-      font-size: 32px;
-      font-weight: bold;
-    }
+
   </style>
         <!-- Подключаем JS слайдера -->
         <script src="/js/simple-adaptive-slider.min.js"></script>
@@ -36,7 +27,7 @@
       // активация слайдера
       new ItcSimpleSlider('.itcss', {
         autoplay: true,
-        interval: 4000,
+        interval: 400000,
       });
     });
   </script>
@@ -46,7 +37,7 @@
 
           $('.claimedRight').each(function (f) {
 
-              var newstr = $(this).text().substring(0,50);
+              var newstr = $(this).text().substring(0,80);
               $(this).text(newstr+'...');
 
           });
@@ -58,10 +49,12 @@
                     <div class="itcss__item" th:each="inews : ${news}">
                         <div>
                             <span class="itcss__item_inner">
-                                <span class="itcss__item_img">
-                                    <img th:src="@{'/news/image/' + ${inews.getId()}}"/>
-                                </span>
-                                <span class="itcss__item_testimonial">
+                                    <div class="itcss__news">
+                                        <div class="right-news">
+                                            <img th:src="@{'/news/image/' + ${inews.getId()}}"/>
+                                        </div>
+                                        <div class="left-news">
+                                            <span class="itcss__item_testimonial">
                                     <span class="itcss__item_name" th:text="${inews.getTitle()}">Книжкова виставка</span>
                                     <span class="itcss__item_post"></span>
                                     <span class="itcss__item_text claimedRight" th:text="${inews.getDescription()}">
@@ -71,10 +64,12 @@
                                         <a class="btn" href="#">Детальніше</a>
                                     </span>
                                 </span>
+                                        </div>
+                                    </div>
+
                             </span>
                         </div>
                     </div>
-
                 </div>
             </div>
             <button class="itcss__btn itcss__btn_prev" role="button" data-slide="prev"></button>
