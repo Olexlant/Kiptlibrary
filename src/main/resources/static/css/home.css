@@ -434,7 +434,7 @@ font-family: 'Exo 2', sans-serif;
 /* --------------adout-----------*/
 
 section .content{
-  width: 80%;
+  width: 90%;
   margin: 40px auto;
   font-family: 'Century Gothic' ;
 
@@ -742,32 +742,32 @@ section .button-contact button:hover{
 
 .itcss {
   position: relative;
-  max-width: 1000px;
+  max-width: 1100px;
   margin-right: auto;
   margin-left: auto;
 }
  .itcss__item:nth-child(1) {
-       background: linear-gradient(45deg, #515cd8 10%, #00d2b1 90%);
-       height:450px;
+       background: linear-gradient(318deg, #6975ff 10%, #9c73e9 90%);
+       height:550px;
      }
 
      .itcss__item:nth-child(2) {
-       background:linear-gradient(45deg, #4552d9 10%, #858585 90%);
-        height:450px;
+       background:linear-gradient(194deg, #5e68ce 10%, #468bf7 90%);
+        height:550px;
      }
 
      .itcss__item:nth-child(3) {
-       background: linear-gradient(45deg, #45bfd9 10%, #181fdd 90%);
-        height:450px;
+       background: linear-gradient(252deg, #25398e 10%, #cca6ff 90%);
+        height:550px;
      }
 
      .itcss__item:nth-child(4) {
-       background: linear-gradient(45deg, #f68dfd 10%, #535583 90%);
-        height:450px;
+       background: linear-gradient(191deg, #25398e 10%, #c7b7ff 90%);
+        height:550px;
      }
      .itcss__item:nth-child(5) {
-      background: linear-gradient(45deg, #f68dfd 10%, #535583 90%);
-       height:450px;
+      background: linear-gradient(214deg, #3048b1 10%, #35c6ff 90%);
+       height:550px;
     }
     .itcss__news{
       display: flex;
@@ -781,8 +781,8 @@ section .button-contact button:hover{
       width: 55%;
     }
     .itcss__news .right-news img {
-      height: 300px;
-      width: 300px;
+      height: 400px;
+      width: 400px;
       object-fit: contain;
       border-radius: 12px;
   }
