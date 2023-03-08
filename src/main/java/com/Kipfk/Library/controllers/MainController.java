@@ -85,7 +85,7 @@ public class MainController {
 
     @GetMapping("/")
     public String home(Model model) {
-        Page<News> news = newsRepository.findAllByDeletedIsFalse(PageRequest.of(0, 5, Sort.Direction.DESC,"createdAt"));
+        Page<NewsRepository.NewsNoFile> news = newsRepository.findAllByDeletedIsFalse(PageRequest.of(0, 5, Sort.Direction.DESC,"createdAt"));
         model.addAttribute("news", news);
         model.addAttribute("title","Головна сторінка");
         return "home";

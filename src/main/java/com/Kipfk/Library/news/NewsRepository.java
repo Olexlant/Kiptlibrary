@@ -11,7 +11,11 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import java.io.Serializable;
 
 public interface NewsRepository extends JpaRepository<News, Long>, JpaSpecificationExecutor<News> {
+    interface NewsNoFile {
+        Long getId();
+        String getTitle();
+        String getDescription();
+    }
 
-
-    Page<News> findAllByDeletedIsFalse(Pageable pageable);
+    Page<NewsNoFile> findAllByDeletedIsFalse(Pageable pageable);
 }

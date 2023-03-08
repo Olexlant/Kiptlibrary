@@ -28,6 +28,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -608,7 +609,7 @@ public class AdminPanelController {
     public String newsAdd(News news,@RequestParam("files") MultipartFile[] multipartFiles) throws IOException {
         news.setNewsPhoto(multipartFiles[0].getBytes());
         news.setNewsFile(multipartFiles[1].getBytes());
-        news.setCreatedAt(LocalDate.now());
+        news.setCreatedAt(LocalDateTime.now());
         newsRepository.save(news);
         return "redirect:/admin/add-news?success";
     }
