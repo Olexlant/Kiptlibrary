@@ -249,7 +249,7 @@ public class AdminPanelController {
     public String listUsers(Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(12);
-        Page<AppUser> userPage = appUserRepository.findAll(PageRequest.of(currentPage - 1, pageSize));
+        Page<AppUserRepository.UserNoPhoto> userPage = appUserRepository.findAllByEnabledIsTrue(PageRequest.of(currentPage - 1, pageSize));
         model.addAttribute("Users",userPage);
         model.addAttribute("body", appBookService.bodyArrayForPages(userPage));
         return "allusers";

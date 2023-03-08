@@ -13,6 +13,16 @@ import java.util.Optional;
 @Repository
 @Transactional(readOnly = true)
 public interface AppBookRepository extends JpaRepository<AppBook, Long>, JpaSpecificationExecutor<AppBook> {
+    interface BookNoFileAndPhoto {
+        Long getId();
+        Long getQrid();
+        Long getYear();
+        Long getCount();
+        String getTitle();
+        String getDescription();
+        String getAuthor();
+        String getBookfileurl();
+    }
 
     Optional<AppBook> findById(Long id);
     AppBook findAllById(Long id);
