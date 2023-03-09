@@ -17,6 +17,7 @@ public interface TakenBooksRepository extends JpaRepository <TakenBooks,Long>, J
     List<TakenBooks> findByUserAndBookAndDeletedIsFalse(AppUser appUser, AppBook appBook);
     Optional<TakenBooks> findByBookId(Long id);
     List<TakenBooks> findAllByUser(AppUser appUser);
+    List<TakenBooks> findAllByUserAndDeletedIsFalse(AppUser appUser);
     List<TakenBooks> findAllByBook(AppBook book);
     Page<TakenBooks> findAllByDeletedIsFalse(Pageable pageable);
     Page<TakenBooks> findAllByDeletedIsTrue(Pageable pageable);
