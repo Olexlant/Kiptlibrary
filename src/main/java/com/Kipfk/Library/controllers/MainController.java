@@ -170,10 +170,8 @@ public class MainController {
     @GetMapping("/mytakenbooks")
     public String showUserAssigned(@AuthenticationPrincipal UserDetails userDetails,Model model){
         AppUser user = (AppUser) appUserService.loadUserByUsername(userDetails.getUsername());
-        List<TakenBooks> takenBooks = takenBooksRepository.findAll();
-        Stream<TakenBooks> tbs = takenBooks.stream().filter(findEmp -> user.getId().equals(findEmp.getUser().getId()));
-        List<TakenBooks> tb = tbs.toList();
-        model.addAttribute("takenbooks", tb);
+        List<TakenBooks> takenBooks = takenBooksRepository.findAllByUserAndDeletedIsFalse(user);
+        model.addAttribute("takenbooks", takenBooks);
         if (user.getAddress()==null || user.getBirthday()==null){
             return "redirect:/editprofile?nodata";
         }
