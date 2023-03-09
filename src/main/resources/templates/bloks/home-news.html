@@ -1,0 +1,78 @@
+<div th:fragment="home-news" xmlns:th="http://www.w3.org/1999/xhtml">
+        <meta charset="UTF-8">
+        <link rel="stylesheet"  href="/css/home.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+        <style>
+    /* стили для элемента body */
+
+
+    /* дополнительные стили для этого примера */
+    .itcss__items {
+      counter-reset: slide;
+    }
+
+    .itcss__item {
+      counter-increment: slide;
+    }
+
+
+  </style>
+        <!-- Подключаем JS слайдера -->
+        <script src="/js/simple-adaptive-slider.min.js"></script>
+        <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // активация слайдера
+      new ItcSimpleSlider('.itcss', {
+        autoplay: true,
+        interval: 4000,
+      });
+    });
+  </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script>
+      $(document).ready(function(){
+
+          $('.claimedRight').each(function (f) {
+
+              var newstr = $(this).text().substring(0,80);
+              $(this).text(newstr+'...');
+
+          });
+      })
+  </script>
+        <div class="itcss">
+            <div class="itcss__wrapper">
+                <div class="itcss__items">
+                    <div class="itcss__item" th:each="inews : ${news}">
+                        <div>
+                            <span class="itcss__item_inner">
+                                    <div class="itcss__news">
+                                        <div class="right-news">
+                                            <img th:src="@{'/news/image/' + ${inews.getId()}}"/>
+                                        </div>
+                                        <div class="left-news">
+                                            <span class="itcss__item_testimonial">
+                                    <span class="itcss__item_name" th:text="${inews.getTitle()}">Книжкова виставка</span>
+                                    <span class="itcss__item_post"></span>
+                                    <span class="itcss__item_text claimedRight" th:text="${inews.getDescription()}">
+                                        Представлены самые важные сведения о синтаксисе языка и показаны примеры его применения....
+                                    </span>
+                                    <span class="itcss__item_action">
+                                        <a class="btn" href="#">Детальніше</a>
+                                    </span>
+                                </span>
+                                        </div>
+                                    </div>
+
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="itcss__btn itcss__btn_prev" role="button" data-slide="prev"></button>
+            <button class="itcss__btn itcss__btn_next" role="button" data-slide="next"></button>
+        </div>
+</div>

@@ -22,7 +22,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Exo+2:wght@300&display=swap" rel="stylesheet">
-    <title>Додати новину</title>
+    <title>Редагувати новину новину</title>
 </head>
 <body>
 <nav th:insert="bloks/adminheader :: adminheader"></nav>
@@ -40,28 +40,28 @@
     <div class="dash-content">
 
         <div class="container2">
-            <div class="title"><span>Новина</span></div>
+            <div class="title"><span>Редагувати новину</span></div>
             <div class="content">
-                <form method="post" th:action="@{/admin/news_adding}" th:object="${news}" enctype="multipart/form-data">
+                <form method="post" th:action="'/admin/news/'+ ${news.getId()}+'/edit'" enctype="multipart/form-data">
                     <div class="user-details">
                         <div class="input-box">
                             <span class="details">Заголовок</span>
-                            <input type="text" th:field="*{title}" placeholder="Введіть заголовок новини" required>
+                            <input type="text" th:value="${news.getTitle()}" name="title" placeholder="Введіть заголовок новини" required>
                         </div>
                         <div class="input-box_1">
                             <span class="details">Додайте зображення новини</span>
                             <input type="file" name="files" accept="image/*"></div>
-                        </div>
-                        <textarea th:field="*{description}" placeholder="Введіть текст новини"  rows="6" ></textarea>
-                        <div class="v"><label>Додайте файл</label><input type="file" name="files" accept="application/pdf"></div>
+                    </div>
+                    <textarea th:text="${news.getDescription()}" placeholder="Введіть текст новини" name="description"  rows="6" ></textarea>
+                    <div class="v"><label>Додайте файл</label><input type="file" name="files" accept="application/pdf"></div>
 
                     <div class="button">
-                        <button type="submit">Додати</button>
+                        <button type="submit">Редагувати</button>
                     </div>
                 </form>
             </div>
-    </div>
         </div>
+    </div>
     </div>
 
     </div>
@@ -70,7 +70,7 @@
             <div class="column" >
                 <i class="fa-solid fa-circle-check"></i>
                 <span>
-                    Новину додано</span>
+                    Новину змінено</span>
             </div>
             <i class="fa-solid fa-xmark"></i>
         </li>
@@ -79,6 +79,7 @@
 <script src="/js/alert_script.js"></script>
 <script src="/js/popup.js"></script>
 <script src="/js/script.js"></script>
+<script src="/js/slider-news.js"></script>
 <script src="https://code.iconify.design/iconify-icon/1.0.3/iconify-icon.min.js"></script>
 </body>
 </html>

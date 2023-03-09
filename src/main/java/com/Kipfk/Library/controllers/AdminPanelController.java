@@ -2,10 +2,13 @@ package com.Kipfk.Library.controllers;
 
 import com.Kipfk.Library.appbook.*;
 import com.Kipfk.Library.appuser.*;
+import com.Kipfk.Library.news.News;
+import com.Kipfk.Library.news.NewsRepository;
 import com.Kipfk.Library.registration.RegistrationService;
 import com.Kipfk.Library.registration.token.ConfirmationToken;
 import com.Kipfk.Library.registration.token.ConfirmationTokenRepository;
 import com.google.zxing.WriterException;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,10 +23,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,10 +54,10 @@ public class AdminPanelController {
     private final GroupsRepository groupsRepository;
     private final TakenBooksService takenBooksService;
     private final BooksByGroupsRepository booksByGroupsRepository;
-
     private final BookOrdersRepository bookOrdersRepository;
+    private final NewsRepository newsRepository;
 
-    public AdminPanelController(RegistrationService registrationService, ConfirmationTokenRepository confirmationTokenRepository, AppUserService appUserService, AppBookService appBookService, AppUserRepository appUserRepository, AppBookRepository appBookRepository, TakenBooksRepository takenBooksRepository, LikedBooksRepository likedBooksRepository, AppUserRepository userRepo, BookCategoryRepository bookCategoryRepository, CategoriesOfBooksRepository categoriesOfBooksRepository, GroupsRepository groupsRepository, TakenBooksService takenBooksService, BooksByGroupsRepository booksByGroupsRepository, BookOrdersRepository bookOrdersRepository) {
+    public AdminPanelController(RegistrationService registrationService, ConfirmationTokenRepository confirmationTokenRepository, AppUserService appUserService, AppBookService appBookService, AppUserRepository appUserRepository, AppBookRepository appBookRepository, TakenBooksRepository takenBooksRepository, LikedBooksRepository likedBooksRepository, AppUserRepository userRepo, BookCategoryRepository bookCategoryRepository, CategoriesOfBooksRepository categoriesOfBooksRepository, GroupsRepository groupsRepository, TakenBooksService takenBooksService, BooksByGroupsRepository booksByGroupsRepository, BookOrdersRepository bookOrdersRepository, NewsRepository newsRepository) {
         this.registrationService = registrationService;
         this.confirmationTokenRepository = confirmationTokenRepository;
         this.appUserService = appUserService;
@@ -67,6 +73,7 @@ public class AdminPanelController {
         this.takenBooksService = takenBooksService;
         this.booksByGroupsRepository = booksByGroupsRepository;
         this.bookOrdersRepository = bookOrdersRepository;
+        this.newsRepository = newsRepository;
     }
 
 //ADDBOOK
@@ -242,7 +249,7 @@ public class AdminPanelController {
     public String listUsers(Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(12);
-        Page<AppUser> userPage = appUserRepository.findAll(PageRequest.of(currentPage - 1, pageSize));
+        Page<AppUserRepository.UserNoPhoto> userPage = appUserRepository.findAllByEnabledIsTrue(PageRequest.of(currentPage - 1, pageSize));
         model.addAttribute("Users",userPage);
         model.addAttribute("body", appBookService.bodyArrayForPages(userPage));
         return "allusers";
@@ -575,9 +582,89 @@ public class AdminPanelController {
         return "orders";
     }
 
+    @PostMapping("/admin/bookorders/{bookorderid}/delete")
+    public String deleteBookOrder (@PathVariable Long bookorderid){
+        List<BookOrders> bookOrder = bookOrdersRepository.findAllById(bookorderid);
+        bookOrdersRepository.deleteAll(bookOrder);
+        return "redirect:/admin/bookorders?deletesuccess";
+    }
 //NEWS
     @GetMapping("/admin/news")
-    public String showNews(){
+    public String showNews(Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size){
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(12);
+        Page<News> news = newsRepository.findAll(PageRequest.of(currentPage - 1, pageSize));
+        model.addAttribute("news", news);
+        model.addAttribute("body", appBookService.bodyArrayForPages(news));
+        return "news";
+    }
+
+    @GetMapping("/admin/add-news")
+    public String showAddNewsForm(Model model){
+        model.addAttribute("news", new News());
         return "add-news";
+    }
+
+    @PostMapping("/admin/news_adding")
+    public String newsAdd(News news,@RequestParam("files") MultipartFile[] multipartFiles) throws IOException {
+        news.setNewsPhoto(multipartFiles[0].getBytes());
+        news.setNewsFile(multipartFiles[1].getBytes());
+        news.setCreatedAt(LocalDateTime.now());
+        newsRepository.save(news);
+        return "redirect:/admin/add-news?success";
+    }
+
+    @GetMapping("/admin/news/{newsid}")
+    public String getOneNews(Model model, @PathVariable Long newsid){
+        News news = newsRepository.findById(newsid).get();
+        model.addAttribute("news", news);
+        return "news-edit";
+    }
+
+    @PostMapping("/admin/news/{newsid}/edit")
+    public String editOneNews(Model model, @PathVariable Long newsid,@RequestParam String title, @RequestParam String description, @RequestParam("files") MultipartFile[] multipartFiles) throws IOException {
+        News news = newsRepository.findById(newsid).get();
+        news.setTitle(title);
+        news.setDescription(description);
+        if (!multipartFiles[0].isEmpty()){
+            news.setNewsPhoto(multipartFiles[0].getBytes());
+        }
+        if (!multipartFiles[1].isEmpty()) {
+            news.setNewsFile(multipartFiles[1].getBytes());
+        }
+        newsRepository.save(news);
+        return "redirect:/admin/news?saved";
+    }
+    @PostMapping("/admin/news/{newsid}/delete")
+    public String newsDelete(@PathVariable Long newsid){
+        newsRepository.delete(newsRepository.findById(newsid).get());
+        return "redirect:/admin/news?deleted";
+    }
+
+    @GetMapping("/news/image/{newsid}")
+    public void showNewsImage(@PathVariable Long newsid, HttpServletResponse response) throws IOException {
+        response.setContentType("image/jpeg");
+        News news = newsRepository.findById(newsid).get();
+        InputStream is = new ByteArrayInputStream(news.getNewsPhoto());
+        IOUtils.copy(is, response.getOutputStream());
+    }
+
+    @GetMapping("/news/file/{newsid}")
+    public void showNewsFile(@PathVariable Long newsid, HttpServletResponse response) throws IOException {
+        response.setContentType("application/pdf");
+        News news = newsRepository.findById(newsid).get();
+        InputStream is = new ByteArrayInputStream(news.getNewsFile());
+        IOUtils.copy(is, response.getOutputStream());
+    }
+
+//DEBTOR USERS
+    @GetMapping("/admin/debtorusers")
+    public String showDebtorUsers(Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size){
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(12);
+        Page<TakenBooks> takenPage = takenBooksRepository.findAllByDeletedIsFalseAndTakenatIsBefore(PageRequest.of(currentPage - 1, pageSize, Sort.Direction.DESC,"takenat"), LocalDate.now().minusDays(30));
+        model.addAttribute("takenbooks", takenPage);
+        model.addAttribute("body", appBookService.bodyArrayForPages(takenPage));
+        return "debtor-users";
     }
 }

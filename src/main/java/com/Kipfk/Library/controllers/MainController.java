@@ -2,6 +2,8 @@ package com.Kipfk.Library.controllers;
 
 import com.Kipfk.Library.appbook.*;
 import com.Kipfk.Library.appuser.*;
+import com.Kipfk.Library.news.News;
+import com.Kipfk.Library.news.NewsRepository;
 import com.Kipfk.Library.registration.RegistrationService;
 import com.Kipfk.Library.registration.token.ConfirmationToken;
 import com.Kipfk.Library.registration.token.ConfirmationTokenRepository;
@@ -10,6 +12,7 @@ import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -60,8 +63,9 @@ public class MainController {
     private final BooksByGroupsRepository booksByGroupsRepository;
     private final PasswordEncoder passwordEncoder;
     private final BookOrdersRepository bookOrdersRepository;
+    private final NewsRepository newsRepository;
 
-    public MainController(RegistrationService registrationService, AppUserService appUserService, AppBookService appBookService, AppUserRepository appUserRepository, AppBookRepository appBookRepository, TakenBooksRepository takenBooksRepository, LikedBooksRepository likedBooksRepository, AppUserRepository userRepo, BookCategoryRepository bookCategoryRepository, CategoriesOfBooksRepository categoriesOfBooksRepository, GroupsRepository groupsRepository, AppUserRepository appUserRepository1, ConfirmationTokenRepository confirmationTokenRepository, BooksByGroupsRepository booksByGroupsRepository, PasswordEncoder passwordEncoder, BookOrdersRepository bookOrdersRepository) {
+    public MainController(RegistrationService registrationService, AppUserService appUserService, AppBookService appBookService, AppUserRepository appUserRepository, AppBookRepository appBookRepository, TakenBooksRepository takenBooksRepository, LikedBooksRepository likedBooksRepository, AppUserRepository userRepo, BookCategoryRepository bookCategoryRepository, CategoriesOfBooksRepository categoriesOfBooksRepository, GroupsRepository groupsRepository, AppUserRepository appUserRepository1, ConfirmationTokenRepository confirmationTokenRepository, BooksByGroupsRepository booksByGroupsRepository, PasswordEncoder passwordEncoder, BookOrdersRepository bookOrdersRepository, NewsRepository newsRepository) {
         this.registrationService = registrationService;
         this.appUserService = appUserService;
         this.appBookService = appBookService;
@@ -76,10 +80,13 @@ public class MainController {
         this.booksByGroupsRepository = booksByGroupsRepository;
         this.passwordEncoder = passwordEncoder;
         this.bookOrdersRepository = bookOrdersRepository;
+        this.newsRepository = newsRepository;
     }
 
     @GetMapping("/")
     public String home(Model model) {
+        Page<NewsRepository.NewsNoFile> news = newsRepository.findAllByDeletedIsFalse(PageRequest.of(0, 5, Sort.Direction.DESC,"createdAt"));
+        model.addAttribute("news", news);
         model.addAttribute("title","Головна сторінка");
         return "home";
     }

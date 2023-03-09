@@ -49,3 +49,20 @@ let currentForm1;
       })
     }
 
+let currentForm2;
+function openpopup2(form){
+    const popUp = document.getElementById('pop_up2');
+    popUp.classList.add('active');
+    currentForm2 = form;
+}
+
+function submitForm2() {
+    currentForm2.submit();
+}
+
+function closepopupwindow2(){
+    const closePopUp = document.getElementById('pop_up_close2');
+    closePopUp.addEventListener('click', () => {
+        popUp.classList.remove('active');
+    })
+}

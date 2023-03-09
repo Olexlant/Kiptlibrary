@@ -39,17 +39,17 @@
         </div>
     </div>
 </div>
-<div class="pop_up" id="pop_up1">
+<div class="pop_up" id="pop_up2">
     <div class="pop_up_container">
-        <div class="pop_up_body" id="pop_up_body1">
+        <div class="pop_up_body" id="pop_up_body2">
             <p>
                 <iconify-icon icon="carbon:order-details" style="color: red;" width="60" height="60"></iconify-icon>
             </p>
             <p>Видалити замовлення?</p>
             <form>
                 <div class="btn-yes-no">
-                    <button id="pop_up_submit1" type="button" onclick="submitForm1(form)">Так</button>
-                    <button class="no" onclick="closepopupwindow1()">Ні</button>
+                    <button id="pop_up_submit1" type="button" onclick="submitForm2()">Так</button>
+                    <button class="no" onclick="closepopupwindow2()">Ні</button>
                 </div>
             </form>
         </div>
@@ -115,7 +115,11 @@
                                     <input type="number" name="takeCount" title="Введіть кількість книг" min="0" th:value="${0}" th:max="${bookOrder.getBook().getCount()}">
                                     <div class="btnactions1_1">
                                         <button style="background-color: #258e47; margin-bottom: 2px;" type="button" onclick="openpopup(form)" ><i style="font-style: initial;"> Видати книгу</i></button>
-                                        <button style="background-color: #FF3F40" type="button" onclick="openpopup1(form)" title="Видалити замовлення"><i style="font-style: initial;">Видалити</i></button>
+                                    </div>
+                                </form>
+                                <form th:action="'/admin/bookorders/'+ ${bookOrder.getId()}+'/delete'" method="post">
+                                    <div class="btnactions1_1">
+                                        <button style="background-color: #FF3F40;  width:116px;"  type="button" onclick="openpopup2(form)" title="Видалити замовлення"><i style="font-style: initial;">Видалити</i></button>
                                     </div>
                                 </form>
                         </tr>
@@ -143,39 +147,13 @@
         </th:block>
     </ul>
 
-
-
-    <ul th:if="${param.changessaved}" class="notifications" id="message">
-        <li class="toast success">
-            <div class="column" >
-                <i class="fa-solid fa-circle-check"></i>
-                <span>
-
-                     Зміни збережено</span>
-            </div>
-            <i class="fa-solid fa-xmark"></i>
-        </li>
-    </ul>
-
-    <ul th:if="${param.usernotreturn}" class="notifications" id="message">
-        <li class="toast warning">
-            <div class="column" >
-                <i class="fa-solid fa-triangle-exclamation"></i>
-                <span>
-
-                   Книга вже видана у деяких користувачів</span>
-            </div>
-            <i class="fa-solid fa-xmark"></i>
-        </li>
-    </ul>
-
     <ul th:if="${param.deletesuccess}" class="notifications"  id="message">
         <li class="toast success">
             <div class="column" >
                 <i class="fa-solid fa-circle-check"></i>
                 <span>
 
-                     Книгу успішно видалено</span>
+                     Замовлення видалено</span>
             </div>
             <i class="fa-solid fa-xmark"></i>
         </li>
