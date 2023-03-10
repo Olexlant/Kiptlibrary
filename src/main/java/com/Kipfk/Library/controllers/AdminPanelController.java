@@ -408,7 +408,7 @@ public class AdminPanelController {
     @GetMapping("/admin/usertakenadmin/{id}")
     public String showusertaken(@PathVariable(value = "id") long userid,Model model){
         AppUser user = appUserRepository.findById(userid).orElseThrow();
-        List<TakenBooks> takenBooks = takenBooksRepository.findAllByUser(user);
+        List<TakenBooks> takenBooks = takenBooksRepository.findAllByUserAndDeletedIsFalse(user);
         model.addAttribute("user",user);
         model.addAttribute("usertaken", takenBooks);
         return "usertakenadmin";
