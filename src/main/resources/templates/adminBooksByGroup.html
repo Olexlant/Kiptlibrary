@@ -72,11 +72,10 @@
                         <tr>
                             <th>Id qr-коду</th>
                             <th>Фото</th>
+                            <th>Статус</th>
                             <th>Назва</th>
                             <th>Автор</th>
                             <th>Рік</th>
-                            <th>Стилаж</th>
-                            <th>Полиця</th>
                             <th>Дії</th>
                         </tr>
                         </thead>
@@ -84,11 +83,15 @@
                         <tr th:each="book : ${books}">
                             <td th:text="${book.getBook().getQrid()}"></td>
                             <td><img th:src="@{'/book/image/' + ${book.getBook().getId()}}"/></td>
+                            <div th:if="${book.getBook().getBookfile()==null && book.getBook().getBookfileurl()==''}">
+                                <td th:text="${'Паперова'}"></td>
+                            </div>
+                            <div th:if="${book.getBook().getBookfile()!=null || book.getBook().getBookfileurl()!=''}">
+                                <td th:text="${'Електронна'}"></td>
+                            </div>
                             <td th:text="${book.getBook().getTitle()}"></td>
                             <td th:text="${book.getBook().getAuthor()}"></td>
                             <td th:text="${book.getBook().getYear()}"></td>
-                            <td th:text="${book.getBook().getStilaj()}"></td>
-                            <td th:text="${book.getBook().getPolka()}"></td>
                             <td class="btnactions">
                                 <form th:action="'/admin/addcategorytobook/'+ ${book.getBook().getId()}" method="get">
                                     <button style="background-color: #25398e" title="Категорії книги" type="submit" ><i><iconify-icon icon="fluent:book-star-24-filled"></iconify-icon></i></button>
