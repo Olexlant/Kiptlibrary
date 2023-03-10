@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- Created By CodingLab - www.codinglabweb.com -->
+<html lang="en" dir="ltr">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Новини</title>
+  <link href="/css/book-details.css" type="text/css" rel="stylesheet" th:href="@{/css/book-details.css}">
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <!-- Font Awesome CDN link for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+  <script src="https://code.iconify.design/iconify-icon/1.0.3/iconify-icon.min.js"></script>
+  <!-- Font Awesome CDN link for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Exo+2:wght@300&display=swap" rel="stylesheet">
+</head>
+<header class="site-header sticky-top py-1" th:insert="bloks/header :: header"></header>
+
+<body>
+<div class="container">
+  <section class="adout">
+    <div class="content" >
+      <div class="title"><span th:text="${news.getTitle()}">Назва новости</span></div><!--Заголовок новини-->
+      <div class="about-details">
+        <div class="right">
+          <img th:src="@{'/news/image/' + ${news.getId()}}"/>
+        </div>
+        <div class="left">
+          <div>
+            <p th:text="${news.getDescription()}"><!--Опис новини--></p>
+          </div>
+          <div th:if="${news.getNewsFile()!=null}">
+            <form th:action="${'/news/file/'+news.getId()}" method="get">
+              <div class="button"><!--Назад-->
+                <button>Переглянути файл до новини</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<a href="https://app.service.utog.org/"></a><span class="btnServiceUTOG"></span>
+<script src="/js/alert_script.js"></script>
+<script src="/js/popup.js"></script>
+<script src="/js/script.js"></script>
+<script src="https://code.iconify.design/iconify-icon/1.0.3/iconify-icon.min.js"></script>
+<script src="/js/select.js"></script>
+</body>
+</html>

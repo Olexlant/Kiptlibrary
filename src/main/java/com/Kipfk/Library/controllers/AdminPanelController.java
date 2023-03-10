@@ -641,6 +641,13 @@ public class AdminPanelController {
         return "redirect:/admin/news?deleted";
     }
 
+    @GetMapping("/news/{newsid}")
+    public String showOneNews(Model model, @PathVariable Long newsid){
+        News news = newsRepository.findById(newsid).get();
+        model.addAttribute("news", news);
+       return "news-details";
+    }
+
     @GetMapping("/news/image/{newsid}")
     public void showNewsImage(@PathVariable Long newsid, HttpServletResponse response) throws IOException {
         response.setContentType("image/jpeg");
