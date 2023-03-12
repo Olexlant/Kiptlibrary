@@ -777,8 +777,8 @@ section .button-contact button:hover{
     .itcss__news .right-news{
       width: 45%;
     }
-    .itcss__news .left-news{
-      width: 55%;
+    .itcss__news .left-news span{
+      width: 380px;
     }
     .itcss__news .right-news img {
       height: 400px;
@@ -813,7 +813,7 @@ section .button-contact button:hover{
       display: inline-block;
       height: auto;
       max-width: 200%;
-      border-radius: 20px;
+    
     }
     .btn {
       display: block;
@@ -926,6 +926,7 @@ section .button-contact button:hover{
          .itcss__item_name {
            font-size: 35px;
            margin-bottom: 8px;
+           text-align: center;
            color: rgba(255, 255, 255, 0.8);
          }
 

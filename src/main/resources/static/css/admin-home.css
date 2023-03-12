@@ -583,6 +583,13 @@ input{
     font-weight: 400;
     outline: none;
 }
+.btnactions {
+    display: flex;
+}
+.look-file {
+    display: inherit;
+    /* justify-content: center; */
+}
 .top .search-box i{
     position: absolute;
     left: 15px;
