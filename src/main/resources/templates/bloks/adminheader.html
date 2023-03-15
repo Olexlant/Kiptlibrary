@@ -32,11 +32,11 @@
                     <i><iconify-icon icon="ion:people-sharp"></iconify-icon></i>
                     <span class="link-name" >Користувачі</span></a>
                     <ul>
-                        <li><a th:href="@{/admin/allusers}">
+                        <li><a th:href="@{/admin/allusers(category=${'students'})}">
                             <i><iconify-icon icon="gis:map-users"></iconify-icon></i>
                             <span class="link-name" style="font-size: 15px;">Студенти</span>
                         </a></li>
-                        <li><a th:href="@{/admin/allusers}">
+                        <li><a th:href="@{/admin/allusers(category=${'teachers'})}">
                             <i><iconify-icon icon="mdi:account-student"></iconify-icon></i>
                             <span class="link-name" style="font-size: 15px;">Викладачі</span>
                         </a></li>

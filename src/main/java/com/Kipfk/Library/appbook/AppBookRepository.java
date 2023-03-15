@@ -1,7 +1,6 @@
 package com.Kipfk.Library.appbook;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -22,12 +21,17 @@ public interface AppBookRepository extends JpaRepository<AppBook, Long>, JpaSpec
         String getDescription();
         String getAuthor();
         String getBookfileurl();
+        boolean isElectronic();
+
     }
 
-    Optional<AppBook> findById(Long id);
     AppBook findAllById(Long id);
-    Page<AppBook> findAllByBookfileIsNotNullOrBookfileurlIsNotLike(Pageable pageable,String empty);
-    Page<AppBook> findAllByBookfileIsNullAndBookfileurlIsLike(Pageable pageable, String empty);
+
+
+    Page<BookNoFileAndPhoto> findAllByElectronicIsTrue(Pageable pageable);
+    Page<BookNoFileAndPhoto> findAllByElectronicIsFalse(Pageable pageable);
+
+    Page<BookNoFileAndPhoto> findAllBy(Pageable pageable);
     int countAllBy();
 
 

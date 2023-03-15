@@ -52,44 +52,11 @@ public class SearchController {
             ArrayList<AppBook> list = (ArrayList<AppBook>) appBookService.getAllByKeyword(keyword);
             Page<AppBook> bookPage = appBookService.searchpagepaginated(PageRequest.of(currentPage - 1, pageSize),list);
             model.addAttribute("books", bookPage);
-            int[] body;
-            if (bookPage.getTotalPages() > 7) {
-                int totalPages = bookPage.getTotalPages();
-                int pageNumber = bookPage.getNumber()+1;
-                int[] head = (pageNumber > 4) ? new int[]{1, -1} : new int[]{1,2,3};
-                int[] bodyBefore = (pageNumber > 4 && pageNumber < totalPages - 1) ? new int[]{pageNumber-2, pageNumber-1} : new int[]{};
-                int[] bodyCenter = (pageNumber > 3 && pageNumber < totalPages - 2) ? new int[]{pageNumber} : new int[]{};
-                int[] bodyAfter = (pageNumber > 2 && pageNumber < totalPages - 3) ? new int[]{pageNumber+1, pageNumber+2} : new int[]{};
-                int[] tail = (pageNumber < totalPages - 3) ? new int[]{-1, totalPages} : new int[] {totalPages-2, totalPages-1, totalPages};
-                body = MainController.merge(head, bodyBefore, bodyCenter, bodyAfter, tail);
-            } else {
-                body = new int[bookPage.getTotalPages()];
-                for (int i = 0; i < bookPage.getTotalPages(); i++) {
-                    body[i] = 1+i;
-                }
-            }
-            model.addAttribute("body", body);
+            model.addAttribute("body", appBookService.bodyArrayForPages(bookPage));
         } else {
-            List<AppBook> list = appBookRepository.findAll();
-            Page<AppBook> bookPage = appBookService.searchpagepaginated(PageRequest.of(currentPage - 1, pageSize),list);
+            Page<AppBook> bookPage = appBookRepository.findAll(PageRequest.of(currentPage - 1, pageSize));
             model.addAttribute("books", bookPage);
-            int[] body;
-            if (bookPage.getTotalPages() > 7) {
-                int totalPages = bookPage.getTotalPages();
-                int pageNumber = bookPage.getNumber()+1;
-                int[] head = (pageNumber > 4) ? new int[]{1, -1} : new int[]{1,2,3};
-                int[] bodyBefore = (pageNumber > 4 && pageNumber < totalPages - 1) ? new int[]{pageNumber-2, pageNumber-1} : new int[]{};
-                int[] bodyCenter = (pageNumber > 3 && pageNumber < totalPages - 2) ? new int[]{pageNumber} : new int[]{};
-                int[] bodyAfter = (pageNumber > 2 && pageNumber < totalPages - 3) ? new int[]{pageNumber+1, pageNumber+2} : new int[]{};
-                int[] tail = (pageNumber < totalPages - 3) ? new int[]{-1, totalPages} : new int[] {totalPages-2, totalPages-1, totalPages};
-                body = MainController.merge(head, bodyBefore, bodyCenter, bodyAfter, tail);
-            } else {
-                body = new int[bookPage.getTotalPages()];
-                for (int i = 0; i < bookPage.getTotalPages(); i++) {
-                    body[i] = 1+i;
-                }
-            }
-            model.addAttribute("body", body);
+            model.addAttribute("body", appBookService.bodyArrayForPages(bookPage));
         }
         AppUser user = (AppUser) appUserService.loadUserByUsername(userDetails.getUsername());
         List<LikedBooks> lb = likedBooksRepository.findAllByUser(user);

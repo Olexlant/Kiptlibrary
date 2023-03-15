@@ -84,7 +84,9 @@
                             <div th:if="${user.getGroups()!=null}">
                                 <td th:text="${user.getGroups().getName()}"></td>
                             </div>
-                            <td>Студент</td>
+                            <td th:if="${user.getAppUserRole().toString()=='USER'}">Студент</td>
+                            <td th:if="${user.getAppUserRole().toString()=='ADMIN'}">Адмін</td>
+                            <td th:if="${user.getAppUserRole().toString()=='TEACHER'}">Вчитель</td>
                             <td th:text="${user.getFirstName()}"></td>
                             <td th:text="${user.getLastName()}"></td>
                             <td th:text="${user.getEmail()}"></td>

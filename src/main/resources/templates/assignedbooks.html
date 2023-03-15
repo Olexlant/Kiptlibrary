@@ -152,8 +152,11 @@
                                     <button style="background-color: #219e25" type="button" title="Повернути книгу" onclick="openpopup(form)"><i><iconify-icon icon="ion:arrow-back-circle" rotate="180deg"></iconify-icon></i></button>
                                 </form>
                                 </div>
-                                <div  class="look-file">
-                                    <form >
+                                <div  class="look-file" th:if="${takenbook.getBook().isElectronic()}">
+                                    <form th:if="${takenbook.getBook().getBookfileurl().isEmpty()}" th:action="'/allbooks/'+ ${takenbook.getBook().getId()} +'/ebook'" method="get">
+                                        <button style="background-color: #200edd" title="Переглянути файл" type="submit" ><i>Файл книги</i></button>
+                                    </form>
+                                    <form th:unless="${takenbook.getBook().getBookfileurl().isEmpty()}" th:action="${takenbook.getBook().getBookfileurl()}" method="get">
                                         <button style="background-color: #200edd" title="Переглянути файл" type="submit" ><i>Файл книги</i></button>
                                     </form>
                                 </div>
