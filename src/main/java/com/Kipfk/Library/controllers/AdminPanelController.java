@@ -174,15 +174,18 @@ public class AdminPanelController {
         book.setCount(count);
         if (!multipartFiles[0].isEmpty()){
             book.setBookimg(multipartFiles[0].getBytes());
+            book.setElectronic(true);
         }
         if(bookfileurl.isEmpty()){
             book.setBookfileurl("");
             if (!multipartFiles[1].isEmpty()){
                 book.setBookfile(multipartFiles[1].getBytes());
+                book.setElectronic(true);
             }
         }else {
             book.setBookfile(null);
             book.setBookfileurl(bookfileurl);
+            book.setElectronic(true);
         }
         appBookRepository.save(book);
         return "redirect:/admin/allbooksadmin?changessaved";
