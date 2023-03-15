@@ -43,8 +43,9 @@ public class AppBook {
     @Column(columnDefinition="text", length=10485760)
     private String description;
     private Long count;
+    private boolean electronic = false;
 
-    public AppBook(Long qrid, String title, String author, Long year, byte[] bookimg, byte[] qrimg,byte[] bookfile){
+    public AppBook(Long qrid, String title, String author, Long year, byte[] bookimg, byte[] qrimg,byte[] bookfile,boolean electronic){
         this.qrid = qrid;
         this.title = title;
         this.author = author;
@@ -52,6 +53,7 @@ public class AppBook {
         this.bookimg = bookimg;
         this.qrimg = qrimg;
         this.bookfile = bookfile;
+        this.electronic = electronic;
     }
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "book", orphanRemoval = true)
     private Set<LikedBooks> likedBooks;

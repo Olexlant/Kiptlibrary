@@ -94,11 +94,13 @@ public class AdminPanelController {
         if(appBook.getBookfileurl().isEmpty()){
             if (!multipartFiles[1].isEmpty()){
                 appBook.setBookfile(multipartFiles[1].getBytes());
+                appBook.setElectronic(true);
             }else {
                 appBook.setBookfile(null);
             }
         }else {
             appBook.setBookfile(null);
+            appBook.setElectronic(true);
         }
         appBookService.bookadd(appBook);
         appBookRepository.save(appBook);
@@ -107,7 +109,7 @@ public class AdminPanelController {
     }
     @GetMapping("/admin")
     public String showAdminHome(Model model){
-        int usercount = appUserRepository.countAllBy();
+        int usercount = appUserRepository.countAllByEnabledIsTrue();
         model.addAttribute("usercount", usercount);
         int bookOrdersCount = bookOrdersRepository.countAllByDeletedIsFalse();
         model.addAttribute("bookOrdersCount", bookOrdersCount);
@@ -123,20 +125,24 @@ public class AdminPanelController {
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(12);
         String categor = "";
-        Page<AppBook> bookPage;
+        Page<AppBookRepository.BookNoFileAndPhoto> bookPage;
         if (category.isPresent()){
             categor = category.get();
         }
         if (categor.equals("electronic")){
-            bookPage = appBookRepository.findAllByBookfileIsNotNullOrBookfileurlIsNotLike(PageRequest.of(currentPage - 1, pageSize), "");
+            bookPage = appBookRepository.findAllByElectronicIsTrue(PageRequest.of(currentPage - 1, pageSize));
+            model.addAttribute("books", bookPage);
+            model.addAttribute("body", appBookService.bodyArrayForPages(bookPage));
         }else if (categor.equals("physical")){
-            bookPage = appBookRepository.findAllByBookfileIsNullAndBookfileurlIsLike(PageRequest.of(currentPage - 1, pageSize), "");
+            bookPage = appBookRepository.findAllByElectronicIsFalse(PageRequest.of(currentPage - 1, pageSize));
+            model.addAttribute("books", bookPage);
+            model.addAttribute("body", appBookService.bodyArrayForPages(bookPage));
         }else {
-            bookPage = appBookRepository.findAll(PageRequest.of(currentPage - 1, pageSize));
+            Page<AppBookRepository.BookNoFileAndPhoto> allBooksPage = appBookRepository.findAllBy(PageRequest.of(currentPage - 1, pageSize));
+            model.addAttribute("books", allBooksPage);
+            model.addAttribute("body", appBookService.bodyArrayForPages(allBooksPage));
         }
         model.addAttribute("category", categor);
-        model.addAttribute("books",bookPage);
-        model.addAttribute("body", appBookService.bodyArrayForPages(bookPage));
         return "allbooksadmin";
     }
 
@@ -146,15 +152,13 @@ public class AdminPanelController {
         if (!appBookRepository.existsById(id)){
             return "redirect:/allbooksadmin";
         }
-        Optional<AppBook> book = appBookRepository.findById(id);
-        ArrayList<AppBook> rbook = new ArrayList<>();
-        book.ifPresent(rbook::add);
-        model.addAttribute("bookd", rbook);
+        AppBook book = appBookRepository.findAllById(id);
+        model.addAttribute("bookd", book);
         return "bookadminedit";
     }
     @PostMapping("/admin/allbooksadmin/{id}/edit")
     public String AdminBookUpdate(@PathVariable(value = "id") long id,@RequestParam Long qrid, @RequestParam String title, @RequestParam String author, @RequestParam Long year, @RequestParam("files") MultipartFile[] multipartFiles,@RequestParam String bookfileurl, @RequestParam String description, @RequestParam Long count) throws IOException {
-        AppBook book = appBookRepository.findById(id).orElseThrow();
+        AppBook book = appBookRepository.findAllById(id);
         if (!book.getQrid().equals(qrid)){
             try {
                 book.setQrimg(QRCodeGenerator.getQRCodeImage(String.valueOf(qrid),300,300));
@@ -170,15 +174,18 @@ public class AdminPanelController {
         book.setCount(count);
         if (!multipartFiles[0].isEmpty()){
             book.setBookimg(multipartFiles[0].getBytes());
+            book.setElectronic(true);
         }
         if(bookfileurl.isEmpty()){
             book.setBookfileurl("");
             if (!multipartFiles[1].isEmpty()){
                 book.setBookfile(multipartFiles[1].getBytes());
+                book.setElectronic(true);
             }
         }else {
             book.setBookfile(null);
             book.setBookfileurl(bookfileurl);
+            book.setElectronic(true);
         }
         appBookRepository.save(book);
         return "redirect:/admin/allbooksadmin?changessaved";
@@ -246,10 +253,21 @@ public class AdminPanelController {
     }
 
     @GetMapping("/admin/allusers")
-    public String listUsers(Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
+    public String listUsers(Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size, @RequestParam("category") Optional<String> category) {
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(12);
-        Page<AppUserRepository.UserNoPhoto> userPage = appUserRepository.findAllByEnabledIsTrue(PageRequest.of(currentPage - 1, pageSize));
+        String categor = "";
+        Page<AppUserRepository.UserNoPhoto> userPage;
+        if (category.isPresent()){
+            categor = category.get();
+        }
+        if (categor.equals("students")) {
+            userPage = appUserRepository.findAllByAppUserRoleAndEnabledIsTrue(PageRequest.of(currentPage - 1, pageSize), AppUserRole.USER);
+        } else if (categor.equals("teachers")){
+            userPage = appUserRepository.findAllByAppUserRoleAndEnabledIsTrue(PageRequest.of(currentPage - 1, pageSize), AppUserRole.TEACHER);
+        }else{
+            userPage = appUserRepository.findAllByEnabledIsTrue(PageRequest.of(currentPage - 1, pageSize));
+        }
         model.addAttribute("Users",userPage);
         model.addAttribute("body", appBookService.bodyArrayForPages(userPage));
         return "allusers";
@@ -324,7 +342,7 @@ public class AdminPanelController {
     public String showUsersToTake(Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(12);
-        Page<AppUser> userPage = appUserRepository.findAll(PageRequest.of(currentPage - 1, pageSize));
+        Page<AppUserRepository.UserNoPhoto> userPage = appUserRepository.findAllBy(PageRequest.of(currentPage - 1, pageSize));
         model.addAttribute("users",userPage);
         model.addAttribute("body", appBookService.bodyArrayForPages(userPage));
         return "takebookuser";
@@ -333,7 +351,7 @@ public class AdminPanelController {
     public String showBooksToTake(Model model, @PathVariable Long id, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(12);
-        Page<AppBook> bookPage = appBookRepository.findAll(PageRequest.of(currentPage - 1, pageSize));
+        Page<AppBookRepository.BookNoFileAndPhoto> bookPage = appBookRepository.findAllBy(PageRequest.of(currentPage - 1, pageSize));
         model.addAttribute("books",bookPage);
         model.addAttribute("body", appBookService.bodyArrayForPages(bookPage));
         model.addAttribute("userid", id);
@@ -343,7 +361,7 @@ public class AdminPanelController {
     @PostMapping("/admin/assigningbook/{userid}/{bookid}")
     public String createtakenbook(TakenBooks takenBooks, @PathVariable Long userid, @PathVariable Long bookid, @RequestParam Long takeCount) {
         AppUser user = appUserRepository.findById(userid).orElseThrow();
-        AppBook book = appBookRepository.findById(bookid).orElseThrow();
+        AppBook book = appBookRepository.findAllById(bookid);
         boolean uniquetb = takenBooksRepository.findByUserAndBookAndDeletedIsFalse(user, book).isEmpty();
         if (uniquetb){
             takenBooks.setUser(user);
@@ -451,7 +469,7 @@ public class AdminPanelController {
     }
     @PostMapping("/admin/addcategorytobook/{bookid}/add")
     public String addcategorytobook(Model model,@PathVariable Long bookid,@RequestParam Long categoryid){
-        AppBook book = appBookRepository.findById(bookid).get();
+        AppBook book = appBookRepository.findAllById(bookid);
         CategoriesOfBooks category = categoriesOfBooksRepository.findById(categoryid).get();
         BookCategory bccheck = bookCategoryRepository.findByCategoryAndBook(category, book);
         if (bccheck == null){
@@ -539,7 +557,7 @@ public class AdminPanelController {
         Groups group = groupsRepository.findAllById(groupid);
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(12);
-        Page<AppBook> bookPage = appBookRepository.findAll(PageRequest.of(currentPage - 1, pageSize));
+        Page<AppBookRepository.BookNoFileAndPhoto> bookPage = appBookRepository.findAllBy(PageRequest.of(currentPage - 1, pageSize));
         model.addAttribute("books",bookPage);
         model.addAttribute("body", appBookService.bodyArrayForPages(bookPage));
         model.addAttribute("group", group);

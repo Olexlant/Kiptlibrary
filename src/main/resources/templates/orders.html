@@ -104,10 +104,10 @@
 
                             <td th:text="${bookOrder.getBook().getQrid()}"></td>
                             <td th:text="${bookOrder.getBook().getYear()}"></td>
-                            <div th:if="${bookOrder.getBook().getBookfile()==null && bookOrder.getBook().getBookfileurl()==''}">
+                            <div th:unless="${bookOrder.getBook().isElectronic()}">
                                 <td th:text="${'Паперова'}"></td>
                             </div>
-                            <div th:if="${bookOrder.getBook().getBookfile()!=null || bookOrder.getBook().getBookfileurl()!=''}">
+                            <div th:if="${bookOrder.getBook().isElectronic()}">
                                 <td th:text="${'Електронна'}"></td>
                             </div>
                             <td class="btnactions1">

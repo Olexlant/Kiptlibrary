@@ -68,6 +68,7 @@
                         <thead>
                         <tr>
                             <th>Група</th>
+                            <th>Роль</th>
                             <th>І'мя</th>
                             <th>Прізвище</th>
                             <th>Email</th>
@@ -83,6 +84,9 @@
                             <div th:if="${user.getGroups()!=null}">
                                 <td th:text="${user.getGroups().getName()}"></td>
                             </div>
+                            <td th:if="${user.getAppUserRole().toString()=='USER'}">Студент</td>
+                            <td th:if="${user.getAppUserRole().toString()=='ADMIN'}">Адмін</td>
+                            <td th:if="${user.getAppUserRole().toString()=='TEACHER'}">Вчитель</td>
                             <td th:text="${user.getFirstName()}"></td>
                             <td th:text="${user.getLastName()}"></td>
                             <td th:text="${user.getEmail()}"></td>
@@ -94,7 +98,6 @@
                                 <form th:action="'/admin/usertakenadmin/'+ ${user.getId()}" method="get">
                                     <button style="background-color: #006B49" title="Книги користувача" type="submit"><i><iconify-icon icon="wpf:books"></iconify-icon></i></button>
                                 </form>
-
 
                                 <form  th:action="'/admin/allusers/'+ ${user.getId()}+'/remove'" method="post">
                                     <button style="background-color: #FF3F40"  title="Видалити користувача" type="button" onclick="openpopup(form)"><i class="uil uil-trash-alt"></i></button>

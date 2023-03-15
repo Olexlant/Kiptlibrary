@@ -160,10 +160,8 @@ public class MainController {
         if (!appBookRepository.existsById(id)){
             return "redirect:/allbooks";
         }
-        Optional <AppBook> book = appBookRepository.findById(id);
-        ArrayList <AppBook> rbook = new ArrayList<>();
-        book.ifPresent(rbook::add);
-        model.addAttribute("bookd", rbook);
+        AppBook book = appBookRepository.findAllById(id);
+        model.addAttribute("bookd", book);
         return "bookdetails";
     }
 
@@ -191,7 +189,7 @@ public class MainController {
     public String createlikedbook(@AuthenticationPrincipal UserDetails userDetails,LikedBooks likedBooks, @PathVariable(value = "id") long bookid) {
         AppUser user = (AppUser) appUserService.loadUserByUsername(userDetails.getUsername());
         likedBooks.setUser(user);
-        AppBook book = appBookRepository.findById(bookid).orElseThrow();
+        AppBook book = appBookRepository.findAllById(bookid);
         likedBooks.setBook(book);
         likedBooks.setAddedat(LocalDate.now());
 
@@ -205,7 +203,7 @@ public class MainController {
     @PostMapping("/likingbook/{id}/deletebyuser")
     public String deletelikedbookbyuser(@AuthenticationPrincipal UserDetails userDetails, @PathVariable(value = "id") long bookid) {
         AppUser user = (AppUser) appUserService.loadUserByUsername(userDetails.getUsername());
-        AppBook book = appBookRepository.findById(bookid).orElseThrow();
+        AppBook book = appBookRepository.findAllById(bookid);
         LikedBooks likedbook = likedBooksRepository.findByBookAndUser(book, user);
         likedBooksRepository.delete(likedbook);
         return "redirect:/allbooks";

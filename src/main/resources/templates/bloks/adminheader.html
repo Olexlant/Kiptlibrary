@@ -32,13 +32,21 @@
                     <i><iconify-icon icon="ion:people-sharp"></iconify-icon></i>
                     <span class="link-name" >Користувачі</span></a>
                     <ul>
-                        <li><a th:href="@{/admin/adduser}">
-                            <i><iconify-icon icon="mdi:user-add"></iconify-icon></i>
-                            <span class="link-name" style="font-size: 15px;">Додати користувача</span>
+                        <li><a th:href="@{/admin/allusers(category=${'students'})}">
+                            <i><iconify-icon icon="gis:map-users"></iconify-icon></i>
+                            <span class="link-name" style="font-size: 15px;">Студенти</span>
+                        </a></li>
+                        <li><a th:href="@{/admin/allusers(category=${'teachers'})}">
+                            <i><iconify-icon icon="mdi:account-student"></iconify-icon></i>
+                            <span class="link-name" style="font-size: 15px;">Викладачі</span>
                         </a></li>
                         <li><a th:href="@{/admin/groups}">
                             <i><iconify-icon icon="fa6-solid:people-group"></iconify-icon></i>
                             <span class="link-name" style="font-size: 15px;">Групи</span>
+                        </a></li>
+                        <li><a th:href="@{/admin/adduser}">
+                            <i><iconify-icon icon="mdi:user-add"></iconify-icon></i>
+                            <span class="link-name" style="font-size: 15px;">Додати користувача</span>
                         </a></li>
                     </ul>
                 </li>

@@ -87,10 +87,10 @@
               <td th:text="${book.getTitle()}"></td>
               <td th:text="${book.getAuthor()}"></td>
               <td th:text="${book.getYear()}"></td>
-              <div th:if="${book.getBookfile()==null && book.getBookfileurl()==''}">
+              <div th:unless="${book.isElectronic()}">
                 <td th:text="${'Паперова'}"></td>
               </div>
-              <div th:if="${book.getBookfile()!=null || book.getBookfileurl()!=''}">
+              <div th:if="${book.isElectronic()}">
                 <td th:text="${'Електронна'}"></td>
               </div>
               <td class="btnactions1">

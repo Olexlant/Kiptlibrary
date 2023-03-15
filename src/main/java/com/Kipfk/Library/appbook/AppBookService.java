@@ -87,7 +87,8 @@ public class AppBookService {
                 appBook.getYear(),
                 appBook.getBookimg(),
                 appBook.getQrimg(),
-                appBook.getBookfile()
+                appBook.getBookfile(),
+                appBook.isElectronic()
         );
     }
     public List<AppBook> getAllByKeyword (String keyword){

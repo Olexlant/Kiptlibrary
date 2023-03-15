@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,11 +38,11 @@ public interface AppUserRepository extends JpaRepository<AppUser, Long>, JpaSpec
     @Query("UPDATE AppUser a " + "SET a.enabled = TRUE WHERE a.email = ?1")
     int enableAppUser(String email);
 
-    @Query(value = "select * from app_user u where u.first_name like %:keyword% or u.last_name like %:keyword% or u.groups like %:keyword% or u.phonenum like %:keyword% or u.email like %:keyword%", nativeQuery = true)
-    List<AppUser> findByKeyword(@Param("keyword") String keyword);
+    int countAllByEnabledIsTrue();
 
-    int countAllBy();
+    Page<UserNoPhoto> findAllBy(Pageable pageable);
     Page<UserNoPhoto> findAllByEnabledIsTrue(Pageable pageable);
+    Page<UserNoPhoto> findAllByAppUserRoleAndEnabledIsTrue(Pageable pageable,AppUserRole appUserRole);
 
     List<AppUser> findAllByGroups(Groups groups);
 }
