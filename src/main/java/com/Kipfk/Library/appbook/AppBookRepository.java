@@ -28,11 +28,11 @@ public interface AppBookRepository extends JpaRepository<AppBook, Long>, JpaSpec
     AppBook findAllById(Long id);
 
 
+    BookNoFileAndPhoto findAppBookById(Long id);
+
     Page<BookNoFileAndPhoto> findAllByElectronicIsTrue(Pageable pageable);
     Page<BookNoFileAndPhoto> findAllByElectronicIsFalse(Pageable pageable);
 
     Page<BookNoFileAndPhoto> findAllBy(Pageable pageable);
     int countAllBy();
-
-
 }

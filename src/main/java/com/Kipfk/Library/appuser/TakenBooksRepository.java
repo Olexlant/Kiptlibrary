@@ -15,14 +15,16 @@ import java.util.Optional;
 public interface TakenBooksRepository extends JpaRepository <TakenBooks,Long>, JpaSpecificationExecutor<TakenBooks> {
     List<TakenBooks> findByUser(AppUser appUser);
     List<TakenBooks> findByUserAndBookAndDeletedIsFalse(AppUser appUser, AppBook appBook);
-    Optional<TakenBooks> findByBookId(Long id);
+    Optional<TakenBooks> findByBookIdAndDeletedIsFalse(Long id);
     List<TakenBooks> findAllByUser(AppUser appUser);
     List<TakenBooks> findAllByUserAndDeletedIsFalse(AppUser appUser);
     List<TakenBooks> findAllByBook(AppBook book);
+    List<TakenBooks> findAllByBookAndDeletedIsTrue(AppBook book);
     Page<TakenBooks> findAllByDeletedIsFalse(Pageable pageable);
     Page<TakenBooks> findAllByDeletedIsTrue(Pageable pageable);
     List<TakenBooks> findAllByDeletedIsFalseAndNotificationSendedIsFalseAndTakenatIsBefore(LocalDate returnedAt);
     Page<TakenBooks> findAllByDeletedIsFalseAndTakenatIsBefore(Pageable pageable, LocalDate returnedAt);
     List<TakenBooks> findAllByDeletedIsTrue();
+    void deleteAllByDeletedIsTrue();
     int countAllBy();
 }

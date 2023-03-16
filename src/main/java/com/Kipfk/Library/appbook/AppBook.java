@@ -36,8 +36,14 @@ public class AppBook {
     private String title;
     private String author;
     private Long year;
+
+    @Basic(fetch=FetchType.LAZY)
     private byte[] bookimg;
+
+    @Basic(fetch=FetchType.LAZY)
     private byte[] qrimg;
+
+    @Basic(fetch=FetchType.LAZY)
     private byte[] bookfile;
     private String bookfileurl;
     @Column(columnDefinition="text", length=10485760)

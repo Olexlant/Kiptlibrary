@@ -41,10 +41,12 @@ public class AppUser implements UserDetails {
     private LocalDate birthday;
     private String address;
 
+
     @ManyToOne
     @JoinColumn(name = "groups_id")
     private Groups groups;
 
+    @Basic(fetch = FetchType.LAZY)
     private byte[] profileimage;
     @Enumerated(
             EnumType.STRING
