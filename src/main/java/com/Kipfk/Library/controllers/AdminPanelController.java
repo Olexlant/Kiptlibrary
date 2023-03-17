@@ -8,6 +8,8 @@ import com.Kipfk.Library.registration.token.ConfirmationToken;
 import com.Kipfk.Library.registration.token.ConfirmationTokenRepository;
 import com.google.zxing.WriterException;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
@@ -32,6 +34,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+@Getter
+@Setter
 @AllArgsConstructor
 @Controller
 public class AdminPanelController {
@@ -548,7 +552,7 @@ public class AdminPanelController {
         Groups group = groupsRepository.findAllById(groupid);
         AppBook book = appBookRepository.findAllById(bookid);
         boolean ispresent = booksByGroupsRepository.existsByGroups_IdAndBook_Id(groupid, bookid);
-        if (ispresent){
+        if (!ispresent){
             BooksByGroups booksByGroups = new BooksByGroups();
             booksByGroups.setGroups(group);
             booksByGroups.setBook(book);
