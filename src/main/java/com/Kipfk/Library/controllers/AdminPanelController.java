@@ -552,7 +552,7 @@ public class AdminPanelController {
         Groups group = groupsRepository.findAllById(groupid);
         AppBook book = appBookRepository.findAllById(bookid);
         boolean ispresent = booksByGroupsRepository.existsByGroups_IdAndBook_Id(groupid, bookid);
-        if (ispresent){
+        if (!ispresent){
             BooksByGroups booksByGroups = new BooksByGroups();
             booksByGroups.setGroups(group);
             booksByGroups.setBook(book);
