@@ -19,7 +19,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Exo+2:wght@300&display=swap" rel="stylesheet">
-    <title>Всі книги</title>
+    <div th:if="${param.category}">
+        <title th:if="${param.category[0] == 'electronic'}">Електронні книги</title>
+        <title th:if="${param.category[0] == 'physical'}">Паперові книги</title>
+        <title th:if="${param.category[0] == ''}">Всі книги</title>
+    </div>
+    <div th:unless="${param.category}">
+        <title>Всі книги</title>
+    </div>
 </head>
 <body>
 <div class="pop_up" id="pop_up">
@@ -58,6 +65,7 @@
                 <div th:if="${param.category}">
                     <span class="text" th:if="${param.category[0] == 'electronic'}">Електронні книги</span>
                     <span class="text" th:if="${param.category[0] == 'physical'}">Паперові книги</span>
+                    <span class="text" th:if="${param.category[0] == ''}">Всі книги</span>
                 </div>
                 <div th:unless="${param.category}">
                     <span class="text">Всі книги</span>
