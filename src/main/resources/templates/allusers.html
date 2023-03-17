@@ -17,7 +17,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Exo+2:wght@300&display=swap" rel="stylesheet">
-    <title>Користувачі</title>
+    <div th:if="${param.category}">
+        <title th:if="${param.category[0] == 'students'}">Студенти</title>
+        <title th:if="${param.category[0] == 'teachers'}">Викладачі</title>
+        <title th:if="${param.category[0] == ''}">Користувачі</title>
+    </div>
+    <div th:unless="${param.category}">
+        <title>Користувачі</title>
+    </div>
 </head>
 <body>
 
@@ -54,7 +61,14 @@
         <div class="activity">
             <div class="title">
                 <i><iconify-icon icon="ion:people-sharp"></iconify-icon></i>
-                <span class="text">Користувачі</span>
+                <div th:if="${param.category}">
+                    <span class="text" th:if="${param.category[0] == 'students'}">Студенти</span>
+                    <span class="text" th:if="${param.category[0] == 'teachers'}">Викладачі</span>
+                    <span class="text" th:if="${param.category[0] == ''}">Користувачі</span>
+                </div>
+                <div th:unless="${param.category}">
+                    <span class="text">Користувачі</span>
+                </div>
                 <form th:action="@{/searchuseradmin}" method="get">
                     <input type="text" name="keyword" th:value="${keyword}"  placeholder="Пошук" size="50" >
                     <button type="submit" style="background-color: #25398e; " class="uil-search"></button>
@@ -138,17 +152,17 @@
     <ul id="pagination">
         <th:block th:each="pageNumber : ${body}">
             <li th:if="${pageNumberStat.first}">
-                <a class="" th:href="@{/admin/allusers(size=${Users.size}, page=${pageNumber})}">«</a>
+                <a class="" th:href="@{/admin/allusers(size=${Users.size}, page=${pageNumber}, category=${category})}">«</a>
             </li>
             <li th:if="${pageNumber} == ${Users.getNumber()+1}">
                 <a  class="active" th:text="${pageNumber}" href="#" ></a>
             </li>
             <li  th:if="${pageNumber} == -1"><a href="#">...</a></li>
             <li th:if="${pageNumber} != -1 and ${pageNumber} != ${Users.getNumber()+1}">
-                <a th:text="${pageNumber}" th:href="@{/admin/allusers(size=${Users.size}, page=${pageNumber})}"></a>
+                <a th:text="${pageNumber}" th:href="@{/admin/allusers(size=${Users.size}, page=${pageNumber}, category=${category})}"></a>
             </li>
             <li th:if="${pageNumberStat.last}" >
-                <a th:href="@{/admin/allusers(size=${Users.size}, page=${pageNumber})}">»</a></li>
+                <a th:href="@{/admin/allusers(size=${Users.size}, page=${pageNumber}, category=${category})}">»</a></li>
         </th:block>
     </ul>
 </section>

@@ -251,6 +251,7 @@ public class AdminPanelController {
         }
         model.addAttribute("Users",userPage);
         model.addAttribute("body", appBookService.bodyArrayForPages(userPage));
+        model.addAttribute("category", categor);
         return "allusers";
     }
 
