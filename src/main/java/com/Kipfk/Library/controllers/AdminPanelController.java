@@ -35,6 +35,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URLConnection;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -660,28 +661,12 @@ public class AdminPanelController {
         IOUtils.copy(is, response.getOutputStream());
     }
 
-//    @GetMapping("/news/file/{newsid}")
-//    public void showNewsFile(@PathVariable Long newsid, HttpServletResponse response) throws IOException {
-//        response.setContentType("application/pdf");
-//        News news = newsRepository.findAllById(newsid);
-//        InputStream is = new ByteArrayInputStream(news.getNewsFile());
-//        IOUtils.copy(is, response.getOutputStream());
-//    }
     @GetMapping("/news/file/{newsid}")
-    public ResponseEntity<Resource> showNewsFile(@PathVariable Long newsid) throws IOException {
-
+    public void showNewsFile(@PathVariable Long newsid, HttpServletResponse response) throws IOException {
+        response.setContentType("application/pdf");
         News news = newsRepository.findAllById(newsid);
-        byte[] array = news.getNewsFile();
-
-        ByteArrayResource resource = new ByteArrayResource(array);
-        return ResponseEntity.ok()
-                .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                .contentLength(resource.contentLength())
-                .header(HttpHeaders.CONTENT_DISPOSITION,
-                        ContentDisposition.attachment()
-                                .filename("whatever")
-                                .build().toString())
-                .body(resource);
+        InputStream is = new ByteArrayInputStream(news.getNewsFile());
+        IOUtils.copy(is, response.getOutputStream());
     }
 
 //DEBTOR USERS
