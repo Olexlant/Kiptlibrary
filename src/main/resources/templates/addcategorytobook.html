@@ -56,7 +56,8 @@
             <div class="title">
                 <i><iconify-icon icon="fluent:book-star-24-filled"></iconify-icon></i>
                 <span class="text" th:text="'Категорії книги ' + ${book.getTitle()}"></span>
-                <div class="input-box">
+                <div class="input-box2">
+                    <span class="details">Оберіть категорію для книги</span>
                     <div class="categor">
                         <form th:action="'/admin/addcategorytobook/' + ${book.getId()} + '/add'" method="post">
                         <select th:name="categoryid" >
