@@ -149,7 +149,7 @@
         </li>
     </ul>
 
-    <ul id="pagination">
+    <ul id="pagination" th:if="${Users.totalPages > 1}">
         <th:block th:each="pageNumber : ${body}">
             <li th:if="${pageNumberStat.first}">
                 <a class="" th:href="@{/admin/allusers(size=${Users.size}, page=${pageNumber}, category=${category})}">«</a>

@@ -67,7 +67,7 @@
 			</div>
 		</div>
 	</div>
-	<ul id="pagination"  th:if="${books.totalPages > 0 && status!='search'}">
+	<ul id="pagination"  th:if="${books.totalPages > 1 && status!='search'}">
 		<th:block th:each="pageNumber : ${body}">
 		<li th:if="${pageNumberStat.first}">
 			<a class="" th:href="@{/allbooks(size=${books.size}, page=${pageNumber},category=${currentcategory})}">«</a>
@@ -83,7 +83,7 @@
 			<a th:href="@{/allbooks(size=${books.size}, page=${pageNumber},category=${currentcategory})}">»</a></li>
 			</th:block>
 	</ul>
-	<ul id="pagination"  th:if="${books.totalPages > 0 && status=='search'}">
+	<ul id="pagination"  th:if="${books.totalPages > 1 && status=='search'}">
 		<th:block th:each="pageNumber : ${body}">
 			<li th:if="${pageNumberStat.first}">
 				<a class="" th:href="@{/searchbook(size=${books.size}, page=${pageNumber},keyword=${keyword})}">«</a>
