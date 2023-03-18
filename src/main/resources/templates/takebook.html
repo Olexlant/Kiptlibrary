@@ -106,7 +106,7 @@
       </div>
     </div>
   </div>
-  <ul id="pagination">
+  <ul id="pagination" th:if="${books.totalPages > 1}">
     <th:block th:each="pageNumber : ${body}">
       <li th:if="${pageNumberStat.first}">
         <a class="" th:href="@{/admin/takebook/} + ${userid} + @{/(size=${books.size}, page=${pageNumber})}">«</a>
