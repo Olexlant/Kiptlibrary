@@ -12,9 +12,15 @@ import lombok.Getter;
 import lombok.Setter;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -654,12 +660,28 @@ public class AdminPanelController {
         IOUtils.copy(is, response.getOutputStream());
     }
 
+//    @GetMapping("/news/file/{newsid}")
+//    public void showNewsFile(@PathVariable Long newsid, HttpServletResponse response) throws IOException {
+//        response.setContentType("application/pdf");
+//        News news = newsRepository.findAllById(newsid);
+//        InputStream is = new ByteArrayInputStream(news.getNewsFile());
+//        IOUtils.copy(is, response.getOutputStream());
+//    }
     @GetMapping("/news/file/{newsid}")
-    public void showNewsFile(@PathVariable Long newsid, HttpServletResponse response) throws IOException {
-        response.setContentType("application/pdf");
+    public ResponseEntity<Resource> showNewsFile(@PathVariable Long newsid) throws IOException {
+
         News news = newsRepository.findAllById(newsid);
-        InputStream is = new ByteArrayInputStream(news.getNewsFile());
-        IOUtils.copy(is, response.getOutputStream());
+        byte[] array = news.getNewsFile();
+
+        ByteArrayResource resource = new ByteArrayResource(array);
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .contentLength(resource.contentLength())
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        ContentDisposition.attachment()
+                                .filename("whatever")
+                                .build().toString())
+                .body(resource);
     }
 
 //DEBTOR USERS
