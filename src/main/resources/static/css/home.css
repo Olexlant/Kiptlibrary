@@ -295,7 +295,10 @@ object-fit: cover;
 .sub-menu-wrap.open-menu{
   max-height: 420px;
 }
-
+.slider-news {
+  background-color: #e4e9ff;
+  padding: 1px 0px 62px 0px;
+}
 
 .sub-menu{
   background: #fff;
@@ -310,6 +313,7 @@ object-fit: cover;
 .user-info h2 span{
   font-size: 17px;
   margin-left: 4px;
+  color: #000;
 }
 .user-info img{
   margin-right: 15px;
@@ -747,8 +751,8 @@ section .button-contact button:hover{
   margin-left: auto;
 }
  .itcss__item:nth-child(1) {
-       background: linear-gradient(318deg, #6975ff 10%, #9c73e9 90%);
-       height:550px;
+  background:linear-gradient(194deg, #5e68ce 10%, #468bf7 90%);
+  height:550px;
      }
 
      .itcss__item:nth-child(2) {
@@ -1211,6 +1215,29 @@ footer .text span a:hover{
       }
     }
 @media(max-width:1105px){
+  .itcss__news{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+  .itcss__news .right-news img {
+    height: 200px;
+    width: 400px;
+    object-fit: contain;
+    border-radius: 12px;
+}
+
+.itcss__news .right-news {
+  width: 100%;
+}
+.itcss__news .left-news {
+  width: 100%;
+}
+.itcss__news .left-news span {
+  width: 100%;
+}
+
+
 .notifications {
     position: absolute;
     top: 110px;
@@ -1241,7 +1268,7 @@ footer .text span a:hover{
     width: 90%;
   }
   }
-  
+ 
   @media(max-width:750px){
     .services .boxes .box{
       width: 100%;
@@ -1256,6 +1283,7 @@ footer .text span a:hover{
       height: 350px;
       width: 350px;
     }
+    
     }
     @media(max-width:987px){
       .adout .about-details .right img{
@@ -1506,6 +1534,16 @@ nav .navbar .cancel-btn{
       nav .navbar .logo .kcas-library{
         padding-right: 150px;
       }
+      .itcss__news .left-news span {
+        width: 100%;
+        font-size: 20px;
+    }
+    .itcss__news .right-news img {
+      height: 200px;
+      width: 300px;
+      object-fit: contain;
+      border-radius: 12px;
+  }
     }
     @media(max-width:496px){
       nav .navbar .logo .kcas-library{
