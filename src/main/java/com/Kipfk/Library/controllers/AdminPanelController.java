@@ -448,6 +448,13 @@ public class AdminPanelController {
         return "redirect:/admin/addbookcategory?deleted";
     }
 
+    @GetMapping("/admin/books-by-category/{categoryId}")
+    public String showBooksByCategory(Model model, @PathVariable Long categoryId){
+        model.addAttribute("category", categoriesOfBooksRepository.findAllById(categoryId));
+        model.addAttribute("books", bookCategoryRepository.findAllByCategoryId(categoryId));
+        return "admin-books-by-category";
+    }
+
 
 //ADD CATEGORY TO BOOK
     @GetMapping("/admin/addcategorytobook/{id}")
