@@ -87,6 +87,10 @@
                 <form th:action="'/admin/deletebookcategory/'+ ${category.id}" method="post">
                   <button style="background-color: #FF3F40" type="button" title="Видалити категорію" onclick="openpopup(form)"><i class="uil uil-trash-alt"></i></button>
                 </form>
+                <!--ПРОПИСАТЬ ACTION ДЛЯ КНОПКИ-->
+                <form th:action="'/admin/books-by-category/'+ ${category.id}" method="get">
+                  <button style="background-color: #200edd" title="Книги категорії" type="submit" ><i>Книги категорії</i></button>
+                </form>
             </tr>
             </tbody>
 
