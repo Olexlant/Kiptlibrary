@@ -27,6 +27,7 @@ public class News {
     @Column(columnDefinition="text", length=10485760)
     private String description;
     private byte[] newsFile;
+    private String newsFileContentType;
     private LocalDateTime createdAt;
     private boolean deleted = false;
 
