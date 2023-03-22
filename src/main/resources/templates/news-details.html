@@ -35,7 +35,7 @@
           <div>
             <p th:text="${news.getDescription()}"><!--Опис новини--></p>
           </div>
-          <div th:if="${news.getNewsFile()!=null}">
+          <div th:unless="${news.getNewsFile()==null}">
             <form th:action="${'/news/file/'+news.getId()}" method="get">
               <div class="button"><!--Назад-->
                 <button>Переглянути файл до новини</button>

@@ -621,6 +621,7 @@ public class AdminPanelController {
     public String newsAdd(News news,@RequestParam("files") MultipartFile[] multipartFiles) throws IOException {
         news.setNewsPhoto(multipartFiles[0].getBytes());
         news.setNewsFile(multipartFiles[1].getBytes());
+        news.setNewsFileContentType(multipartFiles[1].getContentType());
         news.setCreatedAt(LocalDateTime.now());
         newsRepository.save(news);
         return "redirect:/admin/add-news?success";
@@ -670,8 +671,8 @@ public class AdminPanelController {
 
     @GetMapping("/news/file/{newsid}")
     public void showNewsFile(@PathVariable Long newsid, HttpServletResponse response) throws IOException {
-        response.setContentType("application/pdf");
         News news = newsRepository.findAllById(newsid);
+        response.setContentType(news.getNewsFileContentType());
         InputStream is = new ByteArrayInputStream(news.getNewsFile());
         IOUtils.copy(is, response.getOutputStream());
     }
