@@ -644,6 +644,7 @@ public class AdminPanelController {
         }
         if (!multipartFiles[1].isEmpty()) {
             news.setNewsFile(multipartFiles[1].getBytes());
+            news.setNewsFileContentType(multipartFiles[1].getContentType());
         }
         newsRepository.save(news);
         return "redirect:/admin/news?saved";
