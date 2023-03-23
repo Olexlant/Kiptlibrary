@@ -35,12 +35,14 @@
           <div>
             <p th:text="${news.getDescription()}"><!--Опис новини--></p>
           </div>
-          <div th:unless="${news.getNewsFile()==null}">
-            <form th:action="${'/news/file/'+news.getId()}" method="get">
-              <div class="button"><!--Назад-->
-                <button>Переглянути файл до новини</button>
-              </div>
-            </form>
+          <div th:unless="${newsFiles.isEmpty()}">
+            <div th:each="newsFile : ${newsFiles}">
+              <form th:action="${'/news/file/'+newsFile.getId()}" method="get">
+                <div class="button"><!--Назад-->
+                  <button th:text="${newsFile.getFileName()}">Переглянути файл до новини</button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
