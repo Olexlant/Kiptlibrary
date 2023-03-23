@@ -2,6 +2,7 @@ package com.Kipfk.Library.controllers;
 
 import com.Kipfk.Library.appbook.*;
 import com.Kipfk.Library.appuser.*;
+import com.Kipfk.Library.news.NewsFilesStorageRepository;
 import com.Kipfk.Library.news.NewsRepository;
 import com.Kipfk.Library.registration.token.ConfirmationTokenRepository;
 import org.junit.jupiter.api.Test;
@@ -33,9 +34,10 @@ public class AdminPanelControllerTest {
     BooksByGroupsRepository booksByGroupsRepository = mock(BooksByGroupsRepository.class);
     BookOrdersRepository bookOrdersRepository = mock(BookOrdersRepository.class);
     NewsRepository newsRepository = mock(NewsRepository.class);
+    NewsFilesStorageRepository newsFilesStorageRepository = mock(NewsFilesStorageRepository.class);
 
     // Create a new instance of the AdminPanelController
-    AdminPanelController adminPanelController = new AdminPanelController(confirmationTokenRepository,appUserService,appBookService,appUserRepository,appBookRepository,takenBooksRepository,likedBooksRepository,bookCategoryRepository,categoriesOfBooksRepository,groupsRepository,booksByGroupsRepository,bookOrdersRepository,newsRepository);
+    AdminPanelController adminPanelController = new AdminPanelController(confirmationTokenRepository,appUserService,appBookService,appUserRepository,appBookRepository,takenBooksRepository,likedBooksRepository,bookCategoryRepository,categoriesOfBooksRepository,groupsRepository,booksByGroupsRepository,bookOrdersRepository,newsRepository,newsFilesStorageRepository);
 
 
 
