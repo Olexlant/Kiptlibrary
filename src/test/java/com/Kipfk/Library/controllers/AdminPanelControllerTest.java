@@ -18,8 +18,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class AdminPanelControllerTest {
-    @Autowired
-    private MockMvc mockMvc;
 
     ConfirmationTokenRepository confirmationTokenRepository = mock(ConfirmationTokenRepository.class);
     AppUserService appUserService = mock(AppUserService.class);
