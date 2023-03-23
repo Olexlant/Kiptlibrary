@@ -3,6 +3,8 @@ package com.Kipfk.Library.controllers;
 import com.Kipfk.Library.appbook.*;
 import com.Kipfk.Library.appuser.*;
 import com.Kipfk.Library.news.News;
+import com.Kipfk.Library.news.NewsFilesStorage;
+import com.Kipfk.Library.news.NewsFilesStorageRepository;
 import com.Kipfk.Library.news.NewsRepository;
 import com.Kipfk.Library.registration.token.ConfirmationToken;
 import com.Kipfk.Library.registration.token.ConfirmationTokenRepository;
@@ -64,6 +66,7 @@ public class AdminPanelController {
     private final BooksByGroupsRepository booksByGroupsRepository;
     private final BookOrdersRepository bookOrdersRepository;
     private final NewsRepository newsRepository;
+    private final NewsFilesStorageRepository newsFilesStorageRepository;
 
 //ADDBOOK
     @GetMapping("/admin/addbook")
@@ -620,10 +623,16 @@ public class AdminPanelController {
     @PostMapping("/admin/news_adding")
     public String newsAdd(News news,@RequestParam("files") MultipartFile[] multipartFiles) throws IOException {
         news.setNewsPhoto(multipartFiles[0].getBytes());
-        news.setNewsFile(multipartFiles[1].getBytes());
-        news.setNewsFileContentType(multipartFiles[1].getContentType());
         news.setCreatedAt(LocalDateTime.now());
         newsRepository.save(news);
+        for (int i = 1; i < multipartFiles.length; i++) {
+            NewsFilesStorage newsFilesStorage = new NewsFilesStorage();
+            newsFilesStorage.setFileName(multipartFiles[i].getOriginalFilename());
+            newsFilesStorage.setFile(multipartFiles[i].getBytes());
+            newsFilesStorage.setFileContentType(multipartFiles[i].getContentType());
+            newsFilesStorage.setNews(news);
+            newsFilesStorageRepository.save(newsFilesStorage);
+        }
         return "redirect:/admin/add-news?success";
     }
 
@@ -642,15 +651,23 @@ public class AdminPanelController {
         if (!multipartFiles[0].isEmpty()){
             news.setNewsPhoto(multipartFiles[0].getBytes());
         }
-        if (!multipartFiles[1].isEmpty()) {
-            news.setNewsFile(multipartFiles[1].getBytes());
-            news.setNewsFileContentType(multipartFiles[1].getContentType());
+        if (!multipartFiles[1].isEmpty()){
+            newsFilesStorageRepository.deleteAllByNews_Id(newsid);
+            for (int i = 1; i < multipartFiles.length; i++) {
+                NewsFilesStorage newsFilesStorage = new NewsFilesStorage();
+                newsFilesStorage.setFileName(multipartFiles[i].getOriginalFilename());
+                newsFilesStorage.setFile(multipartFiles[i].getBytes());
+                newsFilesStorage.setFileContentType(multipartFiles[i].getContentType());
+                newsFilesStorage.setNews(news);
+                newsFilesStorageRepository.save(newsFilesStorage);
+            }
         }
         newsRepository.save(news);
         return "redirect:/admin/news?saved";
     }
     @PostMapping("/admin/news/{newsid}/delete")
     public String newsDelete(@PathVariable Long newsid){
+        newsFilesStorageRepository.deleteAllByNews_Id(newsid);
         newsRepository.deleteById(newsid);
         return "redirect:/admin/news?deleted";
     }
@@ -658,6 +675,8 @@ public class AdminPanelController {
     @GetMapping("/news/{newsid}")
     public String showOneNews(Model model, @PathVariable Long newsid){
         News news = newsRepository.findAllById(newsid);
+        List<NewsFilesStorageRepository.NewsFileInfo> newsFiles = newsFilesStorageRepository.findAllByNews_Id(newsid);
+        model.addAttribute("newsFiles", newsFiles);
         model.addAttribute("news", news);
        return "news-details";
     }
@@ -670,11 +689,11 @@ public class AdminPanelController {
         IOUtils.copy(is, response.getOutputStream());
     }
 
-    @GetMapping("/news/file/{newsid}")
-    public void showNewsFile(@PathVariable Long newsid, HttpServletResponse response) throws IOException {
-        News news = newsRepository.findAllById(newsid);
-        response.setContentType(news.getNewsFileContentType());
-        InputStream is = new ByteArrayInputStream(news.getNewsFile());
+    @GetMapping("/news/file/{newsfileid}")
+    public void showNewsFile(@PathVariable Long newsfileid, HttpServletResponse response) throws IOException {
+        NewsFilesStorage filesStorage = newsFilesStorageRepository.findAllById(newsfileid);
+        response.setContentType(filesStorage.getFileContentType());
+        InputStream is = new ByteArrayInputStream(filesStorage.getFile());
         IOUtils.copy(is, response.getOutputStream());
     }
 

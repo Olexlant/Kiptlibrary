@@ -430,9 +430,9 @@ width: 100%;
   width: 45%;
 }
 .container .adout .about-details .right img{
-  height: 300px;
-width: 300px;
-object-fit: cover;
+  height: 400px;
+width: 400px;
+object-fit: contain;
 border-radius: 12px;
 }
 .container .adout .about-details .left{

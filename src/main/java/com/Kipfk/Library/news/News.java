@@ -1,11 +1,13 @@
 package com.Kipfk.Library.news;
 
+import com.Kipfk.Library.appuser.TakenBooks;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -26,9 +28,10 @@ public class News {
     private byte[] newsPhoto;
     @Column(columnDefinition="text", length=10485760)
     private String description;
-    private byte[] newsFile;
     private String newsFileContentType;
     private LocalDateTime createdAt;
     private boolean deleted = false;
+    @OneToMany(mappedBy = "news")
+    private Set<NewsFilesStorage> newsFilesStorages;
 
 }
