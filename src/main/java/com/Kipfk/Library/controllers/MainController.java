@@ -8,6 +8,7 @@ import com.Kipfk.Library.registration.RegistrationService;
 import com.Kipfk.Library.registration.token.ConfirmationToken;
 import com.Kipfk.Library.registration.token.ConfirmationTokenRepository;
 import com.Kipfk.Library.security.PasswordEncoder;
+import lombok.AllArgsConstructor;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
@@ -38,6 +39,7 @@ import java.util.stream.Stream;
 
 
 @Controller
+@AllArgsConstructor
 public class MainController {
     @Bean
     public MultipartResolver multipartResolver() {
@@ -65,23 +67,6 @@ public class MainController {
     private final BookOrdersRepository bookOrdersRepository;
     private final NewsRepository newsRepository;
 
-    public MainController(RegistrationService registrationService, AppUserService appUserService, AppBookService appBookService, AppUserRepository appUserRepository, AppBookRepository appBookRepository, TakenBooksRepository takenBooksRepository, LikedBooksRepository likedBooksRepository, AppUserRepository userRepo, BookCategoryRepository bookCategoryRepository, CategoriesOfBooksRepository categoriesOfBooksRepository, GroupsRepository groupsRepository, AppUserRepository appUserRepository1, ConfirmationTokenRepository confirmationTokenRepository, BooksByGroupsRepository booksByGroupsRepository, PasswordEncoder passwordEncoder, BookOrdersRepository bookOrdersRepository, NewsRepository newsRepository) {
-        this.registrationService = registrationService;
-        this.appUserService = appUserService;
-        this.appBookService = appBookService;
-        this.appBookRepository = appBookRepository;
-        this.takenBooksRepository = takenBooksRepository;
-        this.likedBooksRepository = likedBooksRepository;
-        this.bookCategoryRepository = bookCategoryRepository;
-        this.categoriesOfBooksRepository = categoriesOfBooksRepository;
-        this.groupsRepository = groupsRepository;
-        this.appUserRepository = appUserRepository1;
-        this.confirmationTokenRepository = confirmationTokenRepository;
-        this.booksByGroupsRepository = booksByGroupsRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.bookOrdersRepository = bookOrdersRepository;
-        this.newsRepository = newsRepository;
-    }
 
     @GetMapping("/")
     public String home(Model model) {
@@ -213,10 +198,8 @@ public class MainController {
     @GetMapping("/myfavouritebooks")
     public String showUserFavouriteBooks(@AuthenticationPrincipal UserDetails userDetails,Model model){
         AppUser user = (AppUser) appUserService.loadUserByUsername(userDetails.getUsername());
-        List<LikedBooks> likedBooks = likedBooksRepository.findAll();
-        Stream<LikedBooks> likedBooksStream = likedBooks.stream().filter(findEmp -> user.getId().equals(findEmp.getUser().getId()));
-        List<LikedBooks> lb = likedBooksStream.toList();
-        model.addAttribute("likedbooks", lb);
+        List<LikedBooks> likedBooks = likedBooksRepository.findByUser(user);
+        model.addAttribute("likedbooks", likedBooks);
         if (user.getAddress()==null || user.getBirthday()==null){
             return "redirect:/editprofile?nodata";
         }
@@ -224,8 +207,7 @@ public class MainController {
     }
     @PostMapping("/myfavouritebooks/{id}/remove")
     public String removelikedbooks(@PathVariable(value = "id") long id) {
-        LikedBooks lb = likedBooksRepository.findById(id).orElseThrow();
-        likedBooksRepository.delete(lb);
+        likedBooksRepository.deleteById(id);
         return "redirect:/myfavouritebooks";
     }
 
