@@ -37,11 +37,14 @@
           </div>
           <div th:unless="${newsFiles.isEmpty()}">
             <div th:each="newsFile : ${newsFiles}">
-              <form th:action="${'/news/file/'+newsFile.getId()}" method="get">
+              <form th:if="${newsFile.getFileContentType()=='application/pdf'}" th:action="${'/news/file/'+newsFile.getId()}" method="get">
                 <div class="button"><!--Назад-->
                   <button th:text="${newsFile.getFileName()}">Переглянути файл до новини</button>
                 </div>
               </form>
+                <div class="button"><!--Назад-->
+                  <a th:unless="${newsFile.getFileContentType()=='application/pdf'}" th:href="${'//view.officeapps.live.com/op/embed.aspx?src=https://kcaslibr.herokuapp.com/news/file/'+newsFile.getId()}" th:text="${newsFile.getFileName()}">Переглянути файл до новини</a>
+                </div>
             </div>
           </div>
         </div>
