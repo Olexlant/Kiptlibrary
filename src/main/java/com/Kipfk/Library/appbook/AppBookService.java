@@ -1,8 +1,5 @@
 package com.Kipfk.Library.appbook;
 
-import com.Kipfk.Library.appuser.TakenBooksRepository;
-import com.Kipfk.Library.controllers.MainController;
-import com.Kipfk.Library.registration.token.ConfirmationTokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -13,17 +10,19 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.Predicate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 @Service
 public class AppBookService {
+    public static int[] merge(int[]... intarrays) {
+        return Arrays.stream(intarrays).flatMapToInt(Arrays::stream)
+                .toArray();
+    }
 
     @Autowired
     private AppBookRepository appBookRepository;
-    private ConfirmationTokenRepository confirmationTokenRepository;
-    private TakenBooksRepository takenBooksRepository;
-    private BookCategoryRepository bookCategoryRepository;
 
     public int[] bodyArrayForPages(Page bookPage){
         int[] body;
@@ -35,7 +34,7 @@ public class AppBookService {
             int[] bodyCenter = (pageNumber > 3 && pageNumber < totalPages - 2) ? new int[]{pageNumber} : new int[]{};
             int[] bodyAfter = (pageNumber > 2 && pageNumber < totalPages - 3) ? new int[]{pageNumber+1, pageNumber+2} : new int[]{};
             int[] tail = (pageNumber < totalPages - 3) ? new int[]{-1, totalPages} : new int[] {totalPages-2, totalPages-1, totalPages};
-            body = MainController.merge(head, bodyBefore, bodyCenter, bodyAfter, tail);
+            body = AppBookService.merge(head, bodyBefore, bodyCenter, bodyAfter, tail);
         } else {
             body = new int[bookPage.getTotalPages()];
             for (int i = 0; i < bookPage.getTotalPages(); i++) {
@@ -56,8 +55,7 @@ public class AppBookService {
             int toIndex = Math.min(startItem + pageSize, books.size());
             list = books.subList(startItem, toIndex);
         }
-        Page<AppBook> bookPage = new PageImpl<>(list, PageRequest.of(currentPage, pageSize), books.size());
-        return bookPage;
+        return new PageImpl<>(list, PageRequest.of(currentPage, pageSize), books.size());
     }
 
     public Page<AppBook> findPaginatedWithCategory(Pageable pageable, ArrayList<BookCategory> bc) {
@@ -76,8 +74,7 @@ public class AppBookService {
             int toIndex = Math.min(startItem + pageSize, books.size());
             list = books.subList(startItem, toIndex);
         }
-        Page<AppBook> bookPage = new PageImpl<>(list, PageRequest.of(currentPage, pageSize), books.size());
-        return bookPage;
+        return new PageImpl<>(list, PageRequest.of(currentPage, pageSize), books.size());
     }
     public void bookadd(AppBook appBook) {
         new AppBook(
@@ -102,15 +99,11 @@ public class AppBookService {
                 predicates.add(criteriaBuilder.equal(root.get("year"), numkeyword));
 
             }catch (NumberFormatException e){
-
             }
             return criteriaBuilder.or(predicates.toArray(new Predicate[]{}));
         };
         return appBookRepository.findAll(specification);
-    };
-
-
-
+    }
 }
 
 
