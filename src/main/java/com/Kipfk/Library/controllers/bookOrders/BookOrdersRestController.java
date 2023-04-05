@@ -1,4 +1,4 @@
-package com.Kipfk.Library.controllers;
+package com.Kipfk.Library.controllers.bookOrders;
 
 import com.Kipfk.Library.appbook.BookOrdersRepository;
 import org.springframework.web.bind.annotation.GetMapping;
