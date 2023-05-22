@@ -1,10 +1,12 @@
 package com.Kipfk.Library.controllers;
 
-import com.Kipfk.Library.appbook.*;
+import com.Kipfk.Library.appbook.AppBook;
+import com.Kipfk.Library.appbook.AppBookService;
+import com.Kipfk.Library.appbook.CategoriesOfBooksRepository;
 import com.Kipfk.Library.appuser.*;
-import com.Kipfk.Library.registration.RegistrationService;
-import com.Kipfk.Library.registration.token.ConfirmationTokenRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,45 +20,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@AllArgsConstructor
 @Controller
 public class SearchController {
 
     private final AppUserService appUserService;
     private final AppBookService appBookService;
-    private final AppUserRepository appUserRepository;
-    private final AppBookRepository appBookRepository;
     private final LikedBooksRepository likedBooksRepository;
     private final CategoriesOfBooksRepository categoriesOfBooksRepository;
     private final GroupsRepository groupsRepository;
-    private final TakenBooksRepository takenBooksRepository;
     private final TakenBooksService takenBooksService;
 
-
-    public SearchController(RegistrationService registrationService, ConfirmationTokenRepository confirmationTokenRepository, AppUserService appUserService, AppBookService appBookService, AppUserRepository appUserRepository, AppBookRepository appBookRepository, TakenBooksRepository takenBooksRepository, LikedBooksRepository likedBooksRepository, AppUserRepository userRepo, BookCategoryRepository bookCategoryRepository, CategoriesOfBooksRepository categoriesOfBooksRepository, CategoriesOfBooksRepository categoriesOfBooksRepository1, GroupsRepository groupsRepository, TakenBooksRepository takenBooksRepository1, TakenBooksService takenBooksService) {
-        this.appUserService = appUserService;
-        this.appBookService = appBookService;
-        this.appUserRepository = appUserRepository;
-        this.appBookRepository = appBookRepository;
-        this.likedBooksRepository = likedBooksRepository;
-        this.categoriesOfBooksRepository = categoriesOfBooksRepository1;
-        this.groupsRepository = groupsRepository;
-        this.takenBooksRepository = takenBooksRepository1;
-        this.takenBooksService = takenBooksService;
-    }
-    //SEARCH
     @RequestMapping(path = {"/searchbook"})
     public String searchbook(@AuthenticationPrincipal UserDetails userDetails, Model model, String keyword, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(12);
-        if (keyword != null) {
+        if (!keyword.equals("")) {
             ArrayList<AppBook> list = (ArrayList<AppBook>) appBookService.getAllByKeyword(keyword);
             Page<AppBook> bookPage = appBookService.searchpagepaginated(PageRequest.of(currentPage - 1, pageSize),list);
             model.addAttribute("books", bookPage);
             model.addAttribute("body", appBookService.bodyArrayForPages(bookPage));
         } else {
-            Page<AppBook> bookPage = appBookRepository.findAll(PageRequest.of(currentPage - 1, pageSize));
-            model.addAttribute("books", bookPage);
-            model.addAttribute("body", appBookService.bodyArrayForPages(bookPage));
+            return "redirect:/allbooks";
         }
         AppUser user = (AppUser) appUserService.loadUserByUsername(userDetails.getUsername());
         List<LikedBooks> lb = likedBooksRepository.findAllByUser(user);
@@ -72,36 +57,39 @@ public class SearchController {
     }
     @RequestMapping(path = {"/searchbookadmin"})
     public String searchbookadmin(Model model, String keyword) {
-        if (keyword != null) {
+        if (!keyword.equals("")) {
             List<AppBook> list = appBookService.getAllByKeyword(keyword);
-            model.addAttribute("books", list);
+            Page<AppBook> booksPage = new PageImpl<>(list);
+            model.addAttribute("books", booksPage);
+            model.addAttribute("keyword", keyword);
         } else {
-            Iterable<AppBook> books = appBookRepository.findAll();
-            model.addAttribute("books", books);
+            return "redirect:/admin/allbooksadmin";
         }
         model.addAttribute("keyword", keyword);
         return "allbooksadmin";
     }
     @RequestMapping(path = {"/searchuseradmin"})
     public String searchuser(Model model, String keyword) {
-        if (keyword != null) {
-            List<AppUser> user = appUserService.getAllByKeyword(keyword);
-            model.addAttribute("Users", user);
+        if (!keyword.equals("")) {
+            List<AppUser> users = appUserService.getAllByKeyword(keyword);
+            Page<AppUser> userPage = new PageImpl<>(users);
+            model.addAttribute("Users", userPage);
+            model.addAttribute("keyword", keyword);
         } else {
-            Iterable<AppUser> users = appUserRepository.findAll();
-            model.addAttribute("Users", users);
+            return "redirect:/admin/allusers";
         }
         return "allusers";
     }
 
     @RequestMapping(path = {"/searchbooktakebook/{userid}"})
     public String searchbookintakebook(@PathVariable Long userid, Model model, String keyword) {
-        if (keyword != null) {
+        if (!keyword.equals("")) {
             List<AppBook> list = appBookService.getAllByKeyword(keyword);
-            model.addAttribute("books", list);
+            Page<AppBook> booksPage = new PageImpl<>(list);
+            model.addAttribute("books", booksPage);
+            model.addAttribute("keyword", keyword);
         } else {
-            Iterable<AppBook> books = appBookRepository.findAll();
-            model.addAttribute("books", books);
+            return "redirect:/admin/takebook/"+userid;
         }
         model.addAttribute("userid", userid);
         return "takebook";
@@ -109,34 +97,38 @@ public class SearchController {
 
     @RequestMapping(path = {"/searchusertakebook"})
     public String searchuserintakebook(Model model, String keyword) {
-        if (keyword != null) {
-            List<AppUser> user = appUserService.getAllByKeyword(keyword);
-            model.addAttribute("users", user);
+        if (!keyword.equals("")) {
+            List<AppUser> users = appUserService.getAllByKeyword(keyword);
+            Page<AppUser> usersPage = new PageImpl<>(users);
+            model.addAttribute("users", usersPage);
+            model.addAttribute("keyword", keyword);
         } else {
-            Iterable<AppUser> users = appUserRepository.findAll();
-            model.addAttribute("users", users);
+            return "redirect:/admin/takebook";
         }
         return "takebookuser";
     }
 
     @RequestMapping(path = {"/admin/searchbooktoaddtogroup/{groupid}"})
     public String searchAddBookToGroup(@PathVariable Long groupid, Model model, String keyword) {
-        if (keyword != null) {
+        if (!keyword.equals("")) {
             List<AppBook> list = appBookService.getAllByKeyword(keyword);
-            model.addAttribute("books", list);
+            Page<AppBook> booksPage = new PageImpl<>(list);
+            model.addAttribute("books", booksPage);
+            model.addAttribute("keyword", keyword);
         } else {
-            Iterable<AppBook> books = appBookRepository.findAll();
-            model.addAttribute("books", books);
+            return "redirect:/admin/addbooktogroup/"+groupid;
         }
         model.addAttribute("group", groupsRepository.findAllById(groupid));
         return "addBooksToGroup";
     }
     @RequestMapping(path = {"/admin/searchassignedbooks"})
     public String searchAssugendBooks(Model model, String keyword) {
-        if (keyword != null) {
+        if (!keyword.equals("")) {
             List<TakenBooks> takenBooks = takenBooksService.getAllByKeyword(keyword);
             takenBooks.removeIf(TakenBooks::isDeleted);
-            model.addAttribute("takenbooks", takenBooks);
+            Page<TakenBooks> takenBooksPage = new PageImpl<>(takenBooks);
+            model.addAttribute("takenbooks", takenBooksPage);
+            model.addAttribute("keyword", keyword);
         } else {
             return "redirect:/admin/assignedbooks";
         }
@@ -147,8 +139,10 @@ public class SearchController {
     public String searchAssignedBooksHistory(Model model, String keyword) {
         if (keyword != null) {
             List<TakenBooks> takenBooks = takenBooksService.getAllByKeyword(keyword);
-            takenBooks.removeIf(i -> !i.isDeleted());
-            model.addAttribute("takenbooks", takenBooks);
+            takenBooks.removeIf(TakenBooks::isDeleted);
+            Page<TakenBooks> takenBooksPage = new PageImpl<>(takenBooks);
+            model.addAttribute("takenbooks", takenBooksPage);
+            model.addAttribute("keyword", keyword);
         } else {
             return "redirect:/admin/assignedbooks/history";
         }
