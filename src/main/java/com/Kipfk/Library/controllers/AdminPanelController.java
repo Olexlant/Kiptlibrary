@@ -698,6 +698,7 @@ public class AdminPanelController {
     }
 
 //DEBTOR USERS
+
     @GetMapping("/admin/debtorusers")
     public String showDebtorUsers(Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size){
         int currentPage = page.orElse(1);
