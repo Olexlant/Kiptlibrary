@@ -9,6 +9,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Exo+2:wght@300&display=swap" rel="stylesheet">
+        <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     </head>
     <body>
     <nav>
@@ -19,7 +20,6 @@
             <div class="logo"><a href="/#home">KCAS<a class="kcas-library">Library</a></a>
             </div>
             <ul class="menu" sec:authorize="isAnonymous()">
-                    <li><a href="/#home" class="golovna">Головна</a></li>
                     <li><a href="/#adout" class="golovna">Про нас</a></li>
                     <li><a href="/#skills" class="golovna">Бібліотека</a></li>
                     <li><a href="/#services" class="golovna">Переваги</a></li>
@@ -38,12 +38,27 @@
                     <i class="fa fa-arrow-right"></i>
                 </div>
             </ul>
+           
+                <div class="btnn"> 
+                    <li class="eye golovna"><iconify-icon icon="mdi:language" style="color: #152787;" width="30" height="30"></iconify-icon>
+                        
+                         <select id="locales" class="my-select-menu">
+                        <option value="" th:text="#{lang.change}"></option>
+                         <option value="us" th:text="#{lang.us}"></option>
+                            <option value="ua" th:text="#{lang.ua}"></option>
+                           </select>
+                        
+                        </li>
+                    <li class="eye golovna"><a  th:href="@{/login}"><iconify-icon icon="emojione:eye" width="30" height="30"></iconify-icon>Людям із порушенням зору</a></li>
+                
+            </div>
             <div class="btn" sec:authorize="isAnonymous()">
                 <li class="login-button golovna"><a  th:href="@{/login}">Вхід</a></li>
                 <div class="header-button">
                     <a class="header-button-reg" th:href="@{/register}" >Реєстрація</a>
                 </div>
             </div>
+          
             <div class="btn" sec:authorize="isAuthenticated()">
                 <div class="header-button">
                     <div class="logo-image">
