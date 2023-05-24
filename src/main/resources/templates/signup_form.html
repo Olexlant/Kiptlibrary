@@ -56,6 +56,16 @@
 		</form>
 	</div>
 </div>
+<ul th:if="${param.expired}" class="notifications"  id="message">
+	<li class="toast warning">
+		<div class="column" >
+			<i class="fa-solid fa-triangle-exclamation"></i>
+			<span> Час активації вийшов, спробуйте ще раз
+</span>
+		</div>
+		<i class="fa-solid fa-xmark"></i>
+	</li>
+</ul>
 <script src="/js/slider.js"></script>
 </body>
 </html>

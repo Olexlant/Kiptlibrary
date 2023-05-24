@@ -62,7 +62,7 @@ public class RegistrationService {
 
         if (expiredAt.isBefore(LocalDateTime.now()) && confirmationToken.getConfirmedAt() == null) {
             confirmationTokenRepository.deleteById(confirmationToken.getId());
-            appUserRepository.deleteById(confirmationToken.getAppUser().getId());
+            appUserRepository.deleteAllById(confirmationToken.getAppUser().getId());
             return "redirect:/register?expired";
         }
 
