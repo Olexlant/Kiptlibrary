@@ -60,6 +60,29 @@ public class AppUserService implements UserDetailsService {
 
         return token;
     }
+    public String addUser(AppUser appUser) {
+        boolean UserExists = appUserRepository.findByEmail(appUser.getEmail()).isPresent();
+        if(UserExists){
+            throw new IllegalStateException("Користувач з таким email вже існує");
+        }
+        String encodedPassword = bCryptPasswordEncoder.encode(appUser.getPassword());
+
+        appUser.setPassword(encodedPassword);
+
+        appUserRepository.save(appUser);
+
+        String token = UUID.randomUUID().toString();
+
+        ConfirmationToken confirmationToken = new ConfirmationToken(
+                token,
+                LocalDateTime.now(),
+                LocalDateTime.now().plusMinutes(10),
+                appUser
+        );
+        confirmationToken.setConfirmedAt(LocalDateTime.now());
+        confirmationTokenService.saveConfirmationToken(confirmationToken);
+        return token;
+    }
     public int enableAppUser(String email) {
         return appUserRepository.enableAppUser(email);
     }

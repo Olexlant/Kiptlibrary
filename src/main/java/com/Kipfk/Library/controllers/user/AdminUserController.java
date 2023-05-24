@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -63,7 +64,7 @@ public class AdminUserController {
         if (role.equals("TEACHER")){
             user.setAppUserRole(AppUserRole.TEACHER);
         }
-        appUserService.signUpUser(user);
+        appUserService.addUser(user);
         appUserService.enableAppUser(user.getEmail());
         return "redirect:/admin/adduser?useradded";
     }
