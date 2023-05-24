@@ -125,7 +125,7 @@ public class UserController {
     @PostMapping("/resetpassword/reset")
     public String changePasswordByMail(@RequestParam String newpassword, @RequestParam String confirmnewpassword, @RequestParam(required=false,name="token") String token) {
         if (newpassword.equals(confirmnewpassword)){
-            return registrationService.changePasswordBytoken(newpassword,token);
+            return registrationService.changePasswordByToken(newpassword,token);
         }else {
             return "redirect:/resetpassword/reset?token="+token+"&notmatch";
         }
