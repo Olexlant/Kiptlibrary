@@ -43,16 +43,27 @@ nav.sticky{
   padding: 13px;
 }
 
-.header-button{
-  margin: 0 8px;
+select{
+  border-radius: 12px;
+  background-color: #Fff;
+  color: #25398e;
+  padding: 9px;
+  width: 180px;
+  border: none;
+  font-size: 14.3px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+  -webkit-appearance: button;
+  appearance: button;
+  outline: auto;
 }
+
 .header-button .header-button-reg{
   position: relative;
 	color: #fff;
 	padding: 8px 20px;
 	background: #25398e;
 	border-radius: 8px;
-	margin: 0 15px;
+	margin: 0px 0px 0px 10px;
 	font-size: 18px;
 	text-decoration: none;
 	overflow: hidden;
@@ -99,6 +110,9 @@ nav.sticky{
   color: #fff;
 }
 
+.navbar .logo {
+  margin-left: 55px;
+}
 
 nav .navbar{
   width: 90%;
@@ -137,6 +151,18 @@ nav .navbar .menu .cancel-btn{
   position: relative;
   padding: 0;
 }
+.navbar .eye a{
+	font-size:15px;
+  display: flex;
+  align-items: center;
+  color: #25398e;
+}
+.navbar .golovna {
+  display: flex;
+  align-items: center;
+}
+
+
 .navbar .btn .login-button a::after{
   content: '';
 	position: absolute;
@@ -187,12 +213,18 @@ nav .navbar .btn {
   list-style: none;
   display: flex;
   font-size: 18px;
-  margin: 0 8px;
-  margin-right: 50px;
+
 }
-.btn li{
-  margin:  0 8px;
+nav .navbar .btnn {
+  list-style: none;
+  font-size: 18px;
+  /* width: min-content; */
+  display: inline-grid;
+  /* width: 50%; */
+  /* display: table-cell; */
+  justify-items: center;
 }
+
 .navbar .menu li{
   font-size: 18px;
 
@@ -237,7 +269,7 @@ nav .navbar .logo .kcas-library{
   font-weight: 500;
   color:#25398e;
   text-decoration: none;
-  padding-left: 8px;
+
 }
 nav .navbar .right{
   margin-right: -220px;
@@ -1134,27 +1166,43 @@ footer .text span a:hover{
 
 }
 @media(max-width:1468px){
-  nav .navbar .logo a{
-    font-size: 30px;
-  }
+ .navbar .logo {
+     margin-left: 65px;
+ }
   nav .navbar .logo .kcas-library{
     font-size: 23px;
   }
 }
+@media(max-width:1408px){
+  .navbar .logo {
+    margin-left: 95px;
+}
+}
 @media(max-width:1430px){
  nav .navbar .right img{
   height: 100%;
-    width: 30%;
+    width: 50%;
     object-fit: cover;
  } 
- nav .navbar .logo a{
-  padding-left: 30px;
+
 }
+@media(max-width:1408px){
+  .navbar .logo {
+    margin-left: 115px;
+}
+}
+@media(max-width:1270px){
+  nav .navbar .btnn{
+    display:none;
+    }
 }
 @media(max-width:1238px){
-  nav .navbar .logo a{
-    padding-left: 80px;
-  }
+ 
+  nav .navbar .right img{
+    height: 100%;
+      width: 50%;
+      object-fit: cover;
+   } 
 }
 @media(max-width:1138px){
   .navbar .menu .golovna{
@@ -1293,11 +1341,48 @@ footer .text span a:hover{
       }
 
   
-  @media(max-width: 1000px){
+  @media(max-width: 970px){
+    nav .navbar.active .btnn {
+      /* left: 0; */
+      display: block;
+      /* right: 12px; */
+      position: absolute;
+      top: 400px;
+      padding-left: 85px;
+      transition: all 1.0s;
+      
+  }
+  select{
+    font-size: 20px;
+  }
+  .navbar .eye a {
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    color: #25398e;
+    top: 20px;
+    padding-top: 30px;
+}
+  nav .navbar.active .btnn{
+
+  }
+  nav .navbar .right img {
+      height: 100%;
+      width: 40%;
+      object-fit: cover;
+  }
     .sub-menu-wrap {
     
     right: 10%;
     
+}
+nav .navbar.active .btnn{
+  left: 0;
+}
+.navbar .btnn .eye .golovna{
+  font-size: 25px;
+  color: #25398e;
+
 }
     .navbar .menu .golovna{
       font-size: 25px;
@@ -1544,7 +1629,7 @@ nav .navbar .cancel-btn{
       object-fit: contain;
       border-radius: 12px;
   }
-    }
+  nav .navbar .right    }
     @media(max-width:496px){
       nav .navbar .logo .kcas-library{
         padding-right: 70px;
