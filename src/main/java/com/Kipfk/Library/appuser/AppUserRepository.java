@@ -44,5 +44,6 @@ public interface AppUserRepository extends JpaRepository<AppUser, Long>, JpaSpec
     Page<UserNoPhoto> findAllByEnabledIsTrue(Pageable pageable);
     Page<UserNoPhoto> findAllByAppUserRoleAndEnabledIsTrue(Pageable pageable,AppUserRole appUserRole);
     List<AppUser> findAllByGroups_Id(Long groupsId);
+
     AppUser findAllById(Long id);
 }

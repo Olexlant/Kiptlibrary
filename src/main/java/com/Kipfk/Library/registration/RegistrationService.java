@@ -40,7 +40,7 @@ public class RegistrationService {
                         AppUserRole.USER
                 )
         );
-        String link = "https://kcaslibr.herokuapp.com/registration/confirm?token=" + token;
+        String link = "https://kcaslibrary.herokuapp.com/registration/confirm?token=" + token;
         emailSender.sendregistrationmail(
                 user.getEmail(),
                 buildRegistrationEmail(user.getFirstName(), link));
@@ -60,7 +60,9 @@ public class RegistrationService {
 
         LocalDateTime expiredAt = confirmationToken.getExpiresAt();
 
-        if (expiredAt.isBefore(LocalDateTime.now())) {
+        if (expiredAt.isBefore(LocalDateTime.now()) && confirmationToken.getConfirmedAt() == null) {
+            confirmationTokenRepository.deleteById(confirmationToken.getId());
+            appUserRepository.deleteById(confirmationToken.getAppUser().getId());
             return "redirect:/register?expired";
         }
 
@@ -138,7 +140,7 @@ public class RegistrationService {
     }
 
     public void sendchangepasswordmail (AppUser user, String token){
-        String link = "https://kcaslibr.herokuapp.com/resetpassword/reset?token=" + token;
+        String link = "https://kcaslibrary.herokuapp.com/resetpassword/reset?token=" + token;
         emailSender.sendchangepasswordmail(
                 user.getEmail(),
                 buildResetPasswordEmail(user.getFirstName(), link));
@@ -214,7 +216,7 @@ public class RegistrationService {
     }
 
     @Transactional
-    public String changePasswordBytoken(String newpassword, String token) {
+    public String changePasswordByToken(String newpassword, String token) {
         ConfirmationToken confirmationToken = confirmationTokenRepository.findByToken(token);
         confirmationToken.setPasswordChangeAt(LocalDateTime.now());
 
