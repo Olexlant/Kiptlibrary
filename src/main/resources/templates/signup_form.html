@@ -3,7 +3,7 @@
 <!-- Created By CodingLab - www.codinglabweb.com -->
 <html lang="en" dir="ltr">
 <head>
-	<title>Реєстрація</title>
+	<title th:text="#{register.title}">Реєстрація</title>
 	<meta charset="UTF-8">
 	<!---<title> Responsive Registration Form | CodingLab </title>--->
 
@@ -16,42 +16,42 @@
 <header class="site-header sticky-top py-1" th:insert="bloks/header :: header"></header>
 <body>
 <div class="container">
-	<div class="title"><span>Реєстрація</span></div>
+	<div class="title"><span th:text="#{register.title}">Реєстрація</span></div>
 	<div class="content">
 		<form method="post" action="/login" th:action="@{/process_register}" th:object="${user}">
 			<div class="user-details">
 				<div class="input-box">
-					<span class="details">Email</span>
-					<input type="email"  class="form-control" th:field="*{email}" placeholder="E-mail" required minlength="3">
+					<span class="details" th:text="#{register.input1}">Email</span>
+					<input type="email"  class="form-control" th:field="*{email}" th:placeholder="#{register.input1}" required minlength="3">
 				</div>
 				<div class="input-box">
-					<span class="details">Пароль</span>
-					<input type="password" class="form-control" th:field="*{password}" placeholder="Пароль" required minlength="6">
+					<span class="details" th:text="#{register.input2}">Пароль</span>
+					<input type="password" class="form-control" th:field="*{password}" th:placeholder="#{register.input2}" required minlength="6">
 				</div>
 				<div class="input-box">
-					<span class="details">Ваше ім'я</span>
-					<input type="text"   class="form-control" th:field="*{firstName}" placeholder="Ім'я" required minlength="2">
+					<span class="details" th:text="#{register.input3}">Ваше ім'я</span>
+					<input type="text"   class="form-control" th:field="*{firstName}" th:placeholder="#{register.input3}" required minlength="2">
 				</div>
 				<div class="input-box">
-					<span class="details">Прізвище</span>
-					<input type="text" class="form-control" th:field="*{lastName}" placeholder="Прізвище" required minlength="2">
+					<span class="details" th:text="#{register.input4}">Прізвище</span>
+					<input type="text" class="form-control" th:field="*{lastName}" th:placeholder="#{register.input4}" required minlength="2">
 				</div>
 				<div class="input-box">
-					<span class="details">Телефон</span>
-					<input type="tel" class="form-control " th:field="*{phonenum}" placeholder="Телефон" required minlength="10" maxlength="13">
+					<span class="details" th:text="#{register.input5}">Телефон</span>
+					<input type="tel" class="form-control " th:field="*{phonenum}" th:placeholder="#{register.input5}" required minlength="10" maxlength="13">
 				</div>
 				<div class="input-box">
-					<span class="details">Група</span>
+					<span class="details" th:text="#{register.input6}">Група</span>
 					<div class="categor">
 					<select th:name="groupid">
-						<option th:value="${''}" th:text="${'Без групи'}"></option>
+						<option th:value="${''}" th:text="#{register.noGroupOption}"></option>
 						<option th:each="group : ${groups}" th:value="${group.getId()}" th:text="${group.getName()}"></option>
 					</select>
 					</div>
 				</div>
 			</div>
 			<div class="button">
-				<button type="submit">Зареєструватися</button>
+				<button type="submit" th:text="#{register.button1}">Зареєструватися</button>
 			</div>
 		</form>
 	</div>
@@ -60,8 +60,7 @@
 	<li class="toast warning">
 		<div class="column" >
 			<i class="fa-solid fa-triangle-exclamation"></i>
-			<span> Час активації вийшов, спробуйте ще раз
-</span>
+			<span th:text="#{register.param.expired}"></span>
 		</div>
 		<i class="fa-solid fa-xmark"></i>
 	</li>

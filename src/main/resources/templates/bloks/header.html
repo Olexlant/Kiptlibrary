@@ -20,20 +20,20 @@
             <div class="logo"><a href="/#home">KCAS<a class="kcas-library">Library</a></a>
             </div>
             <ul class="menu" sec:authorize="isAnonymous()">
-                    <li><a href="/#adout" class="golovna">Про нас</a></li>
-                    <li><a href="/#skills" class="golovna">Бібліотека</a></li>
-                    <li><a href="/#services" class="golovna">Переваги</a></li>
-                    <li><a href="/#contact" class="golovna">Контакти</a></li>
+                    <li><a href="/#adout" class="golovna" th:text="#{header.link1}">Про нас</a></li>
+                    <li><a href="/#skills" class="golovna" th:text="#{header.link2}">Бібліотека</a></li>
+                    <li><a href="/#services" class="golovna" th:text="#{header.link3}">Переваги</a></li>
+                    <li><a href="/#contact" class="golovna" th:text="#{header.link4}">Контакти</a></li>
                 <div class="cancel-btn">
                     <i class="fa fa-arrow-right"></i>
                 </div>
             </ul >
             <ul class="menu" sec:authorize="isAuthenticated()">
-                    <li><a href="/" class="golovna">Головна</a></li>
-                    <li><a th:href="@{/allbooks}" class="golovna">Всі книги</a></li>
-                    <li><a th:href="@{/mytakenbooks}" class="golovna">Мої книги</a></li>
-                    <li><a th:href="@{/myfavouritebooks}" class="golovna">Улюблені</a></li>
-                <li><a th:href="@{/booksbygroup}" class="golovna">За програмою</a></li>
+                    <li><a href="/" class="golovna" th:text="#{header.link5}">Головна</a></li>
+                    <li><a th:href="@{/allbooks}" class="golovna" th:text="#{header.link6}">Всі книги</a></li>
+                    <li><a th:href="@{/mytakenbooks}" class="golovna" th:text="#{header.link7}">Мої книги</a></li>
+                    <li><a th:href="@{/myfavouritebooks}" class="golovna" th:text="#{header.link8}">Улюблені</a></li>
+                <li><a th:href="@{/booksbygroup}" class="golovna" th:text="#{header.link9}">За програмою</a></li>
                 <div class="cancel-btn">
                     <i class="fa fa-arrow-right"></i>
                 </div>
@@ -49,13 +49,13 @@
                            </select>
                         
                         </li>
-                    <li class="eye golovna"><a  th:href="@{/login}"><iconify-icon icon="emojione:eye" width="30" height="30"></iconify-icon>Людям із порушенням зору</a></li>
+                    <li class="eye golovna"><iconify-icon icon="emojione:eye" width="30" height="30" ></iconify-icon><a th:href="@{/login}" th:text="#{header.impairment}"></a></li>
                 
             </div>
             <div class="btn" sec:authorize="isAnonymous()">
-                <li class="login-button golovna"><a  th:href="@{/login}">Вхід</a></li>
+                <li class="login-button golovna"><a  th:href="@{/login}" th:text="#{header.button.login}">Вхід</a></li>
                 <div class="header-button">
-                    <a class="header-button-reg" th:href="@{/register}" >Реєстрація</a>
+                    <a class="header-button-reg" th:href="@{/register}" th:text="#{header.button.register}">Реєстрація</a>
                 </div>
             </div>
           
@@ -78,22 +78,22 @@
                             <hr>
                             <a th:href="@{/editprofile}" class="sub-menu-link">
                                 <iconify-icon icon="fluent:person-edit-20-regular" style="color: #25398e;"></iconify-icon>
-                                <p>Редагувати профіль</p>
+                                <p th:text="#{header.submenu.link1}">Редагувати профіль</p>
                                 <span>></span>
                             </a>
                             <a href="https://app.service.utog.org/" class="sub-menu-link">
                                 <iconify-icon icon="material-symbols:help"style="color: #25398e;"></iconify-icon>
-                                <p>Допомога</p>
+                                <p th:text="#{header.submenu.link2}">Допомога</p>
                                 <span>></span>
                             </a>
                             <a th:href="@{/admin}" class="sub-menu-link"  sec:authorize="hasAuthority('ADMIN')">
                                 <iconify-icon icon="eos-icons:admin-outlined" style="color: #25398e;"></iconify-icon>
-                                <p>Адмін панель</p>
+                                <p th:text="#{header.submenu.link3}">Адмін панель</p>
                                 <span>></span>
                             </a>
                             <a href="#" class="sub-menu-link" th:href="@{/logout}">
                                 <iconify-icon icon="tabler:door-exit"style="color: #25398e;"></iconify-icon>
-                                <p>Вийти</p>
+                                <p th:text="#{header.submenu.link4}">Вийти</p>
                                 <span>></span>
                             </a>
 
@@ -108,4 +108,19 @@
     </nav>
     <script src="/js/MenuPass.js"></script>
     <script src="https://code.iconify.design/iconify-icon/1.0.2/iconify-icon.min.js"></script>
-    <script src="/js/slider.js"></script></body></div></html>
+    <script src="/js/slider.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#locales").change(function () {
+                var selectedOption = $('#locales').val();
+                if (selectedOption != ''){
+                    window.location.replace('?lang=' + selectedOption);
+                }
+            });
+        });
+    </script>
+</body>
+</div>
+</html>

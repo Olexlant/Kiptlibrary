@@ -4,7 +4,7 @@
 <!-- Created By CodingLab - www.codinglabweb.com -->
 <html lang="en" dir="ltr">
 <head>
-	<title>Реєстрація успішна</title>
+	<title th:text="#{regsuccess.title}">Реєстрація успішна</title>
 	<meta charset="UTF-8">
 	<!---<title> Responsive Registration Form | CodingLab </title>--->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
@@ -21,9 +21,9 @@
 		<form >
 			<div class="user-details">
 				<div class="ic"><i class="fa fa-user" aria-hidden="true"></i></div>
-				<div class="title"><span>Реєтрація успішна </span></div>
+				<div class="title"><span th:text="#{regsuccess.title}"></span></div>
 				<form>
-					<p>Будь ласка, підтвердіть e-mail</p>
+					<p th:text="#{regsuccess.text}"></p>
 					<div class="option_div">
 					</div>
 				</form>

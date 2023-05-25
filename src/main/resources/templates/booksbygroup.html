@@ -5,7 +5,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>За програмою</title>
+    <title th:text="#{booksbygroup.title}"></title>
     <link href="/css/allbook.css" type="text/css" rel="stylesheet" th:href="@{/css/allbook.css}">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
@@ -19,7 +19,7 @@
 <header class="site-header sticky-top py-1" th:insert="bloks/header :: header"></header>
 <body>
 <div class="container">
-    <div class="title-services"><span>За програмою</span></div>
+    <div class="title-services"><span th:text="#{booksbygroup.title}"></span></div>
     <div class="box-container" >
         <div class="box" th:each="book : ${books}">
             <div class="image">
@@ -27,19 +27,19 @@
             </div>
             <div class="content">
                 <h3 th:text="${book.getTitle()}"></h3>
-                <p th:text="${'Автор: '+book.getAuthor()}"></p>
+                <p th:text="#{booksbygroup.topic1}+${book.getAuthor()}"></p>
                 <div class="button">
-                    <a th:href="'/allbooks/'+ ${book.getId()}" class="btn">Детальніше</a>
+                    <a th:href="'/allbooks/'+ ${book.getId()}" class="btn" th:text="#{booksbygroup.button1}"></a>
                     <div th:if="${book.getBookfileurl()=='' && book.getBookfile()!=null}">
-                        <a th:href="'/allbooks/'+ ${book.getId()} +'/ebook'" class="btn">Переглянути</a>
+                        <a th:href="'/allbooks/'+ ${book.getId()} +'/ebook'" class="btn" th:text="#{booksbygroup.button2}"></a>
                     </div>
                     <div th:if="${book.getBookfileurl()!='' && book.getBookfile()==null}">
-                        <a th:href="${book.getBookfileurl()}" class="btn">Переглянути</a>
+                        <a th:href="${book.getBookfileurl()}" class="btn" th:text="#{booksbygroup.button2}"></a>
                     </div>
                 </div>
                 <div class="icons">
                     <span > <i class="fas fa-calendar" ></i><a  class="year" th:text="${' '+book.getYear()}"></a></span>
-                    <span > <i class="fa fa-id-card-o" ></i><a class="dataa" th:text="${' Кількість '+book.getCount()}"></a></span>
+                    <span > <i class="fa fa-id-card-o" ></i><a class="dataa" th:text="#{booksbygroup.topic2}+${book.getCount()}"></a></span>
                 </div>
             </div>
         </div>
