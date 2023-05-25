@@ -5,7 +5,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Детальніше</title>
+    <title th:text="#{bookdetails.title}"></title>
     <link href="/css/book-details.css" type="text/css" rel="stylesheet" th:href="@{/css/book-details.css}">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,8 +25,7 @@
     <li class="toast error">
         <div class="column" >
             <i class="fa-solid fa-circle-xmark"></i>
-            <span>
-                      Книгу замовлено раніше</span>
+            <span th:text="#{bookdetails.param.orderedlater}"></span>
         </div>
         <i class="fa-solid fa-xmark"></i>
     </li>
@@ -36,8 +35,7 @@
     <li class="toast success">
         <div class="column" >
             <i class="fa-solid fa-circle-check"></i>
-            <span>
-                     Книгу успішно замовлено</span>
+            <span th:text="#{bookdetails.param.ordered}"></span>
         </div>
         <i class="fa-solid fa-xmark"></i>
     </li>
@@ -53,16 +51,16 @@
                     <img th:src="@{'/qrcode/image/' + ${book.getId()}}" >
                 </div>
                 <div class="left">
-                    <div class="topic"  th:text="${'Qr-код: '+book.qrid}"></div>
-                    <div class="topic" th:text="${'Автор: '+book.author}"></div>
-                    <div class="topic" th:text="${'Рік: '+book.year}"></div>
-                    <div class="topic"th:text="${'Наявність: '+book.count+' штук'}"></div>
-                    <div th:if="${book.description!=null}">
-                        <p th:text="${'Опис: '+book.description}"></p>
+                    <div class="topic"  th:text="#{bookdetails.topic1}+${book.qrid}"></div>
+                    <div class="topic" th:text="#{bookdetails.topic2}+${book.author}"></div>
+                    <div class="topic" th:text="#{bookdetails.topic3}+${book.year}"></div>
+                    <div class="topic"th:text="#{bookdetails.topic4}+${book.count+' штук'}"></div>
+                    <div th:if="${book.description!=''}">
+                        <p th:text="#{bookdetails.topic5}+${book.description}"></p>
                     </div>
                     <form th:action="${'/orderbook/'+book.getId()}" method="post">
                         <div class="button">
-                            <button>Замовити у бібліотекаря</button>
+                            <button th:text="#{bookdetails.button}"></button>
                         </div>
                     </form>
 

@@ -5,7 +5,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<title>Всі книги</title>
+	<title th:text="#{allbook.title}"></title>
 	<link href="/css/allbook.css" type="text/css" rel="stylesheet" th:href="@{/css/allbook.css}">
 	<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
@@ -19,9 +19,9 @@
 <header class="site-header sticky-top py-1" th:insert="bloks/header :: header"></header>
 <body>
 <div class="container">
-	<div class="title-services"><span>Бібліотека</span></div>
+	<div class="title-services"><span th:text="#{allbook.title}"></span></div>
 	<form th:action="@{/searchbook}" method="get">
-		<input type="text" name="keyword" th:value="${keyword}"  placeholder="Пошук" size="25" >
+		<input type="text" name="keyword" th:value="${keyword}"  th:placeholder="#{search.placeholder}" size="25" >
 		<button type="submit" style="background-color: #25398e; " class="uil-search"></button>
 	</form>
 	<div class="categor">
@@ -37,9 +37,9 @@
 			</div>
 			<div class="content">
 				<h3 th:text="${book.title}"></h3>
-				<p th:text="${'Автор: '+book.author}">Автор: Тарас Шевченко</p>
+				<p th:text="#{allbook.topic1}+${book.author}"></p>
 				<div class="button">
-					<a th:href="'/allbooks/'+ ${book.id}" class="btn">Детальніше</a>
+					<a th:href="'/allbooks/'+ ${book.id}" class="btn" th:text="#{allbook.button1}"></a>
 					<div >
 						<div th:if="${likedbooks.contains(book)}">
 							<form th:action="'/likingbook/'+ ${book.id} + '/deletebyuser'" method="post">
@@ -48,14 +48,14 @@
 										<div class="delete-favorite">
 										<iconify-icon  icon="uil:trash-alt"></iconify-icon>
 										</div>
-										<div class="text-favorite"><a>з улюбленого</a></div>
+										<div class="text-favorite"><a th:text="#{allbook.button2}"></a></div>
 									</div>
 								</button>
 							</form>
 						</div>
 						<div th:if="${!likedbooks.contains(book)}">
 							<form th:action="'/likingbook/'+ ${book.id}" method="post">
-								<button class="btn" type="submit">В улюблене</button>
+								<button class="btn" type="submit" th:text="#{allbook.button3}"></button>
 							</form>
 						</div>
 					</div>

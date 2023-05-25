@@ -5,7 +5,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Головна</title>
+    <title th:text="#{header.link5}">Головна</title>
     <link href="/css/home.css" type="text/css" rel="stylesheet" th:href="@{/css/home.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,27 +25,10 @@
 
 <div th:insert="bloks/topbook :: topbook">
 </div>
-<span th:text="#{lang.change}"></span>:
-<select id="locales">
-    <option value=""></option>
-    <option value="us" th:text="#{lang.us}"></option>
-    <option value="ua" th:text="#{lang.ua}"></option>
-</select>
 <div th:insert="bloks/footer :: footer">
 </div>
 <a href="https://app.service.utog.org/"><span class="btnServiceUTOG"></span></a>
 <script src="/js/slider.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
-</script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        $("#locales").change(function () {
-            var selectedOption = $('#locales').val();
-            if (selectedOption != ''){
-                window.location.replace('?lang=' + selectedOption);
-            }
-        });
-    });
-</script>
+
 </body>
 </html>

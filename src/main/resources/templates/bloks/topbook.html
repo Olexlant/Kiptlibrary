@@ -27,22 +27,21 @@
             <div class="right">
             <div class="text">
                 <div class="text-two" th:text="#{greeting}">Ласкаво просимо</div>
-                <div class="text-three" sec:authorize="isAnonymous()" >до бібліотеки коледжу</div>
+                <div class="text-three" th:text="#{greeting2}" sec:authorize="isAnonymous()" >до бібліотеки коледжу</div>
                 <div class="text-three" sec:authorize="isAuthenticated()" >
                     <span sec:authentication="principal.firstName"></span>
                     <span sec:authentication="principal.lastName"></span>
                 </div>
-                <div class="text-four">Детальна інформація про наш заклад</div>
+                <div class="text-four" th:text="#{greeting3}">Детальна інформація про наш заклад</div>
             </div>
             <form action="http://www.kklp.kiev.ua/">
                 <div class="button">
-                    <button>Знаходиться тут</button>
+                    <button th:text="#{home.button1}">Знаходиться тут</button>
                 </div>
             </form>
             </div>
             <div class="left">
                 <video  loop autoplay muted playsinline preload>
-
                     <source src="https://i.imgur.com/Ty3KnaG.mp4" type="video/mp4">
                 </video>
             </div>
@@ -52,7 +51,7 @@
     <!--about-->
     <section class="adout" id="adout">
         <div class="content">
-            <div class="title"><span>Про нас</span></div>
+            <div class="title"><span th:text="#{home.title1}">Про нас</span></div>
             <div class="about-details">
                 <div class="right">
                     <video  loop autoplay muted preload playsinline>
@@ -60,14 +59,14 @@
                     </video>
                 </div>
                 <div class="left">
-                    <div class="topic">Наша бібліотека</div>
-                    <p>Бібліотека є навчальним, науковим, інформаційним та культурно-просвітницьким структурним підрозділом Коледжу.
+                    <div class="topic" th:text="#{home.topic1}">Наша бібліотека</div>
+                    <p th:text="#{home.topic1.text}">Бібліотека є навчальним, науковим, інформаційним та культурно-просвітницьким структурним підрозділом Коледжу.
                         Робота бібліотеки зорієнтована на контексті сучасних тенденцій в державі та державному устрою, європейської
                         інтеграції в Освіті та Державі, та спрямована на забезпечення
                         бібліотечно-інформаційного, культурно-просвітницького, навчально-виховного розвитку студентів Коледжу.</p>
                     <form action="https://knutd.edu.ua/researchwork/library/">
                         <div class="button">
-                            <button>Детальніше</button>
+                            <button th:text="#{home.button2}">Детальніше</button>
                         </div>
                     </form>
                 </div>
@@ -78,40 +77,40 @@
     <!--slider-->
     <section class="slider-news">
         <div class="content">
-            <div class="title"><span>Новини</span></div>
+            <div class="title"><span th:text="#{home.title2}">Новини</span></div>
             <div th:insert="bloks/home-news :: home-news"></div>
         </div>
     </section>
     <!--library-->
     <section class="skills" id="skills">
         <div class="content">
-            <div class="title-library"><span>Бібліотека</span></div>
+            <div class="title-library"><span th:text="#{home.title3}">Бібліотека</span></div>
             <div class="skills-details">
                 <div class="text">
-                    <div class="topic">Книжковий фонд</div>
-                    <p>Загальний книжковий фонд бібліотеки складає 41455 примірників – це навчальна література, наукова, технічна та спеціальна література.
+                    <div class="topic" th:text="#{home.topic2}">Книжковий фонд</div>
+                    <p th:text="#{home.topic2.text}">Загальний книжковий фонд бібліотеки складає 41455 примірників – це навчальна література, наукова, технічна та спеціальна література.
                         До бібліотеки коледжу надходять 31 періодичне видання. Викладачі і студенти мають можливість вільного доступу до Інтернет з будь якого комп’ютера в технікумі, в гуртожитку, в бібліотеці.
                     </p>
                     <div class="experience">
                         <div class="num">92</div>
-                        <div class="exp">Роки <br> роботи</div>
+                        <div class="exp" style="white-space: pre-line" th:text="#{home.topic2.experience}">Роки <br> роботи</div>
                     </div>
                 </div>
                 <div class="boxes">
                     <div class="box">
-                        <div class="topic">Наукова</div>
+                        <div class="topic" th:text="#{home.topic2.boxes.topic1}">Наукова</div>
                         <div class="per">58%</div>
                     </div>
                     <div class="box">
-                        <div class="topic">Технічна</div>
+                        <div class="topic" th:text="#{home.topic2.boxes.topic2}">Технічна</div>
                         <div class="per">12%</div>
                     </div>
                     <div class="box">
-                        <div class="topic">Спеціальна</div>
+                        <div class="topic" th:text="#{home.topic2.boxes.topic3}">Спеціальна</div>
                         <div class="per">15%</div>
                     </div>
                     <div class="box">
-                        <div class="topic">Художня</div>
+                        <div class="topic" th:text="#{home.topic2.boxes.topic4}">Художня</div>
                         <div class="per">15%</div>
                     </div>
                 </div>
@@ -121,49 +120,49 @@
     <!--perevagy-->
     <section class="services" id="services">
         <div class="content">
-            <div class="title-services"><span>Переваги</span></div>
+            <div class="title-services"><span th:text="#{home.title4}">Переваги</span></div>
             <div class="boxes">
                 <div class="box">
                     <div class="icon">
                         <i class="fas fa-desktop"></i>
                     </div>
-                    <div class="topic">Зручний інтерфейс</div>
-                    <p>Дуже зручна взаємодія користувача з інформаційною системою.</p>
+                    <div class="topic" th:text="#{home.topic3.boxes.topic1}">Зручний інтерфейс</div>
+                    <p th:text="#{home.topic3.boxes.topic1.text}">Зручна взаємодія користувача з інформаційною системою</p>
                 </div>
                 <div class="box">
                     <div class="icon">
                         <i class="fa fa-book"></i>
                     </div>
-                    <div class="topic">Велика бібліотека</div>
-                    <p>Загальний книжковий фонд бібліотеки складає 41455 примірників</p>
+                    <div class="topic" th:text="#{home.topic3.boxes.topic2}">Унікальний фонд</div>
+                    <p th:text="#{home.topic3.boxes.topic2.text}">Загальний книжковий фонд бібліотеки складає 41455 примірників</p>
                 </div>
                 <div class="box">
                     <div class="icon">
                         <i class="fa fa-user"></i>
                     </div>
-                    <div class="topic">Особистий кабінет</div>
-                    <p>Ваша персональна захищена web-сторінка де ти зможеш робити те , що тобі заманеться</p>
+                    <div class="topic" th:text="#{home.topic3.boxes.topic3}">Особистий кабінет</div>
+                    <p th:text="#{home.topic3.boxes.topic3.text}">Персональна захищена web-сторінка</p>
                 </div>
                 <div class="box">
                     <div class="icon">
                         <i class="fa fa-cogs"></i>
                     </div>
-                    <div class="topic">Надійність</div>
-                    <p>інформаційна система онлайн бібліотеки працює цілодобово та без проблем</p>
+                    <div class="topic" th:text="#{home.topic3.boxes.topic4}">Надійність</div>
+                    <p th:text="#{home.topic3.boxes.topic4.text}">Інформаційна система бібліотеки працює 24/7</p>
                 </div>
                 <div class="box">
                     <div class="icon">
                         <i class="fa fa-lock"></i>
                     </div>
-                    <div class="topic">Безпека</div>
-                    <p>Система дає тобі захист особистих данних якими ти володієш</p>
+                    <div class="topic" th:text="#{home.topic3.boxes.topic5}">Безпека</div>
+                    <p th:text="#{home.topic3.boxes.topic5.text}">Система дає професійний захист персональних даних</p>
                 </div>
                 <div class="box">
                     <div class="icon">
                         <i class="fas fa-tablet-alt"></i>
                     </div>
-                    <div class="topic">Мобільна версія</div>
-                    <p>Система розроблена також для комфортного використаня з смартфону</p>
+                    <div class="topic" th:text="#{home.topic3.boxes.topic6}">Мобільна версія</div>
+                    <p th:text="#{home.topic3.boxes.topic6.text}">Система розроблена для комфортного використаня з смартфону</p>
                 </div>
             </div>
         </div>

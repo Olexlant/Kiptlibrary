@@ -3,7 +3,7 @@
 <!-- Created By CodingLab - www.codinglabweb.com -->
 <html lang="en" dir="ltr">
 <head>
-  <title>Вхід</title>
+  <title th:text="#{login.title}">Вхід</title>
   <meta charset="UTF-8">
   <!---<title> Responsive Registration Form | CodingLab </title>--->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
@@ -26,30 +26,30 @@
 <header class="site-header sticky-top py-1" th:insert="bloks/header :: header"></header>
 <body>
 <div class="container">
-  <div class="title"><span>Вхід</span></div>
+  <div class="title"><span th:text="#{login.title}">Вхід</span></div>
   <div class="content">
 
     <form method="post" action="/login">
       <div class="user-details">
         <div class="input-box">
-          <span class="details">Email</span>
-          <input type="email" id="email" name="email"  class="form-control" placeholder="E-mail" required minlength="3"/>
+          <span class="details" th:text="#{login.input.email}">Email</span>
+          <input type="email" id="email" name="email"  class="form-control" th:placeholder="#{login.input.email}" required minlength="3"/>
           <div class="icon"><i class="fas fa-user"></i></div>
         </div>
         <div class="input-box">
-          <span class="details">Пароль</span>
-          <input type="password" id="password" name="password" class="form-control"  placeholder="Пароль" required/>
+          <span class="details" th:text="#{login.input.password}">Пароль</span>
+          <input type="password" id="password" name="password" class="form-control" th:placeholder="#{login.input.password}" required/>
           <div class="icon"><i class="fas fa-lock"></i></div>
         </div>
-        <label>Запам'ятати мене?
+        <label>
+          <span th:text="#{login.rememberMe}"></span>
           <input type="checkbox" name="remember-me" />
         </label>
         <div class="input_box button">
-        <button type="submit">Вхід</button>
+        <button type="submit" th:text="#{login.button}">Вхід</button>
       </div>  
-        <div class="sign_up">
-          Забули пароль? <a th:href="@{/resetpassword}">Відновити</a>
-        </div>
+        <span class="sign_up" th:text="#{login.forgotPassword}"></span>
+        <a th:href="@{/resetpassword}" th:text="#{login.link1}">Відновити</a>
       </div>
     </form>
   </div>
@@ -58,8 +58,7 @@
   <li class="toast error">
     <div class="column" >
       <i class="fa-solid fa-circle-xmark"></i>
-      <span>
-        Невірний логін або пароль</span>
+      <span th:text="#{login.param.error}"></span>
     </div>
     <i class="fa-solid fa-xmark"></i>
   </li>
@@ -68,8 +67,7 @@
   <li class="toast info">
     <div class="column" >
       <i class="fa-solid fa-circle-info"></i>
-      <span>
-      Email вже підтверджено</span>
+      <span th:text="#{login.param.alreadyconfirmed}"></span>
     </div>
     <i class="fa-solid fa-xmark"></i>
   </li>
@@ -78,8 +76,7 @@
   <li class="toast success">
     <div class="column" >
       <i class="fa-solid fa-circle-check"></i>
-      <span> Новий пароль збережено
-</span>
+      <span th:text="#{login.param.passwordchanged}"></span>
     </div>
     <i class="fa-solid fa-xmark"></i>
   </li>
@@ -88,8 +85,7 @@
   <li class="toast warning">
     <div class="column" >
       <i class="fa-solid fa-triangle-exclamation"></i>
-      <span> Час зміни паролю вийшов
-</span>
+      <span th:text="#{login.param.expiredpasschange}"></span>
     </div>
     <i class="fa-solid fa-xmark"></i>
   </li>
