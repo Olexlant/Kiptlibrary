@@ -5,7 +5,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Профіль</title>
+    <title th:text="#{editprofile.title}"></title>
     <link href="/css/editprofile.css" type="text/css" rel="stylesheet" th:href="@{/css/editprofile.css}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,12 +27,12 @@
     <div class="pop_up" id="pop_up">
         <div class="pop_up_container">
             <div class="pop_up_body" id="pop_up_body">
-                <p>Зміна паролю</p>
+                <p th:text="#{editprofile.popup.title}"></p>
                 <form th:action="@{/editprofile/changepassword}" method="post">
-                    <input name="currentpassword" type="password" placeholder="Старий пароль">
-                    <input name="newpassword" type="password" placeholder="Новий пароль" minlength="4">
-                    <input name="confirmnewpassword" type="password" placeholder="Підтвердіть пароль" minlength="4">
-                    <button class="">Зберегти</button>
+                    <input name="currentpassword" type="password" th:placeholder="#{editprofile.popup.input1}">
+                    <input name="newpassword" type="password" th:placeholder="#{editprofile.popup.input2}" minlength="4">
+                    <input name="confirmnewpassword" type="password" th:placeholder="#{editprofile.popup.input3}"  minlength="4">
+                    <button class="" th:text="#{editprofile.popup.button}"></button>
                 </form>
                 <div class="pop_up_close" id="pop_up_close">&#10006</div>
             </div>
@@ -51,7 +51,7 @@
                     <div class="v">
                         <label>
                             <iconify-icon icon="material-symbols:add-a-photo-outline" style="color: #25398e;"></iconify-icon>
-                            Редагувати зображення
+                            <div th:text="#{editprofile.label1}"></div>
                         </label>
                         <input type="file" name="imgfile" accept="image/*">
                     </div>
@@ -62,7 +62,7 @@
                         <li class="toast info">
                             <div class="column" >
                                 <i class="fa-solid fa-circle-info"></i>
-                                <span>Внесіть всі данні</span>
+                                <span th:text="#{editprofile.param.nodata}"></span>
                             </div>
                             <i class="fa-solid fa-xmark"></i>
                         </li>
@@ -71,7 +71,7 @@
                         <li class="toast success">
                             <div class="column" >
                                 <i class="fa-solid fa-circle-check"></i>
-                                <span>Пароль змінено</span>
+                                <span th:text="#{editprofile.param.passchanged}"></span>
                             </div>
                             <i class="fa-solid fa-xmark"></i>
                         </li>
@@ -80,7 +80,7 @@
                         <li class="toast error">
                             <div class="column" >
                                 <i class="fa-solid fa-circle-xmark"></i>
-                                <span>Нові паролі не співпадають</span>
+                                <span th:text="#{editprofile.param.notmatch}"></span>
                             </div>
                             <i class="fa-solid fa-xmark"></i>
                         </li>
@@ -89,7 +89,7 @@
                         <li class="toast error">
                             <div class="column" >
                                 <i class="fa-solid fa-circle-xmark"></i>
-                                <span>Старий пароль не вірний</span>
+                                <span th:text="#{editprofile.param.currentnotmatch}"></span>
                             </div>
                             <i class="fa-solid fa-xmark"></i>
                         </li>
@@ -98,52 +98,52 @@
                         <li class="toast success">
                             <div class="column" >
                                 <i class="fa-solid fa-circle-check"></i>
-                                <span>Дані збережено</span>
+                                <span th:text="#{editprofile.param.success}"></span>
                             </div>
                             <i class="fa-solid fa-xmark"></i>
                         </li>
                     </ul>
                         <div class="user-details">
                             <div class="input-box">
-                                <span class="details">Email</span>
-                                <input th:value="${user.getEmail()}" type="email"  name="email" placeholder="Введіть email" required minlength="5">
+                                <span class="details" th:text="#{editprofile.input1}"></span>
+                                <input th:value="${user.getEmail()}" type="email"  name="email" th:placeholder="#{editprofile.input1}" required minlength="5">
                             </div>
                             <div class="input-box">
-                                <span class="details">Пароль</span>
-                                <a href=""  id="open"><input th:value="${'Змінити пароль'}" name="password" required style="cursor:pointer;"></a>
+                                <span class="details" th:text="#{editprofile.input2}">Пароль</span>
+                                <a href=""  id="open"><input th:value="#{editprofile.popup.title}" name="password" th:placeholder="#{editprofile.input2}" required style="cursor:pointer;"></a>
                             </div>
                             <div class="input-box">
-                                <span class="details">Ім'я</span>
-                                <input th:value="${user.getFirstName()}" type="text" name="firstname" placeholder="Введіть ім'я" required>
+                                <span class="details" th:text="#{editprofile.input3}">Ім'я</span>
+                                <input th:value="${user.getFirstName()}" type="text" name="firstname" th:placeholder="#{editprofile.input3}" required>
                             </div>
                             <div class="input-box">
-                                <span class="details">Прізвище</span>
-                                <input th:value="${user.getLastName()}" type="text" name="lastname" placeholder="Введіть прізвище" required>
+                                <span class="details" th:text="#{editprofile.input4}">Прізвище</span>
+                                <input th:value="${user.getLastName()}" type="text" name="lastname" th:placeholder="#{editprofile.input4}" required>
                             </div>
                             <div class="input-box">
-                                <span class="details">Група</span>
+                                <span class="details" th:text="#{editprofile.input5}">Група</span>
 					            <div class="categor">
 					            <select th:name="groupid">
-                                    <option th:value="${''}" th:text="${'Без групи'}"></option>
+                                    <option th:value="${''}" th:text="#{editprofile.inputnogroup}"></option>
 					            	<option th:each="group : ${groups}" th:value="${group.getId()}" th:text="${group.getName()}" th:selected="${group==user.groups}"></option>
 					            </select>
 					            </div>
                             </div>
                             <div class="input-box">
-                                <span class="details">Дата народження</span>
-                                <input th:value="${user.getBirthday()}" type="date"  min="1950-01-01" max="2015-12-31" name="birthday" placeholder="Введіть дату народження" required>
+                                <span class="details" th:text="#{editprofile.input6}">Дата народження</span>
+                                <input th:value="${user.getBirthday()}" type="date"  min="1950-01-01" max="2015-12-31" name="birthday" th:placeholder="#{editprofile.input6}" required>
                             </div>
                             <div class="input-box">
-                                <span class="details">Домашня адреса</span>
-                                <input th:value="${user.getAddress()}" type="text" name="address" placeholder="Введіть домашню адресу" required>
+                                <span class="details" th:text="#{editprofile.input7}">Домашня адреса</span>
+                                <input th:value="${user.getAddress()}" type="text" name="address" th:placeholder="#{editprofile.input7}" required>
                             </div>
                             <div class="input-box">
-                                <span class="details">Телефон</span>
-                                <input th:value="${user.getPhonenum()}" type="text" name="phonenum" placeholder="Введіть номер телефону" required>
+                                <span class="details" th:text="#{editprofile.input8}">Телефон</span>
+                                <input th:value="${user.getPhonenum()}" type="text" name="phonenum" th:placeholder="#{editprofile.input8}" required>
                             </div>
                         </div>
                         <div class="button">
-                            <button type="submit">Зберегти</button>
+                            <button type="submit" th:text="#{editprofile.button}"></button>
                         </div>
 
                 </div>
