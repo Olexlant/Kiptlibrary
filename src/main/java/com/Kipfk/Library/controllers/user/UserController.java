@@ -49,6 +49,14 @@ public class UserController {
     }
     @PostMapping("/process_register")
     public String signUp(AppUser user, @RequestParam String groupid) {
+        if (appUserRepository.existsByEmail(user.getEmail())){
+            AppUser appUser = appUserRepository.findAllByEmail(user.getEmail());
+            if (appUser.isEnabled()){
+                return "redirect:/login?alreadyexists";
+            }else {
+                return "redirect:/login?confirmEmail";
+            }
+        }
         if(groupid.equals("")){
             user.setGroups(null);
         }else{

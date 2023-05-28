@@ -32,11 +32,12 @@ public class AdminTakenBooksController {
     private final AppBookRepository appBookRepository;
     private final TakenBooksRepository takenBooksRepository;
     private final BookOrdersRepository bookOrdersRepository;
+
     @GetMapping("/admin/takebook")
     public String showUsersToTake(Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(12);
-        Page<AppUserRepository.UserNoPhoto> userPage = appUserRepository.findAllBy(PageRequest.of(currentPage - 1, pageSize));
+        Page<AppUserRepository.UserNoPhoto> userPage = appUserRepository.findAllByEnabledIsTrue(PageRequest.of(currentPage - 1, pageSize));
         model.addAttribute("users",userPage);
         model.addAttribute("body", appBookService.bodyArrayForPages(userPage));
         return "takebookuser";
