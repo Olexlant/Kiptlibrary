@@ -10,6 +10,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Exo+2:wght@300&display=swap" rel="stylesheet">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 
         <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -23,7 +24,7 @@
 
     </head>
     <section class="home" id="home">
-        <div class="home-content">
+        <div class="home-content" id="h">
             <div class="right">
             <div class="text">
                 <div class="text-two" th:text="#{greeting}">Ласкаво просимо</div>
@@ -34,7 +35,7 @@
                 </div>
                 <div class="text-four" th:text="#{greeting3}">Детальна інформація про наш заклад</div>
             </div>
-            <form action="http://www.kklp.kiev.ua/">
+            <form action="https://kcas.com.ua/">
                 <div class="button">
                     <button th:text="#{home.button1}">Знаходиться тут</button>
                 </div>
@@ -50,7 +51,7 @@
 
     <!--about-->
     <section class="adout" id="adout">
-        <div class="content">
+        <div class="content" id="p">
             <div class="title"><span th:text="#{home.title1}">Про нас</span></div>
             <div class="about-details">
                 <div class="right">
@@ -64,7 +65,7 @@
                         Робота бібліотеки зорієнтована на контексті сучасних тенденцій в державі та державному устрою, європейської
                         інтеграції в Освіті та Державі, та спрямована на забезпечення
                         бібліотечно-інформаційного, культурно-просвітницького, навчально-виховного розвитку студентів Коледжу.</p>
-                    <form action="https://knutd.edu.ua/researchwork/library/">
+                    <form action="https://kcas.com.ua/bibl.html">
                         <div class="button">
                             <button th:text="#{home.button2}">Детальніше</button>
                         </div>
@@ -84,7 +85,7 @@
     <!--library-->
     <section class="skills" id="skills">
         <div class="content">
-            <div class="title-library"><span th:text="#{home.title3}">Бібліотека</span></div>
+            <div class="title-library" ><span th:text="#{home.title3}">Бібліотека</span></div>
             <div class="skills-details">
                 <div class="text">
                     <div class="topic" th:text="#{home.topic2}">Книжковий фонд</div>
@@ -170,13 +171,30 @@
     <!-- Contact -->
     <section class="contact" id="contact">
         <div class="content">
-            <div class="title-contact"><span>Контакти</span></div>
+            <div class="title-contact"><span>КОНТАКТИ</span></div>
             <div class="text">
                 <div class="topic">Виникли питання?</div>
-                <p>Пиши нам на електронну пошту <a href="mailto: kdtlp@ukr.net">kdtlp@ukr.net</a> або телефонуй <a href="tel:+38529-14-33">+38529-14-33</a>. За особистими питаннями можеш звернутися до бібліотекара
-                    або до адміна за номером <a href="tel:096 085 46 06">096 085 46 06</a> Графік роботи бібліотеки:  8.00 - 15.00. Вихідні дні - субота, неділя. Останній робочий день місяця - санітарний день.</p>
-                <div class="button-contact">
-                    <button>Дізнатись більше</button>
+                <p>Пиши нам на електронну пошту <a href="mailto: kdtlp@ukr.net">kdtlp@ukr.net</a> або телефонуй <a href="tel:+38529-14-33">+38529-14-33</a>. 
+                    За особистими питаннями можеш звернутися до бібліотекаря.</p>
+                    <p style="font-weight: bold; color: #3f3f3f;">Київ, Україна, 01042</p>
+                    <p><a href="https://goo.gl/maps/QzCpsadpb1dmC8pn6?coh=178571&entry=tt">вулиця Джона Маккейна, 29</a></p>
+                    <p><a href="tel:044 529 14 23">+38 044 529 14 23 (приймальна директорки).</a></p>
+                    <p><a href="tel:066 376 96 42">+38 066 376 96 42 (приймальна комісія),</a></p>
+                    <p><a href="tel:044 529 01 62">+38 044 529 01 62 (фінансова служба).</a></p>
+                <div class="icon-contact">
+                    <a href="https://t.me/KCASculture">
+                        <iconify-icon icon="ic:baseline-telegram" style="color: #25398e;"></iconify-icon>
+                    </a>
+                    <a href="https://www.facebook.com/kcas.com.ua">
+                         <iconify-icon icon="ic:baseline-facebook" style="color: #25398e;"></iconify-icon>
+                    </a>
+                    <a href="https://www.instagram.com/kfkpn_official/">
+                        <iconify-icon icon="ri:instagram-fill" style="color: #25398e;"></iconify-icon>
+                    </a>
+                    <a href="https://kcas.com.ua/index.php?do=feedback">
+                        <iconify-icon icon="material-symbols:mail" style="color: #25398e;"></iconify-icon>
+                    </a>
+             
                 </div>
             </div>
         </div>

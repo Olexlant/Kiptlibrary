@@ -13,13 +13,13 @@
     </head>
     <body>
     <nav>
-        <div class="navbar">
+        <div class="navbar" >
             <div class="right">
                 <a href="/#home"><img src="/images/logo.png" alt=""></a>
             </div>
             <div class="logo"><a href="/#home">KCAS<a class="kcas-library">Library</a></a>
             </div>
-            <ul class="menu" sec:authorize="isAnonymous()">
+            <ul class="menu" sec:authorize="isAnonymous()" id="text">
                     <li><a href="/#adout" class="golovna" th:text="#{header.link1}">Про нас</a></li>
                     <li><a href="/#skills" class="golovna" th:text="#{header.link2}">Бібліотека</a></li>
                     <li><a href="/#services" class="golovna" th:text="#{header.link3}">Переваги</a></li>
@@ -49,8 +49,21 @@
                            </select>
                         
                         </li>
-                    <li class="eye golovna"><iconify-icon icon="emojione:eye" width="30" height="30" ></iconify-icon><a th:href="@{/login}" th:text="#{header.impairment}"></a></li>
-                
+                    <li class="eye golovna" onclick="fontsbtnMenu()">
+                        <iconify-icon icon="emojione:eye" width="30" height="30" ></iconify-icon>
+                        <a  th:text="#{header.impairment}"></a>
+                        <div class="fonts-menu-wrap" id="fontsMenu">
+                            <div class="fonts-sub-menu">
+                                <div class="buttons">
+                                    <span class="font-buttons active">A</span>
+                                    <span class="font-buttons">A</span>
+                                    <span class="font-buttons">A</span>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    
             </div>
             <div class="btn" sec:authorize="isAnonymous()">
                 <li class="login-button golovna"><a  th:href="@{/login}" th:text="#{header.button.login}">Вхід</a></li>

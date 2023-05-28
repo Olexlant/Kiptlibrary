@@ -2,6 +2,10 @@ let subMenu = document.getElementById("subMenu");
 function toggleMenu(){
   subMenu.classList.toggle("open-menu");
 }
+let fontsMenu = document.getElementById("fontsMenu");
+function fontsbtnMenu(){
+  fontsMenu.classList.toggle("open-fonts-menu");
+}
 
 
 

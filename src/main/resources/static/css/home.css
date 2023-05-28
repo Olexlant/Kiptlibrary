@@ -156,6 +156,7 @@ nav .navbar .menu .cancel-btn{
   display: flex;
   align-items: center;
   color: #25398e;
+  cursor: pointer;
 }
 .navbar .golovna {
   display: flex;
@@ -327,6 +328,51 @@ object-fit: cover;
 .sub-menu-wrap.open-menu{
   max-height: 420px;
 }
+.fonts-menu-wrap{
+  position: absolute;
+  top: 100%;
+ 
+  width: 320px;
+  max-height: 0px;
+  overflow: hidden;
+  transition: max-height 0.5s;
+}
+.fonts-menu-wrap.open-fonts-menu{
+  max-height: 420px;
+  
+}
+.fonts-sub-menu{
+  background: #25398e;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 12px;
+  width: 200px;
+}
+.fonts-sub-menu .buttons{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+.fonts-sub-menu .buttons .font-buttons{
+padding: 0 10px;
+display: inline-flex;
+background: #ddd;
+color: #25398e;
+margin-left: 10px;
+cursor: pointer;
+}
+.fonts-sub-menu .buttons .font-buttons .active{
+  background: #444;
+}
+.fonts-sub-menu .buttons .font-buttons:nth-child(2)
+{
+  font-size: 1.5em;
+}
+.fonts-sub-menu .buttons .font-buttons:nth-child(3){
+  font-size: 2em;
+}
+
 .slider-news {
   background-color: #e4e9ff;
   padding: 1px 0px 62px 0px;
@@ -727,7 +773,7 @@ left: 0;
 bottom: 0;
 height: 3px;
 width: 100%;
-background:#f04e4e;
+background:#25398e;
 }
 section .title-contact span::after{
   width: 70%;
@@ -740,10 +786,10 @@ section .title-contact span::after{
 }
 .contact .content{
   margin: 0 auto;
-  padding: 30px 0;
+  padding: 30px 2px 0px 0px;
 }
 .contact .text{
-  width: 80%;
+  width: 79%;
   text-align: center;
   margin: auto;
 }
@@ -751,8 +797,12 @@ section .title-contact span::after{
   font-weight: bold;
   color: #3f3f3f;
 }
-section .button-contact{
-  margin: 20px 0;
+
+section .icon-contact{
+  
+  line-height: 50px;
+  font-size: 50px;
+  margin: 10px auto 10px auto;
 }
 section .button-contact button{
   outline: none;
@@ -1193,7 +1243,16 @@ footer .text span a:hover{
 }
 @media(max-width:1270px){
   nav .navbar .btnn{
-    display:none;
+    position: absolute;
+    max-width: 385px;
+    width: 100%;
+    left: -100%;
+    top: 0;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 30px;  
+    transition: all 0.6s ease;
+
     }
 }
 @media(max-width:1238px){
@@ -1345,12 +1404,14 @@ footer .text span a:hover{
     nav .navbar.active .btnn {
       /* left: 0; */
       display: block;
-      /* right: 12px; */
+      right: 12px;
       position: absolute;
-      top: 400px;
-      padding-left: 85px;
-      transition: all 1.0s;
-      
+      top: 420px;
+      transition: all 0.6s ease;
+      left: 14%;
+  }
+  nav .navbar .btnn{
+    left: -185%;
   }
   select{
     font-size: 20px;
@@ -1363,9 +1424,7 @@ footer .text span a:hover{
     top: 20px;
     padding-top: 30px;
 }
-  nav .navbar.active .btnn{
-
-  }
+ 
   nav .navbar .right img {
       height: 100%;
       width: 40%;
@@ -1376,9 +1435,7 @@ footer .text span a:hover{
     right: 10%;
     
 }
-nav .navbar.active .btnn{
-  left: 0;
-}
+
 .navbar .btnn .eye .golovna{
   font-size: 25px;
   color: #25398e;
@@ -1487,7 +1544,7 @@ nav .navbar .btn {
   transition: all 0.6s ease;
 }
 nav .navbar.active .btn{
-  left: 0;
+  left: 0px;
 }
 .header-button{
   margin: 10 8px;
