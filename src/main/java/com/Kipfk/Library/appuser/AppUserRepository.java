@@ -35,6 +35,7 @@ public interface AppUserRepository extends JpaRepository<AppUser, Long>, JpaSpec
         AppUserRole getAppUserRole();
     }
     Optional<AppUser> findByEmail(String email);
+    AppUser findAllByEmail(String email);
     @Transactional
     @Modifying
     @Query("UPDATE AppUser a " + "SET a.enabled = TRUE WHERE a.email = ?1")
@@ -48,4 +49,5 @@ public interface AppUserRepository extends JpaRepository<AppUser, Long>, JpaSpec
     List<AppUser> findAllByGroups_Id(Long groupsId);
 
     AppUser findAllById(Long id);
+    boolean existsByEmail(String email);
 }

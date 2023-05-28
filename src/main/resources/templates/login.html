@@ -72,6 +72,24 @@
     <i class="fa-solid fa-xmark"></i>
   </li>
 </ul>
+<ul th:if="${param.alreadyexists}" class="notifications"  id="message">
+  <li class="toast info">
+    <div class="column" >
+      <i class="fa-solid fa-circle-info"></i>
+      <span th:text="#{login.param.alreadyexists}"></span>
+    </div>
+    <i class="fa-solid fa-xmark"></i>
+  </li>
+</ul>
+<ul th:if="${param.confirmEmail}" class="notifications"  id="message">
+  <li class="toast info">
+    <div class="column" >
+      <i class="fa-solid fa-circle-info"></i>
+      <span th:text="#{login.param.confirmEmail}"></span>
+    </div>
+    <i class="fa-solid fa-xmark"></i>
+  </li>
+</ul>
 <ul th:if="${param.passwordchanged}" class="notifications"  id="message">
   <li class="toast success">
     <div class="column" >
