@@ -1,69 +1,94 @@
 package com.Kipfk.Library.email;
 
+import com.Kipfk.Library.appbook.AppBook;
+import com.Kipfk.Library.appuser.AppUser;
+import com.Kipfk.Library.appuser.TakenBooks;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.time.LocalDate;
+import java.util.Locale;
 
 @Service
 @AllArgsConstructor
-public class EmailService implements EmailSender{
+public class EmailService implements EmailSender {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(EmailService.class);
 
-    private final JavaMailSender mailSender;
+    private final JavaMailSender javaMailSender;
+    private final TemplateEngine templateEngine;
 
     @Async
-    public void sendregistrationmail(String to, String email) {
+    public void sendregistrationmail(AppUser user, String link) {
         try {
-            MimeMessage mimeMessage = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
-            helper.setText(email, true);
-            helper.setTo(to);
-            helper.setSubject("Підтердження email");
-            helper.setFrom("Library@Kipfk.com");
-            mailSender.send(mimeMessage);
-        } catch (MessagingException e) {
-            LOGGER.error("Не вдалось відправити на email", e);
-            throw new IllegalStateException("Не вдалось відправити на email");
+            Context context = new Context();
+            Locale locale = LocaleContextHolder.getLocale();
+            context.setLocale(locale);
+            context.setVariable("user", user);
+            context.setVariable("link", link);
+            String process = templateEngine.process("emails/confirm-email", context);
+            javax.mail.internet.MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
+            helper.setSubject(user.getLastName()+" "+user.getFirstName());
+            helper.setText(process, true);
+            helper.setTo(user.getEmail());
+            javaMailSender.send(mimeMessage);
+        }catch (MessagingException e){
+            throw new IllegalStateException("Message not sent");
+        }
+
+    }
+
+
+    @Async
+    public void sendchangepasswordmail(AppUser user, String link) {
+        try {
+            Context context = new Context();
+            Locale locale = LocaleContextHolder.getLocale();
+            context.setLocale(locale);
+            context.setVariable("user", user);
+            context.setVariable("link", link);
+            String process = templateEngine.process("emails/change-password", context);
+            javax.mail.internet.MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
+            helper.setSubject(user.getLastName()+" "+user.getFirstName());
+            helper.setText(process, true);
+            helper.setTo(user.getEmail());
+            javaMailSender.send(mimeMessage);
+        }catch (MessagingException e){
+            throw new IllegalStateException("Message not sent");
         }
     }
 
     @Async
-    public void sendchangepasswordmail(String to, String email) {
+    public void sendNotificationMessage(AppUser user, AppBook book, TakenBooks takenBooks) {
         try {
-            MimeMessage mimeMessage = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
-            helper.setText(email, true);
-            helper.setTo(to);
-            helper.setSubject("Відновлення паролю");
-            helper.setFrom("Library@Kipfk.com");
-            mailSender.send(mimeMessage);
-        } catch (MessagingException e) {
-            LOGGER.error("Не вдалось відправити на email", e);
-            throw new IllegalStateException("Не вдалось відправити на email");
-        }
-    }
-
-    @Async
-    public void sendNotificationMessage(String to, String email) {
-        try {
-            MimeMessage mimeMessage = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
-            helper.setText(email, true);
-            helper.setTo(to);
-            helper.setSubject("Повернення книги");
-            helper.setFrom("Library@Kipfk.com");
-            mailSender.send(mimeMessage);
-        } catch (MessagingException e) {
-            LOGGER.error("Не вдалось відправити на email", e);
-            throw new IllegalStateException("Не вдалось відправити на email");
+            Context context = new Context();
+            Locale locale = LocaleContextHolder.getLocale();
+            context.setLocale(locale);
+            context.setVariable("user", user);
+            context.setVariable("book", book);
+            context.setVariable("takenbook", takenBooks);
+            context.setVariable("date", LocalDate.now());
+            String process = templateEngine.process("emails/book-return-notification", context);
+            javax.mail.internet.MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
+            helper.setSubject(user.getLastName()+" "+user.getFirstName());
+            helper.setText(process, true);
+            helper.setTo(user.getEmail());
+            javaMailSender.send(mimeMessage);
+        }catch (MessagingException e){
+            throw new IllegalStateException("Message not sent");
         }
     }
 }
