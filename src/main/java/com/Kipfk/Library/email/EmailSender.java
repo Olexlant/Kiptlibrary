@@ -1,8 +1,12 @@
 package com.Kipfk.Library.email;
 
+import com.Kipfk.Library.appbook.AppBook;
+import com.Kipfk.Library.appuser.AppUser;
+import com.Kipfk.Library.appuser.TakenBooks;
+
 public interface EmailSender {
-    void sendregistrationmail(String to, String email);
-    void sendchangepasswordmail(String to,String email);
-    void sendNotificationMessage(String to,String email);
+    void sendregistrationmail(AppUser user, String link);
+    void sendchangepasswordmail(AppUser user, String link);
+    void sendNotificationMessage(AppUser user, AppBook book, TakenBooks takenBooks);
 
 }
