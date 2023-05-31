@@ -27,8 +27,11 @@
         <div class="home-content" id="h">
             <div class="right">
             <div class="text">
-                <div class="text-two" th:text="#{greeting}">Ласкаво просимо</div>
-                <div class="text-three" th:text="#{greeting2}" sec:authorize="isAnonymous()" >до бібліотеки коледжу</div>
+                <div class="text-two" th:text="#{greeting}">
+                    Ласкаво просимо</div>
+                <div class="text-three" th:text="#{greeting2}" sec:authorize="isAnonymous()" >
+                    до бібліотеки коледжу
+                </div>
                 <div class="text-three" sec:authorize="isAuthenticated()" >
                     <span sec:authentication="principal.firstName"></span>
                     <span sec:authentication="principal.lastName"></span>
@@ -67,7 +70,7 @@
                         бібліотечно-інформаційного, культурно-просвітницького, навчально-виховного розвитку студентів Коледжу.</p>
                     <form action="https://kcas.com.ua/bibl.html">
                         <div class="button">
-                            <button th:text="#{home.button2}">Детальніше</button>
+                            <button class="button-fon" th:text="#{home.button2}">Детальніше</button>
                         </div>
                     </form>
                 </div>
@@ -78,18 +81,20 @@
     <!--slider-->
     <section class="slider-news">
         <div class="content">
-            <div class="title"><span th:text="#{home.title2}">Новини</span></div>
+            <div class="title">
+                <span class="title-news" th:text="#{home.title2}">Новини</span></div>
             <div th:insert="bloks/home-news :: home-news"></div>
         </div>
     </section>
     <!--library-->
     <section class="skills" id="skills">
         <div class="content">
-            <div class="title-library" ><span th:text="#{home.title3}">Бібліотека</span></div>
+            <div class="title-library" >
+                <span  class="title-bibl" th:text="#{home.title3}">Бібліотека</span></div>
             <div class="skills-details">
-                <div class="text">
-                    <div class="topic" th:text="#{home.topic2}">Книжковий фонд</div>
-                    <p th:text="#{home.topic2.text}">Загальний книжковий фонд бібліотеки складає 41455 примірників – це навчальна література, наукова, технічна та спеціальна література.
+                <div class="short-p"    >
+                    <div class="topic-bibl" th:text="#{home.topic2}">Книжковий фонд</div>
+                    <p  th:text="#{home.topic2.text}">Загальний книжковий фонд бібліотеки складає 73410 примірників – це навчальна література, наукова, технічна та спеціальна література.
                         До бібліотеки коледжу надходять 31 періодичне видання. Викладачі і студенти мають можливість вільного доступу до Інтернет з будь якого комп’ютера в технікумі, в гуртожитку, в бібліотеці.
                     </p>
                     <div class="experience">
@@ -115,55 +120,55 @@
                         <div class="per">15%</div>
                     </div>
                 </div>
-            </div>
+            </div>  
         </div>
     </section>
     <!--perevagy-->
     <section class="services" id="services">
         <div class="content">
-            <div class="title-services"><span th:text="#{home.title4}">Переваги</span></div>
+            <div class="title-services"><span class="topic-perevag" th:text="#{home.title4}">Переваги</span></div>
             <div class="boxes">
                 <div class="box">
                     <div class="icon">
                         <i class="fas fa-desktop"></i>
                     </div>
-                    <div class="topic" th:text="#{home.topic3.boxes.topic1}">Зручний інтерфейс</div>
-                    <p th:text="#{home.topic3.boxes.topic1.text}">Зручна взаємодія користувача з інформаційною системою</p>
+                    <div class="topic1" th:text="#{home.topic3.boxes.topic1}">Зручний інтерфейс</div>
+                    <p class="pol" th:text="#{home.topic3.boxes.topic1.text}">Зручна взаємодія користувача з інформаційною системою</p>
                 </div>
                 <div class="box">
                     <div class="icon">
                         <i class="fa fa-book"></i>
                     </div>
-                    <div class="topic" th:text="#{home.topic3.boxes.topic2}">Унікальний фонд</div>
-                    <p th:text="#{home.topic3.boxes.topic2.text}">Загальний книжковий фонд бібліотеки складає 41455 примірників</p>
+                    <div class="topic2" th:text="#{home.topic3.boxes.topic2}">Унікальний фонд</div>
+                    <p class="pol1" th:text="#{home.topic3.boxes.topic2.text}">Загальний книжковий фонд бібліотеки складає 41455 примірників</p>
                 </div>
                 <div class="box">
                     <div class="icon">
                         <i class="fa fa-user"></i>
                     </div>
-                    <div class="topic" th:text="#{home.topic3.boxes.topic3}">Особистий кабінет</div>
-                    <p th:text="#{home.topic3.boxes.topic3.text}">Персональна захищена web-сторінка</p>
+                    <div class="topic3" th:text="#{home.topic3.boxes.topic3}">Особистий кабінет</div>
+                    <p class="pol2" th:text="#{home.topic3.boxes.topic3.text}">Персональна захищена web-сторінка</p>
                 </div>
                 <div class="box">
                     <div class="icon">
                         <i class="fa fa-cogs"></i>
                     </div>
-                    <div class="topic" th:text="#{home.topic3.boxes.topic4}">Надійність</div>
-                    <p th:text="#{home.topic3.boxes.topic4.text}">Інформаційна система бібліотеки працює 24/7</p>
+                    <div class="topic4" th:text="#{home.topic3.boxes.topic4}">Надійність</div>
+                    <p class="pol3" th:text="#{home.topic3.boxes.topic4.text}">Інформаційна система бібліотеки працює 24/7</p>
                 </div>
                 <div class="box">
                     <div class="icon">
                         <i class="fa fa-lock"></i>
                     </div>
-                    <div class="topic" th:text="#{home.topic3.boxes.topic5}">Безпека</div>
-                    <p th:text="#{home.topic3.boxes.topic5.text}">Система дає професійний захист персональних даних</p>
+                    <div class="topic5" th:text="#{home.topic3.boxes.topic5}">Безпека</div>
+                    <p class="pol4" th:text="#{home.topic3.boxes.topic5.text}">Система дає професійний захист персональних даних</p>
                 </div>
                 <div class="box">
                     <div class="icon">
                         <i class="fas fa-tablet-alt"></i>
                     </div>
-                    <div class="topic" th:text="#{home.topic3.boxes.topic6}">Мобільна версія</div>
-                    <p th:text="#{home.topic3.boxes.topic6.text}">Система розроблена для комфортного використаня з смартфону</p>
+                    <div class="topic6" th:text="#{home.topic3.boxes.topic6}">Мобільна версія</div>
+                    <p class="pol5" th:text="#{home.topic3.boxes.topic6.text}">Система розроблена для комфортного використаня з смартфону</p>
                 </div>
             </div>
         </div>
@@ -171,16 +176,16 @@
     <!-- Contact -->
     <section class="contact" id="contact">
         <div class="content">
-            <div class="title-contact"><span th:text="#{home.title5}"></span></div>
+            <div class="title-contact"><span class="topic-contact">КОНТАКТИ</span></div>
             <div class="text">
-                <div class="topic" th:text="#{home.topic4}"></div>
-                <p><span th:text="#{home.topic4.text1}"></span> <a href="mailto: kdtlp@ukr.net">kdtlp@ukr.net</a><span th:text="' '+#{home.topic4.text2}"> </span><a href="tel:+38529-14-33">+38529-14-33</a>.
-                    <span th:text="#{home.topic4.text3}"> </span></p>
-                    <p style="font-weight: bold; color: #3f3f3f;" th:text="#{home.topic4.address1}"></p>
-                    <p><a href="https://goo.gl/maps/QzCpsadpb1dmC8pn6?coh=178571&entry=tt" th:text="#{home.topic4.address2}"></a></p>
-                    <p><a href="tel:044 529 14 23" th:text="#{home.topic4.phone1}"></a></p>
-                    <p><a href="tel:066 376 96 42" th:text="#{home.topic4.phone2}"></a></p>
-                    <p><a href="tel:044 529 01 62" th:text="#{home.topic4.phone3}"></a></p>
+                <div class="topic7">Виникли питання?</div>
+                <p>Пиши нам на електронну пошту <a href="mailto: kdtlp@ukr.net">kdtlp@ukr.net</a> або телефонуй <a href="tel:+38529-14-33">+38529-14-33</a>. 
+                    За особистими питаннями можеш звернутися до бібліотекаря.</p>
+                    <p style="font-weight: bold; color: #3f3f3f;">Київ, Україна, 01042</p>
+                    <p><a href="https://goo.gl/maps/QzCpsadpb1dmC8pn6?coh=178571&entry=tt">вулиця Джона Маккейна, 29</a></p>
+                    <p><a href="tel:044 529 14 23">+38 044 529 14 23 (приймальна директорки).</a></p>
+                    <p><a href="tel:066 376 96 42">+38 066 376 96 42 (приймальна комісія),</a></p>
+                    <p><a href="tel:044 529 01 62">+38 044 529 01 62 (фінансова служба).</a></p>
                 <div class="icon-contact">
                     <a href="https://t.me/KCASculture">
                         <iconify-icon icon="ic:baseline-telegram" style="color: #25398e;"></iconify-icon>
