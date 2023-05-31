@@ -354,7 +354,7 @@ object-fit: cover;
   justify-content: center;
   align-items: flex-end;
 }
-.fonts-sub-menu .buttons .font-buttons{
+.fonts-sub-menu .buttons .fonts-buttons{
 padding: 0 10px;
 display: inline-flex;
 background: #ddd;
@@ -362,14 +362,14 @@ color: #25398e;
 margin-left: 10px;
 cursor: pointer;
 }
-.fonts-sub-menu .buttons .font-buttons .active{
+.fonts-sub-menu .buttons .fonts-buttons .active{
   background: #444;
 }
-.fonts-sub-menu .buttons .font-buttons:nth-child(2)
+.fonts-sub-menu .buttons .fonts-buttons:nth-child(1)
 {
-  font-size: 1.5em;
+  font-size: 2em;
 }
-.fonts-sub-menu .buttons .font-buttons:nth-child(3){
+.fonts-sub-menu .buttons .fonts-buttons:nth-child(2){
   font-size: 2em;
 }
 
@@ -526,6 +526,13 @@ section .title{
   justify-content: center;
   margin-bottom: 40px;
 }
+.title-news{
+  font-size: 30px;
+  font-weight: 600;
+padding-bottom: 8px;
+  position: relative;
+  color: #25398e;
+}
 section .title span{
   font-size: 30px;
   font-weight: 600;
@@ -566,12 +573,85 @@ border-radius: 12px;
 .adout .about-details .left{
   width: 55%;
 }
+section .pol,
+section .pol1{
+  font-size: 16px;
+  }
+  section .pol2,
+section .pol3{
+  font-size: 16px;
+  }
+  section .pol4,
+section .pol5{
+  font-size: 16px;
+  }
+
+section .topic1{
+  font-size: 30px;
+  font-weight: 500;
+  color: #0E2431;
+  margin-bottom: 10px;
+  }
+  section .topic2{
+    font-size: 30px;
+    font-weight: 500;
+    color: #0E2431;
+    margin-bottom: 10px;
+    }
+
+    section .topic3{
+      font-size: 30px;
+      font-weight: 500;
+      color: #0E2431;
+      margin-bottom: 10px;
+      }
+
+      section .topic4{
+        font-size: 30px;
+        font-weight: 500;
+        color: #0E2431;
+        margin-bottom: 10px;
+        }
+        section .topic5{
+          font-size: 30px;
+          font-weight: 500;
+          color: #0E2431;
+          margin-bottom: 10px;
+          }
+          section .topic6{
+            font-size: 30px;
+            font-weight: 500;
+            color: #0E2431;
+            margin-bottom: 10px;
+            }
+            section .topic7{
+              font-size: 30px;
+              font-weight: 500;
+              color: #0E2431;
+              margin-bottom: 10px;
+              }
+                      
+        
+      
+
 section .topic{
 font-size: 30px;
 font-weight: 500;
 color: #0E2431;
 margin-bottom: 10px;
 }
+section .topic-perevagg{
+  font-size: 30px;
+  font-weight: 500;
+  color: #0E2431;
+  margin-bottom: 10px;
+  }
+section .topic-bibl{
+  font-size: 30px;
+  font-weight: 500;
+  color: #0E2431;
+  margin-bottom: 10px;
+  }
 .about-details .left p{
   color: #0E2431;
   text-align: justify;
@@ -579,7 +659,7 @@ margin-bottom: 10px;
 section .button{
   margin: 14px 0;
 }
-section .button button{
+section .button-fon{
   outline: none;
   padding: 8px 16px;
   border-radius: 6px;
@@ -659,6 +739,12 @@ section .title-library{
   justify-content: center;
   margin-bottom: 40px;
 }
+.title-bibl{
+  font-size: 30px;
+  font-weight: 600;
+  padding-bottom: 8px;
+  position: relative;
+}
 section .title-library span{
   font-size: 30px;
   font-weight: 600;
@@ -687,6 +773,19 @@ section .title-services{
   justify-content: center;
   margin-bottom: 40px;
 }
+section .topic-perevag{
+  font-size: 30px;
+  font-weight: 500;
+  color: #0E2431;
+  margin-bottom: 10px;
+  }
+
+    section .topic-contact{
+      font-size: 30px;
+      font-weight: 500;
+      color: #0E2431;
+      margin-bottom: 10px;
+      }
 section .title-services span{
   font-size: 30px;
   font-weight: 600;
@@ -709,12 +808,21 @@ section .title-services span::after{
   transform: translateX(-50%);
   bottom: -7px;
 }
-.services .boxes{
+.boxes{
+  
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
-.services .boxes .box{
+.services {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+  
+.services .box{
+  
   margin: 20px 0;
   width: calc(100% / 3 - 20px);
   text-align: center;
@@ -744,12 +852,41 @@ section .title-services span::after{
   background-color: #fff;
   color: #25398e;
 }
-.services .boxes .box:hover .topic,
+.services .boxes .box:hover .topic1,
 .services .boxes .box:hover p{
   color: #0E2431;
   transition: all 0.4s ease;
 }
-.services .boxes .box:hover .topic,
+.services .boxes .box:hover .topic1,
+.services .boxes .box:hover p{
+  color: #fff;
+}
+.services .boxes .box:hover .topic2,
+.services .boxes .box:hover .topic3{
+  color: #0E2431;
+  transition: all 0.4s ease;
+}
+.services .boxes .box:hover .topic2,
+.services .boxes .box:hover .topic3
+{
+  color: #fff;
+}
+.services .boxes .box:hover .topic4,
+.services .boxes .box:hover .topic5{
+  color: #0E2431;
+  transition: all 0.4s ease;
+}
+.services .boxes .box:hover .topic4,
+.services .boxes .box:hover .topic5
+{
+  color: #fff;
+}
+.services .boxes .box:hover .topic6,
+.services .boxes .box:hover p{
+  color: #0E2431;
+  transition: all 0.4s ease;
+}
+.services .boxes .box:hover .topic6,
 .services .boxes .box:hover p{
   color: #fff;
 }
@@ -783,6 +920,7 @@ section .title-contact span::after{
 }
 .contact{
   background: #F0F8FF;
+  font-size: 16px;
 }
 .contact .content{
   margin: 0 auto;
@@ -799,7 +937,6 @@ section .title-contact span::after{
 }
 
 section .icon-contact{
-  
   line-height: 50px;
   font-size: 50px;
   margin: 10px auto 10px auto;
@@ -1715,7 +1852,7 @@ nav .navbar .cancel-btn{
     }
   
   }
-  @media(max-width:885px){
+  @media(max-width:1248px){
       .skills .skills-details{
   flex-direction: column;
   align-items: center;
