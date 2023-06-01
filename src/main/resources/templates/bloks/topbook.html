@@ -176,16 +176,16 @@
     <!-- Contact -->
     <section class="contact" id="contact">
         <div class="content">
-            <div class="title-contact"><span class="topic-contact">КОНТАКТИ</span></div>
+            <div class="title-contact"><span class="topic-contact" th:text="#{home.title5}" ></span></div>
             <div class="text">
-                <div class="topic7">Виникли питання?</div>
-                <p>Пиши нам на електронну пошту <a href="mailto: kdtlp@ukr.net">kdtlp@ukr.net</a> або телефонуй <a href="tel:+38529-14-33">+38529-14-33</a>. 
-                    За особистими питаннями можеш звернутися до бібліотекаря.</p>
-                    <p style="font-weight: bold; color: #3f3f3f;">Київ, Україна, 01042</p>
-                    <p><a href="https://goo.gl/maps/QzCpsadpb1dmC8pn6?coh=178571&entry=tt">вулиця Джона Маккейна, 29</a></p>
-                    <p><a href="tel:044 529 14 23">+38 044 529 14 23 (приймальна директорки).</a></p>
-                    <p><a href="tel:066 376 96 42">+38 066 376 96 42 (приймальна комісія),</a></p>
-                    <p><a href="tel:044 529 01 62">+38 044 529 01 62 (фінансова служба).</a></p>
+                <div class="topic7" th:text="#{home.topic4}"></div>
+                <p><span th:text="#{home.topic4.text1}"></span> <a href="mailto: kdtlp@ukr.net">kdtlp@ukr.net</a><span th:text="' '+#{home.topic4.text2}"> </span><a href="tel:+38529-14-33">+38529-14-33</a>.
+                    <span th:text="#{home.topic4.text3}"> </span></p>
+                    <p style="font-weight: bold; color: #3f3f3f;" th:text="#{home.topic4.address1}"></p>
+                    <p><a href="https://goo.gl/maps/QzCpsadpb1dmC8pn6?coh=178571&entry=tt" th:text="#{home.topic4.address2}"></a></p>
+                    <p><a href="tel:044 529 14 23" th:text="#{home.topic4.phone1}"></a></p>
+                    <p><a href="tel:066 376 96 42" th:text="#{home.topic4.phone2}"></a></p>
+                    <p><a href="tel:044 529 01 62" th:text="#{home.topic4.phone3}"></a></p>
                 <div class="icon-contact">
                     <a href="https://t.me/KCASculture">
                         <iconify-icon icon="ic:baseline-telegram" style="color: #25398e;"></iconify-icon>
