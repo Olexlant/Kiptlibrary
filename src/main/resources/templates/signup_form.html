@@ -78,6 +78,15 @@
 		<i class="fa-solid fa-xmark"></i>
 	</li>
 </ul>
+<ul th:if="${param.notfound}" class="notifications"  id="message">
+	<li class="toast warning">
+		<div class="column" >
+			<i class="fa-solid fa-triangle-exclamation"></i>
+			<span th:text="#{user.not.found}"></span>
+		</div>
+		<i class="fa-solid fa-xmark"></i>
+	</li>
+</ul>
 
 <script src="/js/alert_script.js"></script>
 <script src="/js/popup.js"></script>
