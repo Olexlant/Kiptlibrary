@@ -27,7 +27,7 @@ font-family: 'Exo 2', sans-serif;
   left: 16px;
   position: fixed;
   width: 190px;
-  z-index: 100000;
+  z-index: 700;
 }
 nav{
   position: fixed;
