@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Locale;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -78,14 +79,16 @@ public class RegistrationService {
     @Transactional
     public String changePasswordByToken(String newpassword, String token) {
         ConfirmationToken confirmationToken = confirmationTokenRepository.findByToken(token);
+        if (confirmationToken==null){
+            return "redirect:/register?notfound";
+        }
         confirmationToken.setPasswordChangeAt(LocalDateTime.now());
-
+        String newtoken = UUID.randomUUID().toString();
+        confirmationToken.setToken(newtoken);
         LocalDateTime expiredAt = confirmationToken.getPasswordChangeExpiresAt();
-
         if (expiredAt.isBefore(LocalDateTime.now())) {
             return "redirect:/login?expiredpasschange";
         }
-
         AppUser user = confirmationToken.getAppUser();
         BCryptPasswordEncoder bcpe = new BCryptPasswordEncoder();
         user.setPassword(bcpe.encode(newpassword));
