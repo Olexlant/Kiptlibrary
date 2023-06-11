@@ -3,10 +3,8 @@ window.onload = function(){
     let cat = localStorage.getItem("plus");
     if(cat==="true"){
         buttonfontplus()
-        alert("da")
     }else if (cat==="false"){
         buttonfontminus()
-        alert("net")
     }
 };
 function buttonfontplus() {
@@ -44,19 +42,12 @@ function buttonfontplus() {
     document.getElementsByClassName('icon-contact')[0].style= "font-size: 65px !important";
     document.getElementsByClassName('contact')[0].style= "font-size: 25px !important";
     document.querySelector('footer span').style = 'font-size: 27px !important';
-
-
     document.getElementsByClassName('boxes')[0].style= "font-size: 26px !important";
     document.getElementsByClassName('short-p')[0].style= "font-size: 25px !important";
     document.getElementsByClassName('exp')[0].style= "font-size: 24px !important";
-    document.querySelector('section services').style = 'font-size: 23px !important';
     document.getElementsByClassName('boxes')[0].style= "font-size: 23px !important";
     document.getElementsByClassName('topic')[0].style= "font-size: 23px !important";
-    document.getElementsByClassName('p1')[0].style= "font-size: 23px !important";
     document.querySelector('section p').style = 'font-size: 23px !important';
-    document.querySelector('b').style = 'font-size: 23px !important';
-
-
 }
 
 function buttonfontminus() {
@@ -94,14 +85,10 @@ function buttonfontminus() {
     document.getElementsByClassName('icon-contact')[0].style= "font-size: 50px !important";
     document.getElementsByClassName('contact')[0].style= "font-size: 16px !important";
     document.querySelector('footer span').style = 'font-size: 17px !important';
-
-
     document.getElementsByClassName('boxes')[0].style= "font-size: 16px !important";
     document.getElementsByClassName('short-p')[0].style= "font-size: 16px !important";
     document.getElementsByClassName('boxes')[0].style= "font-size: 16px !important";
     document.getElementsByClassName('exp')[0].style= "font-size: 18px !important";
-    document.getElementsByClassName('services,box')[0].style= "font-size: 18px !important";
-    document.querySelector('p1').style = 'font-size: 23px !important';
     document.querySelector('section p').style = 'font-size: 16px !important';
     document.querySelector('p').style = 'font-size: 16px !important';
 
