@@ -210,6 +210,7 @@ body.dark .activity-data::-webkit-scrollbar-thumb:hover{
 }
 
 .button-file {
+    text-decoration: none;
     outline: none;
     border: none;
     border-radius: 6px;
