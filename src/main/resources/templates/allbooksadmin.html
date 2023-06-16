@@ -119,19 +119,12 @@
                                     <button style="background-color: #FF3F40" type="button"  title="Видалити книгу" onclick="openpopup(form)"><i class="uil uil-trash-alt"></i></button>
                                 </form>
                                 </div>
-                                <!--------------------Переглянути файл Переглянути файл Переглянути файл Переглянути файл Переглянути файлПереглянути файл -->
-                                <!-- <div  class="look-file" th:if="${book.isElectronic()}">
+                                <div  class="look-file" th:if="${book.isElectronic()}">
                                     <form th:if="${book.getBookfileurl().isEmpty()}" th:action="'/allbooks/'+ ${book.getId()} +'/ebook'" method="get">
                                         <button style="background-color: #200edd" title="Переглянути файл" type="submit" ><i>Файл книги</i></button>
                                     </form>
-                                    <form th:unless="${book.getBookfileurl().isEmpty()}" th:action="${book.getBookfileurl()}" method="get">
-                                        
-                                    </form>
-                                </div>-->
-                                <div class="look-file">
-                                     <a class="button-file" title="Переглянути файл" type="submit" >
-                                    <i>Файл книги</i>
-                                </a>
+                                    <a th:unless="${book.getBookfileurl().isEmpty()}" th:href="${book.getBookfileurl()}" class="button-file" title="Переглянути файл" type="submit" >
+                                        <i>Файл книги</i></a>
                                 </div>
                         
                             </td>
