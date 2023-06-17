@@ -1,27 +1,27 @@
 
 window.onload = function(){
-    let increaseCount = localStorage.getItem("increaseCount");
-    for (let i=0; i<increaseCount; i++){
+    var increaseCount = localStorage.getItem("increaseCount");
+    for (var i=0; i<increaseCount; i++){
         buttonfontplus("auto")
     }
 };
 function increasefont(elements){
-    for(let i=0; i < elements.length; i++){
+    for(var i=0; i < elements.length; i++){
         try {
             add20per(elements[i]);
         } catch (e){}
     }
 }
 function decreaseFont(elements){
-    for(let i=0; i < elements.length; i++){
+    for(var i=0; i < elements.length; i++){
         try {
             min20per(elements[i]);
         } catch (e){}
     }
 }
-let n = 0;
+var n = 0;
 function buttonfontplus(auto) {
-    let increaseCount = localStorage.getItem("increaseCount");
+    var increaseCount = localStorage.getItem("increaseCount");
     if (auto==="auto"){
     }else{
         if (increaseCount<=1){
@@ -81,7 +81,7 @@ function buttonfontplus(auto) {
 }
 
 function buttonfontminus() {
-    let increaseCount = localStorage.getItem("increaseCount");
+    var increaseCount = localStorage.getItem("increaseCount");
     if (increaseCount>0){
         increaseCount--;
         n--
@@ -135,22 +135,22 @@ function buttonfontminus() {
     }
 }
 function add20per(element) {
-    let currentSize = window.getComputedStyle(element, null).getPropertyValue('font-size');
+    var currentSize = window.getComputedStyle(element, null).getPropertyValue('font-size');
     if (currentSize) {
         currentSize = parseFloat(currentSize.replace("px",""));
         element.style.fontSize = (currentSize * 1.1) + "px";
-        for(let i=0; i < element.children.length; i++){
+        for(var i=0; i < element.children.length; i++){
             add20per(element.children[i]);
         }
     }
 }
 
 function min20per(element) {
-    let currentSize = window.getComputedStyle(element, null).getPropertyValue('font-size');
+    var currentSize = window.getComputedStyle(element, null).getPropertyValue('font-size');
     if (currentSize) {
         currentSize = parseFloat(currentSize.replace("px",""));
         element.style.fontSize = (currentSize - (currentSize / 11)) + "px";
-        for(let i=0; i < element.children.length; i++){
+        for(var i=0; i < element.children.length; i++){
             min20per(element.children[i]);
         }
     }
