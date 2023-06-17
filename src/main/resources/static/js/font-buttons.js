@@ -19,7 +19,7 @@ function decreaseFont(elements){
         } catch (e){}
     }
 }
-let n = 0;
+var n = 0;
 function buttonfontplus(auto) {
     let increaseCount = localStorage.getItem("increaseCount");
     if (auto==="auto"){
