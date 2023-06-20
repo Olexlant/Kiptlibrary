@@ -40,22 +40,19 @@
 				<p th:text="#{allbook.topic1}+${book.author}"></p>
 				<div class="button">
 					<a th:href="'/allbooks/'+ ${book.id}" class="btn" th:text="#{allbook.button1}"></a>
-					<div >
+					<div>
 						<div th:if="${likedbooks.contains(book)}">
 							<form th:action="'/likingbook/'+ ${book.id} + '/deletebyuser'" method="post">
-								<button class="btn" type="submit">
-									<div class="icon-trash">
-										<div class="delete-favorite">
-										<iconify-icon  icon="uil:trash-alt"></iconify-icon>
-										</div>
-										<div class="text-favorite"><a th:text="#{allbook.button2}"></a></div>
-									</div>
+								<button class="btn3 icon-trash" type="submit" th:title="#{allbook.button2}">
+									<iconify-icon icon="majesticons:book-minus-line" style="font-size: 26px"></iconify-icon>
 								</button>
 							</form>
 						</div>
 						<div th:if="${!likedbooks.contains(book)}">
 							<form th:action="'/likingbook/'+ ${book.id}" method="post">
-								<button class="btn" type="submit" th:text="#{allbook.button3}"></button>
+								<button class="btn3" type="submit" th:title="#{allbook.button3}">
+									<iconify-icon icon="mdi:book-heart-outline" style="font-size: 26px"></iconify-icon>
+								</button>
 							</form>
 						</div>
 					</div>

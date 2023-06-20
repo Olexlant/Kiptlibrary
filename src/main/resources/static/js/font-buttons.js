@@ -77,6 +77,7 @@ function buttonfontplus(auto) {
         increasefont(document.querySelectorAll('.v input'))
         increasefont(document.querySelectorAll('.container form input'))
         increasefont(document.querySelectorAll('.pop_up_body'))
+        increasefont(document.querySelectorAll('.box .button a'))
     }
 }
 
@@ -132,6 +133,8 @@ function buttonfontminus() {
         decreaseFont(document.querySelectorAll('.v input'))
         decreaseFont(document.querySelectorAll('.container form input'))
         decreaseFont(document.querySelectorAll('.pop_up_body'))
+        decreaseFont(document.querySelectorAll('.box .button a'))
+
     }
 }
 function add20per(element) {
