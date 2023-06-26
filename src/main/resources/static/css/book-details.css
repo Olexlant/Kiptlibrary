@@ -440,10 +440,20 @@ border-radius: 12px;
   text-align: center;
 }
 .container section .topic{
-font-size: 30px;
-font-weight: 500;
+font-size: 40px;
+font-weight: 600;
 color: #0E2431;
 margin-bottom: 10px;
+}
+.container section .libr-tel{
+    font-size: 30px;
+    font-weight: 500;
+    /* color: #0E2431; */
+    display: flex;
+    margin-bottom: 10px;
+    justify-content: center;
+    align-items: center;
+
 }
 .about-details .left p{
   color: #0E2431;

@@ -92,9 +92,9 @@
                                 <p th:text="#{header.submenu.link1}">Редагувати профіль</p>
                                 <span>></span>
                             </a>
-                            <a href="https://app.service.utog.org/" class="sub-menu-link">
+                            <a th:href="@{/librariancontact}" class="sub-menu-link">
                                 <iconify-icon icon="material-symbols:help"style="color: #25398e;"></iconify-icon>
-                                <p th:text="#{header.submenu.link2}">Допомога</p>
+                                <p th:text="#{header.submenu.link2}">Контакти бібліотекаря</p>
                                 <span>></span>
                             </a>
                             <a th:href="@{/admin}" class="sub-menu-link"  sec:authorize="hasAuthority('ADMIN')">
