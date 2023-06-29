@@ -39,7 +39,7 @@ public class AdminPanelController {
         model.addAttribute("bookOrdersCount", bookOrdersCount);
         int bookcount = appBookRepository.countAllBy();
         model.addAttribute("bookcount",bookcount);
-        int takencount = takenBooksRepository.countAllBy();
+        int takencount = takenBooksRepository.countAllByDeletedIsFalse();
         model.addAttribute("takencount",takencount);
         return "admin";
     }

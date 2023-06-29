@@ -9,10 +9,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.Predicate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class AppBookService {
@@ -74,7 +71,8 @@ public class AppBookService {
             int toIndex = Math.min(startItem + pageSize, books.size());
             list = books.subList(startItem, toIndex);
         }
-        return new PageImpl<>(list, PageRequest.of(currentPage, pageSize), books.size());
+        List<AppBook> sortedList = list.stream().sorted(Comparator.comparing(AppBook::getTitle)).toList();
+        return new PageImpl<>(sortedList, PageRequest.of(currentPage, pageSize), books.size());
     }
     public void bookadd(AppBook appBook) {
         new AppBook(

@@ -19,8 +19,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -79,11 +82,11 @@ public class AdminUserController {
             categor = category.get();
         }
         if (categor.equals("students")) {
-            userPage = appUserRepository.findAllByAppUserRoleAndEnabledIsTrue(PageRequest.of(currentPage - 1, pageSize), AppUserRole.USER);
+            userPage = appUserRepository.findAllByAppUserRoleAndEnabledIsTrueOrderByLastName(PageRequest.of(currentPage - 1, pageSize), AppUserRole.USER);
         } else if (categor.equals("teachers")){
-            userPage = appUserRepository.findAllByAppUserRoleAndEnabledIsTrue(PageRequest.of(currentPage - 1, pageSize), AppUserRole.TEACHER);
+            userPage = appUserRepository.findAllByAppUserRoleAndEnabledIsTrueOrderByLastName(PageRequest.of(currentPage - 1, pageSize), AppUserRole.TEACHER);
         }else{
-            userPage = appUserRepository.findAllByEnabledIsTrue(PageRequest.of(currentPage - 1, pageSize));
+            userPage = appUserRepository.findAllByEnabledIsTrueOrderByLastName(PageRequest.of(currentPage - 1, pageSize));
         }
         model.addAttribute("Users",userPage);
         model.addAttribute("body", appBookService.bodyArrayForPages(userPage));
@@ -158,7 +161,7 @@ public class AdminUserController {
     @GetMapping("/admin/usersbygroup/{groupid}")
     public String showUsersByGroup(Model model, @PathVariable Long groupid) {
         Groups group = groupsRepository.findAllById(groupid);
-        List<AppUser> users = appUserRepository.findAllByGroups_Id(groupid);
+        List<AppUser> users = appUserRepository.findAllByGroups_IdOrderByLastName(groupid);
         model.addAttribute("users", users);
         model.addAttribute("group", group);
         return "usersByGroup";

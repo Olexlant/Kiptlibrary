@@ -43,7 +43,7 @@ public class AdminBooksByGroupController {
         Groups group = groupsRepository.findAllById(groupid);
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(12);
-        Page<AppBookRepository.BookNoFileAndPhoto> bookPage = appBookRepository.findAllBy(PageRequest.of(currentPage - 1, pageSize));
+        Page<AppBookRepository.BookNoFileAndPhoto> bookPage = appBookRepository.findAllByOrderByTitle(PageRequest.of(currentPage - 1, pageSize));
         model.addAttribute("books",bookPage);
         model.addAttribute("body", appBookService.bodyArrayForPages(bookPage));
         model.addAttribute("group", group);
@@ -53,7 +53,7 @@ public class AdminBooksByGroupController {
     @PostMapping("/admin/booksbygroup/{groupid}/{bookid}")
     public String addBookToGroup( @PathVariable Long groupid,@PathVariable Long bookid) {
         Groups group = groupsRepository.findAllById(groupid);
-        AppBook book = appBookRepository.findAllById(bookid);
+        AppBook book = appBookRepository.findAllByIdOrderByTitle(bookid);
         boolean ispresent = booksByGroupsRepository.existsByGroups_IdAndBook_Id(groupid, bookid);
         if (!ispresent){
             BooksByGroups booksByGroups = new BooksByGroups();

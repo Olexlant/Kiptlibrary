@@ -34,7 +34,7 @@ public class LikedBooksController {
     public String createlikedbook(@AuthenticationPrincipal UserDetails userDetails, LikedBooks likedBooks, @PathVariable(value = "id") long bookid) {
         AppUser user = (AppUser) appUserService.loadUserByUsername(userDetails.getUsername());
         likedBooks.setUser(user);
-        AppBook book = appBookRepository.findAllById(bookid);
+        AppBook book = appBookRepository.findAllByIdOrderByTitle(bookid);
         likedBooks.setBook(book);
         likedBooks.setAddedat(LocalDate.now());
 
@@ -48,7 +48,7 @@ public class LikedBooksController {
     @PostMapping("/likingbook/{id}/deletebyuser")
     public String deletelikedbookbyuser(@AuthenticationPrincipal UserDetails userDetails, @PathVariable(value = "id") long bookid) {
         AppUser user = (AppUser) appUserService.loadUserByUsername(userDetails.getUsername());
-        AppBook book = appBookRepository.findAllById(bookid);
+        AppBook book = appBookRepository.findAllByIdOrderByTitle(bookid);
         LikedBooks likedbook = likedBooksRepository.findByBookAndUser(book, user);
         likedBooksRepository.delete(likedbook);
         return "redirect:/allbooks";

@@ -35,7 +35,7 @@ public class AdminBookCategoryController {
     }
     @PostMapping("/admin/addcategorytobook/{bookid}/add")
     public String addcategorytobook(@PathVariable Long bookid,@RequestParam Long categoryid){
-        AppBook book = appBookRepository.findAllById(bookid);
+        AppBook book = appBookRepository.findAllByIdOrderByTitle(bookid);
         CategoriesOfBooks category = categoriesOfBooksRepository.findAllById(categoryid);
         BookCategory bccheck = bookCategoryRepository.findByCategory_IdAndBook_Id(categoryid, bookid);
         if (bccheck == null){

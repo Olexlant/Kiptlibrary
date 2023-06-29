@@ -11,6 +11,7 @@ import lombok.Setter;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -53,7 +54,7 @@ public class BookController {
             model.addAttribute("books",bookPage);
             model.addAttribute("body", appBookService.bodyArrayForPages(bookPage));
         }else {
-            Page<AppBook> bookPage = appBookRepository.findAll(PageRequest.of(currentPage - 1, pageSize));
+            Page<AppBook> bookPage = appBookRepository.findAppBooksByOrderByTitle(PageRequest.of(currentPage - 1, pageSize, Sort.by("title")));
             model.addAttribute("books",bookPage);
             model.addAttribute("body", appBookService.bodyArrayForPages(bookPage));
         }
@@ -79,7 +80,7 @@ public class BookController {
         if (!appBookRepository.existsById(id)){
             return "redirect:/allbooks";
         }
-        AppBook book = appBookRepository.findAllById(id);
+        AppBook book = appBookRepository.findAllByIdOrderByTitle(id);
         model.addAttribute("bookd", book);
         return "bookdetails";
     }
@@ -88,7 +89,7 @@ public class BookController {
     @GetMapping("/allbooks/{id}/ebook")
     public void showEbookFile(@PathVariable Long id, HttpServletResponse response) throws IOException {
         response.setContentType("application/pdf");
-        AppBook book = appBookRepository.findAllById(id);
+        AppBook book = appBookRepository.findAllByIdOrderByTitle(id);
         InputStream is = new ByteArrayInputStream(book.getBookfile());
         IOUtils.copy(is, response.getOutputStream());
     }
@@ -97,7 +98,7 @@ public class BookController {
     @GetMapping("/book/image/{bookid}")
     public void showBookImage(@PathVariable Long bookid, HttpServletResponse response) throws IOException {
         response.setContentType("image/jpeg");
-        AppBook book = appBookRepository.findAllById(bookid);
+        AppBook book = appBookRepository.findAllByIdOrderByTitle(bookid);
         InputStream is = new ByteArrayInputStream(book.getBookimg());
         IOUtils.copy(is, response.getOutputStream());
     }
@@ -106,7 +107,7 @@ public class BookController {
     @GetMapping("/qrcode/image/{bookid}")
     public void showQrCodeImage(@PathVariable Long bookid,HttpServletResponse response) throws IOException {
         response.setContentType("image/jpeg");
-        AppBook book = appBookRepository.findAllById(bookid);
+        AppBook book = appBookRepository.findAllByIdOrderByTitle(bookid);
         InputStream is = new ByteArrayInputStream(book.getQrimg());
         IOUtils.copy(is, response.getOutputStream());
     }
