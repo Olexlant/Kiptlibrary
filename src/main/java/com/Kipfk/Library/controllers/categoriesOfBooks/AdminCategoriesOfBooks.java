@@ -7,6 +7,7 @@ import com.Kipfk.Library.appbook.CategoriesOfBooksRepository;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +28,7 @@ public class AdminCategoriesOfBooks {
     //CATEGORIES OF BOOKS
     @GetMapping("/admin/addbookcategory")
     public String showaddbookcategory(Model model){
-        List<CategoriesOfBooks> categoriesOfBooks = categoriesOfBooksRepository.findAll();
+        List<CategoriesOfBooks> categoriesOfBooks = categoriesOfBooksRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
         model.addAttribute("newcategory",new CategoriesOfBooks());
         model.addAttribute("categories",categoriesOfBooks);
         return "addbookcategory";

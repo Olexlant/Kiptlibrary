@@ -32,7 +32,7 @@ public class BookOrdersController {
     public String addBookOrder(@AuthenticationPrincipal UserDetails userDetails, @PathVariable(value = "bookid") long bookid){
         AppUser user = (AppUser) appUserService.loadUserByUsername(userDetails.getUsername());
         BookOrders bookOrder = new BookOrders();
-        AppBook book = appBookRepository.findAllById(bookid);
+        AppBook book = appBookRepository.findAllByIdOrderByTitle(bookid);
         if (bookOrdersRepository.findByBookAndUserAndDeletedIsFalse(book, user).isEmpty()){
             bookOrder.setBook(book);
             bookOrder.setUser(user);

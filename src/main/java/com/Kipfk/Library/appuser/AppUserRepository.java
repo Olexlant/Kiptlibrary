@@ -44,9 +44,9 @@ public interface AppUserRepository extends JpaRepository<AppUser, Long>, JpaSpec
     int countAllByEnabledIsTrue();
 
     Page<UserNoPhoto> findAllBy(Pageable pageable);
-    Page<UserNoPhoto> findAllByEnabledIsTrue(Pageable pageable);
-    Page<UserNoPhoto> findAllByAppUserRoleAndEnabledIsTrue(Pageable pageable,AppUserRole appUserRole);
-    List<AppUser> findAllByGroups_Id(Long groupsId);
+    Page<UserNoPhoto> findAllByEnabledIsTrueOrderByLastName(Pageable pageable);
+    Page<UserNoPhoto> findAllByAppUserRoleAndEnabledIsTrueOrderByLastName(Pageable pageable,AppUserRole appUserRole);
+    List<AppUser> findAllByGroups_IdOrderByLastName(Long groupsId);
 
     AppUser findAllById(Long id);
     boolean existsByEmail(String email);

@@ -27,4 +27,5 @@ public interface TakenBooksRepository extends JpaRepository <TakenBooks,Long>, J
     List<TakenBooks> findAllByDeletedIsTrue();
     void deleteAllByDeletedIsTrue();
     int countAllBy();
+    int countAllByDeletedIsFalse();
 }

@@ -22,8 +22,7 @@ public class MainController {
         return "home";
     }
     @GetMapping("/librariancontact")
-    public String about(Model model) {
-        model.addAttribute("title", "Про нас");
+    public String librariancontact() {
         return "libr-contact";
     }
 }

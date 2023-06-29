@@ -37,7 +37,7 @@ public class AdminTakenBooksController {
     public String showUsersToTake(Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(12);
-        Page<AppUserRepository.UserNoPhoto> userPage = appUserRepository.findAllByEnabledIsTrue(PageRequest.of(currentPage - 1, pageSize));
+        Page<AppUserRepository.UserNoPhoto> userPage = appUserRepository.findAllByEnabledIsTrueOrderByLastName(PageRequest.of(currentPage - 1, pageSize));
         model.addAttribute("users",userPage);
         model.addAttribute("body", appBookService.bodyArrayForPages(userPage));
         return "takebookuser";
@@ -46,7 +46,7 @@ public class AdminTakenBooksController {
     public String showBooksToTake(Model model, @PathVariable Long id, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(12);
-        Page<AppBookRepository.BookNoFileAndPhoto> bookPage = appBookRepository.findAllBy(PageRequest.of(currentPage - 1, pageSize));
+        Page<AppBookRepository.BookNoFileAndPhoto> bookPage = appBookRepository.findAllByOrderByTitle(PageRequest.of(currentPage - 1, pageSize));
         model.addAttribute("books",bookPage);
         model.addAttribute("body", appBookService.bodyArrayForPages(bookPage));
         model.addAttribute("userid", id);
@@ -56,7 +56,7 @@ public class AdminTakenBooksController {
     @PostMapping("/admin/assigningbook/{userid}/{bookid}")
     public String createtakenbook(TakenBooks takenBooks, @PathVariable Long userid, @PathVariable Long bookid, @RequestParam Long takeCount) {
         AppUser user = appUserRepository.findById(userid).orElseThrow();
-        AppBook book = appBookRepository.findAllById(bookid);
+        AppBook book = appBookRepository.findAllByIdOrderByTitle(bookid);
         boolean uniquetb = takenBooksRepository.findByUserAndBookAndDeletedIsFalse(user, book).isEmpty();
         if (uniquetb){
             takenBooks.setUser(user);
@@ -109,7 +109,7 @@ public class AdminTakenBooksController {
     @PostMapping("/admin/assignedbooks/{id}/remove")
     public String removeassignedbooks(@PathVariable(value = "id") Long id) {
         TakenBooks tb = takenBooksRepository.findById(id).orElseThrow();
-        AppBook appBook = appBookRepository.findAllById(tb.getBook().getId());
+        AppBook appBook = appBookRepository.findAllByIdOrderByTitle(tb.getBook().getId());
         appBook.setCount(appBook.getCount()+tb.getCount());
         appBookRepository.save(appBook);
         tb.setDeleted(true);

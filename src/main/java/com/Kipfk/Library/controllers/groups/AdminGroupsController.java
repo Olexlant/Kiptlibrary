@@ -40,7 +40,7 @@ public class AdminGroupsController {
     }
     @PostMapping("/admin/groups/{groupid}/delete")
     public String deleteGroup(@PathVariable Long groupid) {
-        List<AppUser> users = appUserRepository.findAllByGroups_Id(groupid);
+        List<AppUser> users = appUserRepository.findAllByGroups_IdOrderByLastName(groupid);
         for (AppUser user : users){
             user.setGroups(null);
         }

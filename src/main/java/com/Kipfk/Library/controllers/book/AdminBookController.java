@@ -75,15 +75,15 @@ public class AdminBookController {
             categor = category.get();
         }
         if (categor.equals("electronic")){
-            bookPage = appBookRepository.findAllByElectronicIsTrue(PageRequest.of(currentPage - 1, pageSize));
+            bookPage = appBookRepository.findAllByElectronicIsTrueOrderByTitle(PageRequest.of(currentPage - 1, pageSize));
             model.addAttribute("books", bookPage);
             model.addAttribute("body", appBookService.bodyArrayForPages(bookPage));
         }else if (categor.equals("physical")){
-            bookPage = appBookRepository.findAllByElectronicIsFalse(PageRequest.of(currentPage - 1, pageSize));
+            bookPage = appBookRepository.findAllByElectronicIsFalseOrderByTitle(PageRequest.of(currentPage - 1, pageSize));
             model.addAttribute("books", bookPage);
             model.addAttribute("body", appBookService.bodyArrayForPages(bookPage));
         }else {
-            Page<AppBookRepository.BookNoFileAndPhoto> allBooksPage = appBookRepository.findAllBy(PageRequest.of(currentPage - 1, pageSize));
+            Page<AppBookRepository.BookNoFileAndPhoto> allBooksPage = appBookRepository.findAllByOrderByTitle(PageRequest.of(currentPage - 1, pageSize));
             model.addAttribute("books", allBooksPage);
             model.addAttribute("body", appBookService.bodyArrayForPages(allBooksPage));
         }
@@ -103,7 +103,7 @@ public class AdminBookController {
     }
     @PostMapping("/admin/allbooksadmin/{id}/edit")
     public String AdminBookUpdate(@PathVariable(value = "id") long id,@RequestParam Long qrid, @RequestParam String title, @RequestParam String author, @RequestParam Long year, @RequestParam("files") MultipartFile[] multipartFiles,@RequestParam String bookfileurl, @RequestParam String description, @RequestParam Long count) throws IOException {
-        AppBook book = appBookRepository.findAllById(id);
+        AppBook book = appBookRepository.findAllByIdOrderByTitle(id);
         if (!book.getQrid().equals(qrid)){
             try {
                 book.setQrimg(QRCodeGenerator.getQRCodeImage(String.valueOf(qrid),300,300));
@@ -140,7 +140,7 @@ public class AdminBookController {
         if (takenBooksRepository.findByBookIdAndDeletedIsFalse(id).isPresent()){
             return "redirect:/admin/allbooksadmin?usernotreturn";
         } else {
-            AppBook book = appBookRepository.findAllById(id);
+            AppBook book = appBookRepository.findAllByIdOrderByTitle(id);
             List<TakenBooks> takenBooks = takenBooksRepository.findAllByBookAndDeletedIsTrue(book);
             if (!takenBooks.isEmpty()){
                 takenBooksRepository.deleteAll(takenBooks);
