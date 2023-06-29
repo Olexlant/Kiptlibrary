@@ -26,7 +26,7 @@
 	</form>
 	<div class="categor">
 		<select id="bookcategories" name="bookcategories" onchange="window.location.href=this.value;">
-		  <option th:value="@{/allbooks(size=${books.size}, page=${pageNumber})}" th:text="${'Всі книги'}" ></option>
+		  <option th:value="@{/allbooks(size=${books.size}, page=${pageNumber})}" th:text="#{allbook.title}"></option>
 		  <option th:each="category : ${bookcategories}" th:selected="${category.name==currentcategory}" th:value="@{/allbooks(size=${books.size}, page=${pageNumber},category=${category.name})}" th:text="${category.name}"></option>
 		</select>
 	  </div>
