@@ -12,16 +12,22 @@ import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -78,7 +84,9 @@ public class BookController {
     @GetMapping("/allbooks/{id}")
     public String showBookDetails(@PathVariable(value = "id") long id, Model model){
         if (!appBookRepository.existsById(id)){
-            return "redirect:/allbooks";
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND
+            );
         }
         AppBook book = appBookRepository.findAllByIdOrderByTitle(id);
         model.addAttribute("bookd", book);
@@ -90,8 +98,37 @@ public class BookController {
     public void showEbookFile(@PathVariable Long id, HttpServletResponse response) throws IOException {
         response.setContentType("application/pdf");
         AppBook book = appBookRepository.findAllByIdOrderByTitle(id);
-        InputStream is = new ByteArrayInputStream(book.getBookfile());
-        IOUtils.copy(is, response.getOutputStream());
+        if (book.getBookfile()!=null){
+            InputStream is = new ByteArrayInputStream(book.getBookfile());
+            IOUtils.copy(is, response.getOutputStream());
+        }
+        else {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND
+            );
+        }
+
+    }
+//DOWNLOAD BOOK FILE
+    @RequestMapping("/allbooks/{id}/download")
+    public ResponseEntity<byte[]> getFile(@PathVariable Long id, HttpServletResponse response) {
+        AppBook book = appBookRepository.findAllByIdOrderByTitle(id);
+        if (book.getBookfile()!=null){
+            HttpHeaders headers = new HttpHeaders();
+            ContentDisposition contentDisposition = ContentDisposition.builder("attachment")
+                    .filename(book.getTitle()+".pdf", StandardCharsets.UTF_8)
+                    .build();
+            response.setContentType("application/pdf");
+            response.setHeader(HttpHeaders.CONTENT_DISPOSITION, contentDisposition.toString());
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .body(book.getBookfile());
+        }else {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND
+            );
+        }
+
     }
 
 //GET BOOK IMAGE BY ID
