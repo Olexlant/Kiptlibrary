@@ -136,22 +136,14 @@ public class AdminUserController {
     public String AdminUserDelete(@PathVariable(value = "id") long id) {
         AppUser user = appUserRepository.findById(id).orElseThrow();
         boolean tokenpresent = confirmationTokenRepository.findByAppUser(user).isPresent();
-        boolean takenBookspresent = takenBooksRepository.findByUser(user).isEmpty();
+        boolean takenBookspresent = takenBooksRepository.findByUserAndDeletedIsFalse(user).isEmpty();
         if (!takenBookspresent){
             return "redirect:/admin/usertakenadmin/"+id+"?notreturn";
         }else {
-            List<LikedBooks> likedBooks = likedBooksRepository.findAllByUser(user);
-            if (!likedBooks.isEmpty()){
-                likedBooksRepository.deleteAll(likedBooks);
-            }
-            if (tokenpresent){
-                ConfirmationToken token = confirmationTokenRepository.findByAppUser(user).get();
-                confirmationTokenRepository.delete(token);
-            }
-            List<BookOrders> bookOrders = bookOrdersRepository.findAllByUser(user);
-            if (!bookOrders.isEmpty()){
-                bookOrdersRepository.deleteAll(bookOrders);
-            }
+            likedBooksRepository.deleteAllByUser(user);
+            bookOrdersRepository.deleteAllByUser(user);
+            takenBooksRepository.deleteAllByUserAndDeletedIsTrue(user);
+            confirmationTokenRepository.deleteByAppUser(user);
             appUserRepository.delete(user);
             return "redirect:/admin/allusers?success";
         }
