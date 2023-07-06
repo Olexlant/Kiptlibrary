@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -25,7 +26,10 @@ public interface TakenBooksRepository extends JpaRepository <TakenBooks,Long>, J
     List<TakenBooks> findAllByDeletedIsFalseAndNotificationSendedIsFalseAndTakenatIsBefore(LocalDate returnedAt);
     Page<TakenBooks> findAllByDeletedIsFalseAndTakenatIsBefore(Pageable pageable, LocalDate returnedAt);
     List<TakenBooks> findAllByDeletedIsTrue();
+
+    @Transactional
     void deleteAllByDeletedIsTrue();
+
     int countAllBy();
     int countAllByDeletedIsFalse();
 }
