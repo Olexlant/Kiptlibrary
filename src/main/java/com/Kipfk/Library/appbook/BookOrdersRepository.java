@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
@@ -25,6 +26,7 @@ public interface BookOrdersRepository extends JpaRepository<BookOrders, Long> {
     int countAllByDeletedIsFalse();
     HashSet<BookOredersId> findBookOrdersById(Long id);
 
-
+    @Transactional
+    void deleteAllByUser(AppUser appUser);
     List<BookOrders> findAllById(Long bookorderid);
 }
