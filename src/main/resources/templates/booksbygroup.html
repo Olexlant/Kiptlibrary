@@ -31,7 +31,10 @@
                 <div class="button">
                     <a th:href="'/allbooks/'+ ${book.getId()}" class="btn" th:text="#{booksbygroup.button1}"></a>
                     <div th:if="${book.getBookfileurl()=='' && book.getBookfile()!=null}">
-                        <a th:href="'/allbooks/'+ ${book.getId()} +'/ebook'" class="btn" th:text="#{booksbygroup.button2}"></a>
+                        <form th:action="'/readBook'" method="post">
+                            <input name="bookId" th:value="${book.getId()}" hidden>
+                            <button class="btn" title="Переглянути" type="submit" ><i>Переглянути</i></button>
+                        </form>
                     </div>
                     <div th:if="${book.getBookfileurl()!='' && book.getBookfile()==null}">
                         <a th:href="${book.getBookfileurl()}" class="btn" th:text="#{booksbygroup.button2}"></a>
