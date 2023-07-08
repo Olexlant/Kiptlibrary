@@ -153,7 +153,8 @@
                                 </form>
                                 </div>
                                 <div  class="look-file" th:if="${takenbook.getBook().isElectronic()}">
-                                    <form th:if="${takenbook.getBook().getBookfileurl().isEmpty()}" th:action="'/allbooks/'+ ${takenbook.getBook().getId()} +'/ebook'" method="get">
+                                    <form th:if="${takenbook.getBook().getBookfileurl().isEmpty()}" th:action="'/readBook'" method="post">
+                                        <input name="bookId" th:value="${takenbook.getBook().getId()}" hidden>
                                         <button style="background-color: #200edd" title="Переглянути файл" type="submit" ><i>Файл книги</i></button>
                                     </form>
                                     <form th:unless="${takenbook.getBook().getBookfileurl().isEmpty()}" th:action="${takenbook.getBook().getBookfileurl()}" method="get">

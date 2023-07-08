@@ -8,6 +8,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @AllArgsConstructor
@@ -25,4 +27,12 @@ public class MainController {
     public String librariancontact() {
         return "libr-contact";
     }
+
+    @PostMapping("/readBook")
+    public String readBook(@RequestParam Long bookId, Model model) {
+        model.addAttribute("book_id",bookId);
+        return "pdfReader";
+    }
+
+
 }
