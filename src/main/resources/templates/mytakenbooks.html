@@ -33,7 +33,7 @@
                     <div th:if="${takenbook.getBook().isElectronic() and takenbook.getBook().getBookfileurl().isEmpty()}">
                         <form th:action="'/readBook'" method="post">
                             <input name="bookId" th:value="${takenbook.getBook().getId()}" hidden>
-                            <button class="btn" title="Переглянути" type="submit" ><i>Переглянути</i></button>
+                            <button class="btn" th:title="#{mybooks.button2}" type="submit" th:text="#{mybooks.button2}"><i>Переглянути</i></button>
                         </form>
                     </div>
                     <div th:if="${takenbook.getBook().isElectronic() and !takenbook.getBook().getBookfileurl().isEmpty()}">

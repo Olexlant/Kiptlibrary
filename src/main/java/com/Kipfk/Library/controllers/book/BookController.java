@@ -93,22 +93,13 @@ public class BookController {
         return "bookdetails";
     }
 
-//GET BOOK FILE TO READ
-    @GetMapping("/allbooks/{id}/ebook")
-    public void showEbookFile(@PathVariable Long id, HttpServletResponse response) throws IOException {
-        response.setContentType("application/pdf");
-        AppBook book = appBookRepository.findAllByIdOrderByTitle(id);
-        if (book.getBookfile()!=null){
-            InputStream is = new ByteArrayInputStream(book.getBookfile());
-            IOUtils.copy(is, response.getOutputStream());
-        }
-        else {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND
-            );
-        }
-
+//OPEN BOOK READER
+    @PostMapping("/readBook")
+    public String readBook(@RequestParam Long bookId, Model model) {
+        model.addAttribute("book_id",bookId);
+        return "pdfReader";
     }
+
 //DOWNLOAD BOOK FILE
     @RequestMapping("/allbooks/{id}/download")
     public ResponseEntity<byte[]> getFile(@PathVariable Long id, HttpServletResponse response) {

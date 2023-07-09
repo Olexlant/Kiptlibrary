@@ -28,11 +28,4 @@ public class MainController {
         return "libr-contact";
     }
 
-    @PostMapping("/readBook")
-    public String readBook(@RequestParam Long bookId, Model model) {
-        model.addAttribute("book_id",bookId);
-        return "pdfReader";
-    }
-
-
 }
