@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.tomcat.jni.User;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -62,10 +64,13 @@ public class AppBook {
         this.electronic = electronic;
     }
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "book", orphanRemoval = true)
+    @Fetch(FetchMode.SUBSELECT)
     private Set<LikedBooks> likedBooks;
     @OneToMany(mappedBy = "book")
-    private Set<TakenBooks> takenBooks;
+    @Fetch(FetchMode.SUBSELECT)
+    private List<TakenBooks> takenBooks= new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "book", orphanRemoval = true)
+    @Fetch(FetchMode.SUBSELECT)
     private Set<BooksByGroups> booksByGroups;
 
 
