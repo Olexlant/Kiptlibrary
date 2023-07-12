@@ -4,6 +4,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.OnDelete;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -54,6 +56,13 @@ public class AppUser implements UserDetails {
     private AppUserRole appUserRole;
     private Boolean locked = false;
     private Boolean enabled = false;
+
+    @OneToMany(mappedBy = "user")
+    @Fetch(FetchMode.SUBSELECT)
+    private List<LikedBooks> likedBooks = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    @Fetch(FetchMode.SUBSELECT)
+    private List<TakenBooks> takenBooks = new ArrayList<>();
 
 
     public AppUser(String firstName, String lastName, String phonenum, String password, String email, Groups groups, AppUserRole appUserRole) {
