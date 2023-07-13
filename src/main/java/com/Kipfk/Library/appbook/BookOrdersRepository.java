@@ -28,5 +28,7 @@ public interface BookOrdersRepository extends JpaRepository<BookOrders, Long> {
 
     @Transactional
     void deleteAllByUser(AppUser appUser);
+    @Transactional
+    void deleteAllByUserAndBook(AppUser appUser, AppBook book);
     List<BookOrders> findAllById(Long bookorderid);
 }

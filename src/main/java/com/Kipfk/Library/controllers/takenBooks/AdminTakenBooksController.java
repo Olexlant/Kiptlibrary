@@ -55,25 +55,21 @@ public class AdminTakenBooksController {
 
     @PostMapping("/admin/assigningbook/{userid}/{bookid}")
     public String createtakenbook(TakenBooks takenBooks, @PathVariable Long userid, @PathVariable Long bookid, @RequestParam Long takeCount) {
-        AppUser user = appUserRepository.findById(userid).orElseThrow();
-        AppBook book = appBookRepository.findAllByIdOrderByTitle(bookid);
-        boolean uniquetb = takenBooksRepository.findByUserAndBookAndDeletedIsFalse(user, book).isEmpty();
-        if (uniquetb){
-            takenBooks.setUser(user);
-            takenBooks.setBook(book);
-            takenBooks.setTakenat(LocalDate.now());
-            takenBooks.setCount(takeCount);
-            takenBooks.setDeleted(false);
+        boolean uniquetb = takenBooksRepository.existsByUserIdAndBookIdAndDeletedIsFalse(userid, bookid);
+        if (!uniquetb){
+            AppBook book = appBookRepository.findAllByIdOrderByTitle(bookid);
             if (book.getCount()<takeCount){
                 return "redirect:/admin/assignedbooks?tomanybooks";
             }else {
                 book.setCount(book.getCount()-takeCount);
             }
-            List<BookOrders> bookOrder = bookOrdersRepository.findByBookAndUserAndDeletedIsFalse(book, user);
-            for(BookOrders i : bookOrder){
-                i.setDeleted(true);
-            }
-            bookOrdersRepository.saveAll(bookOrder);
+            AppUser user = appUserRepository.findById(userid).orElseThrow();
+            takenBooks.setUser(user);
+            takenBooks.setBook(book);
+            takenBooks.setTakenat(LocalDate.now());
+            takenBooks.setCount(takeCount);
+            takenBooks.setDeleted(false);
+            bookOrdersRepository.deleteAllByUserAndBook(user, book);
             takenBooksRepository.save(takenBooks);
             appBookRepository.save(book);
         }else {
