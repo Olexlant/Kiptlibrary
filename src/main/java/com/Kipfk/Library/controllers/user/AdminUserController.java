@@ -108,11 +108,10 @@ public class AdminUserController {
         return "useradminedit";
     }
     @PostMapping("/admin/allusers/{id}/edit")
-    public String AdminUserUpdate(@PathVariable(value = "id") long id,@RequestParam String firstname, @RequestParam String lastname, @RequestParam String phonenum, @RequestParam String password, @RequestParam String email, @RequestParam String groupid,@RequestParam String role) {
+    public String AdminUserUpdate(@PathVariable(value = "id") long id,@RequestParam String firstname, @RequestParam String lastname, @RequestParam String phonenum, @RequestParam String password, @RequestParam String groupid,@RequestParam String role) {
         AppUser user = appUserRepository.findById(id).orElseThrow();
         user.setFirstName(firstname);
         user.setLastName(lastname);
-        user.setEmail(email);
         user.setPhonenum(phonenum);
         user.setPassword(password);
         if (groupid.equals("")){
