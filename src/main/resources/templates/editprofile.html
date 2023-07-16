@@ -106,7 +106,7 @@
                         <div class="user-details">
                             <div class="input-box">
                                 <span class="details" th:text="#{editprofile.input1}"></span>
-                                <input th:value="${user.getEmail()}" type="email"  name="email" th:placeholder="#{editprofile.input1}" required minlength="5">
+                                <input th:value="${user.getEmail()}" type="email"  name="email" th:placeholder="#{editprofile.input1}" required minlength="5" disabled>
                             </div>
                             <div class="input-box">
                                 <span class="details" th:text="#{editprofile.input2}">Пароль</span>

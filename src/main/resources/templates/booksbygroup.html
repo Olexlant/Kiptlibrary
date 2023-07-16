@@ -33,11 +33,11 @@
                     <div th:if="${book.getBookfileurl()=='' && book.getBookfile()!=null}">
                         <form th:action="'/readBook'" method="post">
                             <input name="bookId" th:value="${book.getId()}" hidden>
-                            <button class="btn" title="Переглянути" type="submit" ><i>Переглянути</i></button>
+                            <button class="btn" th:title="#{mybooks.button2}" type="submit" th:text="#{mybooks.button2}"><i>Переглянути</i></button>
                         </form>
                     </div>
                     <div th:if="${book.getBookfileurl()!='' && book.getBookfile()==null}">
-                        <a th:href="${book.getBookfileurl()}" class="btn" th:text="#{booksbygroup.button2}"></a>
+                        <a th:href="${book.getBookfileurl()}" class="btn" th:text="#{mybooks.button2}"></a>
                     </div>
                 </div>
                 <div class="icons">
