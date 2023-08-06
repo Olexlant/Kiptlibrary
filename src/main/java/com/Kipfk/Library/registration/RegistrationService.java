@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.time.LocalDateTime;
 import java.util.Locale;
@@ -26,7 +27,7 @@ public class RegistrationService {
     private final EmailSender emailSender;
     private final ConfirmationTokenRepository confirmationTokenRepository;
 
-    public String register(AppUser user) {
+    public String register(AppUser user, String host) {
         boolean isValidEmail = emailValidator.test(user.getEmail());
         if(!isValidEmail) {
             throw new IllegalStateException("email is not valid");
@@ -42,7 +43,7 @@ public class RegistrationService {
                         AppUserRole.USER
                 )
         );
-        String link = "https://kcaslibrary.herokuapp.com/registration/confirm?token=" + token;
+        String link = "https://" + host + "/registration/confirm?token=" + token;
         emailSender.sendregistrationmail(user, link);
         return token;
     }
@@ -70,8 +71,8 @@ public class RegistrationService {
         return "redirect:/confirmsuccess";
     }
 
-    public void sendchangepasswordmail (AppUser user, String token){
-        String link = "https://kcaslibrary.herokuapp.com/resetpassword/reset?token=" + token;
+    public void sendchangepasswordmail (AppUser user, String token, String host){
+        String link = "https://" + host + "/resetpassword/reset?token=" + token;
         emailSender.sendchangepasswordmail(user, link);
     }
 
