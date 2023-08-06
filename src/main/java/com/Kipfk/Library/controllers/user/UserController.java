@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -48,7 +49,7 @@ public class UserController {
         return "signup_form";
     }
     @PostMapping("/process_register")
-    public String signUp(AppUser user, @RequestParam String groupid) {
+    public String signUp(AppUser user, @RequestParam String groupid,@RequestHeader String host) {
         if (appUserRepository.existsByEmail(user.getEmail())){
             AppUser appUser = appUserRepository.findAllByEmail(user.getEmail());
             if (appUser.isEnabled()){
@@ -62,7 +63,7 @@ public class UserController {
         }else{
             user.setGroups(groupsRepository.findAllById(Long.valueOf(groupid)));
         }
-        registrationService.register(user);
+        registrationService.register(user, host);
         return "register_success";
     }
     @GetMapping("/registration/confirm")
@@ -111,13 +112,13 @@ public class UserController {
     }
 
     @PostMapping("/resetpassword")
-    public String sendResetPasswordMail(@RequestParam String email){
+    public String sendResetPasswordMail(@RequestParam String email, @RequestHeader String host){
         if (appUserRepository.findByEmail(email).isPresent()){
             AppUser user = appUserRepository.findByEmail(email).get();
             ConfirmationToken token = confirmationTokenRepository.findByAppUser(user).get();
             token.setPasswordChangeExpiresAt(LocalDateTime.now().plusMinutes(10));
             confirmationTokenRepository.save(token);
-            registrationService.sendchangepasswordmail(user, token.getToken());
+            registrationService.sendchangepasswordmail(user, token.getToken(), host);
             return "redirect:/resetpassword?sended";
         }else {
             return "redirect:/resetpassword?notfound";
