@@ -45,10 +45,6 @@
                 <form method="post" th:action="@{/admin/book_adding}" th:object="${book}" enctype="multipart/form-data">
                     <div class="user-details">
                         <div class="input-box">
-                            <span class="details">Id qr-коду</span>
-                            <input type="text" th:field="*{qrid}" placeholder="Введіть Id qr-коду" required maxlength="6">
-                        </div>
-                        <div class="input-box">
                             <span class="details">Назва</span>
                             <input type="text" th:field="*{title}" placeholder="Введіть назву" required>
                         </div>
@@ -68,6 +64,11 @@
                             <span class="details">Кількість книг</span>
                             <input type="number" th:field="*{count}" placeholder="Кількість книг" min="0" required>
                         </div>
+                        <div class="input-box">
+                            <span class="details">Днів на повернення</span>
+                            <input type="number" th:field="*{daysToReturn}" placeholder="Днів на повернення" min="0" max="365" required>
+                        </div>
+
                         <div class="v"><label>Додайте зображення</label><input type="file" name="files" accept="image/*"></div>
                         <div class="v"><label>Додайте файл книги</label><input type="file" name="files" accept="application/pdf"></div>
                         <textarea th:field="*{description}" placeholder="Опис книги"  rows="6" ></textarea>

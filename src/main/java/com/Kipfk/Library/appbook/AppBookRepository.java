@@ -15,13 +15,14 @@ public interface AppBookRepository extends JpaRepository<AppBook, Long>, JpaSpec
 
     interface BookNoFileAndPhoto {
         Long getId();
-        Long getQrid();
+        String getQrid();
         Long getYear();
         Long getCount();
         String getTitle();
         String getDescription();
         String getAuthor();
         String getBookfileurl();
+        String getDaysToReturn();
         boolean isElectronic();
     }
     Page<AppBook> findAppBooksByOrderByTitle(Pageable pageable);

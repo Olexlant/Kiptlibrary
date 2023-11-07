@@ -43,30 +43,30 @@
             <div class="title"><span>Редагування книги</span></div>
             <div class="content">
                 <form method="post" enctype="multipart/form-data">
-                    <div class="user-details" th:each="bookd : ${bookd}">
-                        <div class="input-box">
-                            <span class="details">Id qr-коду</span>
-                            <input type="text" th:value="${bookd.qrid}" name="qrid" placeholder="Ведіть Id qr-коду" required>
-                        </div>
+                    <div class="user-details" th:each="book : ${bookd}">
                         <div class="input-box">
                             <span class="details">Назва</span>
-                            <input type="text" th:value="${bookd.title}" name="title" placeholder="Введіть назву" required>
+                            <input type="text" th:value="${book.title}" name="title" placeholder="Введіть назву" required>
                         </div>
                         <div class="input-box">
                             <span class="details">Автор</span>
-                            <input type="text" th:value="${bookd.author}" name="author" placeholder="Ведіть автора" required>
+                            <input type="text" th:value="${book.author}" name="author" placeholder="Ведіть автора" required>
                         </div>
                         <div class="input-box">
                             <span class="details">Рік</span>
-                            <input type="text" th:value="${bookd.year}" name="year" placeholder="Введіть рік" required>
+                            <input type="text" th:value="${book.year}" name="year" placeholder="Введіть рік" required>
                         </div>
                         <div class="input-box">
                             <span class="details">URL до книги</span>
-                            <input type="text" th:value="${bookd.bookfileurl}" name="bookfileurl" placeholder="URL до книги">
+                            <input type="text" th:value="${book.bookfileurl}" name="bookfileurl" placeholder="URL до книги">
                         </div>
                         <div class="input-box">
                             <span class="details">Кількість книг</span>
-                            <input type="number" th:value="${bookd.count}" min="0" name="count" placeholder="Кількість книг" required>
+                            <input type="number" th:value="${book.count}" name="count" placeholder="Кількість книг" min="0" required>
+                        </div>
+                        <div class="input-box">
+                            <span class="details">Днів на повернення</span>
+                            <input type="number" th:value="${book.daysToReturn}" name="daysToReturn" placeholder="Днів на повернення" min="0" max="365" required>
                         </div>
                         <div class="v"><label>Додайте зображення</label><input type="file" name="files" accept="image/*"></div>
                         <div class="v"><label>Додайте файл книги</label><input type="file" name="files" accept="application/pdf"></div>

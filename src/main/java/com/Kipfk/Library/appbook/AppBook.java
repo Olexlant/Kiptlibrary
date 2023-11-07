@@ -14,6 +14,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.*;
 
 @Getter
@@ -34,7 +35,7 @@ public class AppBook {
             generator = "book_sequence"
     )
     private Long id;
-    private Long qrid;
+    private String qrid;
     private String title;
     private String author;
     private Long year;
@@ -51,9 +52,10 @@ public class AppBook {
     @Column(columnDefinition="text", length=10485760)
     private String description;
     private Long count;
+    private Long daysToReturn;
     private boolean electronic = false;
 
-    public AppBook(Long qrid, String title, String author, Long year, byte[] bookimg, byte[] qrimg,byte[] bookfile,boolean electronic){
+    public AppBook(String qrid, String title, String author, Long year, byte[] bookimg, byte[] qrimg,byte[] bookfile,boolean electronic){
         this.qrid = qrid;
         this.title = title;
         this.author = author;

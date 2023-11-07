@@ -91,9 +91,9 @@ public class AppBookService {
             List<Predicate> predicates = new ArrayList<>();
             predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("author")), "%"+keyword.toLowerCase()+"%"));
             predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("title")), "%"+keyword.toLowerCase()+"%"));
+            predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("qrid")), "%"+keyword.toLowerCase()+"%"));
             try {
                 long numkeyword = Long.valueOf(keyword);
-                predicates.add(criteriaBuilder.equal(root.get("qrid"), numkeyword));
                 predicates.add(criteriaBuilder.equal(root.get("year"), numkeyword));
 
             }catch (NumberFormatException e){

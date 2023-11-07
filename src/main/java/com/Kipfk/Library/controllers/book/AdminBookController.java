@@ -42,11 +42,7 @@ public class AdminBookController {
 
     @PostMapping("/admin/book_adding")
     public String bookadd(AppBook appBook,@RequestParam("files") MultipartFile[] multipartFiles) throws IOException {
-        try {
-            appBook.setQrimg(QRCodeGenerator.getQRCodeImage(String.valueOf(appBook.getQrid()),300,300));
-        } catch (WriterException | IOException e) {
-            e.printStackTrace();
-        }
+
         appBook.setBookimg(multipartFiles[0].getBytes());
         if(appBook.getBookfileurl().isEmpty()){
             if (!multipartFiles[1].isEmpty()){
@@ -61,7 +57,13 @@ public class AdminBookController {
         }
         appBookService.bookadd(appBook);
         appBookRepository.save(appBook);
-
+        try {
+            appBook.setQrimg(QRCodeGenerator.getQRCodeImage(String.format("%06d", appBook.getId()),300,300));
+        } catch (WriterException | IOException e) {
+            e.printStackTrace();
+        }
+        appBook.setQrid(String.format("%06d", appBook.getId()));
+        appBookRepository.save(appBook);
         return "redirect:/admin/addbook?success";
     }
 
@@ -102,24 +104,16 @@ public class AdminBookController {
         return "bookadminedit";
     }
     @PostMapping("/admin/allbooksadmin/{id}/edit")
-    public String AdminBookUpdate(@PathVariable(value = "id") long id,@RequestParam Long qrid, @RequestParam String title, @RequestParam String author, @RequestParam Long year, @RequestParam("files") MultipartFile[] multipartFiles,@RequestParam String bookfileurl, @RequestParam String description, @RequestParam Long count) throws IOException {
+    public String AdminBookUpdate(@PathVariable(value = "id") long id, @RequestParam String title, @RequestParam String author, @RequestParam Long year, @RequestParam("files") MultipartFile[] multipartFiles,@RequestParam String bookfileurl, @RequestParam String description, @RequestParam Long count, @RequestParam Long daysToReturn) throws IOException {
         AppBook book = appBookRepository.findAllByIdOrderByTitle(id);
-        if (!book.getQrid().equals(qrid)){
-            try {
-                book.setQrimg(QRCodeGenerator.getQRCodeImage(String.valueOf(qrid),300,300));
-            } catch (WriterException | IOException e) {
-                e.printStackTrace();
-            }
-        }
-        book.setQrid(qrid);
         book.setTitle(title);
         book.setAuthor(author);
         book.setYear(year);
         book.setDescription(description);
         book.setCount(count);
+        book.setDaysToReturn(daysToReturn);
         if (!multipartFiles[0].isEmpty()){
             book.setBookimg(multipartFiles[0].getBytes());
-            book.setElectronic(true);
         }
         if(bookfileurl.isEmpty()){
             book.setBookfileurl("");
