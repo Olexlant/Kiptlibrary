@@ -124,7 +124,7 @@
                             <th>Прізвище</th>
                             <th>Автор</th>
                             <th>Назва</th>
-                            <th>Кількість</th>
+                            <th>№ книги</th>
                             <th>Видано</th>
                             <th>Дії</th>
                         </tr>
@@ -141,8 +141,9 @@
                             <td th:text="${takenbook.getUser().getLastName()}"></td>
                             <td th:text="${takenbook.getBook().getAuthor()}"></td>
                             <td th:text="${takenbook.getBook().getTitle()}"></td>
-                            <td th:text="${takenbook.getCount()}"></td>
-                            <td th:text="${takenbook.getTakenat()}"></td>
+                            <td th:unless="${takenbook.getBook().isElectronic()}" th:text="${takenbook.getBookNumber()}" th:title="${'Кількість: '+takenbook.getCount()}"></td>
+                            <td th:if="${takenbook.getBook().isElectronic()}" th:text="${'Електронна'}"></td>
+                            <td th:text="${takenbook.getTakenat()}" th:title="${'Повернути до: '+takenbook.getReturnExpiresAt()}"></td>
                             <td>
                                 <div  class="btnactions">
                                 <form th:action="'/admin/usertakenadmin/'+ ${takenbook.getUser().getId()}" method="get">

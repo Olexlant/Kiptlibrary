@@ -24,13 +24,13 @@ public class TakenBooksService {
             predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("book").get("title")), "%"+keyword.toLowerCase()+"%"));
             predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("book").get("author")), "%"+keyword.toLowerCase()+"%"));
             predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("book").get("description")), "%"+keyword.toLowerCase()+"%"));
+            predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("book").get("qrid")), "%"+keyword.toLowerCase()+"%"));
 
             predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("user").get("firstName")), "%"+keyword.toLowerCase()+"%"));
             predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("user").get("lastName")), "%"+keyword.toLowerCase()+"%"));
             predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("user").get("email")), "%"+keyword.toLowerCase()+"%"));
             try {
                 long numkeyword = Long.valueOf(keyword);
-                predicates.add(criteriaBuilder.equal(root.get("book").get("qrid"), numkeyword));
                 predicates.add(criteriaBuilder.equal(root.get("book").get("year"), numkeyword));
             }catch (NumberFormatException e){
 

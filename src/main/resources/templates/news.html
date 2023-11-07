@@ -71,7 +71,7 @@
                         <tr th:each="inews : ${news}">
                             <td th:text="${inews.getTitle()}"></td>
                             <td><img th:src="@{'/news/image/' + ${inews.getId()}}"/></td>
-                            <td th:text="${inews.getCreatedAt()}"></td>
+                            <td th:text="${#temporals.format(inews.getCreatedAt(), 'dd-MM-yyyy')}"></td>
                             <td class="btnactions">
 
                                 <form th:action="'/admin/news/'+ ${inews.getId()}" method="get">

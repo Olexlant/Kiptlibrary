@@ -86,6 +86,8 @@
               <th>Назва</th>
               <th>Автор</th>
               <th>Рік</th>
+              <th>№ книги</th>
+              <th>Видано</th>
               <th>Дії</th>
 
             </tr>
@@ -97,9 +99,12 @@
               <td th:text="${takenbook.getBook().getTitle()}"></td>
               <td th:text="${takenbook.getBook().getAuthor()}"></td>
               <td th:text="${takenbook.getBook().getYear()}"></td>
+              <td th:unless="${takenbook.getBook().isElectronic()}" th:text="${takenbook.getBookNumber()}" th:title="${'Кількість: '+takenbook.getCount()}"></td>
+              <td th:if="${takenbook.getBook().isElectronic()}" th:text="${'Електронна'}"></td>
+              <td th:text="${takenbook.getTakenat()}" th:title="${'Повернути до: '+takenbook.getReturnExpiresAt()}"></td>
               <td class="btnactions">
                 <form th:action="'/admin/assignedbooks/'+ ${takenbook.getId()}+'/remove'" method="post">
-                  <button style="background-color: #FF3F40" type="button" title="Видалити" onclick="openpopup(form)"><i class="uil uil-trash-alt"></i></button>
+                  <button style="background-color: #FF3F40" type="button" title="Повернути" onclick="openpopup(form)"><i class="uil uil-trash-alt"></i></button>
                 </form>
             </tr>
             </tbody>

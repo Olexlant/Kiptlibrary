@@ -50,7 +50,7 @@ public class AdminPanelController {
     public String showDebtorUsers(Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size){
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(12);
-        Page<TakenBooks> takenPage = takenBooksRepository.findAllByDeletedIsFalseAndTakenatIsBefore(PageRequest.of(currentPage - 1, pageSize, Sort.Direction.DESC,"takenat"), LocalDate.now().minusDays(30));
+        Page<TakenBooks> takenPage = takenBooksRepository.findAllByDeletedIsFalseAndReturnExpiresAtIsBefore(PageRequest.of(currentPage - 1, pageSize, Sort.Direction.DESC,"takenat"), LocalDate.now());
         model.addAttribute("takenbooks", takenPage);
         model.addAttribute("body", appBookService.bodyArrayForPages(takenPage));
         return "debtor-users";

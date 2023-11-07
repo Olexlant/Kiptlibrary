@@ -37,8 +37,10 @@ public class TakenBooks {
 
     private LocalDate takenat;
     private Long count;
+    private String bookNumber;
     private boolean deleted = false;
     private LocalDate returnedAt;
+    private LocalDate returnExpiresAt;
     private boolean notificationSended = false;
 
 
