@@ -26,7 +26,9 @@ public class NotificationSenderTask {
         List<TakenBooks> t = takenBooksRepository.findAllByDeletedIsFalseAndNotificationSendedIsFalseAndReturnExpiresAtIsBefore(LocalDate.now());
         if (!t.isEmpty()){
             for(TakenBooks i: t){
-                emailSender.sendNotificationMessage(i.getUser(), i.getBook(), i);
+                if(!i.getBook().isElectronic()){
+                    emailSender.sendNotificationMessage(i.getUser(), i.getBook(), i);
+                }
                 i.setNotificationSended(true);
                 takenBooksRepository.save(i);
             }
