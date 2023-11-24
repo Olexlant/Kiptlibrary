@@ -104,15 +104,15 @@
 
                             <td th:text="${bookOrder.getBook().getQrid()}"></td>
                             <td th:text="${bookOrder.getBook().getYear()}"></td>
-                            <div th:unless="${bookOrder.getBook().isElectronic()}">
-                                <td th:text="${'Паперова'}"></td>
-                            </div>
+                            <form th:action="'/admin/assigningbook/'+ ${bookOrder.getUser().getId()}+'/'+${bookOrder.getBook().getId()}" method="post">
+                            <td th:unless="${bookOrder.getBook().isElectronic()}">
+                                <input size="12" type="text" name="bookNumber" placeholder="Номер книги">
+                            </td>
                             <div th:if="${bookOrder.getBook().isElectronic()}">
                                 <td th:text="${'Електронна'}"></td>
                             </div>
                             <td class="btnactions1">
-                                <form th:action="'/admin/assigningbook/'+ ${bookOrder.getUser().getId()}+'/'+${bookOrder.getBook().getId()}" method="post">
-                                    <input type="number" name="takeCount" title="Введіть кількість книг" min="0" th:value="${0}" th:max="${bookOrder.getBook().getCount()}">
+                                    <input th:unless="${bookOrder.getBook().isElectronic()}" type="number" name="takeCount" title="Введіть кількість книг" th:title="${'Кількість: '}" min="0" th:value="${0}" th:max="${bookOrder.getBook().getCount()}">
                                     <div class="btnactions1_1">
                                         <button style="background-color: #258e47; margin-bottom: 2px;" type="button" onclick="openpopup(form)" ><i style="font-style: initial;"> Видати книгу</i></button>
                                     </div>
@@ -122,6 +122,7 @@
                                         <button style="background-color: #FF3F40;  width:116px;"  type="button" onclick="openpopup2(form)" title="Видалити замовлення"><i style="font-style: initial;">Видалити</i></button>
                                     </div>
                                 </form>
+                            </td>
                         </tr>
                         </tbody>
 

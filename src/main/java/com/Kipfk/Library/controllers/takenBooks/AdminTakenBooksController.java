@@ -54,20 +54,21 @@ public class AdminTakenBooksController {
     }
 
     @PostMapping("/admin/assigningbook/{userid}/{bookid}")
-    public String createtakenbook(TakenBooks takenBooks, @PathVariable Long userid, @PathVariable Long bookid, @RequestParam Long takeCount, @RequestParam(required = false) String bookNumber ) {
+    public String createtakenbook(TakenBooks takenBooks, @PathVariable Long userid, @PathVariable Long bookid, @RequestParam("takeCount") Optional<Long> takeCount, @RequestParam(required = false) String bookNumber ) {
         boolean uniquetb = takenBooksRepository.existsByUserIdAndBookIdAndDeletedIsFalse(userid, bookid);
         if (!uniquetb){
             AppBook book = appBookRepository.findAllByIdOrderByTitle(bookid);
-            if (book.getCount()<takeCount){
+            Long bookCount = takeCount.orElse(0L);
+            if (book.getCount()<bookCount){
                 return "redirect:/admin/assignedbooks?tomanybooks";
             }else {
-                book.setCount(book.getCount()-takeCount);
+                book.setCount(book.getCount()-bookCount);
             }
             AppUser user = appUserRepository.findById(userid).orElseThrow();
             takenBooks.setUser(user);
             takenBooks.setBook(book);
             takenBooks.setTakenat(LocalDate.now());
-            takenBooks.setCount(takeCount);
+            takenBooks.setCount(bookCount);
             takenBooks.setBookNumber(bookNumber);
             takenBooks.setReturnExpiresAt(LocalDate.now().plusDays(book.getDaysToReturn()));
             takenBooks.setDeleted(false);
