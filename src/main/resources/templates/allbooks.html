@@ -37,7 +37,12 @@
 			</div>
 			<div class="content">
 				<h3 th:text="${book.title}"></h3>
-				<p th:text="#{allbook.topic1}+${book.author}"></p>
+				<div th:unless="${book.isElectronic()}">
+					<p th:text="#{bookdetails.topic4}+${book.getCount()}+' '+#{bookdetails.topic6.count}"></p>
+				</div>
+				<div th:if="${book.isElectronic()}">
+					<p th:text="#{bookdetails.topic7}"></p>
+				</div>
 				<div class="button">
 					<a th:href="'/allbooks/'+ ${book.id}" class="btn" th:text="#{allbook.button1}"></a>
 					<div>
@@ -59,7 +64,7 @@
 				</div>
 				<div class="icons">
 					<span > <i class="fas fa-calendar"></i><a th:text="${' '+book.year}"></a></span>
-					<span > <i class="fas fa-user"></i><a th:text="${' '+book.author}"></a></span>
+					<span > <i th:maxlength="15" class="fas fa-user"></i><a  th:text=" ( ${book.author.length() > 30} ) ? ${#strings.substring(book.author,0,30)} + '…' : ${book.author}"></a></span>
 				</div>
 			</div>
 		</div>

@@ -27,7 +27,7 @@
             </div>
             <div class="content">
                 <h3 th:text="${takenbook.getBook().getTitle()}"></h3>
-                <p th:text="#{mybooks.topic1}+${takenbook.getBook().getAuthor()}"></p>
+                <p th:text="( ${takenbook.getBook().getAuthor().length() > 30} ) ? #{mybooks.topic1} + ${#strings.substring(takenbook.getBook().getAuthor(),0,30)} + '…' : #{mybooks.topic1} + ${takenbook.getBook().getAuthor()}">
                 <div class="button">
                     <a th:href="'/allbooks/'+ ${takenbook.getBook().getId()}" class="btn" th:text="#{mybooks.button1}">Детальніше</a>
                     <div th:if="${takenbook.getBook().isElectronic() and takenbook.getBook().getBookfileurl().isEmpty()}">

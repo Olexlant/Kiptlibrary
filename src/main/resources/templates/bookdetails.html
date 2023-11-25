@@ -54,7 +54,12 @@
                     <div class="topic"  th:text="#{bookdetails.topic1}+${book.qrid}"></div>
                     <div class="topic" th:text="#{bookdetails.topic2}+${book.author}"></div>
                     <div class="topic" th:text="#{bookdetails.topic3}+${book.year}"></div>
-                    <div class="topic"th:text="#{bookdetails.topic4}+${book.count+' штук'}"></div>
+                    <div th:unless="${bookd.isElectronic()}">
+                        <div class="topic" th:text="#{bookdetails.topic4}+${book.count}+' '+#{bookdetails.topic6.count}"></div>
+                    </div>
+                    <div th:if="${bookd.isElectronic()}">
+                        <div class="topic" th:text="#{bookdetails.topic7}"></div>
+                    </div>
                     <div th:if="${book.description!=''}">
                         <p th:text="#{bookdetails.topic5}+${book.description}"></p>
                     </div>

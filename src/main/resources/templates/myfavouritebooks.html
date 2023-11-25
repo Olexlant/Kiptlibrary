@@ -27,7 +27,7 @@
             </div>
             <div class="content">
                 <h3 th:text="${likedbook.getBook().getTitle()}"></h3>
-                <p th:text="#{favbooks.topic1} + ${likedbook.getBook().getAuthor()}"></p>
+                <p th:text="( ${likedbook.getBook().getAuthor().length() > 30} ) ? #{favbooks.topic1} + ${#strings.substring(likedbook.getBook().getAuthor(),0,30)} + '…' : #{favbooks.topic1} + ${likedbook.getBook().getAuthor()}"></p>
                 <div class="button">
                     <a th:href="'/allbooks/'+ ${likedbook.getBook().getId()}" class="btn" th:text="#{favbooks.button1}">Детальніше</a>
                     <form th:action="'/myfavouritebooks/'+ ${likedbook.getId()}+'/remove'" method="post">
