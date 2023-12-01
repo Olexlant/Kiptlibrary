@@ -27,17 +27,17 @@
             </div>
             <div class="content">
                 <h3 th:text="${book.getTitle()}"></h3>
-                <p th:text="#{booksbygroup.topic1}+${book.getAuthor()}"></p>
+                <p th:text="( ${book.getAuthor().length() > 30} ) ? #{favbooks.topic1} + ${#strings.substring(book.getAuthor(),0,30)} + '…' : #{favbooks.topic1} + ${book.getAuthor()}">
                 <div class="button">
                     <a th:href="'/allbooks/'+ ${book.getId()}" class="btn" th:text="#{booksbygroup.button1}"></a>
-                    <div th:if="${book.getBookfileurl()=='' && book.getBookfile()!=null}">
+                    <div th:if="${book.isElectronic() && book.getBookFileUrl()==''}">
                         <form th:action="'/readBook'" method="post">
                             <input name="bookId" th:value="${book.getId()}" hidden>
                             <button class="btn" th:title="#{mybooks.button2}" type="submit" th:text="#{mybooks.button2}"><i>Переглянути</i></button>
                         </form>
                     </div>
-                    <div th:if="${book.getBookfileurl()!='' && book.getBookfile()==null}">
-                        <a th:href="${book.getBookfileurl()}" class="btn" th:text="#{mybooks.button2}"></a>
+                    <div th:if="${book.isElectronic() && book.getBookFileUrl()!=''}">
+                        <a th:href="${book.getBookFileUrl()}" class="btn" th:text="#{mybooks.button2}"></a>
                     </div>
                 </div>
                 <div class="icons">

@@ -30,14 +30,14 @@
                 <p th:text="( ${takenbook.getBook().getAuthor().length() > 30} ) ? #{mybooks.topic1} + ${#strings.substring(takenbook.getBook().getAuthor(),0,30)} + '…' : #{mybooks.topic1} + ${takenbook.getBook().getAuthor()}">
                 <div class="button">
                     <a th:href="'/allbooks/'+ ${takenbook.getBook().getId()}" class="btn" th:text="#{mybooks.button1}">Детальніше</a>
-                    <div th:if="${takenbook.getBook().isElectronic() and takenbook.getBook().getBookfileurl().isEmpty()}">
+                    <div th:if="${takenbook.getBook().isElectronic() and takenbook.getBook().getBookFileUrl().isEmpty()}">
                         <form th:action="'/readBook'" method="post">
                             <input name="bookId" th:value="${takenbook.getBook().getId()}" hidden>
                             <button class="btn" th:title="#{mybooks.button2}" type="submit" th:text="#{mybooks.button2}"><i>Переглянути</i></button>
                         </form>
                     </div>
-                    <div th:if="${takenbook.getBook().isElectronic() and !takenbook.getBook().getBookfileurl().isEmpty()}">
-                        <a th:href="${takenbook.getBook().getBookfileurl()}" class="btn" th:text="#{mybooks.button2}">Переглянути</a>
+                    <div th:if="${takenbook.getBook().isElectronic() and !takenbook.getBook().getBookFileUrl().isEmpty()}">
+                        <a th:href="${takenbook.getBook().getBookFileUrl()}" class="btn" th:text="#{mybooks.button2}">Переглянути</a>
                     </div>
                 </div>
                 <div class="icons">

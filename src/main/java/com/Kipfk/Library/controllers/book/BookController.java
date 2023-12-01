@@ -5,6 +5,8 @@ import com.Kipfk.Library.appuser.AppUser;
 import com.Kipfk.Library.appuser.AppUserService;
 import com.Kipfk.Library.appuser.LikedBooks;
 import com.Kipfk.Library.appuser.LikedBooksRepository;
+import com.Kipfk.Library.bookFiles.BookFiles;
+import com.Kipfk.Library.bookFiles.BookFilesService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -42,7 +44,7 @@ public class BookController {
     private final AppUserService appUserService;
     private final AppBookRepository appBookRepository;
     private final LikedBooksRepository likedBooksRepository;
-
+    private final BookFilesService bookFilesService;
 
     //ALLBOOKS
     @RequestMapping(value = "/allbooks", method = RequestMethod.GET)
@@ -103,17 +105,17 @@ public class BookController {
 //DOWNLOAD BOOK FILE
     @RequestMapping("/allbooks/{id}/download")
     public ResponseEntity<byte[]> getFile(@PathVariable Long id, HttpServletResponse response) {
-        AppBook book = appBookRepository.findAllByIdOrderByTitle(id);
-        if (book.getBookfile()!=null){
+        BookFiles bookFile =bookFilesService.getBookFileByAppBookId(id);
+        if (bookFile.getBookFile()!=null){
             HttpHeaders headers = new HttpHeaders();
             ContentDisposition contentDisposition = ContentDisposition.builder("attachment")
-                    .filename(book.getTitle()+".pdf", StandardCharsets.UTF_8)
+                    .filename(bookFile.getBookFileName()+".pdf", StandardCharsets.UTF_8)
                     .build();
             response.setContentType("application/pdf");
             response.setHeader(HttpHeaders.CONTENT_DISPOSITION, contentDisposition.toString());
             return ResponseEntity.ok()
                     .headers(headers)
-                    .body(book.getBookfile());
+                    .body(bookFile.getBookFile());
         }else {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND

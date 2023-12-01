@@ -120,11 +120,11 @@
                                 </form>
                                 </div>
                                 <div  class="look-file" th:if="${book.isElectronic()}">
-                                    <form th:if="${book.getBookfileurl().isEmpty()}" th:action="'/readBook'" method="post">
+                                    <form th:if="${book.getBookFileUrl().isEmpty()}" th:action="'/readBook'" method="post">
                                         <input name="bookId" th:value="${book.getId()}" hidden>
                                         <button style="background-color: #200edd" title="Переглянути файл" type="submit" ><i>Файл книги</i></button>
                                     </form>
-                                    <a th:unless="${book.getBookfileurl().isEmpty()}" th:href="${book.getBookfileurl()}" class="button-file" title="Переглянути файл" type="submit" >
+                                    <a th:unless="${book.getBookFileUrl().isEmpty()}" th:href="${book.getBookFileUrl()}" class="button-file" title="Переглянути файл" type="submit" >
                                         <i>Файл книги</i></a>
                                 </div>
                         

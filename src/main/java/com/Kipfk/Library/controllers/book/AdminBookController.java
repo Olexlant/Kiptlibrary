@@ -2,6 +2,8 @@ package com.Kipfk.Library.controllers.book;
 
 import com.Kipfk.Library.appbook.*;
 import com.Kipfk.Library.appuser.*;
+import com.Kipfk.Library.bookFiles.BookFiles;
+import com.Kipfk.Library.bookFiles.BookFilesService;
 import com.google.zxing.WriterException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,6 +34,7 @@ public class AdminBookController {
     private final BookCategoryRepository bookCategoryRepository;
     private final BooksByGroupsRepository booksByGroupsRepository;
     private final BookOrdersRepository bookOrdersRepository;
+    private final BookFilesService bookFilesService;
 
 //ADDBOOK
     @GetMapping("/admin/addbook")
@@ -42,19 +45,7 @@ public class AdminBookController {
 
     @PostMapping("/admin/book_adding")
     public String bookadd(AppBook appBook,@RequestParam("files") MultipartFile[] multipartFiles) throws IOException {
-
         appBook.setBookimg(multipartFiles[0].getBytes());
-        if(appBook.getBookfileurl().isEmpty()){
-            if (!multipartFiles[1].isEmpty()){
-                appBook.setBookfile(multipartFiles[1].getBytes());
-                appBook.setElectronic(true);
-            }else {
-                appBook.setBookfile(null);
-            }
-        }else {
-            appBook.setBookfile(null);
-            appBook.setElectronic(true);
-        }
         appBookService.bookadd(appBook);
         appBookRepository.save(appBook);
         try {
@@ -63,6 +54,16 @@ public class AdminBookController {
             e.printStackTrace();
         }
         appBook.setQrid(String.format("%06d", appBook.getId()));
+        if(appBook.getBookFileUrl().isEmpty()){
+            if (!multipartFiles[1].isEmpty()){
+                BookFiles bookFile = bookFilesService.addBookFile(multipartFiles[1],appBook.getId());
+                appBook.setBookFileId(bookFile.getId());
+                appBook.setElectronic(true);
+            }
+        }else {
+            bookFilesService.deleteBookFileByAppBookId(appBook.getId());
+            appBook.setElectronic(true);
+        }
         appBookRepository.save(appBook);
         return "redirect:/admin/addbook?success";
     }
@@ -100,11 +101,11 @@ public class AdminBookController {
             return "redirect:/admin/allbooksadmin";
         }
         AppBookRepository.BookNoFileAndPhoto book = appBookRepository.findAppBookById(id);
-        model.addAttribute("bookd", book);
+        model.addAttribute("book", book);
         return "bookadminedit";
     }
     @PostMapping("/admin/allbooksadmin/{id}/edit")
-    public String AdminBookUpdate(@PathVariable(value = "id") long id, @RequestParam String title, @RequestParam String author, @RequestParam Long year, @RequestParam("files") MultipartFile[] multipartFiles,@RequestParam String bookfileurl, @RequestParam String description, @RequestParam Long count, @RequestParam Long daysToReturn) throws IOException {
+    public String AdminBookUpdate(@PathVariable(value = "id") long id, @RequestParam String title, @RequestParam String author, @RequestParam Long year, @RequestParam("files") MultipartFile[] multipartFiles,@RequestParam String bookFileUrl, @RequestParam String description, @RequestParam Long count, @RequestParam Long daysToReturn) throws IOException {
         AppBook book = appBookRepository.findAllByIdOrderByTitle(id);
         book.setTitle(title);
         book.setAuthor(author);
@@ -115,15 +116,18 @@ public class AdminBookController {
         if (!multipartFiles[0].isEmpty()){
             book.setBookimg(multipartFiles[0].getBytes());
         }
-        if(bookfileurl.isEmpty()){
-            book.setBookfileurl("");
+        if(bookFileUrl.isEmpty()){
+            book.setBookFileUrl("");
             if (!multipartFiles[1].isEmpty()){
-                book.setBookfile(multipartFiles[1].getBytes());
+                bookFilesService.deleteBookFileByAppBookId(book.getId());
+                BookFiles bookFile = bookFilesService.addBookFile(multipartFiles[1], book.getId());
+                book.setBookFileId(bookFile.getId());
                 book.setElectronic(true);
             }
         }else {
-            book.setBookfile(null);
-            book.setBookfileurl(bookfileurl);
+            bookFilesService.deleteBookFileByAppBookId(book.getId());
+            book.setBookFileId(null);
+            book.setBookFileUrl(bookFileUrl);
             book.setElectronic(true);
         }
         appBookRepository.save(book);

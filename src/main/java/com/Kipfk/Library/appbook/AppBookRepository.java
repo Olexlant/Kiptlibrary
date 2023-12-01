@@ -21,7 +21,7 @@ public interface AppBookRepository extends JpaRepository<AppBook, Long>, JpaSpec
         String getTitle();
         String getDescription();
         String getAuthor();
-        String getBookfileurl();
+        String getBookFileUrl();
         String getDaysToReturn();
         boolean isElectronic();
     }

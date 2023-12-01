@@ -82,7 +82,7 @@ public class AppBookService {
                 appBook.getYear(),
                 appBook.getBookimg(),
                 appBook.getQrimg(),
-                appBook.getBookfile(),
+                appBook.getBookFileId(),
                 appBook.isElectronic()
         );
     }

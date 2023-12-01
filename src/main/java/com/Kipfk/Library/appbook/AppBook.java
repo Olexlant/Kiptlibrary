@@ -47,22 +47,22 @@ public class AppBook {
     private byte[] qrimg;
 
     @Basic(fetch=FetchType.LAZY)
-    private byte[] bookfile;
-    private String bookfileurl;
+    private Long bookFileId;
+    private String bookFileUrl;
     @Column(columnDefinition="text", length=10485760)
     private String description;
     private Long count;
     private Long daysToReturn;
     private boolean electronic = false;
 
-    public AppBook(String qrid, String title, String author, Long year, byte[] bookimg, byte[] qrimg,byte[] bookfile,boolean electronic){
+    public AppBook(String qrid, String title, String author, Long year, byte[] bookimg, byte[] qrimg,Long bookFileId,boolean electronic){
         this.qrid = qrid;
         this.title = title;
         this.author = author;
         this.year = year;
         this.bookimg = bookimg;
         this.qrimg = qrimg;
-        this.bookfile = bookfile;
+        this.bookFileId = bookFileId;
         this.electronic = electronic;
     }
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "book", orphanRemoval = true)
