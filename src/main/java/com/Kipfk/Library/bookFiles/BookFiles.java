@@ -1,6 +1,8 @@
 package com.Kipfk.Library.bookFiles;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -9,6 +11,8 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
+@EqualsAndHashCode
+@NoArgsConstructor
 public class BookFiles {
 
     @SequenceGenerator(
