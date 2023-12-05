@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface LikedBooksRepository extends JpaRepository<LikedBooks,Long> {
@@ -15,6 +14,9 @@ public interface LikedBooksRepository extends JpaRepository<LikedBooks,Long> {
     LikedBooks findByBookAndUser(AppBook appBook,AppUser appUser);
     List<LikedBooks> findAllByUser(AppUser user);
     List<LikedBooks> findAllByBook(AppBook book);
+
+    @Transactional
+    void deleteAllByBookId(Long bookId);
     @Transactional
     void deleteAllByUser(AppUser user);
 }

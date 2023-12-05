@@ -1,21 +1,18 @@
 package com.Kipfk.Library.appbook;
 
-import com.Kipfk.Library.appuser.AppUser;
 import com.Kipfk.Library.appuser.LikedBooks;
 import com.Kipfk.Library.appuser.TakenBooks;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.apache.tomcat.jni.User;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -40,11 +37,9 @@ public class AppBook {
     private String author;
     private Long year;
 
-    @Basic(fetch=FetchType.LAZY)
-    private byte[] bookimg;
+    private Long bookImgId;
 
-    @Basic(fetch=FetchType.LAZY)
-    private byte[] qrimg;
+    private Long qrImgId;
 
     @Basic(fetch=FetchType.LAZY)
     private Long bookFileId;
@@ -55,13 +50,13 @@ public class AppBook {
     private Long daysToReturn;
     private boolean electronic = false;
 
-    public AppBook(String qrid, String title, String author, Long year, byte[] bookimg, byte[] qrimg,Long bookFileId,boolean electronic){
+    public AppBook(String qrid, String title, String author, Long year, Long bookImgId, Long qrImgId,Long bookFileId,boolean electronic){
         this.qrid = qrid;
         this.title = title;
         this.author = author;
         this.year = year;
-        this.bookimg = bookimg;
-        this.qrimg = qrimg;
+        this.bookImgId = bookImgId;
+        this.qrImgId = qrImgId;
         this.bookFileId = bookFileId;
         this.electronic = electronic;
     }

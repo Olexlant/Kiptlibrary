@@ -17,11 +17,13 @@ public interface TakenBooksRepository extends JpaRepository <TakenBooks,Long>, J
     List<TakenBooks> findByUserAndDeletedIsFalse(AppUser appUser);
 
     boolean existsByUserIdAndBookIdAndDeletedIsFalse(Long userId, Long bookId);
-    Optional<TakenBooks> findByBookIdAndDeletedIsFalse(Long id);
+
+    boolean existsByBookIdAndDeletedIsFalse(Long id);
 
     List<TakenBooks> findAllByUserAndDeletedIsFalse(AppUser appUser);
 
-    List<TakenBooks> findAllByBookAndDeletedIsTrue(AppBook book);
+    @Transactional
+    void deleteAllByBookIdAndDeletedIsTrue(Long Id);
     Page<TakenBooks> findAllByDeletedIsFalse(Pageable pageable);
     Page<TakenBooks> findAllByDeletedIsTrue(Pageable pageable);
     List<TakenBooks> findAllByDeletedIsFalseAndNotificationSendedIsFalseAndReturnExpiresAtIsBefore(LocalDate now);

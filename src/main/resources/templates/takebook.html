@@ -83,7 +83,7 @@
             <tbody>
             <tr th:each="book : ${books}">
               <td th:text="${book.getQrid()}"></td>
-              <td><img th:src="@{'/book/image/' + ${book.getId()}}"/></td>
+              <td><img th:src="@{'/book/image/' + ${book.getBookImgId()}}"/></td>
               <td th:text="${book.getTitle()}"></td>
               <td th:text="${book.getAuthor()}"></td>
               <td th:text="${book.getYear()}"></td>

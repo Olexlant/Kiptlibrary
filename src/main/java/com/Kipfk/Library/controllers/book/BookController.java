@@ -7,6 +7,8 @@ import com.Kipfk.Library.appuser.LikedBooks;
 import com.Kipfk.Library.appuser.LikedBooksRepository;
 import com.Kipfk.Library.bookFiles.BookFiles;
 import com.Kipfk.Library.bookFiles.BookFilesService;
+import com.Kipfk.Library.images.Images;
+import com.Kipfk.Library.images.ImagesService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -45,6 +47,7 @@ public class BookController {
     private final AppBookRepository appBookRepository;
     private final LikedBooksRepository likedBooksRepository;
     private final BookFilesService bookFilesService;
+    private final ImagesService imagesService;
 
     //ALLBOOKS
     @RequestMapping(value = "/allbooks", method = RequestMethod.GET)
@@ -125,21 +128,33 @@ public class BookController {
     }
 
 //GET BOOK IMAGE BY ID
-    @GetMapping("/book/image/{bookid}")
-    public void showBookImage(@PathVariable Long bookid, HttpServletResponse response) throws IOException {
+    @GetMapping("/book/image/{imageId}")
+    public void showBookImage(@PathVariable Long imageId, HttpServletResponse response) throws IOException {
         response.setContentType("image/jpeg");
-        AppBook book = appBookRepository.findAllByIdOrderByTitle(bookid);
-        InputStream is = new ByteArrayInputStream(book.getBookimg());
-        IOUtils.copy(is, response.getOutputStream());
+        Images bookImg = imagesService.getImageById(imageId);
+        if (bookImg!=null){
+            InputStream is = new ByteArrayInputStream(bookImg.getImageFile());
+            IOUtils.copy(is, response.getOutputStream());
+        } else {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND
+            );
+        }
     }
 
 //GET BOOK QRIMAGE BY BOOK ID
-    @GetMapping("/qrcode/image/{bookid}")
-    public void showQrCodeImage(@PathVariable Long bookid,HttpServletResponse response) throws IOException {
+    @GetMapping("/qrcode/image/{imageId}")
+    public void showQrCodeImage(@PathVariable Long imageId,HttpServletResponse response) throws IOException {
         response.setContentType("image/jpeg");
-        AppBook book = appBookRepository.findAllByIdOrderByTitle(bookid);
-        InputStream is = new ByteArrayInputStream(book.getQrimg());
-        IOUtils.copy(is, response.getOutputStream());
+        Images bookImg = imagesService.getImageById(imageId);
+        if (bookImg!=null){
+            InputStream is = new ByteArrayInputStream(bookImg.getImageFile());
+            IOUtils.copy(is, response.getOutputStream());
+        } else {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND
+            );
+        }
     }
 
 }

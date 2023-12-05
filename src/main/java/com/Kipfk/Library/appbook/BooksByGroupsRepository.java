@@ -4,6 +4,7 @@ import com.Kipfk.Library.appuser.Groups;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,9 +12,11 @@ import java.util.List;
 public interface BooksByGroupsRepository extends JpaRepository<BooksByGroups,Long> {
     ArrayList<BooksByGroups> findAllByGroups(Groups groups);
     ArrayList<BooksByGroups> findAllByGroups_Id(Long groupsId);
-    List<BooksByGroups> findByGroupsAndBook(Groups groups,AppBook book);
+
     List<BooksByGroups> findByGroups_IdAndBook_Id(Long groupId,Long BookId);
-    List<BooksByGroups> findAllByBook(AppBook appBook);
+
+    @Transactional
+    void deleteAllByBookId(Long bookId);
     boolean existsByGroups_IdAndBook_Id(Long groupId,Long BookId);
 
 }

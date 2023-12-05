@@ -1,9 +1,12 @@
 package com.Kipfk.Library.controllers.book;
 
 import com.Kipfk.Library.appbook.*;
-import com.Kipfk.Library.appuser.*;
+import com.Kipfk.Library.appuser.LikedBooksRepository;
+import com.Kipfk.Library.appuser.TakenBooksRepository;
 import com.Kipfk.Library.bookFiles.BookFiles;
 import com.Kipfk.Library.bookFiles.BookFilesService;
+import com.Kipfk.Library.images.Images;
+import com.Kipfk.Library.images.ImagesService;
 import com.google.zxing.WriterException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
 
 @Getter
@@ -35,6 +37,7 @@ public class AdminBookController {
     private final BooksByGroupsRepository booksByGroupsRepository;
     private final BookOrdersRepository bookOrdersRepository;
     private final BookFilesService bookFilesService;
+    private final ImagesService imagesService;
 
 //ADDBOOK
     @GetMapping("/admin/addbook")
@@ -45,11 +48,18 @@ public class AdminBookController {
 
     @PostMapping("/admin/book_adding")
     public String bookadd(AppBook appBook,@RequestParam("files") MultipartFile[] multipartFiles) throws IOException {
-        appBook.setBookimg(multipartFiles[0].getBytes());
+        if (multipartFiles[0] == null){
+            appBook.setBookImgId(null);
+        } else {
+            Images bookImg = imagesService.addImageFile(multipartFiles[0]);
+            appBook.setBookImgId(bookImg.getId());
+        }
         appBookService.bookadd(appBook);
         appBookRepository.save(appBook);
         try {
-            appBook.setQrimg(QRCodeGenerator.getQRCodeImage(String.format("%06d", appBook.getId()),300,300));
+            Images qrCodeImg = imagesService.addQrCodeImageFile(
+                    QRCodeGenerator.getQRCodeImage(String.format("%06d", appBook.getId()),300,300));
+            appBook.setQrImgId(qrCodeImg.getId());
         } catch (WriterException | IOException e) {
             e.printStackTrace();
         }
@@ -114,7 +124,12 @@ public class AdminBookController {
         book.setCount(count);
         book.setDaysToReturn(daysToReturn);
         if (!multipartFiles[0].isEmpty()){
-            book.setBookimg(multipartFiles[0].getBytes());
+            if (book.getBookImgId() == null) {
+                Images bookImg = imagesService.addImageFile(multipartFiles[0]);
+                book.setBookImgId(bookImg.getId());
+            } else {
+                imagesService.updateImageFileById(multipartFiles[0], book.getBookImgId());
+            }
         }
         if(bookFileUrl.isEmpty()){
             book.setBookFileUrl("");
@@ -135,30 +150,18 @@ public class AdminBookController {
     }
     @PostMapping("/admin/allbooksadmin/{id}/remove")
     public String AdminBookDelete(@PathVariable(value = "id") long id) {
-        if (takenBooksRepository.findByBookIdAndDeletedIsFalse(id).isPresent()){
+        if (takenBooksRepository.existsByBookIdAndDeletedIsFalse(id)){
             return "redirect:/admin/allbooksadmin?usernotreturn";
         } else {
-            AppBook book = appBookRepository.findAllByIdOrderByTitle(id);
-            List<TakenBooks> takenBooks = takenBooksRepository.findAllByBookAndDeletedIsTrue(book);
-            if (!takenBooks.isEmpty()){
-                takenBooksRepository.deleteAll(takenBooks);
-            }
-            List<LikedBooks> likedBooks = likedBooksRepository.findAllByBook(book);
-            if (!likedBooks.isEmpty()){
-                likedBooksRepository.deleteAll(likedBooks);
-            }
-            List<BookCategory> bookCategories = bookCategoryRepository.findAllByBookId(id);
-            if (!bookCategories.isEmpty()){
-                bookCategoryRepository.deleteAll(bookCategories);
-            }
-            List<BooksByGroups> booksByGroups = booksByGroupsRepository.findAllByBook(book);
-            if (!booksByGroups.isEmpty()){
-                booksByGroupsRepository.deleteAll(booksByGroups);
-            }
-            List<BookOrders> bookOrders = bookOrdersRepository.findAllByBook(book);
-            if (!bookOrders.isEmpty()){
-                bookOrdersRepository.deleteAll(bookOrders);
-            }
+            AppBookRepository.BookNoFileAndPhoto book = appBookRepository.findAppBookById(id);
+            takenBooksRepository.deleteAllByBookIdAndDeletedIsTrue(id);
+            likedBooksRepository.deleteAllByBookId(id);
+            bookCategoryRepository.deleteAllByBookId(id);
+            booksByGroupsRepository.deleteAllByBookId(id);
+            bookOrdersRepository.deleteAllByBookId(id);
+            bookFilesService.deleteBookFileByAppBookId(id);
+            imagesService.deleteImageById(book.getBookImgId());
+            imagesService.deleteImageById(book.getQrImgId());
             appBookRepository.deleteById(id);
             return "redirect:/admin/allbooksadmin?deletesuccess";
         }

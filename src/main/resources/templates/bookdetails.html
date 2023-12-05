@@ -48,7 +48,7 @@
             <div class="title"><span  th:text="${book.title}"></span></div>
             <div class="about-details">
                 <div class="right">
-                    <img th:src="@{'/qrcode/image/' + ${book.getId()}}" >
+                    <img th:src="@{'/qrcode/image/' + ${book.getQrImgId()}}" >
                 </div>
                 <div class="left">
                     <div class="topic"  th:text="#{bookdetails.topic1}+${book.qrid}"></div>

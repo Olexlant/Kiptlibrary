@@ -23,7 +23,7 @@
     <div class="box-container" >
         <div class="box" th:each="book : ${books}">
             <div class="image">
-                <img  class="rounded-5 mb-5 mt-5" style="width: 100%" th:src="@{'/book/image/' + ${book.getId()}}" />
+                <img  class="rounded-5 mb-5 mt-5" style="width: 100%" th:src="@{'/book/image/' + ${book.getBookImgId()}}" />
             </div>
             <div class="content">
                 <h3 th:text="${book.getTitle()}"></h3>

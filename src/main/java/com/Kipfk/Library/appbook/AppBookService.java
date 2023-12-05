@@ -80,8 +80,8 @@ public class AppBookService {
                 appBook.getTitle(),
                 appBook.getAuthor(),
                 appBook.getYear(),
-                appBook.getBookimg(),
-                appBook.getQrimg(),
+                appBook.getBookImgId(),
+                appBook.getQrImgId(),
                 appBook.getBookFileId(),
                 appBook.isElectronic()
         );

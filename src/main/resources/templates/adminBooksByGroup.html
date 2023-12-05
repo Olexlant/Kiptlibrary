@@ -82,7 +82,7 @@
                         <tbody>
                         <tr th:each="book : ${books}">
                             <td th:text="${book.getBook().getQrid()}"></td>
-                            <td><img th:src="@{'/book/image/' + ${book.getBook().getId()}}"/></td>
+                            <td><img th:src="@{'/book/image/' + ${book.getBook().getBookImgId()}}"/></td>
                             <div th:unless="${book.getBook().isElectronic()}">
                                 <td th:text="${'Паперова'}"></td>
                             </div>
