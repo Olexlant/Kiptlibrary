@@ -31,7 +31,7 @@
             <p>Видалити новину?</p>
             <form>
                 <div class="btn-yes-no">
-                    <button id="pop_up_submit" type="button" onclick="submitForm()">Так</button>
+                    <button id="pop_up_submit" type="button" onclick="submitForm(); disableButtons()">Так</button>
                     <button class="no" onclick="closepopupwindow()">Ні</button>
                 </div>
             </form>
@@ -43,11 +43,10 @@
 <section class="dashboard">
     <div class="top">
         <i class="uil uil-bars sidebar-toggle"></i>
+    </div>
 
-        <div class="search-box">
-
-        </div>
-
+    <div id="overlay__inner" class="overlay__inner" hidden="hidden">
+        <div class="overlay__content"><span class="spinner"></span></div>
     </div>
 
     <div class="dash-content">
@@ -74,11 +73,11 @@
                             <td th:text="${#temporals.format(inews.getCreatedAt(), 'dd-MM-yyyy')}"></td>
                             <td class="btnactions">
 
-                                <form th:action="'/admin/news/'+ ${inews.getId()}" method="get">
+                                <form th:action="'/admin/news/'+ ${inews.getId()}" method="get" onsubmit="disableButtons()">
                                     <button style="background-color: #006B49" title="Редагувати новину" type="submit"><i class="uil uil-pen"></i></button>
                                 </form>
 
-                                <form th:action="'/admin/news/'+ ${inews.getId()}+'/delete'"  method="post">
+                                <form th:action="'/admin/news/'+ ${inews.getId()}+'/delete'" method="post" onsubmit="disableButtons()">
                                     <button style="background-color: #FF3F40" type="button"  title="Видалити новину" onclick="openpopup(form)"><i class="uil uil-trash-alt"></i></button>
                                 </form>
                         </tr>
@@ -126,7 +125,7 @@
         </li>
     </ul>
 </section>
-
+<script src="/js/disableButtons.js"></script>
 <script src="/js/alert_script.js"></script>
 <script src="/js/popup.js"></script>
 <script src="/js/script.js"></script>

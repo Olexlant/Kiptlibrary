@@ -31,7 +31,7 @@
             <p>Видалити категорію?</p>
             <form>
                 <div class="btn-yes-no">
-                    <button id="pop_up_submit" type="button" onclick="submitForm()">Так</button>
+                    <button id="pop_up_submit" type="button" onclick="submitForm(); disableButtons()">Так</button>
                     <button class="no" onclick="closepopupwindow()">Ні</button>
                 </div>
             </form>
@@ -44,13 +44,12 @@
 <section class="dashboard">
     <div class="top">
         <i class="uil uil-bars sidebar-toggle"></i>
-
-        <div class="search-box">
-
-        </div>
-
-        <img src="" alt="">
     </div>
+
+    <div id="overlay__inner" class="overlay__inner" hidden="hidden">
+        <div class="overlay__content"><span class="spinner"></span></div>
+    </div>
+
     <div class="dash-content">
         <div class="activity">
             <div class="title">
@@ -59,7 +58,7 @@
                 <div class="input-box2">
                     <span class="details">Оберіть категорію для книги</span>
                     <div class="categor">
-                        <form th:action="'/admin/addcategorytobook/' + ${book.getId()} + '/add'" method="post">
+                        <form th:action="'/admin/addcategorytobook/' + ${book.getId()} + '/add'" method="post" onsubmit="disableButtons()">
                         <select th:name="categoryid" >
                             <option  th:each="category : ${allcategories}" th:value="${category.getId()}" th:text="${category.getName()}"></option>
                         </select>
@@ -89,7 +88,7 @@
                             <td th:text="${bookcategories.indexOf(category)+1}"></td>
                             <td th:text="${category.getCategory().getName()}"></td>
                             <td class="btnactions">
-                                <form th:action="'/admin/addcategorytobook/' + ${book.getId()} + '/' + ${category.getCategory().getId()} + '/delete'" method="post">
+                                <form th:action="'/admin/addcategorytobook/' + ${book.getId()} + '/' + ${category.getCategory().getId()} + '/delete'" method="post" onsubmit="disableButtons()">
                                     <button style="background-color: #FF3F40" type="button" title="Видалити категорію" onclick="openpopup(form)"><i class="uil uil-trash-alt"></i></button>
                                 </form>
                         </tr>
@@ -138,7 +137,7 @@
     </ul>
 
 </section>
-
+<script src="/js/disableButtons.js"></script>
 <script src="/js/alert_script.js"></script>
 <script src="/js/popup.js"></script>
 <script src="/js/script.js"></script>

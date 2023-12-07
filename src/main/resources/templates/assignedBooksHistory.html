@@ -32,20 +32,18 @@
 <section class="dashboard">
   <div class="top">
     <i class="uil uil-bars sidebar-toggle"></i>
-
-    <div class="search-box">
-
-    </div>
-
-
   </div>
+
+  <div id="overlay__inner" class="overlay__inner" hidden="hidden">
+    <div class="overlay__content"><span class="spinner"></span></div>
+  </div>
+
   <!-- alert!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
   <ul th:if="${param.deleted}"class="notifications"  id="message">
     <li class="toast success">
       <div class="column" >
         <i class="fa-solid fa-circle-check"></i>
-        <span>
-                    Історію очищено</span>
+        <span>Історію очищено</span>
       </div>
       <i class="fa-solid fa-xmark"></i>
     </li>
@@ -56,12 +54,12 @@
       <div class="title">
         <i><iconify-icon icon="mdi:book-arrow-up"></iconify-icon></i>
         <span class="text">Історія виданих книг</span>
-        <form th:action="@{/admin/searchassignedbookshistory}" method="get">
+        <form th:action="@{/admin/searchassignedbookshistory}" method="get" onsubmit="disableButtons()">
           <input type="text" name="keyword" th:value="${keyword}"  placeholder="Пошук" size="50" >
           <button type="submit" style="background-color: #25398e; " class="uil-search"></button>
         </form>
 <!--        ЧИСТКА ИСТОРИИ -->
-        <form th:action="@{/admin/assignedbooks/history/removeall}" method="post">
+        <form th:action="@{/admin/assignedbooks/history/removeall}" method="post" onsubmit="disableButtons()">
           <button type="submit" style="background-color: #ff0000; " class="uil-trash"> Очистити історію</button>
         </form>
       </div>
@@ -121,6 +119,7 @@
     </th:block>
   </ul>
 </section>
+<script src="/js/disableButtons.js"></script>
 <script src="/js/alert_script.js"></script>
 <script src="/js/popup.js"></script>
 <script src="/js/script.js"></script>

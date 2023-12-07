@@ -557,6 +557,7 @@ form .button :hover{
 .pop_up.active{
   background-color: rgba(0, 0, 0, .6);
   transform: translateY(0%) scale(100%);
+  z-index: 99;
 }
 .pop_up_container{
   display: flex;

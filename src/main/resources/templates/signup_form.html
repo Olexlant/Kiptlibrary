@@ -31,7 +31,7 @@
 <div class="container">
 	<div class="title"><span th:text="#{register.title}">Реєстрація</span></div>
 	<div class="content">
-		<form method="post" action="/login" th:action="@{/process_register}" th:object="${user}">
+		<form method="post" action="/login" th:action="@{/process_register}" th:object="${user}" onsubmit="disableButtons()">
 			<div class="user-details">
 				<div class="input-box">
 					<span class="details" th:text="#{register.input1}">Email</span>
@@ -87,7 +87,7 @@
 		<i class="fa-solid fa-xmark"></i>
 	</li>
 </ul>
-
+<script src="/js/disableButtons.js"></script>
 <script src="/js/alert_script.js"></script>
 <script src="/js/popup.js"></script>
 <script src="/js/script.js"></script>

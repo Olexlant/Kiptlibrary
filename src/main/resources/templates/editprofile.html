@@ -28,7 +28,7 @@
         <div class="pop_up_container">
             <div class="pop_up_body" id="pop_up_body">
                 <p th:text="#{editprofile.popup.title}"></p>
-                <form th:action="@{/editprofile/changepassword}" method="post">
+                <form th:action="@{/editprofile/changepassword}" method="post" onsubmit="disableButtons()">
                     <input name="currentpassword" type="password" th:placeholder="#{editprofile.popup.input1}">
                     <input name="newpassword" type="password" th:placeholder="#{editprofile.popup.input2}" minlength="4">
                     <input name="confirmnewpassword" type="password" th:placeholder="#{editprofile.popup.input3}"  minlength="4">
@@ -41,7 +41,7 @@
 <div class="container">
     <div class="adout" id="adout">
         <div class="content">
-            <form th:action="@{/editprofile/save}"  method="post" enctype="multipart/form-data">
+            <form th:action="@{/editprofile/save}"  method="post" enctype="multipart/form-data" onsubmit="disableButtons()">
             <div class="about-details">
                 <div class="right">
                     <div class="user-info-img">
@@ -152,9 +152,10 @@
         </div>
     </div>
 </div>
-    <script src="/js/alert_script.js"></script>
+<script src="/js/disableButtons.js"></script>
+<script src="/js/alert_script.js"></script>
 <script src="/js/slider.js"></script>
-    <script src="/js/pass.js"></script>
+<script src="/js/pass.js"></script>
 <script src="/js/slider.js"></script>
 </body>
 </html>

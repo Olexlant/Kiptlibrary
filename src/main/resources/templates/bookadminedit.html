@@ -29,12 +29,10 @@
 <section class="dashboard">
     <div class="top">
         <i class="uil uil-bars sidebar-toggle"></i>
+    </div>
 
-        <div class="search-box">
-
-        </div>
-
-        <img src="" alt="">
+    <div id="overlay__inner" class="overlay__inner" hidden="hidden">
+        <div class="overlay__content"><span class="spinner"></span></div>
     </div>
 
     <div class="dash-content">
@@ -42,7 +40,7 @@
         <div class="container2">
             <div class="title"><span>Редагування книги</span></div>
             <div class="content">
-                <form method="post" enctype="multipart/form-data">
+                <form method="post" enctype="multipart/form-data" onsubmit="disableButtons()">
                     <div class="user-details">
                         <div class="input-box">
                             <span class="details">Назва</span>
@@ -84,6 +82,7 @@
 
     </div>
 </section>
+<script src="/js/disableButtons.js"></script>
 <script src="/js/alert_script.js"></script>
 <script src="/js/popup.js"></script>
 <script src="/js/script.js"></script>

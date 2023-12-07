@@ -35,7 +35,7 @@
             <p>Повернути книгу?</p>
             <form>
                 <div class="btn-yes-no">
-                    <button id="pop_up_submit" type="button" onclick="submitForm()">Так</button>
+                    <button id="pop_up_submit" type="button" onclick="submitForm(); disableButtons()">Так</button>
                     <button class="no" onclick="closepopupwindow()">Ні</button>
                 </div>
             </form>
@@ -48,14 +48,12 @@
 <section class="dashboard">
     <div class="top">
         <i class="uil uil-bars sidebar-toggle"></i>
-
-        <div class="search-box">
-
-        </div>
-
-
     </div>
-    <!-- alert!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+
+    <div id="overlay__inner" class="overlay__inner" hidden="hidden">
+        <div class="overlay__content"><span class="spinner"></span></div>
+    </div>
+
     <ul th:if="${param.returned}"class="notifications"  id="message">
         <li class="toast success">
             <div class="column" >
@@ -137,10 +135,10 @@
                             <td th:if="${takenbook.getBook().isElectronic()}" th:text="${'Електронна'}"></td>
                             <td th:text="${takenbook.getTakenat()}" th:title="${'Повернути до: '+takenbook.getReturnExpiresAt()}"></td>
                             <td class="btnactions">
-                                <form th:action="'/admin/usertakenadmin/'+ ${takenbook.getUser().getId()}" method="get">
+                                <form th:action="'/admin/usertakenadmin/'+ ${takenbook.getUser().getId()}" method="get" onsubmit="disableButtons()">
                                     <button style="background-color: #25398e" type="submit" title="Книги користувача"><i><iconify-icon icon="wpf:books"></iconify-icon></i></button>
                                 </form>
-                                <form th:action="'/admin/assignedbooks/'+ ${takenbook.getId()}+'/remove'" method="post">
+                                <form th:action="'/admin/assignedbooks/'+ ${takenbook.getId()}+'/remove'" method="post" onsubmit="disableButtons()">
                                     <button style="background-color: #219e25" type="button" title="Повернути книгу" onclick="openpopup(form)"><i><iconify-icon icon="ion:arrow-back-circle" rotate="180deg"></iconify-icon></i></button>
                                 </form>
                             </td>
@@ -169,6 +167,7 @@
         </th:block>
     </ul>
 </section>
+<script src="/js/disableButtons.js"></script>
 <script src="/js/alert_script.js"></script>
 <script src="/js/popup.js"></script>
 <script src="/js/script.js"></script>

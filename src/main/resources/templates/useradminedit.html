@@ -30,20 +30,17 @@
 <section class="dashboard">
     <div class="top">
         <i class="uil uil-bars sidebar-toggle"></i>
+    </div>
 
-        <div class="search-box">
-
-        </div>
-
-
+    <div id="overlay__inner" class="overlay__inner" hidden="hidden">
+        <div class="overlay__content"><span class="spinner"></span></div>
     </div>
 
     <div class="dash-content">
-
         <div class="container" th:each="user : ${userd}">
             <div class="title"><span>Редагування користувача</span></div>
             <div class="content">
-                <form method="post">
+                <form method="post" onsubmit="disableButtons()">
                     <div class="user-details">
                         <div class="input-box">
                             <span class="details">Ім'я</span>
@@ -95,7 +92,7 @@
 
     </div>
 </section>
-
+<script src="/js/disableButtons.js"></script>
 <script src="/js/script.js"></script>
 </body>
 </html>

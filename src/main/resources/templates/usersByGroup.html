@@ -30,7 +30,7 @@
       <p>Видалити користувача з групи?</p>
       <form>
         <div class="btn-yes-no">
-          <button id="pop_up_submit" type="button" onclick="submitForm()">Так</button>
+          <button id="pop_up_submit" type="button" onclick="submitForm(); disableButtons()">Так</button>
           <button class="no" onclick="closepopupwindow()">Ні</button>
         </div>
       </form>
@@ -43,12 +43,10 @@
 <section class="dashboard">
   <div class="top">
     <i class="uil uil-bars sidebar-toggle"></i>
+  </div>
 
-    <div class="search-box">
-
-    </div>
-
-    <img src="" alt="">
+  <div id="overlay__inner" class="overlay__inner" hidden="hidden">
+    <div class="overlay__content"><span class="spinner"></span></div>
   </div>
 
   <div class="dash-content">
@@ -84,13 +82,13 @@
               <td th:text="${user.getEmail()}"></td>
               <td th:text="${user.getPhonenum()}"></td>
               <td class="btnactions">
-                <form th:action="'/admin/allusers/'+ ${user.getId()}+'/edit'" method="get">
+                <form th:action="'/admin/allusers/'+ ${user.getId()}+'/edit'" method="get" onsubmit="disableButtons()">
                   <button style="background-color: #25398e" type="submit" title="Редагувати користувача"><i class="uil uil-pen"></i></button>
                 </form>
-                <form th:action="'/admin/usertakenadmin/'+ ${user.getId()}" method="get">
+                <form th:action="'/admin/usertakenadmin/'+ ${user.getId()}" method="get" onsubmit="disableButtons()">
                   <button style="background-color: #006B49" type="submit" title="Книги користувача"><i><iconify-icon icon="wpf:books"></iconify-icon></i></button>
                 </form>
-                <form  th:action="'/admin/usersbygroup/'+ ${user.getGroups().getId()}+'/'+${user.getId()}" method="post">
+                <form  th:action="'/admin/usersbygroup/'+ ${user.getGroups().getId()}+'/'+${user.getId()}" method="post" onsubmit="disableButtons()">
                   <button style="background-color: #FF3F40" type="button" title="Видалити користувача" onclick="openpopup(form)"><i class="uil uil-trash-alt"></i></button>
                 </form>
               </td>
@@ -106,14 +104,14 @@
     <li class="toast success">
       <div class="column" >
         <i class="fa-solid fa-circle-check"></i>
-        <span>
-                   Користувача видалено з групи</span>
+        <span>Користувача видалено з групи</span>
       </div>
       <i class="fa-solid fa-xmark"></i>
     </li>
   </ul>
 
 </section>
+<script src="/js/disableButtons.js"></script>
 <script src="/js/alert_script.js"></script>
 <script src="/js/popup.js"></script>
 <script src="/js/script.js"></script>

@@ -63,7 +63,7 @@
                     <div th:if="${book.description!=''}">
                         <p th:text="#{bookdetails.topic5}+${book.description}"></p>
                     </div>
-                    <form th:action="${'/orderbook/'+book.getId()}" method="post">
+                    <form th:action="${'/orderbook/'+book.getId()}" method="post" onsubmit="disableButtons()">
                         <div class="button">
                             <button th:text="#{bookdetails.button}"></button>
                         </div>
@@ -75,6 +75,7 @@
     </section>
 </div>
 <a href="https://app.service.utog.org/"></a><span class="btnServiceUTOG"></span>
+<script src="/js/disableButtons.js"></script>
 <script src="/js/alert_script.js"></script>
 <script src="/js/popup.js"></script>
 <script src="/js/script.js"></script>

@@ -34,7 +34,7 @@
             <p>Видалити групу?</p>
             <form>
                 <div class="btn-yes-no">
-                    <button id="pop_up_submit" type="button" onclick="submitForm()">Так</button>
+                    <button id="pop_up_submit" type="button" onclick="submitForm(); disableButtons()">Так</button>
                     <button class="no" onclick="closepopupwindow()">Ні</button>
                 </div>
             </form>
@@ -51,7 +51,7 @@
                 <input id="newGroupId" hidden>
                 <input id="newGroupName" type="text" placeholder="Нова назва групи">
                 <div class="btn-yes-no">
-                    <button id="pop_up_submit1" type="button" onclick="submitForm1(form)">Зберегти</button>
+                    <button id="pop_up_submit1" type="button" onclick="submitForm1(form); disableButtons()">Зберегти</button>
                     <button class="no" onclick="closepopupwindow1()">Назад</button>
                 </div>
             </form>
@@ -63,19 +63,19 @@
 <section class="dashboard">
     <div class="top">
         <i class="uil uil-bars sidebar-toggle"></i>
-
-        <div class="search-box">
-
-        </div>
-
     </div>
+
+    <div id="overlay__inner" class="overlay__inner" hidden="hidden">
+        <div class="overlay__content"><span class="spinner"></span></div>
+    </div>
+
     <div class="dash-content">
         <div class="activity">
             <div class="title">
                 <i><iconify-icon icon="fa6-solid:people-group"></iconify-icon></i>
                 <span class="text">Всі Групи</span>
 
-            <form method="post" th:action="@{/admin/groups/save}" th:object="${group}">
+            <form method="post" th:action="@{/admin/groups/save}" th:object="${group}" onsubmit="disableButtons()">
                 <div class="user-details">
                     <div class="input-box">
                         <input type="text" th:field="*{name}" placeholder="Введіть назву групи" required>
@@ -102,18 +102,18 @@
                             <td th:text="${groups.indexOf(group)+1}"></td>
                             <td th:text="${group.name}"></td>
                             <td class="btnactions">
-                                <form th:action="'/admin/usersbygroup/'+ ${group.id}" method="get">
+                                <form th:action="'/admin/usersbygroup/'+ ${group.id}" method="get" onsubmit="disableButtons()">
                                     <button style="background-color: #25398e" title="Користувачі групи" type="submit"><i><iconify-icon icon="ion:people-sharp"></iconify-icon></i></button>
                                 </form>
-                                <form>
+                                <form onsubmit="disableButtons()">
                                     <input name="groupId" th:value="${group.getId()}" hidden>
                                     <input name="groupName" th:value="${group.getName()}" hidden>
                                     <button style="background-color: #e9bd0c" title="Редагувати групу" type="button" onclick="openpopup1(form)"><i class="uil uil-pen"></i></button>
                                 </form>
-                                <form th:action="'/admin/booksbygroup/'+ ${group.id}" method="get">
+                                <form th:action="'/admin/booksbygroup/'+ ${group.id}" method="get" onsubmit="disableButtons()">
                                     <button style="background-color: #006B49" type="submit" title="Книги групи"><i><iconify-icon icon="wpf:books"></iconify-icon></i></button>
                                 </form>
-                                <form th:action="'/admin/groups/'+ ${group.id} +'/delete'" method="post">
+                                <form th:action="'/admin/groups/'+ ${group.id} +'/delete'" method="post" onsubmit="disableButtons()">
                                     <button style="background-color: #FF3F40" title="Видалити групу" type="button" onclick="openpopup(form)"><i class="uil uil-trash-alt"></i></button>
                                 </form>
 
@@ -157,6 +157,7 @@
         </li>
     </ul>
 </section>
+<script src="/js/disableButtons.js"></script>
 <script src="/js/alert_script.js"></script>
 <script src="/js/popup.js"></script>
 <script src="/js/script.js"></script>

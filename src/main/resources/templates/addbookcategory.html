@@ -30,9 +30,9 @@
         <iconify-icon icon="fluent:book-star-24-filled"style="color: red;" width="60" height="60"></iconify-icon>
       </p>
       <p>Видалити категорію?</p>
-      <form>
+      <form onsubmit="disableButtons()">
         <div class="btn-yes-no">
-          <button id="pop_up_submit" type="button" onclick="submitForm()">Так</button>
+          <button id="pop_up_submit" type="button" onclick="submitForm(); disableButtons()" >Так</button>
           <button class="no" onclick="closepopupwindow()">Ні</button>
         </div>
       </form>
@@ -45,19 +45,18 @@
 <section class="dashboard">
   <div class="top">
     <i class="uil uil-bars sidebar-toggle"></i>
-
-    <div class="search-box">
-
-    </div>
-
-    <img src="" alt="">
   </div>
+
+  <div id="overlay__inner" class="overlay__inner" hidden="hidden">
+    <div class="overlay__content"><span class="spinner"></span></div>
+  </div>
+
   <div class="dash-content">
     <div class="activity">
       <div class="title">
         <i><iconify-icon icon="mdi:book-information-variant"></iconify-icon></i>
         <span class="text">Всі категорії</span>
-        <form method="post" th:action="@{/admin/addbookcategory}" th:object="${newcategory}">
+        <form method="post" th:action="@{/admin/addbookcategory}" th:object="${newcategory}" onsubmit="disableButtons()">
           <div class="user-details">
             <div class="input-box">
               <input type="text" th:field="*{name}" placeholder="Введіть назву категорії" required>
@@ -84,11 +83,11 @@
               <td th:text="${categories.indexOf(category)+1}"></td>
               <td th:text="${category.name}"></td>
               <td class="btnactions">
-                <form th:action="'/admin/deletebookcategory/'+ ${category.id}" method="post">
+                <form th:action="'/admin/deletebookcategory/'+ ${category.id}" method="post" onsubmit="disableButtons()">
                   <button style="background-color: #FF3F40" type="button" title="Видалити категорію" onclick="openpopup(form)"><i class="uil uil-trash-alt"></i></button>
                 </form>
                 <!--ПРОПИСАТЬ ACTION ДЛЯ КНОПКИ-->
-                <form th:action="'/admin/books-by-category/'+ ${category.id}" method="get">
+                <form th:action="'/admin/books-by-category/'+ ${category.id}" method="get" onsubmit="disableButtons()">
                   <button style="background-color: #200edd" title="Книги категорії" type="submit" ><i>Книги категорії</i></button>
                 </form>
             </tr>
@@ -120,7 +119,7 @@
   </ul>
 
 </section>
-
+<script src="/js/disableButtons.js"></script>
 <script src="/js/alert_script.js"></script>
 <script src="/js/popup.js"></script>
 <script src="/js/script.js"></script>

@@ -35,7 +35,7 @@
             <p>Повернути книгу?</p>
             <form>
                 <div class="btn-yes-no">
-                    <button id="pop_up_submit" type="button" onclick="submitForm()">Так</button>
+                    <button id="pop_up_submit" type="button" onclick="submitForm(); disableButtons()">Так</button>
                     <button class="no" onclick="closepopupwindow()">Ні</button>
                 </div>
             </form>
@@ -48,13 +48,12 @@
 <section class="dashboard">
     <div class="top">
         <i class="uil uil-bars sidebar-toggle"></i>
-
-        <div class="search-box">
-
-        </div>
-
-
     </div>
+
+    <div id="overlay__inner" class="overlay__inner" hidden="hidden">
+        <div class="overlay__content"><span class="spinner"></span></div>
+    </div>
+
     <!-- alert!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
     <ul th:if="${param.returned}"class="notifications"  id="message">
         <li class="toast success">

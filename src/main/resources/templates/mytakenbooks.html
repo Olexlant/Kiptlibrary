@@ -31,7 +31,7 @@
                 <div class="button">
                     <a th:href="'/allbooks/'+ ${takenbook.getBook().getId()}" class="btn" th:text="#{mybooks.button1}">Детальніше</a>
                     <div th:if="${takenbook.getBook().isElectronic() and takenbook.getBook().getBookFileUrl().isEmpty()}">
-                        <form th:action="'/readBook'" method="post">
+                        <form th:action="'/readBook'" method="post" onsubmit="disableButtons()">
                             <input name="bookId" th:value="${takenbook.getBook().getId()}" hidden>
                             <button class="btn" th:title="#{mybooks.button2}" type="submit" th:text="#{mybooks.button2}"><i>Переглянути</i></button>
                         </form>
@@ -49,6 +49,7 @@
     </div>
 </div>
 <a href="https://app.service.utog.org/"><span class="btnServiceUTOG"></span></a>
+<script src="/js/disableButtons.js"></script>
 <script src="/js/slider.js"></script>
 </body>
 </html>

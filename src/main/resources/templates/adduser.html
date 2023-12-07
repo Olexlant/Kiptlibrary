@@ -26,21 +26,20 @@
 <nav th:insert="bloks/adminheader :: adminheader"></nav>
 
 <section class="dashboard">
+
     <div class="top">
         <i class="uil uil-bars sidebar-toggle"></i>
+    </div>
 
-        <div class="search-box">
-
-        </div>
-
+    <div id="overlay__inner" class="overlay__inner" hidden="hidden">
+        <div class="overlay__content"><span class="spinner"></span></div>
     </div>
 
     <div class="dash-content">
-
         <div class="container">
             <div class="title"><span>Додавання користувача</span></div>
             <div class="content">
-                <form method="post" th:action="@{/admin/processuseradd}" th:object="${user}">
+                <form method="post" th:action="@{/admin/processuseradd}" th:object="${user}" onsubmit="disableButton()">
                     <div class="user-details">
                         <div class="input-box">
                             <span class="details">Ім'я</span>
@@ -83,10 +82,10 @@
                         </div>
                     </div>
                     <div class="button">
-                        <button type="submit">Додати</button>
+                        <button id="btn" type="submit">Додати</button>
                     </div>
-                </form> </div>
-
+                </form>
+            </div>
         </div>
     </div>
 
@@ -95,8 +94,7 @@
         <li class="toast error">
             <div class="column" >
                 <i class="fa-solid fa-circle-xmark"></i>
-                <span>
-                      Користувач з таким email вже існує</span>
+                <span>Користувач з таким email вже існує</span>
             </div>
             <i class="fa-solid fa-xmark"></i>
         </li>
@@ -106,16 +104,14 @@
         <li class="toast success">
             <div class="column" >
                 <i class="fa-solid fa-circle-check"></i>
-                <span>
-                     Нового корисувача успішно додано</span>
+                <span>Нового корисувача успішно додано</span>
             </div>
             <i class="fa-solid fa-xmark"></i>
         </li>
     </ul>
 
-
 </section>
-
+<script src="/js/addUser.js"></script>
 <script src="/js/alert_script.js"></script>
 <script src="/js/popup.js"></script>
 <script src="/js/script.js"></script>

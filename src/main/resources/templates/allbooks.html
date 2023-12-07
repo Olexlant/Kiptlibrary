@@ -20,7 +20,7 @@
 <body>
 <div class="container">
 	<div class="title-services"><span th:text="#{allbook.title}"></span></div>
-	<form th:action="@{/searchbook}" method="get">
+	<form th:action="@{/searchbook}" method="get" onsubmit="disableButtons()">
 		<input type="text" name="keyword" th:value="${keyword}"  th:placeholder="#{search.placeholder}" size="25" >
 		<button type="submit" style="background-color: #25398e; " class="uil-search"></button>
 	</form>
@@ -47,14 +47,14 @@
 					<a th:href="'/allbooks/'+ ${book.id}" class="btn" th:text="#{allbook.button1}"></a>
 					<div>
 						<div th:if="${likedbooks.contains(book)}">
-							<form th:action="'/likingbook/'+ ${book.id} + '/deletebyuser'" method="post">
+							<form th:action="'/likingbook/'+ ${book.id} + '/deletebyuser'" method="post" onsubmit="disableButtons()">
 								<button class="btn3 icon-trash" type="submit" th:title="#{allbook.button2}">
 									<iconify-icon icon="majesticons:book-minus-line" style="font-size: 26px"></iconify-icon>
 								</button>
 							</form>
 						</div>
 						<div th:if="${!likedbooks.contains(book)}">
-							<form th:action="'/likingbook/'+ ${book.id}" method="post">
+							<form th:action="'/likingbook/'+ ${book.id}" method="post" onsubmit="disableButtons()">
 								<button class="btn3" type="submit" th:title="#{allbook.button3}">
 									<iconify-icon icon="mdi:book-heart-outline" style="font-size: 26px"></iconify-icon>
 								</button>
@@ -103,6 +103,7 @@
 	</ul>
 	</div>
 	<a href="https://app.service.utog.org/"><span class="btnServiceUTOG"></span></a>
+<script src="/js/disableButtons.js"></script>
 <script src="/js/select.js"></script>
 </body>
 </html>

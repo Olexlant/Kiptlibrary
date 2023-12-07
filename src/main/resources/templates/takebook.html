@@ -34,11 +34,10 @@
       <p>Видати книгу?</p>
       <form class="input-number">
         <div class="btn-yes-no">
-          <button id="pop_up_submit" type="button" onclick="submitForm()">Видати</button>
+          <button id="pop_up_submit" type="button" onclick="submitForm(); disableButtons()">Видати</button>
           <button class="no" onclick="closepopupwindow()">Назад</button>
         </div>
       </form>
-
     </div>
   </div>
 </div>
@@ -47,12 +46,10 @@
 <section class="dashboard">
   <div class="top">
     <i class="uil uil-bars sidebar-toggle"></i>
+  </div>
 
-    <div class="search-box">
-
-    </div>
-
-    <img src="" alt="">
+  <div id="overlay__inner" class="overlay__inner" hidden="hidden">
+    <div class="overlay__content"><span class="spinner"></span></div>
   </div>
 
   <div class="dash-content">
@@ -60,7 +57,7 @@
       <div class="title">
         <i><iconify-icon icon="wpf:books"></iconify-icon></i>
         <span class="text">Оберіть книгу</span>
-        <form th:action="@{/searchbooktakebook} + '/'+ ${userid}" method="get">
+        <form th:action="@{/searchbooktakebook} + '/'+ ${userid}" method="get" onsubmit="disableButtons()">
           <input type="text" name="keyword" th:value="${keyword}" class="inp" placeholder="Пошук" size="50" >
           <button type="submit" style="background-color: #25398e; " class="uil-search"></button>
         </form>
@@ -87,7 +84,7 @@
               <td th:text="${book.getTitle()}"></td>
               <td th:text="${book.getAuthor()}"></td>
               <td th:text="${book.getYear()}"></td>
-              <form th:action="'/admin/assigningbook/'+ ${userid}+'/'+${book.getId()}" method="post">
+              <form th:action="'/admin/assigningbook/'+ ${userid}+'/'+${book.getId()}" method="post" onsubmit="disableButtons()">
               <div th:unless="${book.isElectronic()}">
                 <td><input type="text" name="bookNumber" placeholder="Номер книги"></td>
               </div>
@@ -123,6 +120,7 @@
     </th:block>
   </ul>
 </section>
+<script src="/js/disableButtons.js"></script>
 <script src="/js/alert_script.js"></script>
 <script src="/js/popup.js"></script>
 <script src="/js/script.js"></script>

@@ -31,7 +31,7 @@
             <p>Видати книгу?</p>
             <form>
                 <div class="btn-yes-no">
-                    <button id="pop_up_submit" type="button" onclick="submitForm()">Так</button>
+                    <button id="pop_up_submit" type="button" onclick="submitForm(); disableButtons()">Так</button>
                     <button class="no" onclick="closepopupwindow()">Ні</button>
                 </div>
             </form>
@@ -48,7 +48,7 @@
             <p>Видалити замовлення?</p>
             <form>
                 <div class="btn-yes-no">
-                    <button id="pop_up_submit1" type="button" onclick="submitForm2()">Так</button>
+                    <button id="pop_up_submit1" type="button" onclick="submitForm2(); disableButtons()">Так</button>
                     <button class="no" onclick="closepopupwindow2()">Ні</button>
                 </div>
             </form>
@@ -59,12 +59,10 @@
 <section class="dashboard">
     <div class="top">
         <i class="uil uil-bars sidebar-toggle"></i>
+    </div>
 
-        <div class="search-box">
-
-        </div>
-
-        <img src="" alt="">
+    <div id="overlay__inner" class="overlay__inner" hidden="hidden">
+        <div class="overlay__content"><span class="spinner"></span></div>
     </div>
 
     <div class="dash-content">
@@ -104,7 +102,7 @@
 
                             <td th:text="${bookOrder.getBook().getQrid()}"></td>
                             <td th:text="${bookOrder.getBook().getYear()}"></td>
-                            <form th:action="'/admin/assigningbook/'+ ${bookOrder.getUser().getId()}+'/'+${bookOrder.getBook().getId()}" method="post">
+                            <form th:action="'/admin/assigningbook/'+ ${bookOrder.getUser().getId()}+'/'+${bookOrder.getBook().getId()}" method="post" onsubmit="disableButtons()">
                             <td th:unless="${bookOrder.getBook().isElectronic()}">
                                 <input size="12" type="text" name="bookNumber" placeholder="Номер книги">
                             </td>
@@ -117,7 +115,7 @@
                                         <button style="background-color: #258e47; margin-bottom: 2px;" type="button" onclick="openpopup(form)" ><i style="font-style: initial;"> Видати книгу</i></button>
                                     </div>
                                 </form>
-                                <form th:action="'/admin/bookorders/'+ ${bookOrder.getId()}+'/delete'" method="post">
+                                <form th:action="'/admin/bookorders/'+ ${bookOrder.getId()}+'/delete'" method="post" onsubmit="disableButtons()">
                                     <div class="btnactions1_1">
                                         <button style="background-color: #FF3F40;  width:116px;"  type="button" onclick="openpopup2(form)" title="Видалити замовлення"><i style="font-style: initial;">Видалити</i></button>
                                     </div>
@@ -160,7 +158,7 @@
         </li>
     </ul>
 </section>
-
+<script src="/js/disableButtons.js"></script>
 <script src="/js/alert_script.js"></script>
 <script src="/js/popup.js"></script>
 <script src="/js/script.js"></script>

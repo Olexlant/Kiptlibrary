@@ -28,17 +28,15 @@
   <div class="pop_up_container">
     <div class="pop_up_body" id="pop_up_body">
       <p>
-
         <iconify-icon icon="uil:trash-alt" style="color: red;" width="60" height="60"></iconify-icon>
       </p>
       <p>Видалити книгу?</p>
       <form>
         <div class="btn-yes-no">
-          <button id="pop_up_submit" type="button" onclick="submitForm()">Так</button>
+          <button id="pop_up_submit" type="button" onclick="submitForm(); disableButtons()">Так</button>
           <button class="no" onclick="closepopupwindow()">Ні</button>
         </div>
       </form>
-
     </div>
   </div>
 </div>
@@ -47,12 +45,6 @@
 <section class="dashboard" >
   <div class="top">
     <i class="uil uil-bars sidebar-toggle"></i>
-
-    <div class="search-box">
-
-    </div>
-
-
   </div>
 
   <ul th:if="${param.notreturn}" class="notifications"  id="message">
@@ -65,8 +57,6 @@
       <i class="fa-solid fa-xmark"></i>
     </li>
   </ul>
-
-
 
   <div class="dash-content" >
     <div class="activity">
@@ -103,19 +93,17 @@
               <td th:if="${takenbook.getBook().isElectronic()}" th:text="${'Електронна'}"></td>
               <td th:text="${takenbook.getTakenat()}" th:title="${'Повернути до: '+takenbook.getReturnExpiresAt()}"></td>
               <td class="btnactions">
-                <form th:action="'/admin/assignedbooks/'+ ${takenbook.getId()}+'/remove'" method="post">
+                <form th:action="'/admin/assignedbooks/'+ ${takenbook.getId()}+'/remove'" method="post" onsubmit="disableButtons()">
                   <button style="background-color: #FF3F40" type="button" title="Повернути" onclick="openpopup(form)"><i class="uil uil-trash-alt"></i></button>
                 </form>
             </tr>
             </tbody>
-
           </table>
         </div>
       </div>
-
     </div></div>
 </section>
-
+<script src="/js/disableButtons.js"></script>
 <script src="/js/alert_script.js"></script>
 <script src="/js/popup.js"></script>
 <script src="/js/script.js"></script>

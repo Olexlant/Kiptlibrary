@@ -28,12 +28,10 @@
 <section class="dashboard">
     <div class="top">
         <i class="uil uil-bars sidebar-toggle"></i>
+    </div>
 
-        <div class="search-box">
-
-        </div>
-
-
+    <div id="overlay__inner" class="overlay__inner" hidden="hidden">
+        <div class="overlay__content"><span class="spinner"></span></div>
     </div>
 
     <div class="dash-content">
@@ -41,7 +39,7 @@
             <div class="title">
                 <i><iconify-icon icon="ion:people-sharp"></iconify-icon></i>
                 <span class="text">Оберіть користувача</span>
-                <form th:action="@{/searchusertakebook}" method="get">
+                <form th:action="@{/searchusertakebook}" method="get" onsubmit="disableButtons()">
                     <input type="text" name="keyword" th:value="${keyword}"  placeholder="Пошук" size="50" >
                     <button type="submit" style="background-color: #25398e; " class="uil-search"></button>
                 </form>
@@ -73,7 +71,7 @@
                             <td th:text="${user.email}"></td>
                             <td th:text="${user.phonenum}"></td>
                             <td class="btnactions">
-                                <form th:action="'/admin/takebook/'+${user.id}" method="get">
+                                <form th:action="'/admin/takebook/'+${user.id}" method="get" onsubmit="disableButtons()">
                                     <button style="background-color: #25398e" type="submit"><i class="uil uil-user-check"> Обрати</i></button>
                                 </form>
                             </td>
@@ -102,6 +100,7 @@
         </th:block>
     </ul>
 </section>
+<script src="/js/disableButtons.js"></script>
 <script src="/js/alert_script.js"></script>
 <script src="/js/popup.js"></script>
 <script src="/js/script.js"></script>

@@ -30,7 +30,7 @@
                 <p th:text="( ${likedbook.getBook().getAuthor().length() > 30} ) ? #{favbooks.topic1} + ${#strings.substring(likedbook.getBook().getAuthor(),0,30)} + '…' : #{favbooks.topic1} + ${likedbook.getBook().getAuthor()}"></p>
                 <div class="button">
                     <a th:href="'/allbooks/'+ ${likedbook.getBook().getId()}" class="btn" th:text="#{favbooks.button1}">Детальніше</a>
-                    <form th:action="'/myfavouritebooks/'+ ${likedbook.getId()}+'/remove'" method="post">
+                    <form th:action="'/myfavouritebooks/'+ ${likedbook.getId()}+'/remove'" method="post" onsubmit="disableButtons()">
                         <button class="btn" type="submit" th:text="#{favbooks.button2}">Видалити</button>
                     </form>
                 </div>
@@ -43,6 +43,7 @@
     </div>
 </div>
 <a href="https://app.service.utog.org/"><span class="btnServiceUTOG"></span></a>
+<script src="/js/disableButtons.js"></script>
 <script src="/js/slider.js"></script>
 </body>
 </html>
