@@ -548,7 +548,6 @@ nav.close ~ .dashboard{
     justify-content: space-between;
     align-items: center;
     padding: 10px 14px;
-    background-color: var(--panel-color);
     transition: var(--tran-05);
     z-index: 10;
 }

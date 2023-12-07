@@ -27,22 +27,20 @@
 <body>
 <nav th:insert="bloks/adminheader :: adminheader"></nav>
 <section class="dashboard">
-    <div class="top">
-        <i class="uil uil-bars sidebar-toggle"></i>
-
-        <div class="search-box">
-
+    <div>
+        <div id="overlay__inner" class="overlay__inner" hidden="hidden">
+            <div class="overlay__content"><span class="spinner"></span></div>
+            <div class="top">
+                <i class="uil uil-bars sidebar-toggle"></i>
+            </div>
         </div>
-
-        <img src="" alt="">
     </div>
 
     <div class="dash-content">
-
         <div class="container2">
             <div class="title"><span>Додавання книги</span></div>
             <div class="content">
-                <form method="post" th:action="@{/admin/book_adding}" th:object="${book}" enctype="multipart/form-data">
+                <form method="post" th:action="@{/admin/book_adding}" th:object="${book}" enctype="multipart/form-data" onsubmit='disableButton()'>
                     <div class="user-details">
                         <div class="input-box">
                             <span class="details">Назва</span>
@@ -74,7 +72,7 @@
                         <textarea th:field="*{description}" placeholder="Опис книги"  rows="6" ></textarea>
                     </div>
                     <div class="button">
-                        <button type="submit">Додати</button>
+                        <button id="btn" type="submit">Додати</button>
                     </div>
                 </form>
             </div>
@@ -94,6 +92,7 @@
         </li>
     </ul>
 </section>
+<script src="/js/addBook.js"></script>
 <script src="/js/alert_script.js"></script>
 <script src="/js/popup.js"></script>
 <script src="/js/script.js"></script>
