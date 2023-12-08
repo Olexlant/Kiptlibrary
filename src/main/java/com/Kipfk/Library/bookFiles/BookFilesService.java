@@ -13,20 +13,19 @@ public class BookFilesService {
         this.bookFilesRepository = bookFilesRepository;
     }
 
-    public BookFiles addBookFile(MultipartFile book, Long appBookId) throws IOException {
+    public BookFiles addBookFile(MultipartFile book) throws IOException {
         BookFiles newBookFile = new BookFiles();
         newBookFile.setBookFile(book.getBytes());
         newBookFile.setBookFileContentType(book.getContentType());
         newBookFile.setBookFileName(book.getOriginalFilename());
-        newBookFile.setAppBookId(appBookId);
         bookFilesRepository.save(newBookFile);
         return newBookFile;
     }
 
-    public void deleteBookFileByAppBookId(Long appBookId){
-        bookFilesRepository.deleteAllByAppBookId(appBookId);
+    public void deleteBookFileById(Long fileId){
+        bookFilesRepository.deleteAllById(fileId);
     }
-    public BookFiles getBookFileByAppBookId(Long appBookId){
-        return bookFilesRepository.findBookFilesByAppBookId(appBookId);
+    public BookFiles getBookFileById(Long fileId){
+        return bookFilesRepository.findBookFilesById(fileId);
     }
 }

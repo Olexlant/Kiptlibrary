@@ -54,6 +54,16 @@ public class AdminBookController {
             Images bookImg = imagesService.addImageFile(multipartFiles[0]);
             appBook.setBookImgId(bookImg.getId());
         }
+        if(appBook.getBookFileUrl().isEmpty()){
+            if (!multipartFiles[1].isEmpty()){
+                BookFiles bookFile = bookFilesService.addBookFile(multipartFiles[1]);
+                appBook.setBookFileId(bookFile.getId());
+                appBook.setElectronic(true);
+            }
+        }else {
+            bookFilesService.deleteBookFileById(appBook.getBookFileId());
+            appBook.setElectronic(true);
+        }
         appBookService.bookadd(appBook);
         appBookRepository.save(appBook);
         try {
@@ -64,16 +74,6 @@ public class AdminBookController {
             e.printStackTrace();
         }
         appBook.setQrid(String.format("%06d", appBook.getId()));
-        if(appBook.getBookFileUrl().isEmpty()){
-            if (!multipartFiles[1].isEmpty()){
-                BookFiles bookFile = bookFilesService.addBookFile(multipartFiles[1],appBook.getId());
-                appBook.setBookFileId(bookFile.getId());
-                appBook.setElectronic(true);
-            }
-        }else {
-            bookFilesService.deleteBookFileByAppBookId(appBook.getId());
-            appBook.setElectronic(true);
-        }
         appBookRepository.save(appBook);
         return "redirect:/admin/addbook?success";
     }
@@ -134,13 +134,13 @@ public class AdminBookController {
         if(bookFileUrl.isEmpty()){
             book.setBookFileUrl("");
             if (!multipartFiles[1].isEmpty()){
-                bookFilesService.deleteBookFileByAppBookId(book.getId());
-                BookFiles bookFile = bookFilesService.addBookFile(multipartFiles[1], book.getId());
+                bookFilesService.deleteBookFileById(book.getBookFileId());
+                BookFiles bookFile = bookFilesService.addBookFile(multipartFiles[1]);
                 book.setBookFileId(bookFile.getId());
                 book.setElectronic(true);
             }
         }else {
-            bookFilesService.deleteBookFileByAppBookId(book.getId());
+            bookFilesService.deleteBookFileById(book.getBookFileId());
             book.setBookFileId(null);
             book.setBookFileUrl(bookFileUrl);
             book.setElectronic(true);
@@ -159,7 +159,7 @@ public class AdminBookController {
             bookCategoryRepository.deleteAllByBookId(id);
             booksByGroupsRepository.deleteAllByBookId(id);
             bookOrdersRepository.deleteAllByBookId(id);
-            bookFilesService.deleteBookFileByAppBookId(id);
+            bookFilesService.deleteBookFileById(book.getBookFileId());
             imagesService.deleteImageById(book.getBookImgId());
             imagesService.deleteImageById(book.getQrImgId());
             appBookRepository.deleteById(id);

@@ -22,7 +22,6 @@ public class BookFiles {
             generator = "book_files_sequence"
     )
     private Long id;
-    private Long appBookId;
     private byte[] bookFile;
     private String bookFileName;
     private String bookFileContentType;

@@ -108,7 +108,8 @@ public class BookController {
 //DOWNLOAD BOOK FILE
     @RequestMapping("/allbooks/{id}/download")
     public ResponseEntity<byte[]> getFile(@PathVariable Long id, HttpServletResponse response) {
-        BookFiles bookFile =bookFilesService.getBookFileByAppBookId(id);
+        AppBookRepository.BookNoFileAndPhoto book = appBookRepository.findAppBookById(id);
+        BookFiles bookFile =bookFilesService.getBookFileById(book.getBookFileId());
         if (bookFile.getBookFile()!=null){
             HttpHeaders headers = new HttpHeaders();
             ContentDisposition contentDisposition = ContentDisposition.builder("attachment")

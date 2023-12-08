@@ -15,6 +15,7 @@ public interface AppBookRepository extends JpaRepository<AppBook, Long>, JpaSpec
         Long getId();
         String getQrid();
         Long getBookImgId();
+        Long getBookFileId();
         Long getQrImgId();
         Long getYear();
         Long getCount();
