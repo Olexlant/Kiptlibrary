@@ -9,12 +9,17 @@ import java.util.List;
 
 @Repository
 public interface LikedBooksRepository extends JpaRepository<LikedBooks,Long> {
-    List<LikedBooks> findByUser(AppUser appUser);
+    List<LikedBooks> findLikedBooksByUserEmail(String userEmail);
     List<LikedBooks> findByUserAndBook(AppUser appUser, AppBook appBook);
     LikedBooks findByBookAndUser(AppBook appBook,AppUser appUser);
     List<LikedBooks> findAllByUser(AppUser user);
     List<LikedBooks> findAllByBook(AppBook book);
+    boolean existsByUserAndBookId(AppUser user, Long bookId);
 
+    @Transactional
+    void deleteAllByUserEmailAndId(String userEmail, Long bookId);
+    @Transactional
+    void deleteAllByUserAndBookId(AppUser user, Long bookId);
     @Transactional
     void deleteAllByBookId(Long bookId);
     @Transactional

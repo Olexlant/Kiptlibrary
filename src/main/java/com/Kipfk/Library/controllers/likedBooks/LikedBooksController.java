@@ -33,41 +33,39 @@ public class LikedBooksController {
     @PostMapping("/likingbook/{id}")
     public String createlikedbook(@AuthenticationPrincipal UserDetails userDetails, LikedBooks likedBooks, @PathVariable(value = "id") long bookid) {
         AppUser user = (AppUser) appUserService.loadUserByUsername(userDetails.getUsername());
-        likedBooks.setUser(user);
-        AppBook book = appBookRepository.findAllByIdOrderByTitle(bookid);
-        likedBooks.setBook(book);
-        likedBooks.setAddedat(LocalDate.now());
-
-        boolean uniquelb = likedBooksRepository.findByUserAndBook(user, book).isEmpty();
-        if (uniquelb){
+        if (likedBooksRepository.existsByUserAndBookId(user,bookid)){
+            return "redirect:/allbooks?alreadyLiked";
+        }else {
+            likedBooks.setUser(user);
+            AppBook book = appBookRepository.findAllByIdOrderByTitle(bookid);
+            likedBooks.setBook(book);
+            likedBooks.setAddedat(LocalDate.now());
             likedBooksRepository.save(likedBooks);
+            return "redirect:/allbooks?addedToFavourite";
         }
-        return "redirect:/allbooks";
     }
 
     @PostMapping("/likingbook/{id}/deletebyuser")
     public String deletelikedbookbyuser(@AuthenticationPrincipal UserDetails userDetails, @PathVariable(value = "id") long bookid) {
         AppUser user = (AppUser) appUserService.loadUserByUsername(userDetails.getUsername());
-        AppBook book = appBookRepository.findAllByIdOrderByTitle(bookid);
-        LikedBooks likedbook = likedBooksRepository.findByBookAndUser(book, user);
-        likedBooksRepository.delete(likedbook);
-        return "redirect:/allbooks";
+        likedBooksRepository.deleteAllByUserAndBookId(user, bookid);
+        return "redirect:/allbooks?deletedFromFavourite";
     }
 
 //USER FAVOURITE BOOKS
     @GetMapping("/myfavouritebooks")
     public String showUserFavouriteBooks(@AuthenticationPrincipal UserDetails userDetails, Model model){
         AppUser user = (AppUser) appUserService.loadUserByUsername(userDetails.getUsername());
-        List<LikedBooks> likedBooks = likedBooksRepository.findByUser(user);
+        List<LikedBooks> likedBooks = likedBooksRepository.findLikedBooksByUserEmail(userDetails.getUsername());
         model.addAttribute("likedbooks", likedBooks);
         if (user.getAddress()==null || user.getBirthday()==null){
             return "redirect:/editprofile?nodata";
         }
         return "myfavouritebooks";
     }
-    @PostMapping("/myfavouritebooks/{id}/remove")
-    public String removelikedbooks(@PathVariable(value = "id") long id) {
-        likedBooksRepository.deleteById(id);
-        return "redirect:/myfavouritebooks";
+    @PostMapping("/myfavouritebooks/{likeId}/remove")
+    public String removelikedbooks(@AuthenticationPrincipal UserDetails userDetails, @PathVariable(value = "likeId") long likeId) {
+        likedBooksRepository.deleteAllByUserEmailAndId(userDetails.getUsername(), likeId);
+        return "redirect:/myfavouritebooks?deletedFromFavourite";
     }
 }

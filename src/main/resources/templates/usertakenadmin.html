@@ -30,7 +30,7 @@
       <p>
         <iconify-icon icon="uil:trash-alt" style="color: red;" width="60" height="60"></iconify-icon>
       </p>
-      <p>Видалити книгу?</p>
+      <p>Повернути книгу?</p>
       <form>
         <div class="btn-yes-no">
           <button id="pop_up_submit" type="button" onclick="submitForm(); disableButtons()">Так</button>
@@ -94,7 +94,7 @@
               <td th:text="${takenbook.getTakenat()}" th:title="${'Повернути до: '+takenbook.getReturnExpiresAt()}"></td>
               <td class="btnactions">
                 <form th:action="'/admin/assignedbooks/'+ ${takenbook.getId()}+'/remove'" method="post" onsubmit="disableButtons()">
-                  <button style="background-color: #FF3F40" type="button" title="Повернути" onclick="openpopup(form)"><i class="uil uil-trash-alt"></i></button>
+                  <button style="background-color: #219e25" type="button" title="Повернути книгу" onclick="openpopup(form)"><i><iconify-icon icon="ion:arrow-back-circle" rotate="180deg"></iconify-icon></i></button>
                 </form>
             </tr>
             </tbody>

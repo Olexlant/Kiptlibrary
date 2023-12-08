@@ -103,12 +103,12 @@
             <div class="title">
                 <i><iconify-icon icon="mdi:book-arrow-up"></iconify-icon></i>
                 <span class="text">Видані книги</span>
-                <form th:action="@{/admin/searchassignedbooks}" method="get">
+                <form th:action="@{/admin/searchassignedbooks}" method="get" onsubmit="disableButtons()">
                     <input type="text" name="keyword" th:value="${keyword}"  placeholder="Пошук" size="50" >
                     <button type="submit" style="background-color: #25398e; " class="uil-search"></button>
                 </form>
 <!--                ИСТОРИЯ ВИДАНИХ КНИГ-->
-                <form th:action="@{/admin/assignedbooks/history}" method="get">
+                <form th:action="@{/admin/assignedbooks/history}" method="get" onsubmit="disableButtons()">
                     <button  type="submit" style="background-color: #006b49; "  title="Історія повернутих книг"><p class="uil-history" style="font-size:16px;"> Історія виданих книг</p></button>
                 </form>
             </div>
@@ -145,15 +145,15 @@
                             <td th:text="${takenbook.getTakenat()}" th:title="${'Повернути до: '+takenbook.getReturnExpiresAt()}"></td>
                             <td>
                                 <div  class="btnactions">
-                                <form th:action="'/admin/usertakenadmin/'+ ${takenbook.getUser().getId()}" method="get">
+                                <form th:action="'/admin/usertakenadmin/'+ ${takenbook.getUser().getId()}" method="get" onsubmit="disableButtons()">
                                     <button style="background-color: #25398e" type="submit" title="Книги користувача"><i><iconify-icon icon="wpf:books"></iconify-icon></i></button>
                                 </form>
-                                <form th:action="'/admin/assignedbooks/'+ ${takenbook.getId()}+'/remove'" method="post">
+                                <form th:action="'/admin/assignedbooks/'+ ${takenbook.getId()}+'/remove'" method="post" onsubmit="disableButtons()">
                                     <button style="background-color: #219e25" type="button" title="Повернути книгу" onclick="openpopup(form)"><i><iconify-icon icon="ion:arrow-back-circle" rotate="180deg"></iconify-icon></i></button>
                                 </form>
                                 </div>
                                 <div  class="look-file" th:if="${takenbook.getBook().isElectronic()}">
-                                    <form th:if="${takenbook.getBook().getBookFileUrl().isEmpty()}" th:action="'/readBook'" method="post">
+                                    <form th:if="${takenbook.getBook().getBookFileUrl().isEmpty()}" th:action="'/readBook'" method="post" onsubmit="disableButtons()">
                                         <input name="bookId" th:value="${takenbook.getBook().getId()}" hidden>
                                         <button style="background-color: #200edd" title="Переглянути файл" type="submit" ><i>Файл книги</i></button>
                                     </form>
@@ -163,7 +163,6 @@
                             </td>
                         </tr>
                         </tbody>
-
                     </table>
                 </div>
             </div>
@@ -186,6 +185,7 @@
         </th:block>
     </ul>
 </section>
+<script src="/js/disableButtons.js"></script>
 <script src="/js/alert_script.js"></script>
 <script src="/js/popup.js"></script>
 <script src="/js/script.js"></script>

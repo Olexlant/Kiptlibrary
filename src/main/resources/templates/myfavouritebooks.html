@@ -5,13 +5,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="#{favbooks.title}">Мої улюблені книги</title>
+    <title th:text="#{allbook.title}"></title>
     <link href="/css/allbook.css" type="text/css" rel="stylesheet" th:href="@{/css/allbook.css}">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <script src="https://code.iconify.design/iconify-icon/1.0.2/iconify-icon.min.js"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.3/iconify-icon.min.js"></script>
+    <!-- Font Awesome CDN link for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Exo+2:wght@300&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,8 +44,21 @@
         </div>
     </div>
 </div>
+
+<ul th:if="${param.deletedFromFavourite}"  class="notifications"  id="message">
+    <li class="toast success">
+        <div class="column" >
+            <i class="fa-solid fa-circle-check"></i>
+            <span th:text="#{allbook.alert.deletedFromFavourite}"></span>
+        </div>
+        <i class="fa-solid fa-xmark"></i>
+    </li>
+</ul>
+
 <a href="https://app.service.utog.org/"><span class="btnServiceUTOG"></span></a>
 <script src="/js/disableButtons.js"></script>
+<script src="/js/alert_script.js"></script>
 <script src="/js/slider.js"></script>
+<script src="https://code.iconify.design/iconify-icon/1.0.3/iconify-icon.min.js"></script>
 </body>
 </html>
