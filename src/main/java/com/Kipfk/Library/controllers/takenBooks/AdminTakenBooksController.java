@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -53,6 +54,7 @@ public class AdminTakenBooksController {
         return "takebook";
     }
 
+    @Transactional
     @PostMapping("/admin/assigningbook/{userid}/{bookid}")
     public String createtakenbook(TakenBooks takenBooks, @PathVariable Long userid, @PathVariable Long bookid, @RequestParam("takeCount") Optional<Long> takeCount, @RequestParam(required = false) String bookNumber ) {
         boolean uniquetb = takenBooksRepository.existsByUserIdAndBookIdAndDeletedIsFalse(userid, bookid);
@@ -105,6 +107,7 @@ public class AdminTakenBooksController {
         return "redirect:/admin/assignedbooks/history?deleted";
     }
 
+    @Transactional
     @PostMapping("/admin/assignedbooks/{id}/remove")
     public String removeassignedbooks(@PathVariable(value = "id") Long id) {
         TakenBooks tb = takenBooksRepository.findById(id).orElseThrow();

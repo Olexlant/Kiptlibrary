@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.Transactional;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -48,6 +49,7 @@ public class UserController {
         model.addAttribute("user", new AppUser());
         return "signup_form";
     }
+    @Transactional
     @PostMapping("/process_register")
     public String signUp(AppUser user, @RequestParam String groupid,@RequestHeader String host) {
         if (appUserRepository.existsByEmail(user.getEmail())){
@@ -58,7 +60,7 @@ public class UserController {
                 return "redirect:/login?confirmEmail";
             }
         }
-        if(groupid.equals("")){
+        if(groupid.isEmpty()){
             user.setGroups(null);
         }else{
             user.setGroups(groupsRepository.findAllById(Long.valueOf(groupid)));
@@ -95,7 +97,7 @@ public class UserController {
         if (!imgfile.isEmpty()){
             user.setProfileimage(imgfile.getBytes());
         }
-        if (groupid.equals("")){
+        if (groupid.isEmpty()){
             user.setGroups(null);
         }else{
             user.setGroups(groupsRepository.findAllById(Long.valueOf(groupid)));
@@ -111,6 +113,7 @@ public class UserController {
         return "sendresetpasswordmail";
     }
 
+    @Transactional
     @PostMapping("/resetpassword")
     public String sendResetPasswordMail(@RequestParam String email, @RequestHeader String host){
         if (appUserRepository.findByEmail(email).isPresent()){
@@ -130,6 +133,7 @@ public class UserController {
         model.addAttribute("token", token);
         return "resetpassword";
     }
+    @Transactional
     @PostMapping("/resetpassword/reset")
     public String changePasswordByMail(@RequestParam String newpassword, @RequestParam String confirmnewpassword, @RequestParam(required=false,name="token") String token) {
         if (newpassword.equals(confirmnewpassword)){
@@ -140,6 +144,7 @@ public class UserController {
     }
 
     //CHANGE PASSWORD IN PROFILE
+    @Transactional
     @PostMapping("/editprofile/changepassword")
     public String changePasswordInProfile(@AuthenticationPrincipal UserDetails userDetails,@RequestParam String currentpassword,@RequestParam String newpassword, @RequestParam String confirmnewpassword) {
         AppUser user = (AppUser) appUserService.loadUserByUsername(userDetails.getUsername());

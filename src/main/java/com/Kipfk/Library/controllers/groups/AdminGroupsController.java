@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Getter
@@ -38,6 +39,7 @@ public class AdminGroupsController {
         groupsRepository.save(groups);
         return "redirect:/admin/groups?success";
     }
+    @Transactional
     @PostMapping("/admin/groups/{groupid}/delete")
     public String deleteGroup(@PathVariable Long groupid) {
         List<AppUser> users = appUserRepository.findAllByGroups_IdOrderByLastName(groupid);

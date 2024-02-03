@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -46,6 +47,7 @@ public class AdminNewsController {
         return "add-news";
     }
 
+    @Transactional
     @PostMapping("/admin/news_adding")
     public String newsAdd(News news,@RequestParam("files") MultipartFile[] multipartFiles) throws IOException {
         news.setNewsPhoto(multipartFiles[0].getBytes());
@@ -68,7 +70,7 @@ public class AdminNewsController {
         model.addAttribute("news", news);
         return "news-edit";
     }
-
+    @Transactional
     @PostMapping("/admin/news/{newsid}/edit")
     public String editOneNews(@PathVariable Long newsid,@RequestParam String title, @RequestParam String description, @RequestParam("files") MultipartFile[] multipartFiles) throws IOException {
         News news = newsRepository.findAllById(newsid);
@@ -91,6 +93,7 @@ public class AdminNewsController {
         newsRepository.save(news);
         return "redirect:/admin/news?saved";
     }
+    @Transactional
     @PostMapping("/admin/news/{newsid}/delete")
     public String newsDelete(@PathVariable Long newsid){
         newsFilesStorageRepository.deleteAllByNews_Id(newsid);

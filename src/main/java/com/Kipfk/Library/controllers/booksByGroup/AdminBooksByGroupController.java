@@ -52,10 +52,10 @@ public class AdminBooksByGroupController {
 
     @PostMapping("/admin/booksbygroup/{groupid}/{bookid}")
     public String addBookToGroup( @PathVariable Long groupid,@PathVariable Long bookid) {
-        Groups group = groupsRepository.findAllById(groupid);
-        AppBook book = appBookRepository.findAllByIdOrderByTitle(bookid);
         boolean ispresent = booksByGroupsRepository.existsByGroups_IdAndBook_Id(groupid, bookid);
         if (!ispresent){
+            Groups group = groupsRepository.findAllById(groupid);
+            AppBook book = appBookRepository.findAllByIdOrderByTitle(bookid);
             BooksByGroups booksByGroups = new BooksByGroups();
             booksByGroups.setGroups(group);
             booksByGroups.setBook(book);

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -46,6 +47,7 @@ public class AdminBookController {
         return "addbook";
     }
 
+    @Transactional
     @PostMapping("/admin/book_adding")
     public String bookadd(AppBook appBook,@RequestParam("files") MultipartFile[] multipartFiles) throws IOException {
         if (multipartFiles[0] == null){
@@ -114,6 +116,7 @@ public class AdminBookController {
         model.addAttribute("book", book);
         return "bookadminedit";
     }
+    @Transactional
     @PostMapping("/admin/allbooksadmin/{id}/edit")
     public String AdminBookUpdate(@PathVariable(value = "id") long id, @RequestParam String title, @RequestParam String author, @RequestParam Long year, @RequestParam("files") MultipartFile[] multipartFiles,@RequestParam String bookFileUrl, @RequestParam String description, @RequestParam Long count, @RequestParam Long daysToReturn) throws IOException {
         AppBook book = appBookRepository.findAllByIdOrderByTitle(id);
@@ -148,6 +151,7 @@ public class AdminBookController {
         appBookRepository.save(book);
         return "redirect:/admin/allbooksadmin?changessaved";
     }
+    @Transactional
     @PostMapping("/admin/allbooksadmin/{id}/remove")
     public String AdminBookDelete(@PathVariable(value = "id") long id) {
         if (takenBooksRepository.existsByBookIdAndDeletedIsFalse(id)){

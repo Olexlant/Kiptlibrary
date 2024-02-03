@@ -1,8 +1,8 @@
 package com.Kipfk.Library.controllers.user;
 
-import com.Kipfk.Library.appbook.*;
+import com.Kipfk.Library.appbook.AppBookService;
+import com.Kipfk.Library.appbook.BookOrdersRepository;
 import com.Kipfk.Library.appuser.*;
-import com.Kipfk.Library.registration.token.ConfirmationToken;
 import com.Kipfk.Library.registration.token.ConfirmationTokenRepository;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,12 +17,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.time.LocalDateTime;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -47,13 +45,14 @@ public class AdminUserController {
         return "adduser";
     }
 
+    @Transactional
     @PostMapping("/admin/processuseradd")
     public String signUpByAdd(AppUser user, @RequestParam String groupid, @RequestParam String role) {
         boolean UserExists = appUserRepository.findByEmail(user.getEmail()).isPresent();
         if(UserExists){
             return "redirect:/admin/adduser?emailpresent";
         }
-        if (groupid.equals("")){
+        if (groupid.isEmpty()){
             user.setGroups(null);
         }else {
             user.setGroups(groupsRepository.findAllById(Long.valueOf(groupid)));
@@ -107,6 +106,7 @@ public class AdminUserController {
         model.addAttribute("userd", ruser);
         return "useradminedit";
     }
+    @Transactional
     @PostMapping("/admin/allusers/{id}/edit")
     public String AdminUserUpdate(@PathVariable(value = "id") long id,@RequestParam String firstname, @RequestParam String lastname, @RequestParam String phonenum, @RequestParam String password, @RequestParam String groupid,@RequestParam String role) {
         AppUser user = appUserRepository.findById(id).orElseThrow();
@@ -114,7 +114,7 @@ public class AdminUserController {
         user.setLastName(lastname);
         user.setPhonenum(phonenum);
         user.setPassword(password);
-        if (groupid.equals("")){
+        if (groupid.isEmpty()){
             user.setGroups(null);
         }else {
             user.setGroups(groupsRepository.findAllById(Long.valueOf(groupid)));
@@ -131,10 +131,10 @@ public class AdminUserController {
         appUserRepository.save(user);
         return "redirect:/admin/allusers?changessaved";
     }
+    @Transactional
     @PostMapping("/admin/allusers/{id}/remove")
     public String AdminUserDelete(@PathVariable(value = "id") long id) {
         AppUser user = appUserRepository.findById(id).orElseThrow();
-        boolean tokenpresent = confirmationTokenRepository.findByAppUser(user).isPresent();
         boolean takenBookspresent = takenBooksRepository.findByUserAndDeletedIsFalse(user).isEmpty();
         if (!takenBookspresent){
             return "redirect:/admin/usertakenadmin/"+id+"?notreturn";

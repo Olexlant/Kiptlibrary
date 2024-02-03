@@ -25,11 +25,11 @@ public class TakenBooksController {
     @GetMapping("/mytakenbooks")
     public String showUserAssigned(@AuthenticationPrincipal UserDetails userDetails, Model model){
         AppUser user = (AppUser) appUserService.loadUserByUsername(userDetails.getUsername());
-        List<TakenBooks> takenBooks = takenBooksRepository.findAllByUserAndDeletedIsFalse(user);
-        model.addAttribute("takenbooks", takenBooks);
         if (user.getAddress()==null || user.getBirthday()==null){
             return "redirect:/editprofile?nodata";
         }
+        List<TakenBooks> takenBooks = takenBooksRepository.findAllByUserAndDeletedIsFalse(user);
+        model.addAttribute("takenbooks", takenBooks);
         return "mytakenbooks";
     }
 }
