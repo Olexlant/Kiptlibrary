@@ -69,7 +69,7 @@
 
     </section>
     <!--slider-->
-    <section class="slider-news">
+    <section class="slider-news" th:if="${!news.isEmpty()}">
         <div class="content">
             <div class="title">
                 <span class="title-news" th:text="#{home.title2}">Новини</span></div>
