@@ -1,10 +1,8 @@
 package com.Kipfk.Library.appuser;
 
-import com.Kipfk.Library.appbook.AppBook;
 import com.Kipfk.Library.registration.token.ConfirmationToken;
 import com.Kipfk.Library.registration.token.ConfirmationTokenService;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,10 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.Predicate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -27,6 +22,8 @@ public class AppUserService implements UserDetailsService {
     private final AppUserRepository appUserRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ConfirmationTokenService confirmationTokenService;
+
+    private static String registrationAccessKey = "";
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -99,5 +96,20 @@ public class AppUserService implements UserDetailsService {
             return criteriaBuilder.or(predicates.toArray(new Predicate[]{}));
         };
         return appUserRepository.findAll(specification);
-    };
+    }
+
+    public String generateRegistrationAccessKey() {
+        // It will generate 6 digit random Number.
+        // from 0 to 999999
+        Random rnd = new Random();
+        int number = rnd.nextInt(999999);
+
+        // this will convert any number sequence into 6 character.
+        registrationAccessKey = String.format("%06d", number);
+        return registrationAccessKey;
+    }
+
+    public String getRegistrationAccessKey() {
+        return registrationAccessKey;
+    }
 }

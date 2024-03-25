@@ -8,112 +8,113 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Exo+2:wght@300&display=swap" rel="stylesheet">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script>
-            fetch("/admin/bookorders/getcount")
-                .then((response) => response.text())
-                .then((data) => document.getElementById("bookOrdersCount").innerHTML = data)
-        </script>
+        <script th:src="@{/js/adminPanel.js}"></script>
     </head>
-        <div class="logo-name">
-            <div class="logo-image">
-                <img src="/images/logo.png" alt="">
-            </div>
-            <span class="logo_name">KCAS Lib</span>
+    <div class="logo-name">
+        <div class="logo-image">
+            <img src="/images/logo.png" alt="">
         </div>
+        <span class="logo_name">KCAS Lib</span>
+    </div>
 
-        <div class="menu-items">
-            <ul class="nav-links">
-                <li><a th:href="@{/admin}">
-                    <i><iconify-icon icon="fa-solid:home"></iconify-icon></i>
-                    <span class="link-name">Головна</span>
-                </a></li>
-                <li><a th:href="@{/admin/allusers}">
-                   
-                    <i><iconify-icon icon="ion:people-sharp"></iconify-icon></i>
-                    <span class="link-name" >Користувачі</span></a>
-                    <ul>
-                        <li><a th:href="@{/admin/allusers(category=${'students'})}">
-                            <i><iconify-icon icon="gis:map-users"></iconify-icon></i>
-                            <span class="link-name" style="font-size: 15px;">Студенти</span>
-                        </a></li>
-                        <li><a th:href="@{/admin/allusers(category=${'teachers'})}">
-                            <i><iconify-icon icon="mdi:account-student"></iconify-icon></i>
-                            <span class="link-name" style="font-size: 15px;">Викладачі</span>
-                        </a></li>
-                        <li><a th:href="@{/admin/groups}">
-                            <i><iconify-icon icon="fa6-solid:people-group"></iconify-icon></i>
-                            <span class="link-name" style="font-size: 15px;">Групи</span>
-                        </a></li>
-                        <li><a th:href="@{/admin/adduser}">
-                            <i><iconify-icon icon="mdi:user-add"></iconify-icon></i>
-                            <span class="link-name" style="font-size: 15px;">Додати користувача</span>
-                        </a></li>
-                    </ul>
-                </li>
+    <div class="menu-items">
+        <ul class="nav-links">
+            <li><a th:href="@{/admin}">
+                <i><iconify-icon icon="fa-solid:home"></iconify-icon></i>
+                <span class="link-name">Головна</span>
+            </a></li>
+            <li><a th:href="@{/admin/allusers}">
 
-                <li ><a th:href="@{/admin/allbooksadmin}">
-                    <i><iconify-icon icon="wpf:books"></iconify-icon></i>
-                    <span class="link-name">Книги</span></a>
-                    <ul>
-                        <li><a th:href="@{/admin/allbooksadmin(category=${'electronic'})}">
-                            <i><iconify-icon icon="fluent:book-open-globe-24-filled"></iconify-icon></i>
-                            <span class="link-name" style="font-size: 15px;">Електронні книги</span>
-                        </a></li>
-                        <li><a th:href="@{/admin/allbooksadmin(category=${'physical'})}">
-                            <i><iconify-icon icon="emojione-monotone:books"></iconify-icon></i>
-                            <span class="link-name" style="font-size: 15px;">Паперові книги</span>
-                        </a></li>
-                        <li><a th:href="@{/admin/assignedbooks}">
-                            <i><iconify-icon icon="mdi:book-arrow-up"></iconify-icon></i>
-                            <span class="link-name" style="font-size: 15px;">Видані книги</span>
-                        </a></li>
-                        <li><a th:href="@{/admin/addbook}">
-                            <i><iconify-icon icon="mdi:book-plus"></iconify-icon></i>
-                            <span class="link-name" style="font-size: 15px;">Додати книгу</span>
-                        </a></li>
-                        <li><a th:href="@{/admin/takebook}">
-                            <i><iconify-icon icon="mdi:book-arrow-right"></iconify-icon></i>
-                            <span class="link-name" style="font-size: 15px;">Видати книгу</span>
-                        </a></li>
-                    </ul>
-                </li>
+                <i><iconify-icon icon="ion:people-sharp"></iconify-icon></i>
+                <span class="link-name" >Користувачі</span></a>
+                <ul>
+                    <li><a th:href="@{/admin/allusers(category=${'students'})}">
+                        <i><iconify-icon icon="gis:map-users"></iconify-icon></i>
+                        <span class="link-name" style="font-size: 15px;">Студенти</span>
+                    </a></li>
+                    <li><a th:href="@{/admin/allusers(category=${'teachers'})}">
+                        <i><iconify-icon icon="mdi:account-student"></iconify-icon></i>
+                        <span class="link-name" style="font-size: 15px;">Викладачі</span>
+                    </a></li>
+                    <li><a th:href="@{/admin/groups}">
+                        <i><iconify-icon icon="fa6-solid:people-group"></iconify-icon></i>
+                        <span class="link-name" style="font-size: 15px;">Групи</span>
+                    </a></li>
+                    <li><a th:href="@{/admin/adduser}">
+                        <i><iconify-icon icon="mdi:user-add"></iconify-icon></i>
+                        <span class="link-name" style="font-size: 15px;">Додати користувача</span>
+                    </a></li>
+                </ul>
+            </li>
 
-                <li><a th:href="@{/admin/addbookcategory}">
-                    <i><iconify-icon icon="mdi:book-information-variant"></iconify-icon></i>
-                    <span class="link-name">Категорії книг</span>
-                </a></li>
-                <li><a th:href="@{/admin/bookorders}">
-                    <i><iconify-icon icon="carbon:order-details"></iconify-icon></i>
-                    <span class="link-name">Замовлення<div class="numder-orders" style="background-color: red;height: 25px;width: 25px;border-radius: 5px; text-align: center;color: #fff;
+            <li ><a th:href="@{/admin/allbooksadmin}">
+                <i><iconify-icon icon="wpf:books"></iconify-icon></i>
+                <span class="link-name">Книги</span></a>
+                <ul>
+                    <li><a th:href="@{/admin/allbooksadmin(category=${'electronic'})}">
+                        <i><iconify-icon icon="fluent:book-open-globe-24-filled"></iconify-icon></i>
+                        <span class="link-name" style="font-size: 15px;">Електронні книги</span>
+                    </a></li>
+                    <li><a th:href="@{/admin/allbooksadmin(category=${'physical'})}">
+                        <i><iconify-icon icon="emojione-monotone:books"></iconify-icon></i>
+                        <span class="link-name" style="font-size: 15px;">Паперові книги</span>
+                    </a></li>
+                    <li><a th:href="@{/admin/assignedbooks}">
+                        <i><iconify-icon icon="mdi:book-arrow-up"></iconify-icon></i>
+                        <span class="link-name" style="font-size: 15px;">Видані книги</span>
+                    </a></li>
+                    <li><a th:href="@{/admin/addbook}">
+                        <i><iconify-icon icon="mdi:book-plus"></iconify-icon></i>
+                        <span class="link-name" style="font-size: 15px;">Додати книгу</span>
+                    </a></li>
+                    <li><a th:href="@{/admin/takebook}">
+                        <i><iconify-icon icon="mdi:book-arrow-right"></iconify-icon></i>
+                        <span class="link-name" style="font-size: 15px;">Видати книгу</span>
+                    </a></li>
+                </ul>
+            </li>
+
+            <li><a th:href="@{/admin/addbookcategory}">
+                <i><iconify-icon icon="mdi:book-information-variant"></iconify-icon></i>
+                <span class="link-name">Категорії книг</span>
+            </a></li>
+            <li><a th:href="@{/admin/bookorders}">
+                <i><iconify-icon icon="carbon:order-details"></iconify-icon></i>
+                <span class="link-name">Замовлення<div class="numder-orders" style="background-color: red;height: 25px;width: 25px;border-radius: 5px; text-align: center;color: #fff;
     margin-left: 5px;"><p id="bookOrdersCount">0</p></div></span>
-                </a></li>
+            </a></li>
 
-                <li><a th:href="@{/admin/news}">
-                    <i><iconify-icon icon="emojione-monotone:newspaper" width="30" height="30"></iconify-icon></i>
-                    <span class="link-name" >Новини</span></a>
-                    <ul>
-                        <li><a th:href="@{/admin/add-news}">
-                            <i><iconify-icon icon="ic:outline-add-comment"></iconify-icon></i>
-                            <span class="link-name" style="font-size: 15px;">Додати новину</span>
-                        </a></li>
-                    </ul>
-                </li>
-                <li><a th:href="@{/admin/debtorusers}">
-                    <i><iconify-icon icon="gis:map-users" style="color: red;"></iconify-icon></i>
-                    <span class="link-name" style="color:red;">Боржники</span>
-                </a></li>
-            </ul>
+            <li><a th:href="@{/admin/news}">
+                <i><iconify-icon icon="emojione-monotone:newspaper" width="30" height="30"></iconify-icon></i>
+                <span class="link-name" >Новини</span></a>
+                <ul>
+                    <li><a th:href="@{/admin/add-news}">
+                        <i><iconify-icon icon="ic:outline-add-comment"></iconify-icon></i>
+                        <span class="link-name" style="font-size: 15px;">Додати новину</span>
+                    </a></li>
+                </ul>
+            </li>
+            <li><a th:href="@{/admin/debtorusers}">
+                <i><iconify-icon icon="gis:map-users" style="color: red;"></iconify-icon></i>
+                <span class="link-name" style="color:red;">Боржники</span>
+            </a></li>
+        </ul>
 
-            <ul class="logout-mode">
-                <li><a th:href="@{/}">
+
+        <ul class="logout-mode">
+            <li>
+                <a th:href="@{/}">
+                    <i><iconify-icon icon="mingcute:key-2-fill"></iconify-icon></i>
+                    <span id="registrationAccessKey" class="link-name">******</span>
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/}">
                     <i><iconify-icon icon="mingcute:exit-door-fill"></iconify-icon></i>
                     <span class="link-name">Вийти</span>
-                </a></li>
-                <div class="mode-toggle">
-
-                </div>
-                </li>
-            </ul>
-        </div>
-    </nav>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
 </html>

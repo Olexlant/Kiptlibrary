@@ -62,8 +62,8 @@
             <thead>
             <tr>
               <th>Група</th>
-              <th>І'мя</th>
               <th>Прізвище</th>
+              <th>І'мя</th>
               <th>Email</th>
               <th>Телефон</th>
               <th>Дії</th>
@@ -77,8 +77,8 @@
               <div th:if="${user.getGroups()!=null}">
                 <td th:text="${user.getGroups().getName()}"></td>
               </div>
-              <td th:text="${user.getFirstName()}"></td>
               <td th:text="${user.getLastName()}"></td>
+              <td th:text="${user.getFirstName()}"></td>
               <td th:text="${user.getEmail()}"></td>
               <td th:text="${user.getPhonenum()}"></td>
               <td class="btnactions">

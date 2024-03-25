@@ -82,8 +82,8 @@
                         <tr>
                             <th>Група</th>
                             <th>Роль</th>
-                            <th>І'мя</th>
                             <th>Прізвище</th>
+                            <th>І'мя</th>
                             <th>Email</th>
                             <th>Телефон</th>
                             <th>Дії</th>
@@ -100,8 +100,8 @@
                             <td th:if="${user.getAppUserRole().toString()=='USER'}">Студент</td>
                             <td th:if="${user.getAppUserRole().toString()=='ADMIN'}">Адмін</td>
                             <td th:if="${user.getAppUserRole().toString()=='TEACHER'}">Вчитель</td>
-                            <td th:text="${user.getFirstName()}"></td>
                             <td th:text="${user.getLastName()}"></td>
+                            <td th:text="${user.getFirstName()}"></td>
                             <td th:text="${user.getEmail()}"></td>
                             <td th:text="${user.getPhonenum()}"></td>
                             <td class="btnactions">

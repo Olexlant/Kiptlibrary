@@ -78,8 +78,8 @@
                         <thead>
                         <tr>
                             <th>Група</th>
-                            <th>І'мя</th>
                             <th>Прізвище</th>
+                            <th>І'мя</th>
                             <th>Назва</th>
                             <th>Id qr-коду</th>
                             <th>Рік</th>
@@ -96,8 +96,8 @@
                             <div th:if="${bookOrder.getUser().getGroups()!=null}">
                                 <td th:text="${bookOrder.getUser().getGroups().getName()}"></td>
                             </div>
-                            <td th:text="${bookOrder.getUser().getFirstName()}"></td>
                             <td th:text="${bookOrder.getUser().getLastName()}"></td>
+                            <td th:text="${bookOrder.getUser().getFirstName()}"></td>
                             <td th:text="${bookOrder.getBook().getTitle()}"></td>
 
                             <td th:text="${bookOrder.getBook().getQrid()}"></td>

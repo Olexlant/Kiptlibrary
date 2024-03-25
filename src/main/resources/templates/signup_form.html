@@ -51,7 +51,7 @@
 				</div>
 				<div class="input-box">
 					<span class="details" th:text="#{register.input5}">Телефон</span>
-					<input type="tel" class="form-control " th:field="*{phonenum}" th:placeholder="#{register.input5}" required minlength="10" maxlength="13">
+					<input type="tel" class="form-control" th:field="*{phonenum}" th:placeholder="#{register.input5}" required minlength="10" maxlength="13">
 				</div>
 				<div class="input-box">
 					<span class="details" th:text="#{register.input6}">Група</span>
@@ -61,6 +61,13 @@
 						<option th:each="group : ${groups}" th:value="${group.getId()}" th:text="${group.getName()}"></option>
 					</select>
 					</div>
+				</div>
+				<div class="input-box">
+<!--					<span class="details" th:text="#{register.input7}"></span>-->
+					<input type="text" class="form-control" name="registrationKey" th:placeholder="#{register.input7}" required minlength="6" maxlength="6">
+				</div>
+				<div class="input-box">
+					<span class="details" th:text="#{register.input7.span}"></span>
 				</div>
 			</div>
 			<div class="button">
@@ -83,6 +90,15 @@
 		<div class="column" >
 			<i class="fa-solid fa-triangle-exclamation"></i>
 			<span th:text="#{user.not.found}"></span>
+		</div>
+		<i class="fa-solid fa-xmark"></i>
+	</li>
+</ul>
+<ul th:if="${param.wrongkey}" class="notifications"  id="message">
+	<li class="toast warning">
+		<div class="column" >
+			<i class="fa-solid fa-triangle-exclamation"></i>
+			<span th:text="#{register.error.wrongKey}"></span>
 		</div>
 		<i class="fa-solid fa-xmark"></i>
 	</li>

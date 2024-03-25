@@ -119,8 +119,8 @@
                         <thead>
                         <tr>
                             <th>Група</th>
-                            <th>І'мя</th>
                             <th>Прізвище</th>
+                            <th>І'мя</th>
                             <th>Автор</th>
                             <th>Назва</th>
                             <th>№ книги</th>
@@ -136,8 +136,8 @@
                             <div th:if="${takenbook.getUser().getGroups()!=null}">
                                 <td th:text="${takenbook.getUser().getGroups().getName()}"></td>
                             </div>
-                            <td th:text="${takenbook.getUser().getFirstName()}"></td>
                             <td th:text="${takenbook.getUser().getLastName()}"></td>
+                            <td th:text="${takenbook.getUser().getFirstName()}"></td>
                             <td th:text="${takenbook.getBook().getAuthor()}"></td>
                             <td th:text="${takenbook.getBook().getTitle()}"></td>
                             <td th:unless="${takenbook.getBook().isElectronic()}" th:text="${takenbook.getBookNumber()}" th:title="${'Кількість: '+takenbook.getCount()}"></td>

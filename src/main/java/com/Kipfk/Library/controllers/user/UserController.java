@@ -51,7 +51,10 @@ public class UserController {
     }
     @Transactional
     @PostMapping("/process_register")
-    public String signUp(AppUser user, @RequestParam String groupid,@RequestHeader String host) {
+    public String signUp(AppUser user, @RequestParam String groupid,@RequestHeader String host, @RequestParam String registrationKey) {
+        if (!appUserService.getRegistrationAccessKey().equals(registrationKey)){
+            return "redirect:/register?wrongkey";
+        }
         if (appUserRepository.existsByEmail(user.getEmail())){
             AppUser appUser = appUserRepository.findAllByEmail(user.getEmail());
             if (appUser.isEnabled()){
@@ -66,6 +69,7 @@ public class UserController {
             user.setGroups(groupsRepository.findAllById(Long.valueOf(groupid)));
         }
         registrationService.register(user, host);
+        appUserService.generateRegistrationAccessKey();
         return "register_success";
     }
     @GetMapping("/registration/confirm")

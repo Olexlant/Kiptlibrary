@@ -86,13 +86,14 @@
               <td th:text="${book.getYear()}"></td>
               <form th:action="'/admin/assigningbook/'+ ${userid}+'/'+${book.getId()}" method="post" onsubmit="disableButtons()">
               <div th:unless="${book.isElectronic()}">
-                <td><input type="text" name="bookNumber" placeholder="Номер книги"></td>
+                <td><input type="text" name="bookNumber" title="Номер книги" placeholder="Номер книги"></td>
               </div>
               <div th:if="${book.isElectronic()}">
                 <td th:text="${'Електронна'}"></td>
               </div>
               <td class="btnactions1">
-                  <input type="number" name="takeCount" placeholder="Кількість книг" min="0" th:value="${0}" th:max="${book.getCount()}">
+                  <input th:if="${book.isElectronic()}" type="number" name="takeCount" placeholder="Кількість книг" min="0" th:value="${0}" th:max="${book.getCount()}" hidden="hidden">
+                  <input th:if="${!book.isElectronic()}" type="number" name="takeCount" title="Кількість книг" placeholder="Кількість книг" min="0" th:value="${0}" th:max="${book.getCount()}">
                   <button style="background-color: #258e47" type="button" onclick="openpopup(form)" ><i> Видати книгу</i></button>
                 </form>
             </tr>
