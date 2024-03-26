@@ -1,10 +1,7 @@
 package com.Kipfk.Library.email;
 
 import com.Kipfk.Library.appbook.BookOrdersRepository;
-import com.Kipfk.Library.appuser.AppUserRepository;
-import com.Kipfk.Library.appuser.LikedBooksRepository;
-import com.Kipfk.Library.appuser.TakenBooks;
-import com.Kipfk.Library.appuser.TakenBooksRepository;
+import com.Kipfk.Library.appuser.*;
 import com.Kipfk.Library.registration.token.ConfirmationToken;
 import com.Kipfk.Library.registration.token.ConfirmationTokenRepository;
 import org.springframework.scheduling.annotation.Async;
@@ -61,7 +58,7 @@ public class NotificationSenderTask {
     @Scheduled(cron="0 0 5 * * *")
     public void deleteUsersAfterFiveYears(){
         List<ConfirmationToken> userConfirmationTokens = confirmationTokenRepository
-                .findAllByCreatedAtIsBefore(LocalDateTime.now().minusYears(5));
+                .findAllByCreatedAtIsBeforeAndAppUser_AppUserRole(LocalDateTime.now().minusYears(5), AppUserRole.USER);
 
         for (ConfirmationToken i: userConfirmationTokens){
             if (!takenBooksRepository.existsByUser_IdAndDeletedIsFalse(i.getAppUser().getId())){
@@ -70,7 +67,7 @@ public class NotificationSenderTask {
                 takenBooksRepository.deleteAllByUserAndDeletedIsTrue(i.getAppUser());
                 confirmationTokenRepository.deleteByAppUser(i.getAppUser());
                 appUserRepository.delete(i.getAppUser());
-                System.out.println("User deleted: " + i.getAppUser().getEmail());
+                System.out.println("User deleted after five years: " + i.getAppUser().getEmail());
             }
         }
     }

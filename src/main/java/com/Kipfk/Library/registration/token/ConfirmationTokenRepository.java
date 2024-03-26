@@ -1,6 +1,7 @@
 package com.Kipfk.Library.registration.token;
 
 import com.Kipfk.Library.appuser.AppUser;
+import com.Kipfk.Library.appuser.AppUserRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -27,5 +28,5 @@ public interface ConfirmationTokenRepository extends JpaRepository<ConfirmationT
     @Transactional
     void deleteByAppUser(AppUser appUser);
 
-    List<ConfirmationToken> findAllByCreatedAtIsBefore(LocalDateTime localDateTime);
+    List<ConfirmationToken> findAllByCreatedAtIsBeforeAndAppUser_AppUserRole(LocalDateTime localDateTime, AppUserRole userRole);
 }
