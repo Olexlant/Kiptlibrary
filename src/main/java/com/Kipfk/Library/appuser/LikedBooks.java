@@ -12,6 +12,8 @@ import java.time.LocalDate;
 @Entity
 public class LikedBooks {
 
+    @Getter
+    @Setter
     @SequenceGenerator(
             name = "liked_books_sequence",
             sequenceName = "liked_books_sequence",
@@ -36,11 +38,4 @@ public class LikedBooks {
     private LocalDate addedat;
 
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
 }

@@ -1,6 +1,5 @@
 package com.Kipfk.Library.security.config;
 
-import com.Kipfk.Library.appuser.AppUser;
 import com.Kipfk.Library.appuser.AppUserRole;
 import com.Kipfk.Library.appuser.AppUserService;
 import com.Kipfk.Library.security.PasswordEncoder;
@@ -13,13 +12,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-
-import java.security.Principal;
 
 
 @Configuration

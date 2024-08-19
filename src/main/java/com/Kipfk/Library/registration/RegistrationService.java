@@ -1,19 +1,19 @@
 package com.Kipfk.Library.registration;
 
-import com.Kipfk.Library.appuser.*;
+import com.Kipfk.Library.appuser.AppUser;
+import com.Kipfk.Library.appuser.AppUserRepository;
+import com.Kipfk.Library.appuser.AppUserRole;
+import com.Kipfk.Library.appuser.AppUserService;
 import com.Kipfk.Library.email.EmailSender;
 import com.Kipfk.Library.registration.token.ConfirmationToken;
 import com.Kipfk.Library.registration.token.ConfirmationTokenRepository;
 import com.Kipfk.Library.registration.token.ConfirmationTokenService;
 import lombok.AllArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.time.LocalDateTime;
-import java.util.Locale;
 import java.util.UUID;
 
 @Service

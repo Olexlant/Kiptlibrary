@@ -1,15 +1,11 @@
 package com.Kipfk.Library.appuser;
 
-import com.Kipfk.Library.appbook.AppBook;
-import com.Kipfk.Library.appuser.AppUserRole;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,7 +39,6 @@ public interface AppUserRepository extends JpaRepository<AppUser, Long>, JpaSpec
 
     int countAllByEnabledIsTrue();
 
-    Page<UserNoPhoto> findAllBy(Pageable pageable);
     Page<UserNoPhoto> findAllByEnabledIsTrueOrderByLastName(Pageable pageable);
     Page<UserNoPhoto> findAllByAppUserRoleAndEnabledIsTrueOrderByLastName(Pageable pageable,AppUserRole appUserRole);
     List<AppUser> findAllByGroups_IdOrderByLastName(Long groupsId);

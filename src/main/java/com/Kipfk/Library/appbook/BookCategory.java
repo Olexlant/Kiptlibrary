@@ -1,6 +1,5 @@
 package com.Kipfk.Library.appbook;
 
-import com.Kipfk.Library.appuser.AppUser;
 import lombok.Getter;
 import lombok.Setter;
 

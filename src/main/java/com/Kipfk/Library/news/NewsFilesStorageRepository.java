@@ -14,7 +14,6 @@ public interface NewsFilesStorageRepository extends JpaRepository<NewsFilesStora
         String getFileContentType();
         News getNews();
     }
-
     NewsFilesStorage findAllById(Long newsfileid);
     List<NewsFileInfo> findAllByNews_Id(Long newsId);
     @Transactional

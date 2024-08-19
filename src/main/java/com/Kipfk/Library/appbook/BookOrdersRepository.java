@@ -7,18 +7,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
 import java.util.List;
 
 @Repository
 public interface BookOrdersRepository extends JpaRepository<BookOrders, Long> {
 
-
-
-
-    interface BookOredersId{
-        Long getId();
-    }
     Page<BookOrders> findAllByDeletedIsFalse(Pageable pageable);
     List<BookOrders> findByBookAndUserAndDeletedIsFalse(AppBook book, AppUser user);
 

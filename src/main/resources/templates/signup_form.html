@@ -31,47 +31,61 @@
 <div class="container">
 	<div class="title"><span th:text="#{register.title}">Реєстрація</span></div>
 	<div class="content">
-		<form method="post" action="/login" th:action="@{/process_register}" th:object="${user}" onsubmit="disableButtons()">
+		<form id="registrationForm" method="post" th:action="@{/process_register}" th:object="${user}">
 			<div class="user-details">
 				<div class="input-box">
 					<span class="details" th:text="#{register.input1}">Email</span>
-					<input type="email"  class="form-control" th:field="*{email}" th:placeholder="#{register.input1}" required minlength="3">
+					<input type="email" class="form-control" id="emailInput" th:field="*{email}" th:placeholder="#{register.input1}" required minlength="3">
+					<small id="emailError" style="color: red; display: none;" th:text="#{register.input1.emailError}">Invalid email format</small>
 				</div>
+
 				<div class="input-box">
 					<span class="details" th:text="#{register.input2}">Пароль</span>
-					<input type="password" class="form-control" th:field="*{password}" th:placeholder="#{register.input2}" required minlength="6">
+					<input type="password" class="form-control" id="passwordInput" th:field="*{password}" th:placeholder="#{register.input2}" required minlength="6">
+					<small id="passwordError" style="color: red; display: none;" th:text="#{register.input2.passwordError}">Password must be at least 6 characters</small>
 				</div>
+
 				<div class="input-box">
 					<span class="details" th:text="#{register.input3}">Ваше ім'я</span>
-					<input type="text"   class="form-control" th:field="*{firstName}" th:placeholder="#{register.input3}" required minlength="2">
+					<input type="text" class="form-control" id="firstNameInput" th:field="*{firstName}" th:placeholder="#{register.input3}" required minlength="2">
+					<small id="firstNameError" style="color: red; display: none;" th:text="#{register.input3.firstNameError}">Name must be at least 2 characters</small>
 				</div>
+
 				<div class="input-box">
 					<span class="details" th:text="#{register.input4}">Прізвище</span>
-					<input type="text" class="form-control" th:field="*{lastName}" th:placeholder="#{register.input4}" required minlength="2">
+					<input type="text" class="form-control" id="lastNameInput" th:field="*{lastName}" th:placeholder="#{register.input4}" required minlength="2">
+					<small id="lastNameError" style="color: red; display: none;" th:text="#{register.input4.lastNameError}">Surname must be at least 2 characters</small>
 				</div>
+
 				<div class="input-box">
 					<span class="details" th:text="#{register.input5}">Телефон</span>
-					<input type="tel" class="form-control" th:field="*{phonenum}" th:placeholder="#{register.input5}" required minlength="10" maxlength="13">
+					<input type="tel" class="form-control" id="phoneInput" th:field="*{phonenum}" th:placeholder="'+380-xx-xxx-xx-xx'" required minlength="10" maxlength="13">
+					<small id="phoneError" style="color: red; display: none;" th:text="#{register.input5.phoneError}">Invalid phone number format</small>
 				</div>
+
 				<div class="input-box">
 					<span class="details" th:text="#{register.input6}">Група</span>
 					<div class="categor">
-					<select th:name="groupid">
-						<option th:value="${''}" th:text="#{register.noGroupOption}"></option>
-						<option th:each="group : ${groups}" th:value="${group.getId()}" th:text="${group.getName()}"></option>
-					</select>
+						<select id="groupInput" th:name="groupid">
+							<option th:value="${''}" th:text="#{register.noGroupOption}">Select a group</option>
+							<option th:each="group : ${groups}" th:value="${group.getId()}" th:text="${group.getName()}"></option>
+						</select>
 					</div>
+					<small id="groupError" style="color: red; display: none;" th:text="#{register.input6.groupError}">Please select a group</small>
 				</div>
+
 				<div class="input-box">
-<!--					<span class="details" th:text="#{register.input7}"></span>-->
-					<input type="text" class="form-control" name="registrationKey" th:placeholder="#{register.input7}" required minlength="6" maxlength="6">
+					<input type="text" id="registrationKeyInput" class="form-control" name="registrationKey" th:placeholder="#{register.input7}" required minlength="6" maxlength="6">
+					<small id="registrationKeyError" style="color: red; display: none;"th:text="#{register.input7.keyError}"></small>
 				</div>
+
 				<div class="input-box">
 					<span class="details" th:text="#{register.input7.span}"></span>
 				</div>
+
 			</div>
 			<div class="button">
-				<button type="submit" th:text="#{register.button1}">Зареєструватися</button>
+				<button id="buttonSubmit" type="submit" th:text="#{register.button1}">Зареєструватися</button>
 			</div>
 		</form>
 	</div>
@@ -103,6 +117,7 @@
 		<i class="fa-solid fa-xmark"></i>
 	</li>
 </ul>
+<script src="/js/sign-up-form-validation.js"></script>
 <script src="/js/disableButtons.js"></script>
 <script src="/js/alert_script.js"></script>
 <script src="/js/popup.js"></script>

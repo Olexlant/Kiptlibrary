@@ -1,14 +1,10 @@
 package com.Kipfk.Library.appuser;
 
-import com.Kipfk.Library.appbook.AppBook;
-import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Service
